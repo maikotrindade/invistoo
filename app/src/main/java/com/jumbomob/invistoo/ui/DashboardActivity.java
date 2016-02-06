@@ -2,18 +2,34 @@ package com.jumbomob.invistoo.ui;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import com.jumbomob.invistoo.R;
+import com.jumbomob.invistoo.model.entity.Asset;
+import com.jumbomob.invistoo.model.webservice.AssetInterface;
+import com.jumbomob.invistoo.model.webservice.BaseServiceConfiguration;
+import com.squareup.okhttp.Interceptor;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Response;
+
+import java.io.IOException;
+import java.util.List;
+
+import retrofit.Call;
+import retrofit.Callback;
+import retrofit.GsonConverterFactory;
+import retrofit.Retrofit;
 
 public class DashboardActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -42,6 +58,49 @@ public class DashboardActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+        OkHttpClient okClient = new OkHttpClient();
+        okClient.interceptors().add(new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                Response response = chain.proceed(chain.request());
+                return response;
+            }
+        });
+
+        Retrofit client = new Retrofit.Builder()
+                .baseUrl(BaseServiceConfiguration.BASE_URL)
+                .client(okClient)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        AssetInterface service = client.create(AssetInterface.class);
+        Call<List<Asset>> call = service.getAssets();
+        call.enqueue(new Callback<List<Asset>>() {
+            @Override
+            public void onResponse(retrofit.Response<List<Asset>> response) {
+                if (response.isSuccess()) {
+                    // request successful (status code 200, 201)
+                    List<Asset> result = response.body();
+                    Toast.makeText(DashboardActivity.this, "" + result, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DashboardActivity.this, "" + response.raw().message(), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(DashboardActivity.this, "" + response.raw().message(), Toast.LENGTH_SHORT).show();
+                    //request not successful (like 400,401,403 etc)
+                    //Handle errors
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                Log.e("retrofit-invistoo", t.getMessage());
+                Log.e("retrofit-invistoo", t.getLocalizedMessage());
+                Log.e("retrofit-invistoo", t.toString());
+            }
+        });
+
+
     }
 
     @Override
