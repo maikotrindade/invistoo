@@ -18,6 +18,9 @@ import com.jumbomob.invistoo.R;
  */
 public abstract class BaseActivity extends AppCompatActivity implements NavigationView
         .OnNavigationItemSelectedListener {
+
+    public abstract int setContentView();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,8 +38,6 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
         navigationView.setNavigationItemSelectedListener(this);
 
     }
-
-    public abstract int setContentView();
 
     @Override
     public void onBackPressed() {
@@ -69,17 +70,23 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_dashboard) {
 
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_my_wallet) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_historic) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_indexes) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_brokerage) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_useful_information) {
+
+        } else if (id == R.id.nav_settings) {
+
+        } else if (id == R.id.nav_about) {
+
+        } else if (id == R.id.nav_logout) {
 
         }
 
