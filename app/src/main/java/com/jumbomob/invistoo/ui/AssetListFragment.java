@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.jumbomob.invistoo.R;
+import com.jumbomob.invistoo.component.DividerItemDecorator;
 import com.jumbomob.invistoo.model.entity.Asset;
 import com.jumbomob.invistoo.model.webservice.AssetInterface;
 import com.jumbomob.invistoo.model.webservice.BaseServiceConfiguration;
@@ -40,7 +41,7 @@ public class AssetListFragment extends Fragment {
             savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        final View rootView = inflater.inflate(R.layout.activity_asset_list, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_asset_list, container, false);
 
         OkHttpClient okClient = new OkHttpClient();
         okClient.interceptors().add(new Interceptor() {
@@ -67,6 +68,8 @@ public class AssetListFragment extends Fragment {
                     List<Asset> result = response.body();
 
                     RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.assets_recycler_view);
+                    recyclerView.addItemDecoration(new DividerItemDecorator(getActivity(), DividerItemDecorator
+                            .VERTICAL_LIST));
                     recyclerView.setHasFixedSize(true);
                     recyclerView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
                     AssetListAdapter adapter = new AssetListAdapter(result);

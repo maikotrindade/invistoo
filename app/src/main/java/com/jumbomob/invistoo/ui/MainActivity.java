@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import com.jumbomob.invistoo.R;
 
-public class DashboardActivity extends BaseActivity {
+public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -13,6 +13,6 @@ public class DashboardActivity extends BaseActivity {
 
     @Override
     public int setContentView() {
-        return R.layout.activity_dashboard;
+        return R.layout.activity_main;
     }
 }
