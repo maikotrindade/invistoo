@@ -5,8 +5,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -31,6 +34,10 @@ import retrofit.Retrofit;
 
 public class AssetListFragment extends Fragment {
 
+    private View mRootView;
+    private SearchView mSearchView;
+    private AssetListAdapter mAdapter;
+
     public static AssetListFragment newInstance() {
         AssetListFragment fragment = new AssetListFragment();
         return fragment;
@@ -41,7 +48,7 @@ public class AssetListFragment extends Fragment {
             savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        final View rootView = inflater.inflate(R.layout.fragment_asset_list, container, false);
+        mRootView = inflater.inflate(R.layout.fragment_asset_list, container, false);
 
         OkHttpClient okClient = new OkHttpClient();
         okClient.interceptors().add(new Interceptor() {
@@ -65,18 +72,18 @@ public class AssetListFragment extends Fragment {
             public void onResponse(retrofit.Response<List<Asset>> response) {
                 if (response.isSuccess()) {
                     // request successful (status code 200, 201)
-                    List<Asset> result = response.body();
+                    List<Asset> assetsResult = response.body();
 
-                    RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.assets_recycler_view);
+                    RecyclerView recyclerView = (RecyclerView) mRootView.findViewById(R.id.assets_recycler_view);
                     recyclerView.addItemDecoration(new DividerItemDecorator(getActivity(), DividerItemDecorator
                             .VERTICAL_LIST));
                     recyclerView.setHasFixedSize(true);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
-                    AssetListAdapter adapter = new AssetListAdapter(result);
-                    recyclerView.setAdapter(adapter);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(mRootView.getContext()));
+                    mAdapter = new AssetListAdapter(assetsResult);
+                    recyclerView.setAdapter(mAdapter);
 
                 } else {
-                    Toast.makeText(rootView.getContext(), "" + response.raw().message(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mRootView.getContext(), "" + response.raw().message(), Toast.LENGTH_SHORT).show();
                     //request not successful (like 400,401,403 etc)
                     //Handle errors
                 }
@@ -90,6 +97,33 @@ public class AssetListFragment extends Fragment {
             }
         });
 
-        return rootView;
+        setHasOptionsMenu(true);
+        return mRootView;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.search_asset_list_menu, menu);
+        bindSearchView(menu);
+    }
+
+    private void bindSearchView(final Menu menu) {
+        mSearchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        mSearchView.setIconifiedByDefault(true);
+
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Log.e("onQueryTextSubmit ", "Query: " + query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                Log.e("onQueryTextChange ", "Query: " + newText);
+                return false;
+            }
+        });
     }
 }

@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.model.entity.Asset;
+import com.jumbomob.invistoo.ui.callback.onSearchResultListener;
 
 import java.util.List;
 
@@ -15,11 +16,12 @@ import java.util.List;
  * @author maiko.trindade
  * @since 06/02/2016
  */
-public class AssetListAdapter extends RecyclerView.Adapter<AssetListAdapter.ViewHolder> {
-
+public class AssetListAdapter extends RecyclerView.Adapter<AssetListAdapter.ViewHolder> implements
+        onSearchResultListener {
 
     private List<Asset> mAssets;
     private int mPosition;
+    private onSearchResultListener mSearchListener;
 
     public AssetListAdapter(List<Asset> assets) {
         mAssets = assets;
@@ -68,5 +70,16 @@ public class AssetListAdapter extends RecyclerView.Adapter<AssetListAdapter.View
             buyTaxTxtView = (TextView) view.findViewById(R.id.buy_tax_text_view);
             sellTaxTxtView = (TextView) view.findViewById(R.id.sell_tax_text_view);
         }
+    }
+
+    @Override
+    public void updateSearchResult() {
+        if (mSearchListener != null) {
+            mSearchListener.updateSearchResult();
+        }
+    }
+
+    public void setSearchListener(onSearchResultListener listener) {
+        mSearchListener = listener;
     }
 }
