@@ -11,7 +11,7 @@ public class Asset {
 
     @SerializedName("_id")
     @Expose
-    private String Id;
+    private String id;
     @SerializedName("name")
     @Expose
     private String name;
@@ -35,17 +35,17 @@ public class Asset {
     private String lastUpdate;
 
     /**
-     * @return The Id
+     * @return The id
      */
     public String getId() {
-        return Id;
+        return id;
     }
 
     /**
-     * @param Id The _id
+     * @param id The _id
      */
-    public void setId(String Id) {
-        this.Id = Id;
+    public void setId(String id) {
+        this.id = id;
     }
 
     /**
