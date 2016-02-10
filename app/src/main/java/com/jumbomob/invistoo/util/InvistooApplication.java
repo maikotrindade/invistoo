@@ -6,7 +6,7 @@ import com.jumbomob.invistoo.model.persistence.DatabaseHelper;
 
 /**
  * @author maiko.trindade
- * @since 04/01/2016
+ * @since 09/02/2016
  */
 public class InvistooApplication extends Application {
 
