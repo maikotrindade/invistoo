@@ -6,7 +6,7 @@ import android.net.NetworkInfo;
 
 /**
  * @author maiko.trindade
- * @since 01/01/2016
+ * @since 09/02/2016
  */
 public class InvistooUtil {
 
