@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.component.DividerItemDecorator;
 import com.jumbomob.invistoo.model.entity.Asset;
+import com.jumbomob.invistoo.model.persistence.dao.AssetDAO;
 import com.jumbomob.invistoo.model.webservice.AssetInterface;
 import com.jumbomob.invistoo.model.webservice.BaseServiceConfiguration;
 import com.jumbomob.invistoo.ui.adapter.AssetListAdapter;
@@ -74,12 +75,18 @@ public class AssetListFragment extends Fragment {
                     // request successful (status code 200, 201)
                     List<Asset> assetsResult = response.body();
 
+                    AssetDAO assetDAO = new AssetDAO();
+//                    for (Asset asset : assetsResult) {
+//                        assetDAO.insert(asset);
+//                    }
+
                     RecyclerView recyclerView = (RecyclerView) mRootView.findViewById(R.id.assets_recycler_view);
                     recyclerView.addItemDecoration(new DividerItemDecorator(getActivity(), DividerItemDecorator
                             .VERTICAL_LIST));
                     recyclerView.setHasFixedSize(true);
                     recyclerView.setLayoutManager(new LinearLayoutManager(mRootView.getContext()));
-                    mAdapter = new AssetListAdapter(assetsResult);
+
+                    mAdapter = new AssetListAdapter(assetDAO.findAll());
                     recyclerView.setAdapter(mAdapter);
 
                 } else {
