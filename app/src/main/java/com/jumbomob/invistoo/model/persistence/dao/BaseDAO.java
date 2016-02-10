@@ -2,15 +2,15 @@ package com.jumbomob.invistoo.model.persistence.dao;
 
 import android.database.sqlite.SQLiteDatabase;
 
-import com.vistajet.aea.model.persistence.DatabaseHelper;
-import com.vistajet.aea.util.AeaApplication;
+import com.jumbomob.invistoo.model.persistence.DatabaseHelper;
+import com.jumbomob.invistoo.util.InvistooApplication;
 
 /**
  * Base Data Access Object responsible for separate low level data accessing API or operations
  * from high level business services.
  *
  * @author maiko.trindade
- * @since 04/01/2016
+ * @since 09/02/2016
  */
 public class BaseDAO {
 
@@ -18,10 +18,9 @@ public class BaseDAO {
     protected SQLiteDatabase database;
 
     public BaseDAO() {
-        DatabaseHelper databaseHelper = AeaApplication.getInstance().getDatabaseHelper();
+        DatabaseHelper databaseHelper = InvistooApplication.getInstance().getDatabaseHelper();
         if (database == null) {
             database = databaseHelper.getWritableDatabase();
         }
     }
-
 }
