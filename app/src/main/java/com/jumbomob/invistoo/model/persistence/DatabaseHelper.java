@@ -36,17 +36,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     String CREATE_ASSET_TB = "CREATE TABLE " + Tables.ASSET + "("
             + AssetTable.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + AssetTable.COLUMN_TITLE + " TEXT NOT NULL COLLATE NOCASE,"
             + AssetTable.COLUMN_NAME + " TEXT NOT NULL COLLATE NOCASE,"
-            + AssetTable.COLUMN_BUY_PRICE + " TEXT NOT NULL,"
-            + AssetTable.COLUMN_BUY_TAX + " TEXT NOT NULL,"
             + AssetTable.COLUMN_DUE_DATE + " TEXT NOT NULL,"
+            + AssetTable.COLUMN_INDEXER + " TEXT NOT NULL,"
+            + AssetTable.COLUMN_BUY_PRICE + " TEXT NOT NULL,"
             + AssetTable.COLUMN_SELL_PRICE + " TEXT NOT NULL,"
-            + AssetTable.COLUMN_SELL_TAX + " TEXT NOT NULL,"
+            + AssetTable.COLUMN_LAST_30_DAYS_PROFITS + " TEXT NOT NULL,"
+            + AssetTable.COLUMN_LAST_MONTH_PROFITS + " TEXT NOT NULL,"
+            + AssetTable.COLUMN_YEAR_PROFITS + " TEXT NOT NULL,"
+            + AssetTable.COLUMN_LAST_YEAR_PROFITS + " TEXT NOT NULL,"
             + AssetTable.COLUMN_LAST_UPDATE + " TEXT NULL)";
+
+    String CREATE_INVESTMENT_TB = "CREATE TABLE " + Tables.INVESTMENT + "("
+            + InvestmentTable.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + InvestmentTable.COLUMN_NAME + " TEXT NOT NULL COLLATE NOCASE,"
+            + InvestmentTable.COLUMN_QUANTITY + " INTEGER NOT NULL,"
+            + InvestmentTable.COLUMN_PRICE + " TEXT NOT NULL,"
+            + InvestmentTable.COLUMN_CREATION_DATE + " TEXT NOT NULL,"
+            + InvestmentTable.COLUMN_UPDATE_DATE + " TEXT NOT NULL,"
+            + InvestmentTable.COLUMN_REMOVED_DATE + " TEXT NULL)";
 
     @Override
     public void onCreate(SQLiteDatabase database) {
         database.execSQL(CREATE_ASSET_TB);
+        database.execSQL(CREATE_INVESTMENT_TB);
     }
 
     @Override

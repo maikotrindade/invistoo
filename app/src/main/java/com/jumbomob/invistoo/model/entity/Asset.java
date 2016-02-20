@@ -12,138 +12,144 @@ public class Asset {
     @SerializedName("_id")
     @Expose
     private String id;
+
+    @SerializedName("title")
+    @Expose
+    private String title;
+
     @SerializedName("name")
     @Expose
     private String name;
+
     @SerializedName("dueDate")
     @Expose
     private String dueDate;
-    @SerializedName("buyTax")
+
+    @SerializedName("indexer")
     @Expose
-    private String buyTax;
-    @SerializedName("sellTax")
-    @Expose
-    private String sellTax;
+    private String indexer;
+
     @SerializedName("buyPrice")
     @Expose
     private String buyPrice;
+
     @SerializedName("sellPrice")
     @Expose
     private String sellPrice;
+
+    @SerializedName("last30daysProfitability")
+    @Expose
+    private String last30daysProfitability;
+
+    @SerializedName("lastMonthProfitability")
+    @Expose
+    private String lastMonthProfitability;
+
+    @SerializedName("yearProfitability")
+    @Expose
+    private String yearProfitability;
+
+    @SerializedName("lastYearProfitability")
+    @Expose
+    private String lastYearProfitability;
+
     @SerializedName("lastUpdate")
     @Expose
     private String lastUpdate;
 
-    /**
-     * @return The id
-     */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * @param id The _id
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    /**
-     * @return The name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * @param name The name
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * @return The dueDate
-     */
-    public String getDueDate() {
-        return dueDate;
-    }
-
-    /**
-     * @param dueDate The dueDate
-     */
-    public void setDueDate(String dueDate) {
-        this.dueDate = dueDate;
-    }
-
-    /**
-     * @return The buyTax
-     */
-    public String getBuyTax() {
-        return buyTax;
-    }
-
-    /**
-     * @param buyTax The buyTax
-     */
-    public void setBuyTax(String buyTax) {
-        this.buyTax = buyTax;
-    }
-
-    /**
-     * @return The sellTax
-     */
-    public String getSellTax() {
-        return sellTax;
-    }
-
-    /**
-     * @param sellTax The sellTax
-     */
-    public void setSellTax(String sellTax) {
-        this.sellTax = sellTax;
-    }
-
-    /**
-     * @return The buyPrice
-     */
     public String getBuyPrice() {
         return buyPrice;
     }
 
-    /**
-     * @param buyPrice The buyPrice
-     */
     public void setBuyPrice(String buyPrice) {
         this.buyPrice = buyPrice;
     }
 
-    /**
-     * @return The sellPrice
-     */
-    public String getSellPrice() {
-        return sellPrice;
+    public String getDueDate() {
+        return dueDate;
     }
 
-    /**
-     * @param sellPrice The sellPrice
-     */
-    public void setSellPrice(String sellPrice) {
-        this.sellPrice = sellPrice;
+    public void setDueDate(String dueDate) {
+        this.dueDate = dueDate;
     }
 
-    /**
-     * @return The lastUpdate
-     */
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getIndexer() {
+        return indexer;
+    }
+
+    public void setIndexer(String indexer) {
+        this.indexer = indexer;
+    }
+
+    public String getLast30daysProfitability() {
+        return last30daysProfitability;
+    }
+
+    public void setLast30daysProfitability(String last30daysProfitability) {
+        this.last30daysProfitability = last30daysProfitability;
+    }
+
+    public String getLastMonthProfitability() {
+        return lastMonthProfitability;
+    }
+
+    public void setLastMonthProfitability(String lastMonthProfitability) {
+        this.lastMonthProfitability = lastMonthProfitability;
+    }
+
     public String getLastUpdate() {
         return lastUpdate;
     }
 
-    /**
-     * @param lastUpdate The lastUpdate
-     */
     public void setLastUpdate(String lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
 
+    public String getLastYearProfitability() {
+        return lastYearProfitability;
+    }
+
+    public void setLastYearProfitability(String lastYearProfitability) {
+        this.lastYearProfitability = lastYearProfitability;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSellPrice() {
+        return sellPrice;
+    }
+
+    public void setSellPrice(String sellPrice) {
+        this.sellPrice = sellPrice;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getYearProfitability() {
+        return yearProfitability;
+    }
+
+    public void setYearProfitability(String yearProfitability) {
+        this.yearProfitability = yearProfitability;
+    }
 }

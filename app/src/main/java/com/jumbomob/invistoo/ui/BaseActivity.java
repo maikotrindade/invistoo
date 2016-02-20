@@ -75,13 +75,12 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 
         switch (id) {
             case R.id.nav_dashboard:
-                setFragment(AssetListFragment.newInstance(), R.id.nav_dashboard, "Assets");
                 break;
             case R.id.nav_my_wallet:
-                break;
-            case R.id.nav_historic:
+                setFragment(MyWalletFragment.newInstance(), R.id.nav_my_wallet, getString(R.string.title_my_wallet));
                 break;
             case R.id.nav_indexes:
+                setFragment(AssetListFragment.newInstance(), R.id.nav_indexes, getString(R.string.title_list_assets));
                 break;
             case R.id.nav_brokerage:
                 break;
@@ -97,14 +96,24 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
         return true;
     }
 
-    private void setFragment(final Fragment fragment, final int id, final String title) {
+    protected void setFragment(final Fragment fragment, final int id, final String title) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.content, fragment)
+                .addToBackStack(fragment.getTag())
                 .commit();
-        mNavigationView.setCheckedItem(id);
         setTitle(title);
+        mNavigationView.setCheckedItem(id);
         mDrawerLayout.closeDrawer(GravityCompat.START);
+    }
+
+    protected void setFragment(final Fragment fragment, final String title) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.content, fragment)
+                .addToBackStack(fragment.getTag())
+                .commit();
+        setTitle(title);
     }
 
 }

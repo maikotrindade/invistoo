@@ -47,8 +47,8 @@ public class AssetListAdapter extends RecyclerView.Adapter<AssetListAdapter.View
         final Asset asset = mAssets.get(position);
         holder.titleTxtView.setText(asset.getName());
         holder.dueDateTxtView.setText(asset.getDueDate());
-        holder.buyTaxTxtView.setText(asset.getBuyTax());
-        holder.sellTaxTxtView.setText(asset.getSellTax());
+        holder.buyPriceTxtView.setText(asset.getBuyPrice());
+        holder.sellPriceTxtView.setText(asset.getSellPrice());
     }
 
     @Override
@@ -60,15 +60,15 @@ public class AssetListAdapter extends RecyclerView.Adapter<AssetListAdapter.View
 
         private TextView titleTxtView;
         private TextView dueDateTxtView;
-        private TextView buyTaxTxtView;
-        private TextView sellTaxTxtView;
+        private TextView buyPriceTxtView;
+        private TextView sellPriceTxtView;
 
         public ViewHolder(View view) {
             super(view);
             titleTxtView = (TextView) view.findViewById(R.id.title_text_view);
             dueDateTxtView = (TextView) view.findViewById(R.id.due_date_text_view);
-            buyTaxTxtView = (TextView) view.findViewById(R.id.buy_tax_text_view);
-            sellTaxTxtView = (TextView) view.findViewById(R.id.sell_tax_text_view);
+            buyPriceTxtView = (TextView) view.findViewById(R.id.buy_price_text_view);
+            sellPriceTxtView = (TextView) view.findViewById(R.id.sell_price_text_view);
         }
     }
 

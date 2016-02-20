@@ -1,14 +1,24 @@
 package com.jumbomob.invistoo.util;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
+import android.view.View;
+
+import com.jumbomob.invistoo.R;
 
 /**
  * @author maiko.trindade
  * @since 09/02/2016
  */
 public class InvistooUtil {
+
+    private static final String TAG = InvistooUtil.class.getSimpleName();
 
     private static final ConnectivityManager sConnectivityManager = (ConnectivityManager)
             InvistooApplication.getInstance().getSystemService(
@@ -35,14 +45,40 @@ public class InvistooUtil {
         return (hasWifiConnection() || hasMobileConnection()) && isNetworkActived();
     }
 
-//    public static Snackbar makeSnackBar(View view, CharSequence text, int duration) {
-//        Snackbar snackbar = Snackbar.make(view, text, duration);
-//        View snackBarView = snackbar.getView();
-//        snackBarView.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color
-//                .red_1));
-//        snackbar.setActionTextColor(ContextCompat.getColor(view.getContext(), R.color
-//                .grey_300));
-//        return snackbar;
-//    }
+    public static Snackbar makeSnackBar(View view, CharSequence text, int duration) {
+        Snackbar snackbar = Snackbar.make(view, text, duration);
+        View snackBarView = snackbar.getView();
+        snackBarView.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color
+                .material_blue_600));
+        snackbar.setActionTextColor(ContextCompat.getColor(view.getContext(), R.color
+                .material_grey_400));
+        return snackbar;
+    }
+
+    public int getVersionCode(final Activity activity) {
+        final PackageManager packageManager = activity.getPackageManager();
+        final String packageName = activity.getPackageName();
+        int versionCode = 0;
+        String versionName = "";
+        try {
+            versionCode = packageManager.getPackageInfo(packageName, 0).versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.e(TAG, e.getMessage());
+        }
+        return versionCode;
+    }
+
+    public String getVersionName(final Activity activity) {
+        final PackageManager packageManager = activity.getPackageManager();
+        final String packageName = activity.getPackageName();
+        int versionCode = 0;
+        String versionName = "";
+        try {
+            versionName = packageManager.getPackageInfo(packageName, 0).versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.e(TAG, e.getMessage());
+        }
+        return versionName;
+    }
 
 }

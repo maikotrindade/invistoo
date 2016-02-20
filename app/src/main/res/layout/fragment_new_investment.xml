@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".ui.NewInvestmentFragment">
+
+    <Spinner
+        android:id="@+id/assets_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"/>
+
+
+    <TableLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/activity_horizontal_small_margin"
+        android:shrinkColumns="*"
+        android:stretchColumns="*">
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/asset_name_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_span="3"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large">
+            </TextView>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_vertical_small_margin">
+
+            <TextView
+                android:layout_weight="1"
+                android:text="Vencimento"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium">
+            </TextView>
+
+            <TextView
+                android:id="@+id/asset_due_date_text_view"
+                android:layout_weight="1"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium">
+            </TextView>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_vertical_small_margin">
+
+            <TextView
+                android:layout_weight="1"
+                android:text="Taxa de juros ao ano"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium">
+            </TextView>
+
+            <TextView
+                android:id="@+id/asset_buy_tax_text_view"
+                android:layout_weight="1"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium">
+            </TextView>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_vertical_small_margin"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:layout_weight="1"
+                android:text="Preço Unitário"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium">
+            </TextView>
+
+            <TextView
+                android:id="@+id/asset_price_text_view"
+                android:layout_weight="1"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium">
+            </TextView>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:layout_weight="1"
+                android:text="Quantidade"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium">
+            </TextView>
+
+            <EditText
+                android:id="@+id/asset_quantity_edit_text"
+                android:layout_weight="1"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium">
+            </EditText>
+
+        </TableRow>
+    </TableLayout>
+</LinearLayout>
