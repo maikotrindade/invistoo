@@ -73,11 +73,11 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium">
             </TextView>
 
-            <TextView
-                android:id="@+id/asset_buy_tax_text_view"
+            <EditText
+                android:id="@+id/asset_buy_tax_edit_text"
                 android:layout_weight="1"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium">
-            </TextView>
+            </EditText>
 
         </TableRow>
 
@@ -93,11 +93,11 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium">
             </TextView>
 
-            <TextView
-                android:id="@+id/asset_price_text_view"
+            <EditText
+                android:id="@+id/asset_price_edit_text"
                 android:layout_weight="1"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium">
-            </TextView>
+            </EditText>
 
         </TableRow>
 

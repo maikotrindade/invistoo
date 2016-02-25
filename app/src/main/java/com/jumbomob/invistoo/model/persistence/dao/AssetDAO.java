@@ -153,18 +153,20 @@ public class AssetDAO extends BaseDAO {
     }
 
     private Asset cursorToAsset(Cursor cursor) {
+
         Asset asset = new Asset();
         asset.setId(cursor.getString(0));
         asset.setTitle(cursor.getString(1));
         asset.setName(cursor.getString(2));
         asset.setDueDate(cursor.getString(3));
-        asset.setBuyPrice(cursor.getString(4));
-        asset.setSellPrice(cursor.getString(5));
-        asset.setLast30daysProfitability(cursor.getString(6));
-        asset.setLastMonthProfitability(cursor.getString(7));
-        asset.setYearProfitability(cursor.getString(8));
-        asset.setLastYearProfitability(cursor.getString(9));
-        asset.setLastUpdate(cursor.getString(10));
+        asset.setIndexer(cursor.getString(4));
+        asset.setBuyPrice(cursor.getString(5));
+        asset.setSellPrice(cursor.getString(6));
+        asset.setLast30daysProfitability(cursor.getString(7));
+        asset.setLastMonthProfitability(cursor.getString(8));
+        asset.setYearProfitability(cursor.getString(9));
+        asset.setLastYearProfitability(cursor.getString(10));
+        asset.setLastUpdate(cursor.getString(11));
 
         return asset;
     }

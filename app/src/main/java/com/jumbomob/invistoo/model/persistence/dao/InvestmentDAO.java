@@ -6,7 +6,6 @@ import android.database.sqlite.SQLiteException;
 import android.util.Log;
 
 import com.jumbomob.invistoo.model.entity.Investment;
-import com.jumbomob.invistoo.model.persistence.DatabaseContract;
 import com.jumbomob.invistoo.model.persistence.DatabaseContract.InvestmentTable;
 import com.jumbomob.invistoo.model.persistence.DatabaseContract.Tables;
 import com.jumbomob.invistoo.util.DatabaseUtil;
@@ -44,7 +43,7 @@ public class InvestmentDAO extends BaseDAO {
             values.put(InvestmentTable.COLUMN_UPDATE_DATE, investment.getUpdateDate());
             values.put(InvestmentTable.COLUMN_REMOVED_DATE, investment.getRemovedDate());
 
-            assetId = database.insertOrThrow(DatabaseContract.Tables.ASSET, null, values);
+            assetId = database.insertOrThrow(Tables.INVESTMENT, null, values);
             database.setTransactionSuccessful();
 
         } catch (SQLiteException e) {
