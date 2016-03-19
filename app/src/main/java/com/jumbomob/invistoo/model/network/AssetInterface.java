@@ -1,4 +1,4 @@
-package com.jumbomob.invistoo.model.webservice;
+package com.jumbomob.invistoo.model.network;
 
 import com.jumbomob.invistoo.model.entity.Asset;
 

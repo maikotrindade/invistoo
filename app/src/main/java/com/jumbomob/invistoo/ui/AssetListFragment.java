@@ -18,21 +18,16 @@ import android.view.ViewGroup;
 import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.component.DividerItemDecorator;
 import com.jumbomob.invistoo.model.entity.Asset;
+import com.jumbomob.invistoo.model.network.AssetInterface;
+import com.jumbomob.invistoo.model.network.BaseNetworkConfig;
 import com.jumbomob.invistoo.model.persistence.dao.AssetDAO;
-import com.jumbomob.invistoo.model.webservice.AssetInterface;
-import com.jumbomob.invistoo.model.webservice.BaseServiceConfiguration;
 import com.jumbomob.invistoo.ui.adapter.AssetListAdapter;
 import com.jumbomob.invistoo.util.InvistooUtil;
-import com.squareup.okhttp.Interceptor;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Response;
 
-import java.io.IOException;
 import java.util.List;
 
 import retrofit.Call;
 import retrofit.Callback;
-import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
 
 public class AssetListFragment extends Fragment {
@@ -50,7 +45,8 @@ public class AssetListFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
+    Bundle
             savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
@@ -64,7 +60,8 @@ public class AssetListFragment extends Fragment {
     private void configureRecyclerView() {
 
         final AssetDAO assetDAO = AssetDAO.getInstance();
-        RecyclerView recyclerView = (RecyclerView) mRootView.findViewById(R.id.assets_recycler_view);
+        RecyclerView recyclerView = (RecyclerView) mRootView.findViewById(R.id
+                .assets_recycler_view);
         recyclerView.addItemDecoration(new DividerItemDecorator(getActivity(), DividerItemDecorator
                 .VERTICAL_LIST));
         recyclerView.setHasFixedSize(true);
@@ -93,26 +90,13 @@ public class AssetListFragment extends Fragment {
     }
 
     private void downloadAssets() {
-        OkHttpClient okClient = new OkHttpClient();
-        okClient.interceptors().add(new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                Response response = chain.proceed(chain.request());
-                return response;
-            }
-        });
+        final AssetInterface service = BaseNetworkConfig.createService(AssetInterface.class,
+                BaseNetworkConfig.BASE_URL);
 
-        Retrofit client = new Retrofit.Builder()
-                .baseUrl(BaseServiceConfiguration.BASE_URL)
-                .client(okClient)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        AssetInterface service = client.create(AssetInterface.class);
-        Call<List<Asset>> call = service.getAssets();
+        final Call<List<Asset>> call = service.getAssets();
         call.enqueue(new Callback<List<Asset>>() {
             @Override
-            public void onResponse(retrofit.Response<List<Asset>> response) {
+            public void onResponse(retrofit.Response<List<Asset>> response, Retrofit retrofit) {
                 if (response.isSuccess()) {
                     final AssetDAO assetDAO = AssetDAO.getInstance();
                     List<Asset> assetsResult = response.body();
@@ -134,7 +118,8 @@ public class AssetListFragment extends Fragment {
     }
 
     private void onDownloadError() {
-        InvistooUtil.makeSnackBar(mRootView, getActivity().getString(R.string.error_download_assets), Snackbar
+        InvistooUtil.makeSnackBar(mRootView, getActivity().getString(R.string
+                .error_download_assets), Snackbar
                 .LENGTH_LONG).show();
     }
 
