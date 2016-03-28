@@ -46,7 +46,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + AssetTable.COLUMN_LAST_MONTH_PROFITS + " TEXT NOT NULL,"
             + AssetTable.COLUMN_YEAR_PROFITS + " TEXT NOT NULL,"
             + AssetTable.COLUMN_LAST_YEAR_PROFITS + " TEXT NOT NULL,"
-            + AssetTable.COLUMN_LAST_UPDATE + " TEXT NULL)";
+            + AssetTable.COLUMN_LAST_UPDATE + " TEXT NULL,"
+            + AssetTable.COLUMN_INDEX + " TEXT NULL)";
 
     String CREATE_INVESTMENT_TB = "CREATE TABLE " + Tables.INVESTMENT + "("
             + InvestmentTable.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"

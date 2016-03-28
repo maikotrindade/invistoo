@@ -47,6 +47,7 @@ public class AssetDAO extends BaseDAO {
             values.put(AssetTable.COLUMN_YEAR_PROFITS, asset.getYearProfitability());
             values.put(AssetTable.COLUMN_LAST_YEAR_PROFITS, asset.getLastYearProfitability());
             values.put(AssetTable.COLUMN_LAST_UPDATE, asset.getLastUpdate());
+            values.put(AssetTable.COLUMN_INDEX, asset.getIndex());
             assetId = database.insertOrThrow(Tables.ASSET, null, values);
 
             database.setTransactionSuccessful();
@@ -116,10 +117,9 @@ public class AssetDAO extends BaseDAO {
     public List<Asset> findLast() {
         final String columns = DatabaseUtil.joinStrings(AssetTable.projection);
 
-        String query =
-                " SELECT " + columns + " FROM " + Tables.ASSET +
-                        " GROUP BY " + AssetTable.COLUMN_NAME +
-                        " ORDER BY " + AssetTable.COLUMN_LAST_UPDATE;
+        String query = " SELECT " + columns + " FROM " + Tables.ASSET +
+                " ORDER BY " + AssetTable.COLUMN_LAST_UPDATE +
+                " LIMIT 25";
 
         List<Asset> assets = new ArrayList<>();
         final Cursor cursor = database.rawQuery(query, null);
@@ -138,7 +138,6 @@ public class AssetDAO extends BaseDAO {
     public List<String> findNames() {
         String query =
                 " SELECT DISTINCT " + AssetTable.COLUMN_NAME + " FROM " + Tables.ASSET;
-
         List<String> assetNames = new ArrayList<>();
         final Cursor cursor = database.rawQuery(query, null);
         if (cursor != null && cursor.moveToFirst()) {
@@ -167,6 +166,7 @@ public class AssetDAO extends BaseDAO {
         asset.setYearProfitability(cursor.getString(9));
         asset.setLastYearProfitability(cursor.getString(10));
         asset.setLastUpdate(cursor.getString(11));
+        asset.setIndex(cursor.getString(12));
 
         return asset;
     }

@@ -27,6 +27,7 @@ public class DatabaseContract {
         String COLUMN_YEAR_PROFITS = "asset_buy_yearProfits";
         String COLUMN_LAST_YEAR_PROFITS = "asset_sell_lastYearProfits";
         String COLUMN_LAST_UPDATE = "asset_last_update";
+        String COLUMN_INDEX = "asset_index";
 
         String[] projection = {
                 COLUMN_ID,
@@ -40,7 +41,8 @@ public class DatabaseContract {
                 COLUMN_LAST_MONTH_PROFITS,
                 COLUMN_YEAR_PROFITS,
                 COLUMN_LAST_YEAR_PROFITS,
-                COLUMN_LAST_UPDATE};
+                COLUMN_LAST_UPDATE,
+                COLUMN_INDEX};
     }
 
     public interface InvestmentTable {

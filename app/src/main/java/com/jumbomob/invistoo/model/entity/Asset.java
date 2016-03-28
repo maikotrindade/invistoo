@@ -57,6 +57,10 @@ public class Asset {
     @Expose
     private String lastUpdate;
 
+    @SerializedName("index")
+    @Expose
+    private String index;
+
     public String getBuyPrice() {
         return buyPrice;
     }
@@ -151,5 +155,13 @@ public class Asset {
 
     public void setYearProfitability(String yearProfitability) {
         this.yearProfitability = yearProfitability;
+    }
+
+    public String getIndex() {
+        return index;
+    }
+
+    public void setIndex(String index) {
+        this.index = index;
     }
 }
