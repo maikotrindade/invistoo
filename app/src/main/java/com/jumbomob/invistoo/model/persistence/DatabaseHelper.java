@@ -58,10 +58,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + InvestmentTable.COLUMN_UPDATE_DATE + " TEXT NOT NULL,"
             + InvestmentTable.COLUMN_REMOVED_DATE + " TEXT NULL)";
 
+    String CREATE_QUESTION_TB = "CREATE TABLE " + Tables.QUESTION + "("
+            + QuestionTable.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + QuestionTable.COLUMN_QUESTION + " TEXT NOT NULL,"
+            + QuestionTable.COLUMN_ANSWER + " TEXT NOT NULL,"
+            + QuestionTable.COLUMN_GROUP + " TEXT NOT NULL)";
+
     @Override
     public void onCreate(SQLiteDatabase database) {
         database.execSQL(CREATE_ASSET_TB);
         database.execSQL(CREATE_INVESTMENT_TB);
+        database.execSQL(CREATE_QUESTION_TB);
     }
 
     @Override

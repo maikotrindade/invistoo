@@ -11,6 +11,7 @@ public class DatabaseContract {
     public interface Tables {
         String ASSET = "asset_tb";
         String INVESTMENT = "investment_tb";
+        String QUESTION = "question_tb";
         String USER = "user_tb";
     }
 
@@ -62,5 +63,18 @@ public class DatabaseContract {
                 COLUMN_CREATION_DATE,
                 COLUMN_UPDATE_DATE,
                 COLUMN_REMOVED_DATE};
+    }
+
+    public interface QuestionTable {
+        String COLUMN_ID = "question_id";
+        String COLUMN_QUESTION = "question_question";
+        String COLUMN_ANSWER = "question_answer";
+        String COLUMN_GROUP = "question_group";
+
+        String[] projection = {
+                COLUMN_ID,
+                COLUMN_QUESTION,
+                COLUMN_ANSWER,
+                COLUMN_GROUP};
     }
 }
