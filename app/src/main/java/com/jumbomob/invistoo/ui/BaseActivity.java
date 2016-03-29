@@ -35,7 +35,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, mDrawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, mDrawerLayout, toolbar, R.string.navigation_drawer_open, R.string
+                .navigation_drawer_close);
         mDrawerLayout.setDrawerListener(toggle);
         toggle.syncState();
 
@@ -77,14 +78,18 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
             case R.id.nav_dashboard:
                 break;
             case R.id.nav_my_wallet:
-                setFragment(InvestmentsListFragment.newInstance(), R.id.nav_my_wallet, getString(R.string.title_my_wallet));
+                setFragment(InvestmentsListFragment.newInstance(), R.id.nav_my_wallet, getString
+                        (R.string.title_my_wallet));
                 break;
             case R.id.nav_indexes:
-                setFragment(AssetListFragment.newInstance(), R.id.nav_indexes, getString(R.string.title_list_assets));
+                setFragment(AssetListFragment.newInstance(), R.id.nav_indexes, getString(R.string
+                        .title_list_assets));
                 break;
             case R.id.nav_brokerage:
                 break;
             case R.id.nav_useful_information:
+                setFragment(QuestionsListFragment.newInstance(), R.id.nav_useful_information,
+                        getString(R.string.title_useful_information));
                 break;
             case R.id.nav_settings:
                 break;
