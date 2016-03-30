@@ -14,10 +14,11 @@ import android.view.ViewGroup;
 
 import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.component.DividerItemDecorator;
-import com.jumbomob.invistoo.model.entity.Asset;
-import com.jumbomob.invistoo.model.network.AssetInterface;
+import com.jumbomob.invistoo.model.entity.Question;
 import com.jumbomob.invistoo.model.network.BaseNetworkConfig;
-import com.jumbomob.invistoo.model.persistence.dao.AssetDAO;
+import com.jumbomob.invistoo.model.network.QuestionInterface;
+import com.jumbomob.invistoo.model.persistence.dao.QuestionDAO;
+import com.jumbomob.invistoo.ui.adapter.QuestionListAdapter;
 import com.jumbomob.invistoo.util.InvistooUtil;
 
 import java.util.List;
@@ -54,8 +55,7 @@ public class QuestionsListFragment extends Fragment {
     }
 
     private void configureRecyclerView() {
-
-        //final InvestmentDAO dao = InvestmentDAO.getInstance();
+        final QuestionDAO dao = QuestionDAO.getInstance();
         RecyclerView recyclerView = (RecyclerView) mRootView.findViewById(R.id
                 .questions_recycler_view);
         recyclerView.addItemDecoration(new DividerItemDecorator(getActivity(), DividerItemDecorator
@@ -63,8 +63,8 @@ public class QuestionsListFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(mRootView.getContext()));
 
-//        InvestmentListAdapter mAdapter = new InvestmentListAdapter(dao.findAll());
-//        recyclerView.setAdapter(mAdapter);
+        final QuestionListAdapter adapter = new QuestionListAdapter(dao.findAll());
+        recyclerView.setAdapter(adapter);
     }
 
     private void configureSwipe() {
@@ -79,18 +79,18 @@ public class QuestionsListFragment extends Fragment {
     }
 
     private void downloadQuestions() {
-        final AssetInterface service = BaseNetworkConfig.createService(AssetInterface.class,
+        final QuestionInterface service = BaseNetworkConfig.createService(QuestionInterface.class,
                 BaseNetworkConfig.BASE_URL);
 
-        final Call<List<Asset>> call = service.getAssets();
-        call.enqueue(new Callback<List<Asset>>() {
+        final Call<List<Question>> call = service.getQuestions();
+        call.enqueue(new Callback<List<Question>>() {
             @Override
-            public void onResponse(retrofit.Response<List<Asset>> response, Retrofit retrofit) {
+            public void onResponse(retrofit.Response<List<Question>> response, Retrofit retrofit) {
                 if (response.isSuccess()) {
-                    final AssetDAO assetDAO = AssetDAO.getInstance();
-                    List<Asset> assetsResult = response.body();
-                    for (Asset asset : assetsResult) {
-                        assetDAO.insert(asset);
+                    final QuestionDAO questionDAO = QuestionDAO.getInstance();
+                    List<Question> questionsResult = response.body();
+                    for (Question question : questionsResult) {
+                        questionDAO.insert(question);
                     }
                 } else {
                     onDownloadError();
@@ -108,9 +108,8 @@ public class QuestionsListFragment extends Fragment {
 
     private void onDownloadError() {
         InvistooUtil.makeSnackBar(mRootView, getActivity().getString(R.string
-                .error_download_assets), Snackbar
+                .error_download_questions), Snackbar
                 .LENGTH_LONG).show();
     }
-
 
 }

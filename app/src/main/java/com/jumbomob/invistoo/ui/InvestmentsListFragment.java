@@ -52,8 +52,8 @@ public class InvestmentsListFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(mRootView.getContext()));
 
-        InvestmentListAdapter mAdapter = new InvestmentListAdapter(dao.findAll());
-        recyclerView.setAdapter(mAdapter);
+        final InvestmentListAdapter adapter = new InvestmentListAdapter(dao.findAll());
+        recyclerView.setAdapter(adapter);
     }
 
     private void configureFab() {
@@ -64,7 +64,7 @@ public class InvestmentsListFragment extends Fragment {
                 final Activity activity = getActivity();
                 ((BaseActivity) activity).setFragment(NewInvestmentFragment.newInstance(),
                         activity.getString(R
-                        .string.title_new_investiment));
+                                .string.title_new_investiment));
             }
         });
 

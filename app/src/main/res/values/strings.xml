@@ -24,7 +24,9 @@
     <string name="nav_logout">Logout</string>
 
     <!-- Errors -->
-    <string name="error_download_assets">It was not possible to update the Asset. Please try again.</string>
+    <string name="error_download_assets">It was not possible to update the assets. Please try again.</string>
+    <string name="error_download_questions">It was not possible to update the questions. Please
+        try again.</string>
 
     <string name="title_list_assets">Assets</string>
     <string name="title_my_wallet">My Wallet</string>
