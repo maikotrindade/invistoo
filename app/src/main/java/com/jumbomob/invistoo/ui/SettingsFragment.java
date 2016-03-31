@@ -13,14 +13,14 @@ import com.jumbomob.invistoo.R;
  * @author maiko.trindade
  * @since 30/03/2016
  */
-public class BrokerageListFragment extends Fragment {
+public class SettingsFragment extends Fragment {
 
-    private static final String TAG = BrokerageListFragment.class.getSimpleName();
+    private static final String TAG = SettingsFragment.class.getSimpleName();
 
     private View mRootView;
 
-    public static BrokerageListFragment newInstance() {
-        BrokerageListFragment fragment = new BrokerageListFragment();
+    public static SettingsFragment newInstance() {
+        SettingsFragment fragment = new SettingsFragment();
         return fragment;
     }
 
@@ -29,7 +29,7 @@ public class BrokerageListFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        mRootView = inflater.inflate(R.layout.fragment_brokerage_list, container, false);
+        mRootView = inflater.inflate(R.layout.fragment_settings, container, false);
 
         return mRootView;
     }

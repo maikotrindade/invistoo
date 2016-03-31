@@ -75,7 +75,9 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
         int id = item.getItemId();
 
         switch (id) {
-            case R.id.nav_dashboard:
+            case R.id.nav_home:
+                setFragment(HomeFragment.newInstance(), R.id.nav_home, getString
+                        (R.string.title_home));
                 break;
             case R.id.nav_my_wallet:
                 setFragment(InvestmentsListFragment.newInstance(), R.id.nav_my_wallet, getString
@@ -94,14 +96,16 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
                         getString(R.string.title_useful_information));
                 break;
             case R.id.nav_settings:
+                setFragment(SettingsFragment.newInstance(), R.id.nav_settings,
+                        getString(R.string.title_settings));
                 break;
             case R.id.nav_about:
                 setFragment(AboutFragment.newInstance(), R.id.nav_about,
                         getString(R.string.title_about));
                 break;
             case R.id.nav_logout:
-                //Temporarily
-                onDestroy();
+                //TODO temporarily
+                finish();
         }
 
         return true;

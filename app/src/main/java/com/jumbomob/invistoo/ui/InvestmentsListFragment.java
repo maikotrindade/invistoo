@@ -64,7 +64,7 @@ public class InvestmentsListFragment extends Fragment {
                 final Activity activity = getActivity();
                 ((BaseActivity) activity).setFragment(NewInvestmentFragment.newInstance(),
                         activity.getString(R
-                                .string.title_new_investiment));
+                                .string.title_new_investment));
             }
         });
 

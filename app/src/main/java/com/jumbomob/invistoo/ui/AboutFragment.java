@@ -29,7 +29,7 @@ public class AboutFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        mRootView = inflater.inflate(R.layout.fragment_asset_list, container, false);
+        mRootView = inflater.inflate(R.layout.fragment_about, container, false);
 
         return mRootView;
     }
