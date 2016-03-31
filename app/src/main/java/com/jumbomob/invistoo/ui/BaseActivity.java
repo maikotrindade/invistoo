@@ -96,8 +96,12 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
             case R.id.nav_settings:
                 break;
             case R.id.nav_about:
+                setFragment(AboutFragment.newInstance(), R.id.nav_about,
+                        getString(R.string.title_about));
                 break;
             case R.id.nav_logout:
+                //Temporarily
+                onDestroy();
         }
 
         return true;

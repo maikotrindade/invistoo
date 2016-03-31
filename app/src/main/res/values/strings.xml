@@ -32,6 +32,7 @@
     <string name="title_my_wallet">My Wallet</string>
     <string name="title_new_investiment">New Investment</string>
     <string name="title_useful_information">Useful Information</string>
+    <string name="title_about">About</string>
     <string name="title_brokerage">Brokerage</string>
     <string name="action_save">Save</string>
 </resources>
