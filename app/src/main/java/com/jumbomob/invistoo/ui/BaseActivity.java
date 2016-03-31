@@ -86,6 +86,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
                         .title_list_assets));
                 break;
             case R.id.nav_brokerage:
+                setFragment(BrokerageListFragment.newInstance(), R.id.nav_brokerage,
+                        getString(R.string.title_brokerage));
                 break;
             case R.id.nav_useful_information:
                 setFragment(QuestionsListFragment.newInstance(), R.id.nav_useful_information,
