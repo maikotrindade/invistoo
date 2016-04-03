@@ -1,13 +1,17 @@
 package com.jumbomob.invistoo.ui.adapter;
 
+import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.model.entity.Asset;
+import com.jumbomob.invistoo.ui.AssetChartFragment;
+import com.jumbomob.invistoo.ui.BaseActivity;
 import com.jumbomob.invistoo.ui.callback.onSearchResultListener;
 
 import java.util.List;
@@ -21,9 +25,11 @@ public class AssetListAdapter extends RecyclerView.Adapter<AssetListAdapter.View
 
     private List<Asset> mAssets;
     private int mPosition;
+    private Activity mActivity;
     private onSearchResultListener mSearchListener;
 
-    public AssetListAdapter(List<Asset> assets) {
+    public AssetListAdapter(Activity activity, List<Asset> assets) {
+        mActivity = activity;
         mAssets = assets;
     }
 
@@ -49,6 +55,13 @@ public class AssetListAdapter extends RecyclerView.Adapter<AssetListAdapter.View
         holder.dueDateTxtView.setText(asset.getDueDate());
         holder.buyPriceTxtView.setText(asset.getBuyPrice());
         holder.sellPriceTxtView.setText(asset.getSellPrice());
+
+        holder.containerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((BaseActivity) mActivity).setFragment(AssetChartFragment.newInstance(), "Chart");
+            }
+        });
     }
 
     @Override
@@ -58,6 +71,7 @@ public class AssetListAdapter extends RecyclerView.Adapter<AssetListAdapter.View
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
+        private LinearLayout containerView;
         private TextView titleTxtView;
         private TextView dueDateTxtView;
         private TextView buyPriceTxtView;
@@ -65,6 +79,7 @@ public class AssetListAdapter extends RecyclerView.Adapter<AssetListAdapter.View
 
         public ViewHolder(View view) {
             super(view);
+            containerView = (LinearLayout) view.findViewById(R.id.container_view);
             titleTxtView = (TextView) view.findViewById(R.id.title_text_view);
             dueDateTxtView = (TextView) view.findViewById(R.id.due_date_text_view);
             buyPriceTxtView = (TextView) view.findViewById(R.id.buy_price_text_view);

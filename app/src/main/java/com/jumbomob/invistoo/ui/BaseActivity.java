@@ -122,7 +122,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
         mDrawerLayout.closeDrawer(GravityCompat.START);
     }
 
-    protected void setFragment(final Fragment fragment, final String title) {
+    public void setFragment(final Fragment fragment, final String title) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.content, fragment)

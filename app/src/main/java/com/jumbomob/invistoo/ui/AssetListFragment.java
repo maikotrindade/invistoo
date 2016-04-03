@@ -67,7 +67,7 @@ public class AssetListFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(mRootView.getContext()));
 
-        mAdapter = new AssetListAdapter(assetDAO.findLast());
+        mAdapter = new AssetListAdapter(getActivity(), assetDAO.findLast());
         recyclerView.setAdapter(mAdapter);
     }
 
