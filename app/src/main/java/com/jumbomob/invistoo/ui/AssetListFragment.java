@@ -99,10 +99,14 @@ public class AssetListFragment extends Fragment {
             public void onResponse(retrofit.Response<List<Asset>> response, Retrofit retrofit) {
                 if (response.isSuccess()) {
                     final AssetDAO assetDAO = AssetDAO.getInstance();
-                    List<Asset> assetsResult = response.body();
+                    final List<Asset> assetsResult = response.body();
+                    updateAssetList(assetsResult);
                     for (Asset asset : assetsResult) {
                         assetDAO.insert(asset);
                     }
+                    InvistooUtil.makeSnackBar(getView(), getString(R.string
+                                    .msg_asset_updated_success),
+                            Snackbar.LENGTH_LONG).show();
                 } else {
                     onDownloadError();
                     Log.e(TAG, response.code() + " - " + response.message());
@@ -119,8 +123,7 @@ public class AssetListFragment extends Fragment {
 
     private void onDownloadError() {
         InvistooUtil.makeSnackBar(mRootView, getActivity().getString(R.string
-                .error_download_assets), Snackbar
-                .LENGTH_LONG).show();
+                .error_download_assets), Snackbar.LENGTH_LONG).show();
     }
 
     private void bindSearchView(final Menu menu) {
@@ -143,5 +146,9 @@ public class AssetListFragment extends Fragment {
         });
     }
 
+    private void updateAssetList(final List<Asset> assets) {
+        mAdapter.setItens(assets);
+        mAdapter.notifyDataSetChanged();
+    }
 
 }

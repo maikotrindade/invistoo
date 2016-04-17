@@ -12,7 +12,11 @@ import retrofit.Retrofit;
  */
 public class BaseNetworkConfig {
 
+    //This is the emulator base ul
     public static final String BASE_URL = "http://10.0.3.2:8080/";
+
+    //This is the local url
+    //public static final String BASE_URL = "http://127.0.0.1:8080/";
 
     private static Retrofit.Builder builder = new Retrofit.Builder().baseUrl(BASE_URL);
 
