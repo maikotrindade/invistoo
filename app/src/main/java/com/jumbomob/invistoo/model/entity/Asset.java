@@ -29,6 +29,14 @@ public class Asset {
     @Expose
     private String indexer;
 
+    @SerializedName("annualBuyPrice")
+    @Expose
+    private String annualBuyPrice;
+
+    @SerializedName("annualSellPrice")
+    @Expose
+    private String annualSellPrice;
+
     @SerializedName("buyPrice")
     @Expose
     private String buyPrice;
@@ -131,6 +139,22 @@ public class Asset {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getAnnualBuyPrice() {
+        return annualBuyPrice;
+    }
+
+    public void setAnnualBuyPrice(String annualBuyPrice) {
+        this.annualBuyPrice = annualBuyPrice;
+    }
+
+    public String getAnnualSellPrice() {
+        return annualSellPrice;
+    }
+
+    public void setAnnualSellPrice(String annualSellPrice) {
+        this.annualSellPrice = annualSellPrice;
     }
 
     public String getSellPrice() {

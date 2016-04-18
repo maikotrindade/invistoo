@@ -21,12 +21,14 @@ public class DatabaseContract {
         String COLUMN_NAME = "asset_name";
         String COLUMN_DUE_DATE = "asset_due_date";
         String COLUMN_INDEXER = "asset_indexer";
+        String COLUMN_ANNUAL_BUY_PRICE = "asset_annual_buy_price";
+        String COLUMN_ANNUAL_SELL_PRICE = "asset_annual_sell_price";
         String COLUMN_BUY_PRICE = "asset_buy_price";
         String COLUMN_SELL_PRICE = "asset_sell_price";
-        String COLUMN_LAST_30_DAYS_PROFITS = "asset_buy_last30daysProfits";
-        String COLUMN_LAST_MONTH_PROFITS = "asset_sell_lastMonthProfits";
-        String COLUMN_YEAR_PROFITS = "asset_buy_yearProfits";
-        String COLUMN_LAST_YEAR_PROFITS = "asset_sell_lastYearProfits";
+        String COLUMN_LAST_30_DAYS_PROFITS = "asset_buy_last_30_days_profits";
+        String COLUMN_LAST_MONTH_PROFITS = "asset_sell_last_month_profits";
+        String COLUMN_YEAR_PROFITS = "asset_buy_year_profits";
+        String COLUMN_LAST_YEAR_PROFITS = "asset_sell_last_year_profits";
         String COLUMN_LAST_UPDATE = "asset_last_update";
         String COLUMN_INDEX = "asset_index";
 
@@ -36,6 +38,8 @@ public class DatabaseContract {
                 COLUMN_NAME,
                 COLUMN_DUE_DATE,
                 COLUMN_INDEXER,
+                COLUMN_ANNUAL_BUY_PRICE,
+                COLUMN_ANNUAL_SELL_PRICE,
                 COLUMN_BUY_PRICE,
                 COLUMN_SELL_PRICE,
                 COLUMN_LAST_30_DAYS_PROFITS,

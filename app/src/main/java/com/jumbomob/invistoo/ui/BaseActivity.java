@@ -92,7 +92,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
                         getString(R.string.title_brokerage));
                 break;
             case R.id.nav_useful_information:
-                setFragment(QuestionsListFragment.newInstance(), R.id.nav_useful_information,
+                setFragment(UsefulInformationListFragment.newInstance(), R.id.nav_useful_information,
                         getString(R.string.title_useful_information));
                 break;
             case R.id.nav_settings:
@@ -111,14 +111,14 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
         return true;
     }
 
-    protected void setFragment(final Fragment fragment, final int id, final String title) {
+    protected void setFragment(final Fragment fragment, final int navigationItemId, final String title) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.content, fragment)
                 .addToBackStack(fragment.getTag())
                 .commit();
         setTitle(title);
-        mNavigationView.setCheckedItem(id);
+        mNavigationView.setCheckedItem(navigationItemId);
         mDrawerLayout.closeDrawer(GravityCompat.START);
     }
 

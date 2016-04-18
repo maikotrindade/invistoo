@@ -40,6 +40,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + AssetTable.COLUMN_NAME + " TEXT NOT NULL COLLATE NOCASE,"
             + AssetTable.COLUMN_DUE_DATE + " TEXT NOT NULL,"
             + AssetTable.COLUMN_INDEXER + " TEXT NOT NULL,"
+            + AssetTable.COLUMN_ANNUAL_BUY_PRICE + " TEXT NOT NULL,"
+            + AssetTable.COLUMN_ANNUAL_SELL_PRICE + " TEXT NOT NULL,"
             + AssetTable.COLUMN_BUY_PRICE + " TEXT NOT NULL,"
             + AssetTable.COLUMN_SELL_PRICE + " TEXT NOT NULL,"
             + AssetTable.COLUMN_LAST_30_DAYS_PROFITS + " TEXT NOT NULL,"

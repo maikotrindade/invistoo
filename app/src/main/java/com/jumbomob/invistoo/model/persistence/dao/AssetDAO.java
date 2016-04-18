@@ -41,6 +41,8 @@ public class AssetDAO extends BaseDAO {
             values.put(AssetTable.COLUMN_BUY_PRICE, asset.getBuyPrice());
             values.put(AssetTable.COLUMN_INDEXER, asset.getIndexer());
             values.put(AssetTable.COLUMN_DUE_DATE, asset.getDueDate());
+            values.put(AssetTable.COLUMN_ANNUAL_BUY_PRICE, asset.getAnnualBuyPrice());
+            values.put(AssetTable.COLUMN_ANNUAL_SELL_PRICE, asset.getAnnualSellPrice());
             values.put(AssetTable.COLUMN_SELL_PRICE, asset.getSellPrice());
             values.put(AssetTable.COLUMN_LAST_30_DAYS_PROFITS, asset.getLast30daysProfitability());
             values.put(AssetTable.COLUMN_LAST_MONTH_PROFITS, asset.getLastMonthProfitability());
@@ -95,17 +97,17 @@ public class AssetDAO extends BaseDAO {
         return asset;
     }
 
-    public Asset findLastByName(final String name) {
+    public Asset findLastByIndex(final int index) {
 
         final String columns = DatabaseUtil.joinStrings(AssetTable.projection);
         String query = "SELECT " + columns +
                 " FROM " + Tables.ASSET +
-                " WHERE " + Tables.ASSET + "." + AssetTable.COLUMN_NAME + " = ? " +
+                " WHERE " + Tables.ASSET + "." + AssetTable.COLUMN_INDEX + " = ? " +
                 " ORDER BY " + AssetTable.COLUMN_LAST_UPDATE + " ASC " +
                 " LIMIT 1 ";
 
         Asset asset = null;
-        final String[] whereClauses = {name};
+        final String[] whereClauses = {Integer.toString(index)};
         final Cursor cursor = database.rawQuery(query, whereClauses);
         if (cursor != null && cursor.moveToFirst()) {
             asset = cursorToAsset(cursor);
@@ -135,22 +137,6 @@ public class AssetDAO extends BaseDAO {
         return assets;
     }
 
-    public List<String> findNames() {
-        String query =
-                " SELECT DISTINCT " + AssetTable.COLUMN_NAME + " FROM " + Tables.ASSET;
-        List<String> assetNames = new ArrayList<>();
-        final Cursor cursor = database.rawQuery(query, null);
-        if (cursor != null && cursor.moveToFirst()) {
-            while (!cursor.isAfterLast()) {
-                assetNames.add(cursor.getString(0));
-                cursor.moveToNext();
-            }
-        }
-        cursor.close();
-
-        return assetNames;
-    }
-
     private Asset cursorToAsset(Cursor cursor) {
 
         Asset asset = new Asset();
@@ -159,14 +145,16 @@ public class AssetDAO extends BaseDAO {
         asset.setName(cursor.getString(2));
         asset.setDueDate(cursor.getString(3));
         asset.setIndexer(cursor.getString(4));
-        asset.setBuyPrice(cursor.getString(5));
-        asset.setSellPrice(cursor.getString(6));
-        asset.setLast30daysProfitability(cursor.getString(7));
-        asset.setLastMonthProfitability(cursor.getString(8));
-        asset.setYearProfitability(cursor.getString(9));
-        asset.setLastYearProfitability(cursor.getString(10));
-        asset.setLastUpdate(cursor.getString(11));
-        asset.setIndex(cursor.getString(12));
+        asset.setAnnualBuyPrice(cursor.getString(5));
+        asset.setAnnualSellPrice(cursor.getString(6));
+        asset.setBuyPrice(cursor.getString(7));
+        asset.setSellPrice(cursor.getString(8));
+        asset.setLast30daysProfitability(cursor.getString(9));
+        asset.setLastMonthProfitability(cursor.getString(10));
+        asset.setYearProfitability(cursor.getString(11));
+        asset.setLastYearProfitability(cursor.getString(12));
+        asset.setLastUpdate(cursor.getString(13));
+        asset.setIndex(cursor.getString(14));
 
         return asset;
     }

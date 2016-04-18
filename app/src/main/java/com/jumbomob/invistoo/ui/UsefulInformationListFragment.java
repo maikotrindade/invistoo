@@ -31,15 +31,15 @@ import retrofit.Retrofit;
  * @author maiko.trindade
  * @since 28/03/2016
  */
-public class QuestionsListFragment extends Fragment {
+public class UsefulInformationListFragment extends Fragment {
 
-    private static final String TAG = QuestionsListFragment.class.getSimpleName();
+    private static final String TAG = UsefulInformationListFragment.class.getSimpleName();
 
     private View mRootView;
     private SwipeRefreshLayout mSwipelayout;
 
-    public static QuestionsListFragment newInstance() {
-        QuestionsListFragment fragment = new QuestionsListFragment();
+    public static UsefulInformationListFragment newInstance() {
+        UsefulInformationListFragment fragment = new UsefulInformationListFragment();
         return fragment;
     }
 
@@ -47,7 +47,7 @@ public class QuestionsListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mRootView = inflater.inflate(R.layout.fragment_questions_list, container, false);
+        mRootView = inflater.inflate(R.layout.fragment_useful_info_list, container, false);
 
         configureRecyclerView();
         configureSwipe();

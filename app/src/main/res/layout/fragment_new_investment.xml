@@ -28,22 +28,6 @@
         android:stretchColumns="*">
 
         <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:gravity="center_horizontal">
-
-            <TextView
-                android:id="@+id/asset_name_text_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_span="3"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large">
-            </TextView>
-
-        </TableRow>
-
-        <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/activity_vertical_small_margin">
@@ -73,11 +57,11 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium">
             </TextView>
 
-            <EditText
-                android:id="@+id/asset_buy_tax_edit_text"
+            <TextView
+                android:id="@+id/asset_buy_tax_text_view"
                 android:layout_weight="1"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium">
-            </EditText>
+            </TextView>
 
         </TableRow>
 
@@ -96,6 +80,8 @@
             <EditText
                 android:id="@+id/asset_price_edit_text"
                 android:layout_weight="1"
+                android:digits="0123456789,"
+                android:inputType="numberDecimal"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium">
             </EditText>
 
@@ -115,6 +101,8 @@
             <EditText
                 android:id="@+id/asset_quantity_edit_text"
                 android:layout_weight="1"
+                android:digits="0123456789,"
+                android:inputType="numberDecimal"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium">
             </EditText>
 

@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.model.entity.Investment;
 import com.jumbomob.invistoo.ui.callback.onSearchResultListener;
+import com.jumbomob.invistoo.util.NumericUtil;
 
 import java.util.List;
 
@@ -45,8 +46,8 @@ public class InvestmentListAdapter extends RecyclerView.Adapter<InvestmentListAd
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Investment investment = mInvestments.get(position);
         holder.nameTxtView.setText(investment.getName());
-        holder.quantityTxtView.setText(String.valueOf(investment.getQuantity()));
-        holder.priceTxtView.setText(investment.getPrice().toString());
+        holder.quantityTxtView.setText(NumericUtil.formatDouble(investment.getQuantity()));
+        holder.priceTxtView.setText(NumericUtil.formatCurrency(investment.getPrice()));
         holder.lastUpdateTxtView.setText(investment.getUpdateDate());
     }
 
@@ -70,5 +71,5 @@ public class InvestmentListAdapter extends RecyclerView.Adapter<InvestmentListAd
             lastUpdateTxtView = (TextView) view.findViewById(R.id.last_update_text_view);
         }
     }
-    
+
 }
