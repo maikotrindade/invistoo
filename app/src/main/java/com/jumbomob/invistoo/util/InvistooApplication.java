@@ -3,6 +3,8 @@ package com.jumbomob.invistoo.util;
 import android.app.Application;
 
 import com.jumbomob.invistoo.model.persistence.DatabaseHelper;
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
 
 /**
  * @author maiko.trindade
@@ -20,6 +22,7 @@ public class InvistooApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Fabric.with(this, new Crashlytics());
         sInstance = this;
     }
 

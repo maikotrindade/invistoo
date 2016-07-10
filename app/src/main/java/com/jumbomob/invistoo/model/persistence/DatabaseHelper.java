@@ -70,7 +70,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase database) {
         database.execSQL(CREATE_ASSET_TB);
         database.execSQL(CREATE_INVESTMENT_TB);
-        database.execSQL(CREATE_QUESTION_TB);
+        //database.execSQL(CREATE_QUESTION_TB);
     }
 
     @Override

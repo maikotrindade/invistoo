@@ -1,4 +1,14 @@
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
+    dependencies {
+        classpath 'io.fabric.tools:gradle:1.+'
+    }
+}
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion 23
@@ -17,15 +27,33 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    productFlavors {
+        dev {
+            applicationId "com.jumbomob.invistoo.dev"
+            buildConfigField 'String', 'ENV', '"dev"'
+        }
+
+        qa {
+            applicationId "com.jumbomob.invistoo.qa"
+            buildConfigField 'String', 'ENV', '"qa"'
+        }
+
+        prod {
+            applicationId "com.jumbomob.invistoo.prod"
+            buildConfigField 'String', 'ENV', '"prod"'
+        }
+    }
 }
 
 repositories {
     maven { url "https://jitpack.io" }
+    maven { url 'https://maven.fabric.io/public' }
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
+
     compile('com.squareup.retrofit:converter-simplexml:2.0.0-beta2') {
         exclude group: 'stax', module: 'stax-api'
         exclude group: 'stax', module: 'stax'
@@ -38,4 +66,7 @@ dependencies {
     compile 'com.google.code.gson:gson:2.4'
     compile 'com.android.support:support-v4:23.2.1'
     compile 'com.github.PhilJay:MPAndroidChart:v2.2.4'
+    compile('com.crashlytics.sdk.android:crashlytics:2.5.7@aar') {
+        transitive = true;
+    }
 }
