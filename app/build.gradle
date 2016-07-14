@@ -34,11 +34,6 @@ android {
             buildConfigField 'String', 'ENV', '"dev"'
         }
 
-        qa {
-            applicationId "com.jumbomob.invistoo.qa"
-            buildConfigField 'String', 'ENV', '"qa"'
-        }
-
         prod {
             applicationId "com.jumbomob.invistoo.prod"
             buildConfigField 'String', 'ENV', '"prod"'
@@ -66,7 +61,7 @@ dependencies {
     compile 'com.google.code.gson:gson:2.4'
     compile 'com.android.support:support-v4:23.2.1'
     compile 'com.github.PhilJay:MPAndroidChart:v2.2.4'
-    compile('com.crashlytics.sdk.android:crashlytics:2.5.7@aar') {
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.0@aar') {
         transitive = true;
     }
 }
