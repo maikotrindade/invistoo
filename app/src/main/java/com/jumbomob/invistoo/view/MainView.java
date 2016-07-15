@@ -2,9 +2,9 @@ package com.jumbomob.invistoo.view;
 
 /**
  * @author maiko.trindade
- * @since 13/07/2016
+ * @since 14/07/2016
  */
-public interface HomeView {
+public interface MainView {
 
 
 }
