@@ -12,9 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jumbomob.invistoo.R;
-import com.jumbomob.invistoo.component.DividerItemDecorator;
 import com.jumbomob.invistoo.model.persistence.dao.InvestmentDAO;
 import com.jumbomob.invistoo.ui.adapter.InvestmentListAdapter;
+import com.jumbomob.invistoo.ui.component.DividerItemDecorator;
 
 /**
  * @author maiko.trindade

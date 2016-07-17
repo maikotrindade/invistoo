@@ -1,4 +1,4 @@
-package com.jumbomob.invistoo.component;
+package com.jumbomob.invistoo.ui.component;
 
 import android.content.Context;
 import android.content.res.TypedArray;

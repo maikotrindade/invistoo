@@ -13,12 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jumbomob.invistoo.R;
-import com.jumbomob.invistoo.component.DividerItemDecorator;
 import com.jumbomob.invistoo.model.entity.Question;
 import com.jumbomob.invistoo.model.network.BaseNetworkConfig;
 import com.jumbomob.invistoo.model.network.QuestionInterface;
 import com.jumbomob.invistoo.model.persistence.dao.QuestionDAO;
 import com.jumbomob.invistoo.ui.adapter.QuestionListAdapter;
+import com.jumbomob.invistoo.ui.component.DividerItemDecorator;
 import com.jumbomob.invistoo.util.InvistooUtil;
 
 import java.util.List;
