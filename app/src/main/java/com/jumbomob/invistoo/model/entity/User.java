@@ -1,11 +1,15 @@
 package com.jumbomob.invistoo.model.entity;
 
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
 /**
  * @author maiko.trindade
  * @since 14/02/2016
  */
-public class User {
+public class User extends RealmObject {
 
+    @PrimaryKey
     private long id;
     private String firstName;
     private String lastName;

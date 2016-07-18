@@ -20,8 +20,8 @@ import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.model.entity.Asset;
 import com.jumbomob.invistoo.model.entity.AssetTypeEnum;
 import com.jumbomob.invistoo.model.entity.Investment;
-import com.jumbomob.invistoo.model.persistence.dao.AssetDAO;
-import com.jumbomob.invistoo.model.persistence.dao.InvestmentDAO;
+import com.jumbomob.invistoo.model.persistence.AssetDAO;
+import com.jumbomob.invistoo.model.persistence.InvestmentDAO;
 import com.jumbomob.invistoo.util.DateUtil;
 import com.jumbomob.invistoo.util.InvistooUtil;
 import com.jumbomob.invistoo.util.NumericUtil;
@@ -108,8 +108,7 @@ public class NewInvestmentFragment extends Fragment {
             investment.setQuantity(NumericUtil.getValidDouble(mAssetQuantityTxtView.getText()
                     .toString()));
             investment.setUpdateDate(DateUtil.formatDate(new Date()));
-            investment.setPrice(NumericUtil.getValidBigDecimal(mAssetPriceTxtView.getText().toString
-                    ()));
+            investment.setPrice(mAssetPriceTxtView.getText().toString());
 
             final InvestmentDAO investmentDao = InvestmentDAO.getInstance();
             investmentDao.insert(investment);

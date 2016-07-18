@@ -1,17 +1,19 @@
 package com.jumbomob.invistoo.model.entity;
 
-import java.math.BigDecimal;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 /**
  * @author maiko.trindade
  * @since 14/02/2016
  */
-public class Investment {
+public class Investment extends RealmObject {
 
+    @PrimaryKey
     private long id;
     private String name;
     private double quantity;
-    private BigDecimal price;
+    private String price;
     private String creationDate;
     private String updateDate;
     private String removedDate;
@@ -42,11 +44,11 @@ public class Investment {
         this.name = name;
     }
 
-    public BigDecimal getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 

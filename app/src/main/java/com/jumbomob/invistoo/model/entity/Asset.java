@@ -3,14 +3,18 @@ package com.jumbomob.invistoo.model.entity;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
 /**
  * @author maiko.trindade
  * @since 04/02/2016
  */
-public class Asset {
+public class Asset extends RealmObject {
 
     @SerializedName("_id")
     @Expose
+    @PrimaryKey
     private String id;
 
     @SerializedName("title")

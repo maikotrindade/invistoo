@@ -19,7 +19,7 @@ import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.model.entity.Asset;
 import com.jumbomob.invistoo.model.network.AssetInterface;
 import com.jumbomob.invistoo.model.network.BaseNetworkConfig;
-import com.jumbomob.invistoo.model.persistence.dao.AssetDAO;
+import com.jumbomob.invistoo.model.persistence.AssetDAO;
 import com.jumbomob.invistoo.ui.adapter.AssetListAdapter;
 import com.jumbomob.invistoo.ui.component.DividerItemDecorator;
 import com.jumbomob.invistoo.util.InvistooUtil;

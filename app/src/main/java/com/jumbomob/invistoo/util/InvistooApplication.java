@@ -2,9 +2,11 @@ package com.jumbomob.invistoo.util;
 
 import android.app.Application;
 
-import com.jumbomob.invistoo.model.persistence.DatabaseHelper;
 import com.crashlytics.android.Crashlytics;
+
 import io.fabric.sdk.android.Fabric;
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 /**
  * @author maiko.trindade
@@ -13,7 +15,7 @@ import io.fabric.sdk.android.Fabric;
 public class InvistooApplication extends Application {
 
     private static InvistooApplication sInstance;
-    private static DatabaseHelper sDatabaseHelper;
+    private static Realm sRealm;
 
     public static synchronized InvistooApplication getInstance() {
         return sInstance;
@@ -26,10 +28,13 @@ public class InvistooApplication extends Application {
         sInstance = this;
     }
 
-    public DatabaseHelper getDatabaseHelper() {
-        if (sDatabaseHelper == null) {
-            sDatabaseHelper = new DatabaseHelper(getApplicationContext());
+    public Realm getDatabaseInstance() {
+        if (sRealm == null) {
+            RealmConfiguration config = new RealmConfiguration.Builder(getApplicationContext())
+                    .build();
+            Realm.setDefaultConfiguration(config);
+            sRealm = Realm.getDefaultInstance();
         }
-        return sDatabaseHelper;
+        return sRealm;
     }
 }

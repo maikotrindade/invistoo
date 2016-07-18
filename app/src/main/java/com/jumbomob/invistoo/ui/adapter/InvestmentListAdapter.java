@@ -47,7 +47,7 @@ public class InvestmentListAdapter extends RecyclerView.Adapter<InvestmentListAd
         final Investment investment = mInvestments.get(position);
         holder.nameTxtView.setText(investment.getName());
         holder.quantityTxtView.setText(NumericUtil.formatDouble(investment.getQuantity()));
-        holder.priceTxtView.setText(NumericUtil.formatCurrency(investment.getPrice()));
+        holder.priceTxtView.setText(investment.getPrice());
         holder.lastUpdateTxtView.setText(investment.getUpdateDate());
     }
 
