@@ -46,9 +46,8 @@ public class NewInvestmentFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
-    Bundle
-            savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         mRootView = inflater.inflate(R.layout.fragment_new_investment, container, false);
@@ -57,6 +56,12 @@ public class NewInvestmentFragment extends Fragment {
         bindElements();
 
         return mRootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().setTitle(R.string.title_new_investment);
     }
 
     private void configureAssetSpinner() {

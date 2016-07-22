@@ -57,6 +57,12 @@ public class AssetListFragment extends Fragment {
         return mRootView;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().setTitle(R.string.title_indexes);
+    }
+
     private void configureRecyclerView() {
 
         final AssetDAO assetDAO = AssetDAO.getInstance();

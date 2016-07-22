@@ -54,6 +54,12 @@ public class UsefulInformationListFragment extends Fragment {
         return mRootView;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().setTitle(R.string.title_useful_information);
+    }
+
     private void configureRecyclerView() {
         final QuestionDAO dao = QuestionDAO.getInstance();
         RecyclerView recyclerView = (RecyclerView) mRootView.findViewById(R.id

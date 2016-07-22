@@ -66,4 +66,5 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.6.0@aar') {
         transitive = true;
     }
+    compile 'com.github.clans:fab:1.6.4'
 }

@@ -28,6 +28,7 @@
         Por favor, tente novamente.</string>
 
     <!-- Titles -->
+    <string name="title_indexes">Cotação</string>
     <string name="my_investments">Meus Investimentos</string>
     <string name="title_new_investment">Novo Investimento</string>
     <string name="title_useful_information">Informações Úteis</string>
@@ -41,5 +42,7 @@
     <!-- Assets -->
     <string name="msg_asset_updated_success">Cotação atualizada com sucesso</string>
     <string name="msg_save_investment">Investimento registrado.</string>
+    <string name="investment">Investimento</string>
+    <string name="balanced_investment">Investmento Balanceado</string>
 
 </resources>

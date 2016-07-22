@@ -80,20 +80,20 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
                         (R.string.title_home));
                 break;
             case R.id.nav_my_wallet:
-                setFragment(InvestmentsListFragment.newInstance(), R.id.nav_my_wallet, getString
-                        (R.string.my_investments));
+                setFragment(InvestmentsListFragment.newInstance(), R.id.nav_my_wallet,
+                        getString(R.string.my_investments));
                 break;
             case R.id.nav_indexes:
-                setFragment(AssetListFragment.newInstance(), R.id.nav_indexes, getString(R.string
-                        .my_investments));
+                setFragment(AssetListFragment.newInstance(), R.id.nav_indexes,
+                        getString(R.string.title_indexes));
                 break;
             case R.id.nav_brokerage:
                 setFragment(BrokerageListFragment.newInstance(), R.id.nav_brokerage,
                         getString(R.string.title_brokerage));
                 break;
             case R.id.nav_useful_information:
-                setFragment(UsefulInformationListFragment.newInstance(), R.id.nav_useful_information,
-                        getString(R.string.title_useful_information));
+                setFragment(UsefulInformationListFragment.newInstance(), R.id
+                        .nav_useful_information, getString(R.string.title_useful_information));
                 break;
             case R.id.nav_settings:
                 setFragment(SettingsFragment.newInstance(), R.id.nav_settings,
@@ -111,7 +111,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
         return true;
     }
 
-    protected void setFragment(final Fragment fragment, final int navigationItemId, final String title) {
+    protected void setFragment(final Fragment fragment, final int navigationItemId, final String
+            title) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.content, fragment)

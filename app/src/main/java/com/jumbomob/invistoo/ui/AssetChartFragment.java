@@ -117,6 +117,12 @@ public class AssetChartFragment extends Fragment {
         rightAxis.setGranularityEnabled(false);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().setTitle(R.string.my_investments);
+    }
+
     private void setData(int count, float range) {
 
         ArrayList<String> xVals = new ArrayList<String>();

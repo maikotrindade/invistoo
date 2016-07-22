@@ -34,4 +34,10 @@ public class HomeFragment extends Fragment implements HomeView {
         return mRootView;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().setTitle(R.string.title_home);
+    }
+
 }
