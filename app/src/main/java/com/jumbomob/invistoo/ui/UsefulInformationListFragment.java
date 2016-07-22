@@ -18,7 +18,6 @@ import com.jumbomob.invistoo.model.network.BaseNetworkConfig;
 import com.jumbomob.invistoo.model.network.QuestionInterface;
 import com.jumbomob.invistoo.model.persistence.QuestionDAO;
 import com.jumbomob.invistoo.ui.adapter.QuestionListAdapter;
-import com.jumbomob.invistoo.ui.component.DividerItemDecorator;
 import com.jumbomob.invistoo.util.InvistooUtil;
 
 import java.util.List;
@@ -66,8 +65,6 @@ public class UsefulInformationListFragment extends Fragment {
         final QuestionDAO dao = QuestionDAO.getInstance();
         mRecyclerView = (RecyclerView) mRootView.findViewById(R.id
                 .questions_recycler_view);
-        mRecyclerView.addItemDecoration(new DividerItemDecorator(getActivity(), DividerItemDecorator
-                .VERTICAL_LIST));
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mRootView.getContext()));
 
