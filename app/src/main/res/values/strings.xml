@@ -39,7 +39,7 @@
     <string name="action_save">Salvar</string>
     <string name="action_settings">Configurações</string>
 
-    <!-- Assets -->
+    <string name="msg_asset_questions_success">informações úteis atualizadas com sucesso</string>
     <string name="msg_asset_updated_success">Cotação atualizada com sucesso</string>
     <string name="msg_save_investment">Investimento registrado.</string>
     <string name="investment">Investimento</string>

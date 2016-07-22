@@ -37,6 +37,8 @@ public class UsefulInformationListFragment extends Fragment {
 
     private View mRootView;
     private SwipeRefreshLayout mSwipelayout;
+    private QuestionListAdapter mAdapter;
+    private RecyclerView mRecyclerView;
 
     public static UsefulInformationListFragment newInstance() {
         UsefulInformationListFragment fragment = new UsefulInformationListFragment();
@@ -62,15 +64,15 @@ public class UsefulInformationListFragment extends Fragment {
 
     private void configureRecyclerView() {
         final QuestionDAO dao = QuestionDAO.getInstance();
-        RecyclerView recyclerView = (RecyclerView) mRootView.findViewById(R.id
+        mRecyclerView = (RecyclerView) mRootView.findViewById(R.id
                 .questions_recycler_view);
-        recyclerView.addItemDecoration(new DividerItemDecorator(getActivity(), DividerItemDecorator
+        mRecyclerView.addItemDecoration(new DividerItemDecorator(getActivity(), DividerItemDecorator
                 .VERTICAL_LIST));
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(mRootView.getContext()));
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(mRootView.getContext()));
 
-        final QuestionListAdapter adapter = new QuestionListAdapter(dao.findAll());
-        recyclerView.setAdapter(adapter);
+        mAdapter = new QuestionListAdapter(dao.findAll());
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     private void configureSwipe() {
@@ -98,6 +100,9 @@ public class UsefulInformationListFragment extends Fragment {
                     for (Question question : questionsResult) {
                         questionDAO.insert(question);
                     }
+                    updateRecycler(questionsResult);
+                    InvistooUtil.makeSnackBar(getView(), getString(R.string
+                            .msg_asset_questions_success), Snackbar.LENGTH_LONG).show();
                 } else {
                     onDownloadError();
                     Log.e(TAG, response.code() + " - " + response.message());
@@ -116,6 +121,11 @@ public class UsefulInformationListFragment extends Fragment {
         InvistooUtil.makeSnackBar(mRootView, getActivity().getString(R.string
                 .error_download_questions), Snackbar
                 .LENGTH_LONG).show();
+    }
+
+    private void updateRecycler(final List<Question> questions) {
+        mAdapter.setItens(questions);
+        mAdapter.notifyDataSetChanged();
     }
 
 }
