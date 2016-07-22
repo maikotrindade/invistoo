@@ -44,5 +44,7 @@
     <string name="msg_save_investment">Investimento registrado.</string>
     <string name="investment">Investimento</string>
     <string name="balanced_investment">Investmento Balanceado</string>
+    <string name="no_synced">Não sincronizado</string>
+
 
 </resources>
