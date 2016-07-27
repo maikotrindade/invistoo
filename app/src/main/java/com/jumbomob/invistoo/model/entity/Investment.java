@@ -10,7 +10,7 @@ import io.realm.annotations.PrimaryKey;
 public class Investment extends RealmObject {
 
     @PrimaryKey
-    private long id;
+    private Long id;
     private String name;
     private double quantity;
     private String price;
@@ -20,11 +20,11 @@ public class Investment extends RealmObject {
 
     //TODO add user
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

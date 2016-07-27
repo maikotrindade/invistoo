@@ -29,7 +29,7 @@ public class InvestmentDAO {
     public void insert(final Investment investment) {
         Realm realm = InvistooApplication.getInstance().getDatabaseInstance();
         realm.beginTransaction();
-        realm.insertOrUpdate(investment);
+        realm.insert(investment);
         realm.commitTransaction();
     }
 

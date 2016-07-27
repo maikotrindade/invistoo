@@ -20,6 +20,4 @@ public class SettingsPresenter implements BasePresenter<SettingsView> {
         mView = null;
     }
 
-
-
 }

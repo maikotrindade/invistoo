@@ -47,6 +47,8 @@
     <string name="no_synced">Não sincronizado</string>
 
     <string name="todo">Not implemented yet!</string>
+    <string name="percentage">Porcentagem</string>
+    <string name="title">Título</string>
 
 
 </resources>

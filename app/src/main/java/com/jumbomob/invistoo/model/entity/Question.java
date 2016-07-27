@@ -15,7 +15,7 @@ public class Question extends RealmObject {
     @SerializedName("_id")
     @Expose
     @PrimaryKey
-    private String id;
+    private Long id;
 
     @SerializedName("question")
     @Expose
@@ -45,11 +45,11 @@ public class Question extends RealmObject {
         this.group = group;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

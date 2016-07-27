@@ -1,4 +1,5 @@
-<android.support.design.widget.CoordinatorLayout
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -12,17 +13,20 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/settings_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
         </android.support.v7.widget.RecyclerView>
 
     </LinearLayout>
 
     <com.github.clans.fab.FloatingActionButton
         android:id="@+id/new_asset_settings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/material_amber_600"
-        fab:fab_label="@string/balanced_investment"
-        fab:fab_size="mini"/>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        fab:fab_size="normal"/>
 
-</android.support.design.widget.CoordinatorLayout>
+</RelativeLayout>

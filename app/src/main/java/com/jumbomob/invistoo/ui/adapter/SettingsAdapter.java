@@ -1,14 +1,22 @@
 package com.jumbomob.invistoo.ui.adapter;
 
+import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.jumbomob.invistoo.R;
+import com.jumbomob.invistoo.model.entity.AssetTypeEnum;
 import com.jumbomob.invistoo.ui.callback.onSearchResultListener;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -17,20 +25,25 @@ import java.util.List;
  */
 public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHolder> {
 
-    private List<String> mSettings;
+    private Context mContext;
+    private List<AssetTypeEnum> mAssets;
+    private List<AssetTypeEnum> mAssetsTypeEnum;
     private int mPosition;
     private onSearchResultListener mSearchListener;
 
-    public SettingsAdapter(List<String> settings) {
-        mSettings = settings;
+    public SettingsAdapter(Context context, List<AssetTypeEnum> assets) {
+        mContext = context;
+        mAssets = assets;
+        mAssetsTypeEnum = new ArrayList<>();
+        mAssetsTypeEnum = Arrays.asList(AssetTypeEnum.values());
     }
 
-    public void setItens(List<String> settings) {
-        this.mSettings = settings;
+    public void setItens(List<AssetTypeEnum> asset) {
+        this.mAssets = asset;
     }
 
-    public String getSelectedItem() {
-        return mSettings.get(mPosition);
+    public AssetTypeEnum getSelectedItem() {
+        return mAssets.get(mPosition);
     }
 
     @Override
@@ -40,23 +53,74 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
         return new ViewHolder(view);
     }
 
-    @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        final String settings = mSettings.get(position);
-        holder.nameTxtView.setText(settings);
+    public void remove(int position) {
+        mAssets.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    public void add(int position) {
+        for (AssetTypeEnum enumType : mAssetsTypeEnum) {
+            if (!mAssets.contains(enumType)) {
+                mAssets.add(enumType);
+                notifyItemInserted(position);
+                break;
+            }
+        }
     }
 
     @Override
     public int getItemCount() {
-        return mSettings.size();
+        return mAssets.size();
+    }
+
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        final AssetTypeEnum asset = mAssets.get(position);
+
+        configureSpinner(holder, asset);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView nameTxtView;
+        private EditText quantityTxtView;
+        private Spinner assetSpinner;
 
         public ViewHolder(View view) {
             super(view);
-            nameTxtView = (TextView) view.findViewById(R.id.name_text_view);
+            quantityTxtView = (EditText) view.findViewById(R.id.percentage_edit_text);
+            assetSpinner = (Spinner) view.findViewById(R.id.assets_spinner);
         }
+    }
+
+    private void configureSpinner(final ViewHolder holder, final AssetTypeEnum asset) {
+
+        final SpinnerAssetAdapter dataAdapter = new SpinnerAssetAdapter
+                (mContext, android.R.layout.simple_spinner_item, AssetTypeEnum.values());
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        holder.assetSpinner.setAdapter(dataAdapter);
+        holder.assetSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
+
+    @NonNull
+    private AssetTypeEnum[] getAssetsFiltered() {
+        List<AssetTypeEnum> filtered = new ArrayList<>(mAssetsTypeEnum);
+        for (AssetTypeEnum assetSelected : mAssets) {
+            for (Iterator<AssetTypeEnum> iterator = filtered.iterator(); iterator.hasNext(); ) {
+                AssetTypeEnum asset = iterator.next();
+                if (asset.equals(assetSelected)) {
+                    iterator.remove();
+                }
+            }
+        }
+        return filtered.toArray(new AssetTypeEnum[filtered.size()]);
     }
 }
