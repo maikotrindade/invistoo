@@ -2,6 +2,7 @@ package com.jumbomob.invistoo.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,11 +15,14 @@ import android.view.ViewGroup;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.jumbomob.invistoo.R;
-import com.jumbomob.invistoo.model.entity.AssetTypeEnum;
+import com.jumbomob.invistoo.model.entity.Goal;
+import com.jumbomob.invistoo.model.persistence.GoalDAO;
 import com.jumbomob.invistoo.presenter.SettingsPresenter;
 import com.jumbomob.invistoo.ui.adapter.SettingsAdapter;
+import com.jumbomob.invistoo.util.InvistooUtil;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author maiko.trindade
@@ -42,7 +46,7 @@ public class SettingsFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mRootView = inflater.inflate(R.layout.fragment_settings, container, false);
-
+        setHasOptionsMenu(true);
         mPresenter = new SettingsPresenter();
         configureElements();
         return mRootView;
@@ -64,14 +68,18 @@ public class SettingsFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_save:
-                saveSettings();
+                saveGoals();
                 break;
         }
         return false;
     }
 
-    private void saveSettings() {
-
+    private void saveGoals() {
+        final List<Goal> goals = mAdapter.getItens();
+        final GoalDAO goalDAO = GoalDAO.getInstance();
+        goalDAO.insert(goals);
+        InvistooUtil.makeSnackBar(getView(), getString(R.string.msg_asset_updated_success),
+                Snackbar.LENGTH_LONG).show();
     }
 
     private void configureElements() {
@@ -96,7 +104,7 @@ public class SettingsFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(mRootView.getContext()));
 
-        mAdapter = new SettingsAdapter(mRootView.getContext(), new ArrayList<AssetTypeEnum>());
+        mAdapter = new SettingsAdapter(mRootView.getContext(), new ArrayList<Goal>());
         recyclerView.setAdapter(mAdapter);
     }
 }

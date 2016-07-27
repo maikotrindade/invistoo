@@ -1,19 +1,30 @@
 package com.jumbomob.invistoo.model.entity;
 
+import io.realm.RealmObject;
+
 /**
  * @author maiko.trindade
  * @since 25/07/2016
  */
-public class Goal {
+public class Goal extends RealmObject {
 
+    private Long id;
     private Double percent;
-    private AssetTypeEnum assetTypeEnum;
+    private AssetTypeAdapter assetTypeEnum;
 
-    public AssetTypeEnum getAssetTypeEnum() {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public AssetTypeAdapter getAssetTypeEnum() {
         return assetTypeEnum;
     }
 
-    public void setAssetTypeEnum(AssetTypeEnum assetTypeEnum) {
+    public void setAssetTypeEnum(AssetTypeAdapter assetTypeEnum) {
         this.assetTypeEnum = assetTypeEnum;
     }
 
