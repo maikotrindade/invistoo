@@ -39,4 +39,11 @@ public class InvestmentDAO {
         RealmResults<Investment> investments = query.findAll();
         return investments;
     }
+
+    public List<Investment> findByAssetType(Long assetType) {
+        Realm realm = InvistooApplication.getInstance().getDatabaseInstance();
+        return realm.where(Investment.class)
+                .equalTo("assetType", assetType)
+                .findAll();
+    }
 }

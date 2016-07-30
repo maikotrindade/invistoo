@@ -11,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -22,14 +21,12 @@ import com.jumbomob.invistoo.model.entity.AssetTypeEnum;
 import com.jumbomob.invistoo.model.entity.Investment;
 import com.jumbomob.invistoo.model.persistence.AssetDAO;
 import com.jumbomob.invistoo.model.persistence.InvestmentDAO;
+import com.jumbomob.invistoo.ui.adapter.SpinnerAssetAdapter;
 import com.jumbomob.invistoo.util.DateUtil;
 import com.jumbomob.invistoo.util.InvistooUtil;
 import com.jumbomob.invistoo.util.NumericUtil;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
 public class NewInvestmentFragment extends Fragment {
 
@@ -66,13 +63,22 @@ public class NewInvestmentFragment extends Fragment {
 
     private void configureAssetSpinner() {
         mSpinner = (Spinner) mRootView.findViewById(R.id.assets_spinner);
-        List<String> mSpinnerItems = new ArrayList<>(Arrays.asList(AssetTypeEnum.getTitles()));
-        final ArrayAdapter<String> dataAdapter = new ArrayAdapter<>
-                (mRootView.getContext(), android.R.layout.simple_spinner_item, mSpinnerItems);
-        dataAdapter.setDropDownViewResource
-                (android.R.layout.simple_spinner_dropdown_item);
+        final SpinnerAssetAdapter dataAdapter = new SpinnerAssetAdapter
+                (getContext(), android.R.layout.simple_spinner_item, AssetTypeEnum.values());
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinner.setAdapter(dataAdapter);
-        mSpinner.setOnItemSelectedListener(new SpinnerListener());
+        mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
+                configureElements(pos + 1);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
     }
 
     private void bindElements() {
@@ -81,17 +87,6 @@ public class NewInvestmentFragment extends Fragment {
         mAssetDueDateTxtView = (TextView) mRootView.findViewById(R.id.asset_due_date_text_view);
         mAssetPriceTxtView = (EditText) mRootView.findViewById(R.id.asset_price_edit_text);
         mAssetQuantityTxtView = (EditText) mRootView.findViewById(R.id.asset_quantity_edit_text);
-    }
-
-    public class SpinnerListener implements AdapterView.OnItemSelectedListener {
-
-        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            configureElements(position + 1);
-        }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> arg0) {
-        }
     }
 
     private void configureElements(final int assetIndex) {
@@ -114,6 +109,7 @@ public class NewInvestmentFragment extends Fragment {
                     .toString()));
             investment.setUpdateDate(DateUtil.formatDate(new Date()));
             investment.setPrice(mAssetPriceTxtView.getText().toString());
+            investment.setAssetType((AssetTypeEnum) mSpinner.getSelectedItem());
 
             final InvestmentDAO investmentDao = InvestmentDAO.getInstance();
             investmentDao.insert(investment);

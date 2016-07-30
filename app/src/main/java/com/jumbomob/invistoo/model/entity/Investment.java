@@ -17,6 +17,7 @@ public class Investment extends RealmObject {
     private String creationDate;
     private String updateDate;
     private String removedDate;
+    private Long assetType;
 
     //TODO add user
 
@@ -74,5 +75,27 @@ public class Investment extends RealmObject {
 
     public void setUpdateDate(String updateDate) {
         this.updateDate = updateDate;
+    }
+
+    public Long getAssetType() {
+        return assetType;
+    }
+
+    public void setAssetType(AssetTypeEnum assetType) {
+        this.assetType = assetType.getId();
+    }
+
+    @Override
+    public String toString() {
+        return "Investment{" +
+                "assetType=" + assetType +
+                ", id=" + id +
+                ", name='" + name + '\'' +
+                ", quantity=" + quantity +
+                ", price='" + price + '\'' +
+                ", creationDate='" + creationDate + '\'' +
+                ", updateDate='" + updateDate + '\'' +
+                ", removedDate='" + removedDate + '\'' +
+                '}';
     }
 }

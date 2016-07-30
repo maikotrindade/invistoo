@@ -32,15 +32,15 @@ public enum AssetTypeEnum {
     SELIC_2017(24, "Tesouro Selic 2017"),
     SELIC_2021(25, "Tesouro Selic 2021");
 
-    private int id;
+    private long id;
     private String title;
 
-    AssetTypeEnum(final int id, final String title) {
+    AssetTypeEnum(final long id, final String title) {
         this.id = id;
         this.title = title;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -48,7 +48,7 @@ public enum AssetTypeEnum {
         return title;
     }
 
-    public static AssetTypeEnum getById(int id) {
+    public static AssetTypeEnum getById(long id) {
         for (AssetTypeEnum paxStatus : AssetTypeEnum.values()) {
             if (paxStatus.getId() == id) {
                 return paxStatus;
