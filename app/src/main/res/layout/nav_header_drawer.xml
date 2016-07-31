@@ -6,7 +6,6 @@
     android:background="@drawable/side_nav_bar"
     android:gravity="bottom"
     android:orientation="vertical"
-    android:paddingBottom="4dp"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_small_margin"
@@ -17,9 +16,9 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:src="@mipmap/ic_launcher"
+        android:src="@drawable/ic_user"
         app:civ_border_color="#FFFFFF"
-        app:civ_border_width="2dp"/>
+        app:civ_border_width="1dp"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -31,6 +30,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:text="@string/author_email"/>
 
 </LinearLayout>

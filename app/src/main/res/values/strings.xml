@@ -1,12 +1,8 @@
 <resources>
-    <string name="app_name">_Invistoo</string>
-    <string name="app_label">_Invistoo</string>
-    <string name="search_hint">Hint</string>
-
+    <string name="app_name">Invistoo</string>
+    <string name="app_label">Invistoo</string>
     <string name="author_name">Maiko Trindade</string>
     <string name="author_email">maikocharles@gmail.com</string>
-
-    <string name="search_title">Search Title</string>
 
     <!-- Navigation -->
     <string name="navigation_drawer_open">Open</string>
@@ -45,7 +41,8 @@
     <string name="investment">Investimento</string>
     <string name="balanced_investment">Investmento Balanceado</string>
     <string name="no_synced">Não sincronizado</string>
-
+    <string name="search_title">Search Title</string>
+    <string name="search_hint">Pesquisar</string>
     <string name="todo">Not implemented yet!</string>
     <string name="percentage">Porcentagem</string>
     <string name="title">Título</string>
