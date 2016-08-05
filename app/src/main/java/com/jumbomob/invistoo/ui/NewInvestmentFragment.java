@@ -113,11 +113,8 @@ public class NewInvestmentFragment extends Fragment {
 
             final InvestmentDAO investmentDao = InvestmentDAO.getInstance();
             investmentDao.insert(investment);
-
             InvistooUtil.makeSnackBar(mRootView, getContext().getString(R.string
                     .msg_save_investment), Snackbar.LENGTH_LONG).show();
-
-            getActivity().getFragmentManager().popBackStack();
         }
     }
 

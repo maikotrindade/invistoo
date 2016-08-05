@@ -19,4 +19,6 @@ public class AssetListPresenter implements BasePresenter<AssetListView> {
     public void detachView() {
         mView = null;
     }
+
+
 }

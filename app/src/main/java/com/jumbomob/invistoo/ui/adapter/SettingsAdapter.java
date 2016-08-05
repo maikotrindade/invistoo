@@ -81,17 +81,17 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Goal goal = mGoals.get(position);
-
+        holder.percentageEditText.setText(String.valueOf(goal.getPercent()));
         configureSpinner(holder);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private EditText quantityTxtView;
+        private EditText percentageEditText;
         private Spinner assetSpinner;
 
         public ViewHolder(View view) {
             super(view);
-            quantityTxtView = (EditText) view.findViewById(R.id.percentage_edit_text);
+            percentageEditText = (EditText) view.findViewById(R.id.percentage_edit_text);
             assetSpinner = (Spinner) view.findViewById(R.id.assets_spinner);
         }
     }

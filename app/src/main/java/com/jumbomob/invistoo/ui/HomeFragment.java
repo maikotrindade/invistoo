@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.highlight.Highlight;
@@ -88,12 +87,7 @@ public class HomeFragment extends Fragment implements HomeView {
             }
         });
 
-        mPresenter.getChartData();
-        Legend legend = mChart.getLegend();
-        legend.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
-        legend.setXEntrySpace(7f);
-        legend.setYEntrySpace(0f);
-        legend.setYOffset(0f);
+        mPresenter.getChartData(mChart);
     }
 
     @Override

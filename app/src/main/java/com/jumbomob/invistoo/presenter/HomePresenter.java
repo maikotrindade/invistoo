@@ -2,6 +2,8 @@ package com.jumbomob.invistoo.presenter;
 
 import android.graphics.Color;
 
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -39,8 +41,7 @@ public class HomePresenter implements BasePresenter<HomeView> {
         mHomeView = null;
     }
 
-    public void getChartData() {
-
+    public void getChartData(PieChart chart) {
         final InvestmentDAO dao = InvestmentDAO.getInstance();
         Long total = new Long(0);
         List<InvestmentChartDTO> chartDTOs = new ArrayList<>();
@@ -61,22 +62,33 @@ public class HomePresenter implements BasePresenter<HomeView> {
             }
         }
 
-        ArrayList<Entry> chartEntries = new ArrayList<>();
-        ArrayList<String> subtitles = new ArrayList<>();
-        for (int index = 0; index < chartDTOs.size(); index++) {
-            chartEntries.add(new Entry((float) (total / chartDTOs.get(index).getSum()), index));
-            subtitles.add(chartDTOs.get(index).getDescription());
+        PieData pieData;
+        if (chartDTOs.size() > 0) {
+            ArrayList<Entry> chartEntries = new ArrayList<>();
+            ArrayList<String> subtitles = new ArrayList<>();
+            for (int index = 0; index < chartDTOs.size(); index++) {
+                chartEntries.add(new Entry((float) (total / chartDTOs.get(index).getSum()), index));
+                subtitles.add(chartDTOs.get(index).getDescription());
+            }
+
+            PieDataSet dataSet = new PieDataSet(chartEntries, "Total Investido");
+            dataSet.setSliceSpace(3f);
+            dataSet.setSelectionShift(5f);
+            dataSet.setColors(ChartUtil.getMaterialTheme());
+
+            pieData = new PieData(subtitles, dataSet);
+            pieData.setValueFormatter(new PercentFormatter());
+            pieData.setValueTextSize(11f);
+            pieData.setValueTextColor(Color.DKGRAY);
+            generateLegend(chart.getLegend());
+            mHomeView.setChartData(pieData);
         }
+    }
 
-        PieDataSet dataSet = new PieDataSet(chartEntries, "Total Investido");
-        dataSet.setSliceSpace(3f);
-        dataSet.setSelectionShift(5f);
-        dataSet.setColors(ChartUtil.getMaterialTheme());
-
-        PieData data = new PieData(subtitles, dataSet);
-        data.setValueFormatter(new PercentFormatter());
-        data.setValueTextSize(11f);
-        data.setValueTextColor(Color.DKGRAY);
-        mHomeView.setChartData(data);
+    private void generateLegend(Legend legend) {
+        legend.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
+        legend.setXEntrySpace(7f);
+        legend.setYEntrySpace(0f);
+        legend.setYOffset(0f);
     }
 }

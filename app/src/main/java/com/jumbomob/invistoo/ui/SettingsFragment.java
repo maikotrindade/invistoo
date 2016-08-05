@@ -21,7 +21,6 @@ import com.jumbomob.invistoo.presenter.SettingsPresenter;
 import com.jumbomob.invistoo.ui.adapter.SettingsAdapter;
 import com.jumbomob.invistoo.util.InvistooUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -103,8 +102,7 @@ public class SettingsFragment extends Fragment {
                 mRootView.findViewById(R.id.settings_recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(mRootView.getContext()));
-
-        mAdapter = new SettingsAdapter(mRootView.getContext(), new ArrayList<Goal>());
+        mAdapter = new SettingsAdapter(mRootView.getContext(), mPresenter.getGoals());
         recyclerView.setAdapter(mAdapter);
     }
 }
