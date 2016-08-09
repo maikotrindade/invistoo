@@ -103,7 +103,8 @@ public class NewInvestmentFragment extends Fragment {
 
         if (isValidFields()) {
             Investment investment = new Investment();
-            investment.setName(mSpinner.getSelectedItem().toString());
+            final AssetTypeEnum selectedItem = (AssetTypeEnum) mSpinner.getSelectedItem();
+            investment.setName(selectedItem.getTitle());
             investment.setCreationDate(DateUtil.formatDate(new Date()));
             investment.setQuantity(NumericUtil.getValidDouble(mAssetQuantityTxtView.getText()
                     .toString()));
