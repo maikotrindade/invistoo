@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jumbomob.invistoo.model.entity.AssetTypeEnum;
@@ -40,27 +41,25 @@ public class SpinnerAssetAdapter extends ArrayAdapter<AssetTypeEnum> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // I created a dynamic TextView here, but you can reference your own  custom layout for
-        // each spinner item
-        TextView label = new TextView(context);
+        final TextView label = new TextView(context);
         label.setTextColor(Color.BLACK);
-        // Then you can get the current item using the values array (Users array) and the current
-        // position
-        // You can NOW reference each method you has created in your bean object (User class)
         label.setText(values[position].getTitle());
-
-        // And finally return your dynamic (or custom) view for each spinner item
+        LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams
+                .WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        llp.setMargins(250, 0, 0, 0);
+        label.setLayoutParams(llp);
         return label;
     }
 
-    // And here is when the "chooser" is popped up
-    // Normally is the same view, but you can customize it if you want
     @Override
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
         TextView label = new TextView(context);
         label.setTextColor(Color.BLACK);
         label.setText(values[position].getTitle());
-
+        LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams
+                .WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        llp.setMargins(250, 0, 0, 0);
+        label.setLayoutParams(llp);
         return label;
     }
 }

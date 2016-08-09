@@ -45,12 +45,13 @@ public class InvistooUtil {
         return (hasWifiConnection() || hasMobileConnection()) && isNetworkActived();
     }
 
-    public static Snackbar makeSnackBar(View view, CharSequence text, int duration) {
-        Snackbar snackbar = Snackbar.make(view, text, duration);
+    public static Snackbar makeSnackBar(Activity activity, CharSequence text, int duration) {
+        final View viewById = activity.findViewById(R.id.container);
+        Snackbar snackbar = Snackbar.make(viewById, text, duration);
         View snackBarView = snackbar.getView();
-        snackBarView.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color
+        snackBarView.setBackgroundColor(ContextCompat.getColor(viewById.getContext(), R.color
                 .material_blue_600));
-        snackbar.setActionTextColor(ContextCompat.getColor(view.getContext(), R.color
+        snackbar.setActionTextColor(ContextCompat.getColor(viewById.getContext(), R.color
                 .material_grey_400));
         return snackbar;
     }

@@ -110,9 +110,7 @@ public class AssetListFragment extends Fragment {
                     for (Asset asset : assetsResult) {
                         assetDAO.insert(asset);
                     }
-                    InvistooUtil.makeSnackBar(getView(), getString(R.string
-                                    .msg_asset_updated_success),
-                            Snackbar.LENGTH_LONG).show();
+                    onDownloadSuccess();
                 } else {
                     onDownloadError();
                     Log.e(TAG, response.code() + " - " + response.message());
@@ -128,8 +126,13 @@ public class AssetListFragment extends Fragment {
     }
 
     private void onDownloadError() {
-        InvistooUtil.makeSnackBar(mRootView, getActivity().getString(R.string
-                .error_download_assets), Snackbar.LENGTH_LONG).show();
+        InvistooUtil.makeSnackBar(getActivity(), getActivity()
+                .getString(R.string.error_download_assets), Snackbar.LENGTH_LONG).show();
+    }
+
+    private void onDownloadSuccess() {
+        InvistooUtil.makeSnackBar(getActivity(), getString(R.string.msg_asset_updated_success),
+                Snackbar.LENGTH_LONG).show();
     }
 
     private void bindSearchView(final Menu menu) {

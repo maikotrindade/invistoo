@@ -132,4 +132,9 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
         setTitle(title);
     }
 
+    public void goBackFragment() {
+        //getFragmentManager().popBackStack();
+//        getFragmentManager().popBackStackImmediate();
+        getSupportFragmentManager().popBackStack();
+    }
 }

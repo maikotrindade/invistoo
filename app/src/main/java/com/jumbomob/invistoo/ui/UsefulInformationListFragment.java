@@ -98,8 +98,8 @@ public class UsefulInformationListFragment extends Fragment {
                         questionDAO.insert(question);
                     }
                     updateRecycler(questionsResult);
-                    InvistooUtil.makeSnackBar(getView(), getString(R.string
-                            .msg_asset_questions_success), Snackbar.LENGTH_LONG).show();
+//                    InvistooUtil.makeSnackBar(getView(), getString(R.string
+//                            .msg_asset_questions_success), Snackbar.LENGTH_LONG).show();
                 } else {
                     onDownloadError();
                     Log.e(TAG, response.code() + " - " + response.message());
@@ -115,7 +115,7 @@ public class UsefulInformationListFragment extends Fragment {
     }
 
     private void onDownloadError() {
-        InvistooUtil.makeSnackBar(mRootView, getActivity().getString(R.string
+        InvistooUtil.makeSnackBar(getActivity(), getActivity().getString(R.string
                 .error_download_questions), Snackbar
                 .LENGTH_LONG).show();
     }

@@ -1,26 +1,33 @@
 package com.jumbomob.invistoo.ui;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.jumbomob.invistoo.R;
+import com.jumbomob.invistoo.model.entity.AssetTypeAdapter;
+import com.jumbomob.invistoo.model.entity.AssetTypeEnum;
 import com.jumbomob.invistoo.model.entity.Goal;
 import com.jumbomob.invistoo.model.persistence.GoalDAO;
 import com.jumbomob.invistoo.presenter.SettingsPresenter;
-import com.jumbomob.invistoo.ui.adapter.SettingsAdapter;
+import com.jumbomob.invistoo.ui.adapter.SpinnerAssetAdapter;
 import com.jumbomob.invistoo.util.InvistooUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,7 +40,8 @@ public class SettingsFragment extends Fragment {
 
     private View mRootView;
     private SettingsPresenter mPresenter;
-    private SettingsAdapter mAdapter;
+    private LinearLayout mRowContainer;
+    private List<Goal> mGoals;
 
     public static SettingsFragment newInstance() {
         SettingsFragment fragment = new SettingsFragment();
@@ -46,6 +54,7 @@ public class SettingsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mRootView = inflater.inflate(R.layout.fragment_settings, container, false);
         setHasOptionsMenu(true);
+        mGoals = new ArrayList<>();
         mPresenter = new SettingsPresenter();
         configureElements();
         return mRootView;
@@ -74,16 +83,29 @@ public class SettingsFragment extends Fragment {
     }
 
     private void saveGoals() {
-        final List<Goal> goals = mAdapter.getItens();
+        Log.d(TAG, mGoals.toString());
         final GoalDAO goalDAO = GoalDAO.getInstance();
-        goalDAO.insert(goals);
-        InvistooUtil.makeSnackBar(getView(), getString(R.string.msg_asset_updated_success),
+        goalDAO.insert(mGoals);
+        InvistooUtil.makeSnackBar(getActivity(), getString(R.string.msg_asset_updated_success),
                 Snackbar.LENGTH_LONG).show();
     }
 
     private void configureElements() {
-        configureRecyclerView();
+        mRowContainer = (LinearLayout) mRootView.findViewById(R.id.rows_container);
+        loadGoals();
         configureFab();
+    }
+
+    private void loadGoals() {
+        final GoalDAO goalDAO = GoalDAO.getInstance();
+        mGoals = goalDAO.findAll();
+        Log.d(TAG, mGoals.toString());
+
+        for (Goal goal : mGoals) {
+            loadGoal(goal);
+            Log.d(TAG, "######### Loaded Goal : " + goal.toString());
+        }
+
     }
 
     private void configureFab() {
@@ -92,17 +114,105 @@ public class SettingsFragment extends Fragment {
         newSettingsFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mAdapter.add(mAdapter.getItemCount());
+                addNewGoal();
             }
         });
     }
 
-    private void configureRecyclerView() {
-        RecyclerView recyclerView = (RecyclerView)
-                mRootView.findViewById(R.id.settings_recycler_view);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(mRootView.getContext()));
-        mAdapter = new SettingsAdapter(mRootView.getContext(), mPresenter.getGoals());
-        recyclerView.setAdapter(mAdapter);
+    private void addNewGoal() {
+        final Goal goal = new Goal();
+        goal.setPercent(new Double(0));
+
+        LayoutInflater layoutInflater =
+                (LayoutInflater) getContext().getSystemService(Context
+                        .LAYOUT_INFLATER_SERVICE);
+        final View newGoalView = layoutInflater.inflate(R.layout.item_settings_list, null);
+        mRowContainer.addView(newGoalView);
+
+        final EditText percentageEditText = (EditText)
+                newGoalView.findViewById(R.id.percentage_edit_text);
+
+        percentageEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    goal.setPercent(Double.valueOf(((EditText) v).getText().toString()));
+                }
+
+            }
+        });
+
+        final SpinnerAssetAdapter dataAdapter = new SpinnerAssetAdapter
+                (getContext(), android.R.layout.simple_spinner_item, AssetTypeEnum
+                        .values());
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        final Spinner assetSpinner = (Spinner) newGoalView.findViewById(R.id
+                .assets_spinner);
+        assetSpinner.setAdapter(dataAdapter);
+        assetSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int pos,
+                                       long id) {
+                goal.setAssetTypeEnum(dataAdapter.getItem(pos).getId());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        AssetTypeAdapter assetAdapter = new AssetTypeAdapter();
+        goal.setAssetTypeEnum(((AssetTypeEnum) assetSpinner.getSelectedItem()).getId());
+        mGoals.add(goal);
+    }
+
+    private void loadGoal(final Goal goal) {
+
+        LayoutInflater layoutInflater =
+                (LayoutInflater) getContext().getSystemService(Context
+                        .LAYOUT_INFLATER_SERVICE);
+        final View newGoalView = layoutInflater.inflate(R.layout.item_settings_list, null);
+        mRowContainer.addView(newGoalView);
+
+        final EditText percentageEditText = (EditText)
+                newGoalView.findViewById(R.id.percentage_edit_text);
+
+        final Double percent = goal.getPercent();
+        if (percent != null) {
+            percentageEditText.setText(String.valueOf(percent));
+        }
+
+        percentageEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    goal.setPercent(Double.valueOf(((EditText) v).getText().toString()));
+                }
+            }
+        });
+
+        final SpinnerAssetAdapter dataAdapter = new SpinnerAssetAdapter
+                (getContext(), android.R.layout.simple_spinner_item, AssetTypeEnum
+                        .values());
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        final Spinner assetSpinner = (Spinner) newGoalView.findViewById(R.id.assets_spinner);
+        assetSpinner.setAdapter(dataAdapter);
+        assetSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
+                goal.setAssetTypeEnum(dataAdapter.getItem(pos).getId());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        AssetTypeAdapter assetAdapter = new AssetTypeAdapter();
+        assetAdapter.saveEnum((AssetTypeEnum) assetSpinner.getSelectedItem());
+        goal.setAssetTypeEnum(((AssetTypeEnum) assetSpinner.getSelectedItem()).getId());
+        mGoals.add(goal);
     }
 }

@@ -10,7 +10,7 @@ public class Goal extends RealmObject {
 
     private Long id;
     private Double percent;
-    private AssetTypeAdapter assetTypeEnum;
+    private Long assetTypeEnum;
 
     public Long getId() {
         return id;
@@ -20,11 +20,11 @@ public class Goal extends RealmObject {
         this.id = id;
     }
 
-    public AssetTypeAdapter getAssetTypeEnum() {
+    public Long getAssetTypeEnum() {
         return assetTypeEnum;
     }
 
-    public void setAssetTypeEnum(AssetTypeAdapter assetTypeEnum) {
+    public void setAssetTypeEnum(Long assetTypeEnum) {
         this.assetTypeEnum = assetTypeEnum;
     }
 
@@ -34,5 +34,14 @@ public class Goal extends RealmObject {
 
     public void setPercent(Double percent) {
         this.percent = percent;
+    }
+
+    @Override
+    public String toString() {
+        return "Goal{" +
+                "assetTypeEnum=" + assetTypeEnum +
+                ", id=" + id +
+                ", percent=" + percent +
+                '}';
     }
 }
