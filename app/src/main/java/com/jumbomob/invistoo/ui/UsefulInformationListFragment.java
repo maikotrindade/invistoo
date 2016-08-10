@@ -98,8 +98,8 @@ public class UsefulInformationListFragment extends Fragment {
                         questionDAO.insert(question);
                     }
                     updateRecycler(questionsResult);
-//                    InvistooUtil.makeSnackBar(getView(), getString(R.string
-//                            .msg_asset_questions_success), Snackbar.LENGTH_LONG).show();
+                    InvistooUtil.makeSnackBar(getActivity(), getString(R.string
+                            .msg_asset_questions_success), Snackbar.LENGTH_LONG).show();
                 } else {
                     onDownloadError();
                     Log.e(TAG, response.code() + " - " + response.message());
