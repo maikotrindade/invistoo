@@ -52,4 +52,7 @@
     <string name="quantity">Quantidade</string>
     <string name="price">Preço</string>
     <string name="last_update">Última Atualização</string>
+    <string name="due_date">Date de Vencimento</string>
+    <string name="buy_price">Preço de Compra</string>
+    <string name="sell_price">Preço de Venda</string>
 </resources>

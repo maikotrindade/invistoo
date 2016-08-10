@@ -2,6 +2,7 @@ package com.jumbomob.invistoo.ui.adapter;
 
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,10 +52,22 @@ public class AssetListAdapter extends RecyclerView.Adapter<AssetListAdapter.View
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Asset asset = mAssets.get(position);
-        holder.titleTxtView.setText(asset.getName());
+        holder.titleTxtView.setText(asset.getTitle());
         holder.dueDateTxtView.setText(asset.getDueDate());
-        holder.buyPriceTxtView.setText(asset.getBuyPrice());
-        holder.sellPriceTxtView.setText(asset.getSellPrice());
+
+        final String buyPrice = asset.getBuyPrice();
+        if (TextUtils.isEmpty(buyPrice) || buyPrice.equals(" ")) {
+            holder.buyPriceTxtView.setText("-");
+        } else {
+            holder.sellPriceTxtView.setText("R$" + buyPrice);
+        }
+
+        final String sellPrice = asset.getSellPrice();
+        if (TextUtils.isEmpty(sellPrice) || sellPrice.equals(" ")) {
+            holder.sellPriceTxtView.setText("-");
+        } else {
+            holder.sellPriceTxtView.setText("R$" + sellPrice);
+        }
 
         holder.containerView.setOnClickListener(new View.OnClickListener() {
             @Override
