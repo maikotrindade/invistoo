@@ -111,8 +111,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
         return true;
     }
 
-    protected void setFragment(final Fragment fragment, final int navigationItemId, final String
-            title) {
+    protected void setFragment(final Fragment fragment, final int navigationItemId,
+                               final String title) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.content, fragment)
