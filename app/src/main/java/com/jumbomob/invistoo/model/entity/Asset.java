@@ -192,4 +192,25 @@ public class Asset extends RealmObject {
     public void setIndex(String index) {
         this.index = index;
     }
+
+    @Override
+    public String toString() {
+        return "Asset{" +
+                "annualBuyPrice='" + annualBuyPrice + '\'' +
+                ", id='" + id + '\'' +
+                ", title='" + title + '\'' +
+                ", name='" + name + '\'' +
+                ", dueDate='" + dueDate + '\'' +
+                ", indexer='" + indexer + '\'' +
+                ", annualSellPrice='" + annualSellPrice + '\'' +
+                ", buyPrice='" + buyPrice + '\'' +
+                ", sellPrice='" + sellPrice + '\'' +
+                ", last30daysProfitability='" + last30daysProfitability + '\'' +
+                ", lastMonthProfitability='" + lastMonthProfitability + '\'' +
+                ", yearProfitability='" + yearProfitability + '\'' +
+                ", lastYearProfitability='" + lastYearProfitability + '\'' +
+                ", lastUpdate='" + lastUpdate + '\'' +
+                ", index='" + index + '\'' +
+                '}';
+    }
 }

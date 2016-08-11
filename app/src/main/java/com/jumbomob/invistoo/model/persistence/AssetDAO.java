@@ -1,5 +1,7 @@
 package com.jumbomob.invistoo.model.persistence;
 
+import android.util.Log;
+
 import com.jumbomob.invistoo.model.entity.Asset;
 import com.jumbomob.invistoo.util.InvistooApplication;
 
@@ -45,6 +47,19 @@ public class AssetDAO{
     public List<Asset> findLast() {
         Realm realm = InvistooApplication.getInstance().getDatabaseInstance();
         RealmQuery<Asset> query = realm.where(Asset.class);
+        RealmResults<Asset> assets = query.findAll();
+        return assets;
+    }
+
+    public List<Asset> findHistoric(final String assetName) {
+
+        final List<Asset> last = findLast();
+        Log.d("ASSETDAO -> LASTES", last.get(0).toString());
+
+        Realm realm = InvistooApplication.getInstance().getDatabaseInstance();
+        RealmQuery<Asset> query = realm.where(Asset.class);
+
+        query.equalTo("name", "John");
         RealmResults<Asset> assets = query.findAll();
         return assets;
     }
