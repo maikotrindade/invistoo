@@ -17,27 +17,21 @@ import android.view.ViewGroup;
 
 import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.model.entity.Asset;
-import com.jumbomob.invistoo.model.network.AssetInterface;
-import com.jumbomob.invistoo.model.network.BaseNetworkConfig;
-import com.jumbomob.invistoo.model.persistence.AssetDAO;
+import com.jumbomob.invistoo.presenter.AssetListPresenter;
 import com.jumbomob.invistoo.ui.adapter.AssetListAdapter;
 import com.jumbomob.invistoo.ui.component.DividerItemDecorator;
 import com.jumbomob.invistoo.util.InvistooUtil;
+import com.jumbomob.invistoo.view.AssetListView;
 
 import java.util.List;
 
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.Retrofit;
-
-public class AssetListFragment extends Fragment {
-
-    private static final String TAG = AssetListFragment.class.getSimpleName();
+public class AssetListFragment extends Fragment implements AssetListView {
 
     private View mRootView;
     private SearchView mSearchView;
     private AssetListAdapter mAdapter;
-    private SwipeRefreshLayout mSwipelayout;
+    private SwipeRefreshLayout mSwipeLayout;
+    private AssetListPresenter mPresenter;
 
     public static AssetListFragment newInstance() {
         AssetListFragment fragment = new AssetListFragment();
@@ -45,13 +39,12 @@ public class AssetListFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
-    Bundle
-            savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         mRootView = inflater.inflate(R.layout.fragment_asset_list, container, false);
-
+        mPresenter = new AssetListPresenter();
         configureRecyclerView();
         configureSwipe();
         return mRootView;
@@ -64,8 +57,6 @@ public class AssetListFragment extends Fragment {
     }
 
     private void configureRecyclerView() {
-
-        final AssetDAO assetDAO = AssetDAO.getInstance();
         RecyclerView recyclerView = (RecyclerView) mRootView.findViewById(R.id
                 .assets_recycler_view);
         recyclerView.addItemDecoration(new DividerItemDecorator(getActivity(), DividerItemDecorator
@@ -73,17 +64,22 @@ public class AssetListFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(mRootView.getContext()));
 
-        mAdapter = new AssetListAdapter(getActivity(), assetDAO.findLast());
+        final List<Asset> assetList = mPresenter.getAssets();
+        mAdapter = new AssetListAdapter(getActivity(), assetList);
         recyclerView.setAdapter(mAdapter);
+
+        if (assetList.isEmpty()) {
+            mPresenter.downloadAssets();
+        }
     }
 
     private void configureSwipe() {
-        mSwipelayout = (SwipeRefreshLayout) mRootView.findViewById(R.id.content_swipe_layout);
-        mSwipelayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        mSwipeLayout = (SwipeRefreshLayout) mRootView.findViewById(R.id.content_swipe_layout);
+        mSwipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                downloadAssets();
-                mSwipelayout.setRefreshing(false);
+                mPresenter.downloadAssets();
+                mSwipeLayout.setRefreshing(false);
             }
         });
     }
@@ -95,42 +91,14 @@ public class AssetListFragment extends Fragment {
         bindSearchView(menu);
     }
 
-    private void downloadAssets() {
-        final AssetInterface service = BaseNetworkConfig.createService(AssetInterface.class,
-                BaseNetworkConfig.BASE_URL);
-
-        final Call<List<Asset>> call = service.getAssets();
-        call.enqueue(new Callback<List<Asset>>() {
-            @Override
-            public void onResponse(retrofit.Response<List<Asset>> response, Retrofit retrofit) {
-                if (response.isSuccess()) {
-                    final AssetDAO assetDAO = AssetDAO.getInstance();
-                    final List<Asset> assetsResult = response.body();
-                    updateAssetList(assetsResult);
-                    for (Asset asset : assetsResult) {
-                        assetDAO.insert(asset);
-                    }
-                    onDownloadSuccess();
-                } else {
-                    onDownloadError();
-                    Log.e(TAG, response.code() + " - " + response.message());
-                }
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                onDownloadError();
-                Log.e(TAG, t.getLocalizedMessage());
-            }
-        });
-    }
-
-    private void onDownloadError() {
+    @Override
+    public void onDownloadError() {
         InvistooUtil.makeSnackBar(getActivity(), getActivity()
                 .getString(R.string.error_download_assets), Snackbar.LENGTH_LONG).show();
     }
 
-    private void onDownloadSuccess() {
+    @Override
+    public void onDownloadSuccess() {
         InvistooUtil.makeSnackBar(getActivity(), getString(R.string.msg_asset_updated_success),
                 Snackbar.LENGTH_LONG).show();
     }
@@ -155,7 +123,8 @@ public class AssetListFragment extends Fragment {
         });
     }
 
-    private void updateAssetList(final List<Asset> assets) {
+    @Override
+    public void updateAssetList(final List<Asset> assets) {
         mAdapter.setItens(assets);
         mAdapter.notifyDataSetChanged();
     }

@@ -26,9 +26,9 @@ import com.jumbomob.invistoo.model.persistence.GoalDAO;
 import com.jumbomob.invistoo.presenter.SettingsPresenter;
 import com.jumbomob.invistoo.ui.adapter.SpinnerAssetAdapter;
 import com.jumbomob.invistoo.util.InvistooUtil;
+import com.jumbomob.invistoo.util.NumericUtil;
 
-import java.util.ArrayList;
-import java.util.List;
+import io.realm.RealmList;
 
 /**
  * @author maiko.trindade
@@ -41,7 +41,7 @@ public class SettingsFragment extends Fragment {
     private View mRootView;
     private SettingsPresenter mPresenter;
     private LinearLayout mRowContainer;
-    private List<Goal> mGoals;
+    private RealmList<Goal> mGoals;
 
     public static SettingsFragment newInstance() {
         SettingsFragment fragment = new SettingsFragment();
@@ -54,7 +54,7 @@ public class SettingsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mRootView = inflater.inflate(R.layout.fragment_settings, container, false);
         setHasOptionsMenu(true);
-        mGoals = new ArrayList<>();
+        mGoals = new RealmList<>();
         mPresenter = new SettingsPresenter();
         configureElements();
         return mRootView;
@@ -98,14 +98,13 @@ public class SettingsFragment extends Fragment {
 
     private void loadGoals() {
         final GoalDAO goalDAO = GoalDAO.getInstance();
-        mGoals = goalDAO.findAll();
+        mGoals.addAll(goalDAO.findAll());
         Log.d(TAG, mGoals.toString());
 
         for (Goal goal : mGoals) {
-            loadGoal(goal);
+            loadGoals(goal);
             Log.d(TAG, "######### Loaded Goal : " + goal.toString());
         }
-
     }
 
     private void configureFab() {
@@ -136,9 +135,11 @@ public class SettingsFragment extends Fragment {
 
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    goal.setPercent(Double.valueOf(((EditText) v).getText().toString()));
+                    final String percentage = ((EditText) v).getText().toString();
+                    if (NumericUtil.isValidDouble(percentage)) {
+                        goal.setPercent(Double.valueOf(percentage));
+                    }
                 }
-
             }
         });
 
@@ -167,7 +168,7 @@ public class SettingsFragment extends Fragment {
         mGoals.add(goal);
     }
 
-    private void loadGoal(final Goal goal) {
+    private void loadGoals(final Goal goal) {
 
         LayoutInflater layoutInflater =
                 (LayoutInflater) getContext().getSystemService(Context
@@ -210,8 +211,6 @@ public class SettingsFragment extends Fragment {
             }
         });
 
-        AssetTypeAdapter assetAdapter = new AssetTypeAdapter();
-        assetAdapter.saveEnum((AssetTypeEnum) assetSpinner.getSelectedItem());
         goal.setAssetTypeEnum(((AssetTypeEnum) assetSpinner.getSelectedItem()).getId());
         mGoals.add(goal);
     }

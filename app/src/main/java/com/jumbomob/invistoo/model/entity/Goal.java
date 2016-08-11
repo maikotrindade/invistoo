@@ -1,6 +1,7 @@
 package com.jumbomob.invistoo.model.entity;
 
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 /**
  * @author maiko.trindade
@@ -8,6 +9,7 @@ import io.realm.RealmObject;
  */
 public class Goal extends RealmObject {
 
+    @PrimaryKey
     private Long id;
     private Double percent;
     private Long assetTypeEnum;
