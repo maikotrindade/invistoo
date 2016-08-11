@@ -25,6 +25,10 @@ public class SettingsPresenter implements BasePresenter<SettingsView> {
         mView = null;
     }
 
+    public SettingsPresenter(SettingsView view) {
+        attachView(view);
+    }
+
     public List<Goal> getGoals() {
         final GoalDAO goalDAO = GoalDAO.getInstance();
         final List<Goal> goals = goalDAO.findAll();

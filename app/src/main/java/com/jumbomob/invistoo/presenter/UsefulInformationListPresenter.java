@@ -19,4 +19,8 @@ public class UsefulInformationListPresenter implements BasePresenter<UsefulInfor
     public void detachView() {
         mView = null;
     }
+
+    public UsefulInformationListPresenter(UsefulInformationListView view) {
+        attachView(view);
+    }
 }

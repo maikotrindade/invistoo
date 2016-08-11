@@ -28,7 +28,7 @@ public class HomePresenter implements BasePresenter<HomeView> {
     private HomeView mHomeView;
 
     public HomePresenter(HomeView view) {
-        this.mHomeView = view;
+        attachView(view);
     }
 
     @Override

@@ -19,4 +19,8 @@ public class NewBalancedInvestmentPresenter implements BasePresenter<NewBalanced
     public void detachView() {
         mView = null;
     }
+
+    public NewBalancedInvestmentPresenter(NewBalancedInvestmentView view) {
+        attachView(view);
+    }
 }

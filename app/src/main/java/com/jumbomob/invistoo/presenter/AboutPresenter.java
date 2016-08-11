@@ -19,4 +19,8 @@ public class AboutPresenter implements BasePresenter<AboutView> {
     public void detachView() {
         mView = null;
     }
+
+    public AboutPresenter(AboutView view) {
+        this.mView = view;
+    }
 }

@@ -19,4 +19,8 @@ public class AssetChartPresenter implements BasePresenter<AssetChartView> {
     public void detachView() {
         mView = null;
     }
+
+    public AssetChartPresenter(AssetChartView view) {
+        attachView(view);
+    }
 }

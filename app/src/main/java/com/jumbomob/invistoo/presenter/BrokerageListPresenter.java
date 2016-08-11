@@ -19,4 +19,8 @@ public class BrokerageListPresenter implements BasePresenter<BrokerageListView> 
     public void detachView() {
         mView = null;
     }
+
+    public BrokerageListPresenter(BrokerageListView view) {
+        attachView(view);
+    }
 }

@@ -19,4 +19,8 @@ public class InvestmentListPresenter implements BasePresenter<InvestmentListView
     public void detachView() {
         mView = null;
     }
+
+    public InvestmentListPresenter(InvestmentListView view) {
+        attachView(view);
+    }
 }
