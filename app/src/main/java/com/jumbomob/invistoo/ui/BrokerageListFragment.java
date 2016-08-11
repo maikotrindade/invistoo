@@ -2,7 +2,6 @@ package com.jumbomob.invistoo.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,7 @@ import com.jumbomob.invistoo.R;
  * @author maiko.trindade
  * @since 30/03/2016
  */
-public class BrokerageListFragment extends Fragment {
+public class BrokerageListFragment extends BaseFragment {
 
     private static final String TAG = BrokerageListFragment.class.getSimpleName();
 
@@ -38,5 +37,15 @@ public class BrokerageListFragment extends Fragment {
     public void onResume() {
         super.onResume();
         getActivity().setTitle(R.string.title_brokerage);
+    }
+
+    @Override
+    public void showProgressDialog(final int resourceId) {
+        super.showProgressDialog(resourceId);
+    }
+
+    @Override
+    public void hideProgressDialog() {
+        super.hideProgressDialog();
     }
 }

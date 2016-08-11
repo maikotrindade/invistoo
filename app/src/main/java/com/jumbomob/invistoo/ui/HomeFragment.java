@@ -3,7 +3,6 @@ package com.jumbomob.invistoo.ui;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +22,7 @@ import com.jumbomob.invistoo.view.HomeView;
  * @author maiko.trindade
  * @since 30/03/2016
  */
-public class HomeFragment extends Fragment implements HomeView {
+public class HomeFragment extends BaseFragment implements HomeView {
 
     private static final String TAG = HomeFragment.class.getSimpleName();
     private View mRootView;

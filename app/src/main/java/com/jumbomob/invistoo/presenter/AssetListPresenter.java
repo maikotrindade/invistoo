@@ -41,7 +41,7 @@ public class AssetListPresenter implements BasePresenter<AssetListView> {
 
     public void downloadAssets() {
 
-        mView.showProgressDialog(R.string.app_name);
+        mView.showProgressDialog(R.string.loading_assets);
 
         final AssetInterface service = BaseNetworkConfig.createService(AssetInterface.class,
                 BaseNetworkConfig.BASE_URL);

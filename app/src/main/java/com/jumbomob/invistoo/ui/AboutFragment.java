@@ -2,7 +2,6 @@ package com.jumbomob.invistoo.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,7 @@ import com.jumbomob.invistoo.R;
  * @author maiko.trindade
  * @since 30/03/2016
  */
-public class AboutFragment extends Fragment {
+public class AboutFragment extends BaseFragment {
 
     private static final String TAG = AboutFragment.class.getSimpleName();
 

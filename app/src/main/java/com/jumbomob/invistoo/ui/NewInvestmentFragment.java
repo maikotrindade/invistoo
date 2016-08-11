@@ -3,7 +3,6 @@ package com.jumbomob.invistoo.ui;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -28,7 +27,7 @@ import com.jumbomob.invistoo.util.NumericUtil;
 
 import java.util.Date;
 
-public class NewInvestmentFragment extends Fragment {
+public class NewInvestmentFragment extends BaseFragment {
 
     private View mRootView;
     private TextView mAssetAnnualInterestTxtView;

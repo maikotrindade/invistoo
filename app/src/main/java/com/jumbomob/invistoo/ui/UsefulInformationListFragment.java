@@ -3,7 +3,6 @@ package com.jumbomob.invistoo.ui;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -30,7 +29,7 @@ import retrofit.Retrofit;
  * @author maiko.trindade
  * @since 28/03/2016
  */
-public class UsefulInformationListFragment extends Fragment {
+public class UsefulInformationListFragment extends BaseFragment {
 
     private static final String TAG = UsefulInformationListFragment.class.getSimpleName();
 
@@ -70,6 +69,16 @@ public class UsefulInformationListFragment extends Fragment {
 
         mAdapter = new QuestionListAdapter(dao.findAll());
         mRecyclerView.setAdapter(mAdapter);
+    }
+
+    @Override
+    public void showProgressDialog(final int resourceId) {
+        super.showProgressDialog(resourceId);
+    }
+
+    @Override
+    public void hideProgressDialog() {
+        super.hideProgressDialog();
     }
 
     private void configureSwipe() {

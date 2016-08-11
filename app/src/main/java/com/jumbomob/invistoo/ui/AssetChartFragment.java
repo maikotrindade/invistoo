@@ -3,7 +3,6 @@ package com.jumbomob.invistoo.ui;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +25,7 @@ import java.util.ArrayList;
  * @author maiko.trindade
  * @since 03/04/2016
  */
-public class AssetChartFragment extends Fragment {
+public class AssetChartFragment extends BaseFragment {
 
     private static final String TAG = AssetChartFragment.class.getSimpleName();
 
@@ -49,6 +48,16 @@ public class AssetChartFragment extends Fragment {
 
         configureChart();
         return mRootView;
+    }
+
+    @Override
+    public void showProgressDialog(final int resourceId) {
+        super.showProgressDialog(resourceId);
+    }
+
+    @Override
+    public void hideProgressDialog() {
+        super.hideProgressDialog();
     }
 
     protected void configureChart() {

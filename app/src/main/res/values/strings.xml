@@ -55,4 +55,11 @@
     <string name="due_date">Date de Vencimento</string>
     <string name="buy_price">Preço de Compra</string>
     <string name="sell_price">Preço de Venda</string>
+
+    <string name="loading_assets">Carregando as cotações</string>
+    <string name="loading_questions">Carregando as informações úteis</string>
+    <string name="loading_investments">Carregando seus investimentos</string>
+    <string name="loading_brokerages">Carregando informações sobre as corretoras</string>
+
+
 </resources>
