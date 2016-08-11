@@ -61,5 +61,5 @@
     <string name="loading_investments">Carregando seus investimentos</string>
     <string name="loading_brokerages">Carregando informações sobre as corretoras</string>
 
-
+    <string name="no_data_chart">Sem dados para serem mostrado</string>
 </resources>

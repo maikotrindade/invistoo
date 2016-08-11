@@ -26,6 +26,7 @@ import com.jumbomob.invistoo.presenter.SettingsPresenter;
 import com.jumbomob.invistoo.ui.adapter.SpinnerAssetAdapter;
 import com.jumbomob.invistoo.util.InvistooUtil;
 import com.jumbomob.invistoo.util.NumericUtil;
+import com.jumbomob.invistoo.view.SettingsView;
 
 import io.realm.RealmList;
 
@@ -33,7 +34,7 @@ import io.realm.RealmList;
  * @author maiko.trindade
  * @since 30/03/2016
  */
-public class SettingsFragment extends BaseFragment {
+public class SettingsFragment extends BaseFragment implements SettingsView {
 
     private static final String TAG = SettingsFragment.class.getSimpleName();
 
@@ -54,7 +55,7 @@ public class SettingsFragment extends BaseFragment {
         mRootView = inflater.inflate(R.layout.fragment_settings, container, false);
         setHasOptionsMenu(true);
         mGoals = new RealmList<>();
-        mPresenter = new SettingsPresenter();
+        mPresenter = new SettingsPresenter(this);
         configureElements();
         return mRootView;
     }

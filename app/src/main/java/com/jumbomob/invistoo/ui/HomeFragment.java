@@ -66,6 +66,7 @@ public class HomeFragment extends BaseFragment implements HomeView {
         mChart.setTransparentCircleRadius(22f);
         mChart.setDrawCenterText(true);
         mChart.setDescription("");
+        mChart.setNoDataText(getString(R.string.no_data_chart));
         mChart.setRotationAngle(0);
         mChart.setRotationEnabled(true);
         mChart.setHighlightPerTapEnabled(true);
