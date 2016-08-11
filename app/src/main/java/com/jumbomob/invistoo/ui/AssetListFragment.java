@@ -44,9 +44,9 @@ public class AssetListFragment extends Fragment implements AssetListView {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         mRootView = inflater.inflate(R.layout.fragment_asset_list, container, false);
-        mPresenter = new AssetListPresenter();
-        configureRecyclerView();
+        mPresenter = new AssetListPresenter(this);
         configureSwipe();
+        configureRecyclerView();
         return mRootView;
     }
 

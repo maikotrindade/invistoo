@@ -15,4 +15,5 @@ public interface AssetListView {
     void onDownloadSuccess();
 
     void updateAssetList(List<Asset> assets);
+
 }

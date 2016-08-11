@@ -24,6 +24,10 @@ public class AssetListPresenter implements BasePresenter<AssetListView> {
 
     private AssetListView mView;
 
+    public AssetListPresenter(AssetListView view) {
+        attachView(view);
+    }
+
     @Override
     public void attachView(AssetListView view) {
         mView = view;
