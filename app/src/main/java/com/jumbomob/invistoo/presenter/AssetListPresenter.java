@@ -2,6 +2,7 @@ package com.jumbomob.invistoo.presenter;
 
 import android.util.Log;
 
+import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.model.entity.Asset;
 import com.jumbomob.invistoo.model.network.AssetInterface;
 import com.jumbomob.invistoo.model.network.BaseNetworkConfig;
@@ -39,6 +40,9 @@ public class AssetListPresenter implements BasePresenter<AssetListView> {
     }
 
     public void downloadAssets() {
+
+        mView.showProgressDialog(R.string.app_name);
+
         final AssetInterface service = BaseNetworkConfig.createService(AssetInterface.class,
                 BaseNetworkConfig.BASE_URL);
 

@@ -16,4 +16,6 @@ public interface AssetListView {
 
     void updateAssetList(List<Asset> assets);
 
+    void showProgressDialog(final int resourceId);
+
 }

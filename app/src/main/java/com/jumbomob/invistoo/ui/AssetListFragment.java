@@ -3,7 +3,6 @@ package com.jumbomob.invistoo.ui;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,7 +24,7 @@ import com.jumbomob.invistoo.view.AssetListView;
 
 import java.util.List;
 
-public class AssetListFragment extends Fragment implements AssetListView {
+public class AssetListFragment extends BaseFragment implements AssetListView {
 
     private View mRootView;
     private SearchView mSearchView;
@@ -73,13 +72,23 @@ public class AssetListFragment extends Fragment implements AssetListView {
         }
     }
 
+    @Override
+    public void showProgressDialog(final int resourceId) {
+        super.showProgressDialog(resourceId);
+    }
+
+    @Override
+    public void hideProgressDialog() {
+        super.hideProgressDialog();
+    }
+
     private void configureSwipe() {
         mSwipeLayout = (SwipeRefreshLayout) mRootView.findViewById(R.id.content_swipe_layout);
         mSwipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mPresenter.downloadAssets();
                 mSwipeLayout.setRefreshing(false);
+                mPresenter.downloadAssets();
             }
         });
     }
@@ -93,12 +102,14 @@ public class AssetListFragment extends Fragment implements AssetListView {
 
     @Override
     public void onDownloadError() {
+        hideProgressDialog();
         InvistooUtil.makeSnackBar(getActivity(), getActivity()
                 .getString(R.string.error_download_assets), Snackbar.LENGTH_LONG).show();
     }
 
     @Override
     public void onDownloadSuccess() {
+        hideProgressDialog();
         InvistooUtil.makeSnackBar(getActivity(), getString(R.string.msg_asset_updated_success),
                 Snackbar.LENGTH_LONG).show();
     }
