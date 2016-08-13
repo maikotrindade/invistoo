@@ -7,6 +7,7 @@ import com.jumbomob.invistoo.model.entity.Asset;
 import com.jumbomob.invistoo.model.network.AssetInterface;
 import com.jumbomob.invistoo.model.network.BaseNetworkConfig;
 import com.jumbomob.invistoo.model.persistence.AssetDAO;
+import com.jumbomob.invistoo.ui.adapter.AssetListAdapter;
 import com.jumbomob.invistoo.view.AssetListView;
 
 import java.util.List;
@@ -75,6 +76,11 @@ public class AssetListPresenter implements BasePresenter<AssetListView> {
     public List<Asset> getAssets() {
         final AssetDAO assetDAO = AssetDAO.getInstance();
         return assetDAO.findLast();
+    }
+
+    public void searchByText(final AssetListAdapter adapter, final String name) {
+        final List<Asset> filteredAssets = adapter.filterByName(name);
+        mView.updateAssetList(filteredAssets);
     }
 
 }

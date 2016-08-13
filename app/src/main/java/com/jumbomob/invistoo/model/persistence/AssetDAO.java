@@ -63,4 +63,5 @@ public class AssetDAO{
         RealmResults<Asset> assets = query.findAll();
         return assets;
     }
+
 }

@@ -7,7 +7,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -118,17 +117,16 @@ public class AssetListFragment extends BaseFragment implements AssetListView {
         mSearchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         mSearchView.setIconifiedByDefault(true);
 
-        //TODO
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Log.e("onQueryTextSubmit ", "Query: " + query);
+                mPresenter.searchByText(mAdapter, query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                Log.e("onQueryTextChange ", "Query: " + newText);
+                mPresenter.searchByText(mAdapter, newText);
                 return false;
             }
         });
