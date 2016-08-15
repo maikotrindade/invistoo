@@ -1,11 +1,11 @@
 package com.jumbomob.invistoo.presenter;
 
+import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.model.entity.Goal;
 import com.jumbomob.invistoo.model.persistence.GoalDAO;
 import com.jumbomob.invistoo.view.SettingsView;
 
-import java.util.ArrayList;
-import java.util.List;
+import io.realm.RealmList;
 
 /**
  * @author maiko.trindade
@@ -14,6 +14,7 @@ import java.util.List;
 public class SettingsPresenter implements BasePresenter<SettingsView> {
 
     private SettingsView mView;
+    private GoalDAO mGoalDAO;
 
     @Override
     public void attachView(SettingsView view) {
@@ -27,15 +28,41 @@ public class SettingsPresenter implements BasePresenter<SettingsView> {
 
     public SettingsPresenter(SettingsView view) {
         attachView(view);
+        mGoalDAO = GoalDAO.getInstance();
     }
 
-    public List<Goal> getGoals() {
-        final GoalDAO goalDAO = GoalDAO.getInstance();
-        final List<Goal> goals = goalDAO.findAll();
-        if (goals != null && !goals.isEmpty()) {
-            return goals;
+    public RealmList<Goal> getGoals() {
+        return mGoalDAO.findAll();
+    }
+
+    public void saveGoals(RealmList<Goal> goals) {
+        if (isValidPercentage(goals)) {
+            mGoalDAO.insertOrUpdate(goals);
+            mView.showMessage(R.string.msg_asset_updated_success);
         }
-        return new ArrayList<>();
+    }
+
+    public void updatePercentage(Goal goal, Double percentage) {
+        mGoalDAO.updatePercentage(goal, percentage);
+    }
+
+    public void updateAssetType(Goal goal, Long assetTypeId) {
+        mGoalDAO.updateAssetType(goal, assetTypeId);
+    }
+
+    private boolean isValidPercentage(RealmList<Goal> goals) {
+        double sum = 0;
+        for (Goal goal : goals) {
+            sum += goal.getPercent();
+        }
+
+        if (sum == 100) {
+            return true;
+        } else {
+            mView.showDialog(R.string.error, R.string.error_goal_percentage);
+            mView.errorDecorate();
+            return false;
+        }
     }
 
 }

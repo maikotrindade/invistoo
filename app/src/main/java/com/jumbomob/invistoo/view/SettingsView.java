@@ -6,6 +6,10 @@ package com.jumbomob.invistoo.view;
  */
 public interface SettingsView {
 
+    void showMessage(int resourceId);
 
+    void showDialog(int titleResourceId, int messageResourceId);
+
+    void errorDecorate();
 
 }

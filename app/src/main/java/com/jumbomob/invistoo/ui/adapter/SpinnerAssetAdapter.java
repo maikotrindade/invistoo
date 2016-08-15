@@ -17,33 +17,41 @@ import com.jumbomob.invistoo.model.entity.AssetTypeEnum;
 
 public class SpinnerAssetAdapter extends ArrayAdapter<AssetTypeEnum> {
 
-    private Context context;
-    private AssetTypeEnum[] values;
+    private Context mContext;
+    private AssetTypeEnum[] mValues;
 
     public SpinnerAssetAdapter(Context context, int textViewResourceId, AssetTypeEnum[] values) {
         super(context, textViewResourceId, values);
-        this.context = context;
-        this.values = values;
+        this.mContext = context;
+        this.mValues = values;
     }
 
     public int getCount() {
-        return values.length;
+        return mValues.length;
     }
 
     public AssetTypeEnum getItem(int position) {
-        return values[position];
+        return mValues[position];
     }
 
     public long getItemId(int position) {
         return position;
     }
 
+    public int getPosition(long itemId) {
+        for (int index = 0; index < mValues.length; index++) {
+            if (mValues[index].getId() == itemId) {
+                return index;
+            }
+        }
+        return -1;
+    }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        final TextView label = new TextView(context);
+        final TextView label = new TextView(mContext);
         label.setTextColor(Color.BLACK);
-        label.setText(values[position].getTitle());
+        label.setText(mValues[position].getTitle());
         LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams
                 .WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         llp.setMargins(250, 0, 0, 0);
@@ -53,9 +61,9 @@ public class SpinnerAssetAdapter extends ArrayAdapter<AssetTypeEnum> {
 
     @Override
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
-        TextView label = new TextView(context);
+        TextView label = new TextView(mContext);
         label.setTextColor(Color.BLACK);
-        label.setText(values[position].getTitle());
+        label.setText(mValues[position].getTitle());
         LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams
                 .WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         llp.setMargins(250, 0, 0, 0);
