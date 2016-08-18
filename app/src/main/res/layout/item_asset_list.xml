@@ -24,14 +24,16 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:text="@string/title"/>
+                android:layout_weight="3.5"
+                android:text="@string/title"
+                android:textSize="12sp"/>
 
             <TextView
                 android:id="@+id/title_text_view"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="6"/>
+                android:layout_weight="6.5"
+                android:textStyle="bold"/>
         </TableRow>
 
         <TableRow
@@ -42,14 +44,15 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:text="@string/due_date"/>
+                android:layout_weight="3.5"
+                android:text="@string/due_date"
+                android:textSize="12sp"/>
 
             <TextView
                 android:id="@+id/due_date_text_view"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="6"/>
+                android:layout_weight="6.5"/>
         </TableRow>
 
         <TableRow
@@ -60,14 +63,15 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:text="@string/buy_price"/>
+                android:layout_weight="3.5"
+                android:text="@string/buy_price"
+                android:textSize="12sp"/>
 
             <TextView
                 android:id="@+id/buy_price_text_view"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="6"/>
+                android:layout_weight="6.5"/>
         </TableRow>
 
         <TableRow
@@ -78,14 +82,15 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:text="@string/sell_price"/>
+                android:layout_weight="3.5"
+                android:text="@string/sell_price"
+                android:textSize="12sp"/>
 
             <TextView
                 android:id="@+id/sell_price_text_view"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="6"/>
+                android:layout_weight="6.5"/>
         </TableRow>
 
     </TableLayout>
