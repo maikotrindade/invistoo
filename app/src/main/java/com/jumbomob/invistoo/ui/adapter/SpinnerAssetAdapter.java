@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jumbomob.invistoo.model.entity.AssetTypeEnum;
@@ -52,10 +51,6 @@ public class SpinnerAssetAdapter extends ArrayAdapter<AssetTypeEnum> {
         final TextView label = new TextView(mContext);
         label.setTextColor(Color.BLACK);
         label.setText(mValues[position].getTitle());
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams
-                (LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        layoutParams.setMargins(10, 0, 0, 0);
-        label.setLayoutParams(layoutParams);
         return label;
     }
 
