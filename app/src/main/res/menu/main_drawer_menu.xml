@@ -14,10 +14,10 @@
             android:id="@+id/nav_indexes"
             android:icon="@mipmap/ic_chart_1"
             android:title="@string/nav_indexes"/>
-        <item
-            android:id="@+id/nav_brokerage"
-            android:icon="@mipmap/ic_brokerage"
-            android:title="@string/nav_brokerage"/>
+        <!--<item-->
+            <!--android:id="@+id/nav_brokerage"-->
+            <!--android:icon="@mipmap/ic_brokerage"-->
+            <!--android:title="@string/nav_brokerage"/>-->
         <item
             android:id="@+id/nav_useful_information"
             android:icon="@drawable/ic_info"

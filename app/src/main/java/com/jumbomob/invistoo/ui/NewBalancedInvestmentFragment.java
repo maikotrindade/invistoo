@@ -9,17 +9,21 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.jumbomob.invistoo.R;
+import com.jumbomob.invistoo.presenter.NewBalancedInvestmentPresenter;
+import com.jumbomob.invistoo.view.NewBalancedInvestmentView;
 
 /**
  * @author maiko.trindade
  * @since 14/07/2016
  */
-public class NewBalancedInvestmentFragment extends BaseFragment {
+public class NewBalancedInvestmentFragment extends BaseFragment
+        implements NewBalancedInvestmentView {
 
     private View mRootView;
-    private EditText percent1, percent2, percent3, selic, prefixado, ipca, aporte, total,
+    private EditText selic, prefixado, ipca, aporte, total,
             selicResult, prefixadoResult, ipcaResult;
     private Button balancear;
+    private NewBalancedInvestmentPresenter mPresenter;
     private long totalTitulos;
 
     public static NewBalancedInvestmentFragment newInstance() {
@@ -33,15 +37,12 @@ public class NewBalancedInvestmentFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         mRootView = inflater.inflate(R.layout.fragment_new_balanced_investment, container, false);
-
+        mPresenter = new NewBalancedInvestmentPresenter(this);
         configureElements();
         return mRootView;
     }
 
     private void configureElements() {
-        percent1 = (EditText) mRootView.findViewById(R.id.percent1);
-        percent2 = (EditText) mRootView.findViewById(R.id.percent2);
-        percent3 = (EditText) mRootView.findViewById(R.id.percent3);
         selic = (EditText) mRootView.findViewById(R.id.selic);
         prefixado = (EditText) mRootView.findViewById(R.id.prefixado);
         ipca = (EditText) mRootView.findViewById(R.id.ipca);
@@ -56,25 +57,28 @@ public class NewBalancedInvestmentFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
 
-                long percent1T = Long.valueOf(percent1.getText().toString());
-                long percent2T = Long.valueOf(percent2.getText().toString());
-                long percent3T = Long.valueOf(percent3.getText().toString());
+                Double aporteValue = Double.valueOf(aporte.getText().toString());
+                mPresenter.calculateBalance(aporteValue);
 
-                long selicA = Long.valueOf(selic.getText().toString());
-                long prefixadoA = Long.valueOf(prefixado.getText().toString());
-                long ipcaA = Long.valueOf(ipca.getText().toString());
-                total.setText(String.valueOf(selicA + prefixadoA + ipcaA));
-
-                long aporteA = Long.valueOf(aporte.getText().toString());
-
-                long vat = selicA + prefixadoA + ipcaA + aporteA;
-
-                double selicB = vat * ((double) percent1T / 100);
-                double prefixadoB = vat * ((double) percent2T / 100);
-                double ipcaB = vat * ((double) percent3T / 100);
-                selicResult.setText(String.valueOf(selicB));
-                prefixadoResult.setText(String.valueOf(prefixadoB));
-                ipcaResult.setText(String.valueOf(ipcaB));
+//                long percent1T = Long.valueOf(percent1.getText().toString());
+//                long percent2T = Long.valueOf(percent2.getText().toString());
+//                long percent3T = Long.valueOf(percent3.getText().toString());
+//
+//                long selicA = Long.valueOf(selic.getText().toString());
+//                long prefixadoA = Long.valueOf(prefixado.getText().toString());
+//                long ipcaA = Long.valueOf(ipca.getText().toString());
+//                total.setText(String.valueOf(selicA + prefixadoA + ipcaA));
+//
+//                long aporteA = Long.valueOf(aporte.getText().toString());
+//
+//                long vat = selicA + prefixadoA + ipcaA + aporteA;
+//
+//                double selicB = vat * ((double) percent1T / 100);
+//                double prefixadoB = vat * ((double) percent2T / 100);
+//                double ipcaB = vat * ((double) percent3T / 100);
+//                selicResult.setText(String.valueOf(selicB));
+//                prefixadoResult.setText(String.valueOf(prefixadoB));
+//                ipcaResult.setText(String.valueOf(ipcaB));
 
             }
         });
