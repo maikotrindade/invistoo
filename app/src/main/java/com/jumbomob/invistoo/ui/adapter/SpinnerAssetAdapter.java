@@ -52,10 +52,10 @@ public class SpinnerAssetAdapter extends ArrayAdapter<AssetTypeEnum> {
         final TextView label = new TextView(mContext);
         label.setTextColor(Color.BLACK);
         label.setText(mValues[position].getTitle());
-        LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams
-                .WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        llp.setMargins(250, 0, 0, 0);
-        label.setLayoutParams(llp);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams
+                (LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(10, 0, 0, 0);
+        label.setLayoutParams(layoutParams);
         return label;
     }
 
@@ -64,10 +64,7 @@ public class SpinnerAssetAdapter extends ArrayAdapter<AssetTypeEnum> {
         TextView label = new TextView(mContext);
         label.setTextColor(Color.BLACK);
         label.setText(mValues[position].getTitle());
-        LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams
-                .WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        llp.setMargins(250, 0, 0, 0);
-        label.setLayoutParams(llp);
+        label.setPaddingRelative(12, 6, 0, 6);
         return label;
     }
 }
