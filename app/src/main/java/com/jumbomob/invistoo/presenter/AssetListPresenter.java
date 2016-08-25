@@ -83,4 +83,9 @@ public class AssetListPresenter implements BasePresenter<AssetListView> {
         mView.updateAssetList(filteredAssets);
     }
 
+    public String getLastUpdate() {
+        //TODO
+        return "Atualizado a duas horas";
+    }
+
 }

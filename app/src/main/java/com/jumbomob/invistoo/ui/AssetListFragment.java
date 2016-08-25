@@ -48,12 +48,6 @@ public class AssetListFragment extends BaseFragment implements AssetListView {
         return mRootView;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        getActivity().setTitle(R.string.title_indexes);
-    }
-
     private void configureRecyclerView() {
         RecyclerView recyclerView = (RecyclerView) mRootView.findViewById(R.id
                 .assets_recycler_view);
@@ -69,6 +63,20 @@ public class AssetListFragment extends BaseFragment implements AssetListView {
         if (assetList.isEmpty()) {
             mPresenter.downloadAssets();
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        BaseActivity baseActivity = (BaseActivity) getActivity();
+        baseActivity.setCustomToolbar(R.string.nav_indexes, mPresenter.getLastUpdate());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        BaseActivity baseActivity = (BaseActivity) getActivity();
+        baseActivity.setDefaultToolbar();
     }
 
     @Override

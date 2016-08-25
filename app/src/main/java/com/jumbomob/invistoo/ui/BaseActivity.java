@@ -11,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.jumbomob.invistoo.R;
 
@@ -23,6 +25,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 
     private NavigationView mNavigationView;
     private DrawerLayout mDrawerLayout;
+    private Toolbar mToolbar;
 
     public abstract int setContentView();
 
@@ -30,12 +33,12 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(setContentView());
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, mDrawerLayout, toolbar, R.string.navigation_drawer_open, R.string
+                this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string
                 .navigation_drawer_close);
         mDrawerLayout.setDrawerListener(toggle);
         toggle.syncState();
@@ -133,8 +136,25 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
     }
 
     public void goBackFragment() {
-        //getFragmentManager().popBackStack();
-//        getFragmentManager().popBackStackImmediate();
         getSupportFragmentManager().popBackStack();
+    }
+
+    public void setCustomToolbar(final int titleResourceId, final String subtitle) {
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        TextView titleView = (TextView) mToolbar.findViewById(R.id.toolbar_title);
+        titleView.setText(getString(titleResourceId));
+        titleView.setVisibility(View.VISIBLE);
+        TextView subtitleView = (TextView) mToolbar.findViewById(R.id.toolbar_subtitle);
+        subtitleView.setText(subtitle);
+        subtitleView.setVisibility(View.VISIBLE);
+    }
+
+    public void setDefaultToolbar() {
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        TextView titleView = (TextView) mToolbar.findViewById(R.id.toolbar_title);
+        titleView.setVisibility(View.GONE);
+        TextView subtitleView = (TextView) mToolbar.findViewById(R.id.toolbar_subtitle);
+        subtitleView.setVisibility(View.GONE);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
     }
 }
