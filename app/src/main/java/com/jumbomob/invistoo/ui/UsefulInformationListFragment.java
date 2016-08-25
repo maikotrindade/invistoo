@@ -6,35 +6,29 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.model.entity.Question;
-import com.jumbomob.invistoo.model.network.BaseNetworkConfig;
-import com.jumbomob.invistoo.model.network.QuestionInterface;
-import com.jumbomob.invistoo.model.persistence.QuestionDAO;
+import com.jumbomob.invistoo.presenter.UsefulInformationListPresenter;
 import com.jumbomob.invistoo.ui.adapter.QuestionListAdapter;
 import com.jumbomob.invistoo.util.InvistooUtil;
+import com.jumbomob.invistoo.view.UsefulInformationListView;
 
 import java.util.List;
-
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.Retrofit;
 
 /**
  * @author maiko.trindade
  * @since 28/03/2016
  */
-public class UsefulInformationListFragment extends BaseFragment {
-
-    private static final String TAG = UsefulInformationListFragment.class.getSimpleName();
+public class UsefulInformationListFragment extends BaseFragment implements
+        UsefulInformationListView {
 
     private View mRootView;
-    private SwipeRefreshLayout mSwipelayout;
+    private UsefulInformationListPresenter mPresenter;
+    private SwipeRefreshLayout mSwipeLayout;
     private QuestionListAdapter mAdapter;
     private RecyclerView mRecyclerView;
 
@@ -48,6 +42,7 @@ public class UsefulInformationListFragment extends BaseFragment {
                              @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mRootView = inflater.inflate(R.layout.fragment_useful_info_list, container, false);
+        mPresenter = new UsefulInformationListPresenter(this);
 
         configureRecyclerView();
         configureSwipe();
@@ -61,14 +56,18 @@ public class UsefulInformationListFragment extends BaseFragment {
     }
 
     private void configureRecyclerView() {
-        final QuestionDAO dao = QuestionDAO.getInstance();
         mRecyclerView = (RecyclerView) mRootView.findViewById(R.id
                 .questions_recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mRootView.getContext()));
 
-        mAdapter = new QuestionListAdapter(dao.findAll());
+        final List<Question> questions = mPresenter.getQuestions();
+        mAdapter = new QuestionListAdapter(questions);
         mRecyclerView.setAdapter(mAdapter);
+
+        if (questions.isEmpty()) {
+            mPresenter.downloadQuestions();
+        }
     }
 
     @Override
@@ -82,54 +81,32 @@ public class UsefulInformationListFragment extends BaseFragment {
     }
 
     private void configureSwipe() {
-        mSwipelayout = (SwipeRefreshLayout) mRootView.findViewById(R.id.question_swipe_layout);
-        mSwipelayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        mSwipeLayout = (SwipeRefreshLayout) mRootView.findViewById(R.id.question_swipe_layout);
+        mSwipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                downloadQuestions();
-                mSwipelayout.setRefreshing(false);
+                mPresenter.downloadQuestions();
+                mSwipeLayout.setRefreshing(false);
             }
         });
     }
 
-    private void downloadQuestions() {
-        final QuestionInterface service = BaseNetworkConfig.createService(QuestionInterface.class,
-                BaseNetworkConfig.BASE_URL);
-
-        final Call<List<Question>> call = service.getQuestions();
-        call.enqueue(new Callback<List<Question>>() {
-            @Override
-            public void onResponse(retrofit.Response<List<Question>> response, Retrofit retrofit) {
-                if (response.isSuccess()) {
-                    final QuestionDAO questionDAO = QuestionDAO.getInstance();
-                    List<Question> questionsResult = response.body();
-                    for (Question question : questionsResult) {
-                        questionDAO.insert(question);
-                    }
-                    updateRecycler(questionsResult);
-                    InvistooUtil.makeSnackBar(getActivity(), getString(R.string
-                            .msg_asset_questions_success), Snackbar.LENGTH_LONG).show();
-                } else {
-                    onDownloadError();
-                    Log.e(TAG, response.code() + " - " + response.message());
-                }
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                onDownloadError();
-                Log.e(TAG, t.getLocalizedMessage());
-            }
-        });
-    }
-
-    private void onDownloadError() {
+    @Override
+    public void onDownloadError() {
+        hideProgressDialog();
         InvistooUtil.makeSnackBar(getActivity(), getActivity().getString(R.string
-                .error_download_questions), Snackbar
-                .LENGTH_LONG).show();
+                .error_download_questions), Snackbar.LENGTH_LONG).show();
     }
 
-    private void updateRecycler(final List<Question> questions) {
+    @Override
+    public void onDownloadSuccess() {
+        hideProgressDialog();
+        InvistooUtil.makeSnackBar(getActivity(), getString(R.string.msg_asset_questions_success),
+                Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void updateRecycler(final List<Question> questions) {
         mAdapter.setItens(questions);
         mAdapter.notifyDataSetChanged();
     }
