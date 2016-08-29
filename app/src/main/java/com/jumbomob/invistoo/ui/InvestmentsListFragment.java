@@ -1,29 +1,37 @@
 package com.jumbomob.invistoo.ui;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.model.persistence.InvestmentDAO;
+import com.jumbomob.invistoo.presenter.InvestmentListPresenter;
 import com.jumbomob.invistoo.ui.adapter.InvestmentListAdapter;
 import com.jumbomob.invistoo.ui.component.DividerItemDecorator;
+import com.jumbomob.invistoo.util.NumericUtil;
+import com.jumbomob.invistoo.view.InvestmentListView;
 
 /**
  * @author maiko.trindade
  * @since 14/02/2016
  */
-public class InvestmentsListFragment extends BaseFragment {
+public class InvestmentsListFragment extends BaseFragment implements InvestmentListView {
 
     private View mRootView;
     private FloatingActionMenu menuRed;
+    private InvestmentListPresenter mPresenter;
 
     public static InvestmentsListFragment newInstance() {
         InvestmentsListFragment fragment = new InvestmentsListFragment();
@@ -37,6 +45,7 @@ public class InvestmentsListFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
         mRootView = inflater.inflate(R.layout.fragment_investments_list, container, false);
 
+        mPresenter = new InvestmentListPresenter(this);
         configureRecyclerView();
         configureFab();
 
@@ -50,7 +59,6 @@ public class InvestmentsListFragment extends BaseFragment {
     }
 
     private void configureRecyclerView() {
-
         final InvestmentDAO dao = InvestmentDAO.getInstance();
         RecyclerView recyclerView = (RecyclerView) mRootView.findViewById(R.id
                 .investments_recycler_view);
@@ -88,12 +96,44 @@ public class InvestmentsListFragment extends BaseFragment {
         newBalancedInvestFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final Activity activity = getActivity();
-                ((BaseActivity) activity).setFragment(NewBalancedInvestmentFragment.newInstance(),
-                        activity.getString(R.string.title_new_investment));
+                showContributionDialog();
             }
         });
     }
+
+    private void showContributionDialog() {
+        final Dialog dialog = new Dialog(mRootView.getContext());
+        dialog.setContentView(R.layout.contribution_dialog);
+        dialog.setTitle(getString(R.string.new_contribution_title));
+
+        final EditText contributionEdtText = (EditText)
+                dialog.findViewById(R.id.contribution_edit_text);
+
+        Button confirmButton = (Button) dialog.findViewById(R.id.confirm_contribution_button);
+        confirmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mPresenter.isContributionValid(contributionEdtText.getText().toString())) {
+                    final Double contribution = NumericUtil.getValidDouble(
+                            contributionEdtText.getText().toString());
+                    final Activity activity = getActivity();
+                    final Fragment fragment = new BalancedInvestmentListFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putDouble("contribution", contribution);
+                    fragment.setArguments(bundle);
+                    ((BaseActivity) activity).setFragment(fragment,
+                            activity.getString(R.string.title_new_investment));
+
+                    dialog.dismiss();
+                } else {
+                    contributionEdtText.setError("Digite um valor de aporte válido");
+                }
+            }
+        });
+
+        dialog.show();
+    }
+
 }
 
 

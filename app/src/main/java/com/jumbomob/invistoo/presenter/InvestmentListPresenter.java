@@ -1,5 +1,8 @@
 package com.jumbomob.invistoo.presenter;
 
+import android.text.TextUtils;
+
+import com.jumbomob.invistoo.util.NumericUtil;
 import com.jumbomob.invistoo.view.InvestmentListView;
 
 /**
@@ -22,5 +25,9 @@ public class InvestmentListPresenter implements BasePresenter<InvestmentListView
 
     public InvestmentListPresenter(InvestmentListView view) {
         attachView(view);
+    }
+
+    public boolean isContributionValid(String contribution) {
+        return !TextUtils.isEmpty(contribution) && NumericUtil.isValidDouble(contribution);
     }
 }

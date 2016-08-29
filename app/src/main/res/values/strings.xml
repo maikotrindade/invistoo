@@ -66,4 +66,8 @@
     <string name="loading_brokerages">Carregando informações sobre as corretoras</string>
 
     <string name="no_data_chart">Sem dados para serem mostrado</string>
+    <string name="new_contribution_title">Novo investimento</string>
+    <string name="new_contribution_message">Insira o valor do novo investimeno</string>
+    <string name="confirm">Confirmar</string>
+    <string name="invested">Investido</string>
 </resources>

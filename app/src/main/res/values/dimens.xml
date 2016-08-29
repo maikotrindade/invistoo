@@ -10,6 +10,12 @@
 
     <dimen name="fab_margin">16dp</dimen>
 
-    <dimen name="text_medium_size">15sp</dimen>
+    <dimen name="text_xxx_large_size">48sp</dimen>
+    <dimen name="text_xx_large_size">36sp</dimen>
+    <dimen name="text_x_large_size">26sp</dimen>
+    <dimen name="text_large_size">24sp</dimen>
+    <dimen name="text_medium_size">20sp</dimen>
+    <dimen name="text_small_size">18sp</dimen>
+    <dimen name="text_extra_small_size">14sp</dimen>
 
 </resources>
