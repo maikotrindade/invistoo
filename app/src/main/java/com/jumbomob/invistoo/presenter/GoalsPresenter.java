@@ -3,7 +3,7 @@ package com.jumbomob.invistoo.presenter;
 import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.model.entity.Goal;
 import com.jumbomob.invistoo.model.persistence.GoalDAO;
-import com.jumbomob.invistoo.view.SettingsView;
+import com.jumbomob.invistoo.view.GoalsView;
 
 import io.realm.RealmList;
 
@@ -11,13 +11,13 @@ import io.realm.RealmList;
  * @author maiko.trindade
  * @since 22/07/2016
  */
-public class SettingsPresenter implements BasePresenter<SettingsView> {
+public class GoalsPresenter implements BasePresenter<GoalsView> {
 
-    private SettingsView mView;
+    private GoalsView mView;
     private GoalDAO mGoalDAO;
 
     @Override
-    public void attachView(SettingsView view) {
+    public void attachView(GoalsView view) {
         mView = view;
     }
 
@@ -26,7 +26,7 @@ public class SettingsPresenter implements BasePresenter<SettingsView> {
         mView = null;
     }
 
-    public SettingsPresenter(SettingsView view) {
+    public GoalsPresenter(GoalsView view) {
         attachView(view);
         mGoalDAO = GoalDAO.getInstance();
     }
@@ -38,7 +38,7 @@ public class SettingsPresenter implements BasePresenter<SettingsView> {
     public void saveGoals(RealmList<Goal> goals) {
         if (isValidPercentage(goals)) {
             mGoalDAO.insertOrUpdate(goals);
-            mView.showMessage(R.string.msg_asset_updated_success);
+            mView.showMessage(R.string.msg_goals_success);
         }
     }
 

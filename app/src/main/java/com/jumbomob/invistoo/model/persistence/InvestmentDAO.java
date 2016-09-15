@@ -33,6 +33,27 @@ public class InvestmentDAO {
         realm.commitTransaction();
     }
 
+    /**
+     * Insert or update a list of {@link Investment}, in case there is a Investment without id,
+     * the Investment will be inserted otherwise will be updated
+     *
+     * @param investments a list of {@link Investment} to be inserted of updated
+     */
+    public void insertOrUpdate(final List<Investment> investments) {
+        Realm realm = InvistooApplication.getInstance().getDatabaseInstance();
+        realm.beginTransaction();
+        for (Investment investment : investments) {
+            if (investment.getId() == null) {
+                investment.setId(
+                        RealmAutoIncrement.getInstance().getNextIdFromModel(Investment.class));
+                realm.insert(investment);
+            } else {
+                realm.insertOrUpdate(investment);
+            }
+        }
+        realm.commitTransaction();
+    }
+
     public List<Investment> findAll() {
         Realm realm = InvistooApplication.getInstance().getDatabaseInstance();
         RealmQuery<Investment> query = realm.where(Investment.class);

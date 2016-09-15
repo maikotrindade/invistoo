@@ -5,6 +5,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -26,6 +29,7 @@ public class BalancedInvestmentListFragment extends BaseFragment
 
     private View mRootView;
     private BalancedInvestmentListPresenter mPresenter;
+    private BalancedInvestmentListAdapter mAdapter;
 
     public static BalancedInvestmentListFragment newInstance() {
         BalancedInvestmentListFragment fragment = new BalancedInvestmentListFragment();
@@ -43,6 +47,22 @@ public class BalancedInvestmentListFragment extends BaseFragment
         return mRootView;
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.new_investment_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_save:
+                mPresenter.saveInvestments(mAdapter.getItens());
+                break;
+        }
+        return false;
+    }
+
     private void configureElements() {
         final Bundle arguments = getArguments();
         final double contribution = arguments.getDouble("contribution", 0);
@@ -58,8 +78,12 @@ public class BalancedInvestmentListFragment extends BaseFragment
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(mRootView.getContext()));
 
-        final BalancedInvestmentListAdapter adapter = new
-                BalancedInvestmentListAdapter(suggestions);
-        recyclerView.setAdapter(adapter);
+        mAdapter = new BalancedInvestmentListAdapter(suggestions);
+        recyclerView.setAdapter(mAdapter);
+    }
+
+    @Override
+    public void showMessage(final int resourceId) {
+        super.showMessage(resourceId);
     }
 }

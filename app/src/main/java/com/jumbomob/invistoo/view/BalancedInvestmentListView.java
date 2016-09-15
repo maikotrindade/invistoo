@@ -6,5 +6,5 @@ package com.jumbomob.invistoo.view;
  */
 public interface BalancedInvestmentListView {
 
-
+    void showMessage(int resourceId);
 }

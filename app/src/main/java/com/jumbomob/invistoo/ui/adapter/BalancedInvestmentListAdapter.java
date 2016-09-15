@@ -34,6 +34,10 @@ public class BalancedInvestmentListAdapter extends RecyclerView
         this.mInvestments = investments;
     }
 
+    public List<InvestmentSuggestion> getItens() {
+        return mInvestments;
+    }
+
     public InvestmentSuggestion getSelectedItem() {
         return mInvestments.get(mPosition);
     }

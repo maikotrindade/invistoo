@@ -63,6 +63,7 @@ public class GoalDAO {
 
     /**
      * Update the percentage of {@link Goal}
+     *
      * @param goal
      * @param percentage
      */
@@ -73,7 +74,6 @@ public class GoalDAO {
     }
 
     /**
-     *
      * @param goal
      * @param assetTypeId
      */
@@ -81,5 +81,14 @@ public class GoalDAO {
         sRealm.beginTransaction();
         goal.setAssetTypeEnum(assetTypeId);
         sRealm.commitTransaction();
+    }
+
+    /**
+     * verify if there is any goal for the user
+     *
+     * @return true whether there is at least 1 Goal or false otherwise
+     */
+    public boolean isThereGoal() {
+        return (!findAll().isEmpty());
     }
 }

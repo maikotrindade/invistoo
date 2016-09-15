@@ -19,6 +19,11 @@ public class NumericUtil {
         return formatter.format(number);
     }
 
+    public static String formatCurrency(final Long number) {
+        final NumberFormat formatter = NumberFormat.getCurrencyInstance(ptBr);
+        return formatter.format(number);
+    }
+
     public static String formatCurrency(final BigDecimal number) {
         final NumberFormat formatter = NumberFormat.getCurrencyInstance(ptBr);
         return formatter.format(number);

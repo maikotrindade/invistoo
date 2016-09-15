@@ -2,16 +2,19 @@ package com.jumbomob.invistoo.presenter;
 
 import android.util.Log;
 
+import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.model.dto.InvestmentSuggestion;
 import com.jumbomob.invistoo.model.entity.AssetTypeEnum;
 import com.jumbomob.invistoo.model.entity.Goal;
 import com.jumbomob.invistoo.model.entity.Investment;
 import com.jumbomob.invistoo.model.persistence.GoalDAO;
 import com.jumbomob.invistoo.model.persistence.InvestmentDAO;
+import com.jumbomob.invistoo.util.DateUtil;
 import com.jumbomob.invistoo.util.NumericUtil;
 import com.jumbomob.invistoo.view.BalancedInvestmentListView;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import io.realm.RealmList;
@@ -113,5 +116,24 @@ public class BalancedInvestmentListPresenter implements BasePresenter<BalancedIn
         }
 
         return balancedInvestments;
+    }
+
+    public void saveInvestments(List<InvestmentSuggestion> suggestions) {
+        InvestmentDAO dao = InvestmentDAO.getInstance();
+
+        for (InvestmentSuggestion suggestion : suggestions) {
+            Investment investment = new Investment();
+            investment.setCreationDate(DateUtil.formatDate(new Date()));
+            investment.setPrice(suggestion.getSuggestion().toString());
+            investment.setQuantity(1);
+            investment.setUpdateDate(DateUtil.formatDate(new Date()));
+
+            final AssetTypeEnum assetTypeEnum = AssetTypeEnum.getById(suggestion.getAssetType());
+            investment.setName(assetTypeEnum.getTitle());
+            investment.setAssetType(assetTypeEnum);
+            dao.insert(investment);
+        }
+
+        mView.showMessage(R.string.msg_save_investment);
     }
 }

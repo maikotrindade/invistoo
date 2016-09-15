@@ -98,9 +98,9 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
                 setFragment(UsefulInformationListFragment.newInstance(), R.id
                         .nav_useful_information, getString(R.string.title_useful_information));
                 break;
-            case R.id.nav_settings:
-                setFragment(SettingsFragment.newInstance(), R.id.nav_settings,
-                        getString(R.string.title_settings));
+            case R.id.nav_goals:
+                setFragment(GoalsFragment.newInstance(), R.id.nav_goals,
+                        getString(R.string.title_goals));
                 break;
             case R.id.nav_about:
                 setFragment(AboutFragment.newInstance(), R.id.nav_about,

@@ -23,10 +23,10 @@ import com.github.clans.fab.FloatingActionButton;
 import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.model.entity.AssetTypeEnum;
 import com.jumbomob.invistoo.model.entity.Goal;
-import com.jumbomob.invistoo.presenter.SettingsPresenter;
+import com.jumbomob.invistoo.presenter.GoalsPresenter;
 import com.jumbomob.invistoo.ui.adapter.SpinnerAssetAdapter;
 import com.jumbomob.invistoo.util.NumericUtil;
-import com.jumbomob.invistoo.view.SettingsView;
+import com.jumbomob.invistoo.view.GoalsView;
 
 import io.realm.RealmList;
 
@@ -34,17 +34,17 @@ import io.realm.RealmList;
  * @author maiko.trindade
  * @since 30/03/2016
  */
-public class SettingsFragment extends BaseFragment implements SettingsView {
+public class GoalsFragment extends BaseFragment implements GoalsView {
 
-    private static final String TAG = SettingsFragment.class.getSimpleName();
+    private static final String TAG = GoalsFragment.class.getSimpleName();
 
     private View mRootView;
-    private SettingsPresenter mPresenter;
+    private GoalsPresenter mPresenter;
     private LinearLayout mRowContainer;
     private RealmList<Goal> mGoals;
 
-    public static SettingsFragment newInstance() {
-        SettingsFragment fragment = new SettingsFragment();
+    public static GoalsFragment newInstance() {
+        GoalsFragment fragment = new GoalsFragment();
         return fragment;
     }
 
@@ -55,7 +55,7 @@ public class SettingsFragment extends BaseFragment implements SettingsView {
         mRootView = inflater.inflate(R.layout.fragment_settings, container, false);
         setHasOptionsMenu(true);
         mGoals = new RealmList<>();
-        mPresenter = new SettingsPresenter(this);
+        mPresenter = new GoalsPresenter(this);
         configureElements();
         return mRootView;
     }
@@ -63,7 +63,7 @@ public class SettingsFragment extends BaseFragment implements SettingsView {
     @Override
     public void onResume() {
         super.onResume();
-        getActivity().setTitle(R.string.title_settings);
+        getActivity().setTitle(R.string.title_goals);
     }
 
     @Override
@@ -114,9 +114,7 @@ public class SettingsFragment extends BaseFragment implements SettingsView {
         mGoals.addAll(mPresenter.getGoals());
         for (Goal goal : mGoals) {
             loadGoals(goal);
-            Log.d(TAG, "######### Loaded Goal : " + goal.toString());
         }
-        Log.d(TAG, "#############");
     }
 
     private void configureFab() {
@@ -137,55 +135,75 @@ public class SettingsFragment extends BaseFragment implements SettingsView {
         LayoutInflater layoutInflater =
                 (LayoutInflater) getContext().getSystemService(Context
                         .LAYOUT_INFLATER_SERVICE);
-        final View newGoalView = layoutInflater.inflate(R.layout.item_settings_list, null);
+        final View newGoalView = layoutInflater.inflate(R.layout.item_goals_list, null);
         mRowContainer.addView(newGoalView);
 
-        final EditText percentageEditText = (EditText)
-                newGoalView.findViewById(R.id.percentage_edit_text);
+        //Remove goal
+        final LinearLayout removeGoalContainer = (LinearLayout)
+                newGoalView.findViewById(R.id.remove_goal_container);
+        if (mGoals.size() > 1) {
+            removeGoalContainer.setVisibility(View.VISIBLE);
+            removeGoalContainer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.e(TAG, "remove_goal_container CLIKED");
+                    //TODO
+                    newGoalView.setVisibility(View.GONE);
+                }
+            });
+        } else {
+            removeGoalContainer.setVisibility(View.GONE);
+        }
 
-        percentageEditText.addTextChangedListener(new TextWatcher() {
-            public void onTextChanged(CharSequence textChanged, int start, int before, int count) {
-                final String percentage = textChanged.toString();
-                if (!TextUtils.isEmpty(percentage)) {
-                    if (NumericUtil.isValidDouble(percentage)) {
-                        goal.setPercent(Double.valueOf(percentage));
+            //Percentage EditText
+            final EditText percentageEditText = (EditText)
+                    newGoalView.findViewById(R.id.percentage_edit_text);
+            percentageEditText.addTextChangedListener(new TextWatcher() {
+                public void onTextChanged(CharSequence textChanged, int start, int before, int
+                        count) {
+                    final String percentage = textChanged.toString();
+                    if (!TextUtils.isEmpty(percentage)) {
+                        if (NumericUtil.isValidDouble(percentage)) {
+                            goal.setPercent(Double.valueOf(percentage));
+                        }
                     }
                 }
-            }
 
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
 
-            public void afterTextChanged(Editable s) {
-            }
-        });
+                public void afterTextChanged(Editable s) {
+                }
+            });
 
-        final SpinnerAssetAdapter dataAdapter = new SpinnerAssetAdapter
-                (getContext(), android.R.layout.simple_spinner_item, AssetTypeEnum.values());
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        final Spinner assetSpinner = (Spinner) newGoalView.findViewById(R.id
-                .assets_spinner);
-        assetSpinner.setAdapter(dataAdapter);
-        assetSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
-                goal.setAssetTypeEnum(dataAdapter.getItem(pos).getId());
-            }
+            //Spinner Widget
+            final SpinnerAssetAdapter dataAdapter = new SpinnerAssetAdapter
+                    (getContext(), android.R.layout.simple_spinner_item, AssetTypeEnum.values());
+            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            final Spinner assetSpinner = (Spinner) newGoalView.findViewById(R.id
+                    .assets_spinner);
+            assetSpinner.setAdapter(dataAdapter);
+            assetSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long
+                        id) {
+                    goal.setAssetTypeEnum(dataAdapter.getItem(pos).getId());
+                }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
 
-            }
-        });
+                }
+            });
 
-        goal.setAssetTypeEnum(((AssetTypeEnum) assetSpinner.getSelectedItem()).getId());
-        mGoals.add(goal);
-    }
+            goal.setAssetTypeEnum(((AssetTypeEnum) assetSpinner.getSelectedItem()).getId());
+            mGoals.add(goal);
+        }
 
     private void loadGoals(final Goal goal) {
         LayoutInflater layoutInflater =
                 (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final View newGoalView = layoutInflater.inflate(R.layout.item_settings_list, null);
+        final View newGoalView = layoutInflater.inflate(R.layout.item_goals_list, null);
         mRowContainer.addView(newGoalView);
 
         final EditText percentageEditText = (EditText)
@@ -197,7 +215,8 @@ public class SettingsFragment extends BaseFragment implements SettingsView {
         }
 
         percentageEditText.addTextChangedListener(new TextWatcher() {
-            public void onTextChanged(CharSequence textChanged, int start, int before, int count) {
+            public void onTextChanged(CharSequence textChanged, int start, int before, int
+                    count) {
                 final String percentage = textChanged.toString();
                 if (!TextUtils.isEmpty(percentage)) {
                     mPresenter.updatePercentage(goal, Double.valueOf(percentage));
@@ -222,7 +241,8 @@ public class SettingsFragment extends BaseFragment implements SettingsView {
 
         assetSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long
+                    id) {
                 final long assetTypeId = dataAdapter.getItem(pos).getId();
                 mPresenter.updateAssetType(goal, assetTypeId);
             }
