@@ -36,13 +36,13 @@ public class InvistooUtil {
         return mobileNetwork != null && mobileNetwork.isConnected();
     }
 
-    public static boolean isNetworkActived() {
+    public static boolean isNetworkActivated() {
         NetworkInfo activeNetwork = sConnectivityManager.getActiveNetworkInfo();
         return activeNetwork != null && activeNetwork.isConnected();
     }
 
     public static boolean isConnected() {
-        return (hasWifiConnection() || hasMobileConnection()) && isNetworkActived();
+        return (hasWifiConnection() || hasMobileConnection()) && isNetworkActivated();
     }
 
     public static Snackbar makeSnackBar(Activity activity, CharSequence text, int duration) {

@@ -3,6 +3,7 @@ package com.jumbomob.invistoo.util;
 import android.app.Application;
 
 import com.crashlytics.android.Crashlytics;
+import com.firebase.client.Firebase;
 
 import io.fabric.sdk.android.Fabric;
 import io.realm.Realm;
@@ -26,6 +27,7 @@ public class InvistooApplication extends Application {
         super.onCreate();
         Fabric.with(this, new Crashlytics());
         sInstance = this;
+        Firebase.setAndroidContext(this);
     }
 
     public Realm getDatabaseInstance() {
