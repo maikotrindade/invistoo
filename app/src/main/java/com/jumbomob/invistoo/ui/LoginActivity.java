@@ -70,6 +70,15 @@ public class LoginActivity extends AppCompatActivity {
                         .ValueResultHandler<Map<String, Object>>() {
                     @Override
                     public void onSuccess(Map<String, Object> result) {
+
+//                        User user = new User();
+//                        user.setUpdateDate(DateTime.now().toString());
+//                        user.setCreationDate(DateTime.now().toString());
+//                        user.setLastName();
+//                        user.getToken();
+//                        user.setExpires();
+//                        user.setUid();
+
                         startActivity(new Intent(loginActivity, MainActivity.class));
                         //TODO feedback para o usuario
                     }

@@ -15,6 +15,9 @@ public class User extends RealmObject {
     private String lastName;
     private String creationDate;
     private String updateDate;
+    private String token;
+    private long expires;
+    private String uid;
 
     public Long getId() {
         return id;
@@ -54,5 +57,29 @@ public class User extends RealmObject {
 
     public void setUpdateDate(String updateDate) {
         this.updateDate = updateDate;
+    }
+
+    public long getExpires() {
+        return expires;
+    }
+
+    public void setExpires(long expires) {
+        this.expires = expires;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 }

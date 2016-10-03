@@ -16,12 +16,14 @@
         android:id="@+id/email_edit_text"
         android:layout_width="match_parent"
         android:hint="email"
+        android:text="maiko@email.com"
         android:layout_height="wrap_content"/>
 
     <EditText
         android:id="@+id/password_edit_text"
         android:layout_width="match_parent"
         android:hint="password"
+        android:text="maiko"
         android:layout_height="wrap_content"/>
 
     <Button
