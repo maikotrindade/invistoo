@@ -26,9 +26,13 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        bindElements();
-        configureElements();
         mPresenter = new LoginPresenter(this);
+        if (!mPresenter.isUserAlreadyLogged(getBaseContext())) {
+            bindElements();
+            configureElements();
+        } else {
+            onLoginSuccess();
+        }
     }
 
     private void bindElements() {

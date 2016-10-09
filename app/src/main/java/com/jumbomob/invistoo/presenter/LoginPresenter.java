@@ -1,5 +1,6 @@
 package com.jumbomob.invistoo.presenter;
 
+import android.content.Context;
 import android.text.TextUtils;
 
 import com.firebase.client.AuthData;
@@ -7,6 +8,7 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.util.ConstantsUtil;
+import com.jumbomob.invistoo.util.SharedPrefsUtil;
 import com.jumbomob.invistoo.view.LoginView;
 
 import java.util.Map;
@@ -89,5 +91,9 @@ public class LoginPresenter implements BasePresenter<LoginView> {
                 mView.hideProgressDialog();
             }
         });
+    }
+
+    public boolean isUserAlreadyLogged(final Context context) {
+        return SharedPrefsUtil.isUserLogged(context);
     }
 }
