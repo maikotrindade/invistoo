@@ -21,7 +21,9 @@
             android:name="io.fabric.ApiKey"
             android:value="e85a9bce34915999097c9f40b1dd7a0ca1fe5ede"/>
 
-        <activity android:name=".ui.LoginActivity">
+        <activity
+            android:name=".ui.LoginActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

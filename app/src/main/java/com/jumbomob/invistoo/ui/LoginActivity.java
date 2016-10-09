@@ -4,92 +4,82 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 
-import com.firebase.client.AuthData;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
 import com.jumbomob.invistoo.R;
-import com.jumbomob.invistoo.util.ConstantsUtil;
+import com.jumbomob.invistoo.presenter.LoginPresenter;
+import com.jumbomob.invistoo.ui.component.CircleImageView;
+import com.jumbomob.invistoo.util.ProgressDialogUtil;
+import com.jumbomob.invistoo.view.LoginView;
 
-import java.util.Map;
-
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements LoginView {
 
     private EditText mEmailTextView, mPasswordTextView;
-    private Button mLoginButton, mNewUserButton;
+    private CircleImageView mNewProfileImage, mLoginImage;
+    private LoginPresenter mPresenter;
+    private TextView mNewUserText;
+    private CheckBox mRememberCheckBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         bindElements();
+        configureElements();
+        mPresenter = new LoginPresenter(this);
     }
 
     private void bindElements() {
-
         mEmailTextView = (EditText) findViewById(R.id.email_edit_text);
         mPasswordTextView = (EditText) findViewById(R.id.password_edit_text);
-        mLoginButton = (Button) findViewById(R.id.login_button);
-        mNewUserButton = (Button) findViewById(R.id.new_user_button);
+        mNewUserText = (TextView) findViewById(R.id.new_user_button);
+        mLoginImage = (CircleImageView) findViewById(R.id.login_button);
+        mRememberCheckBox = (CheckBox) findViewById(R.id.remember_me_check_box);
+    }
 
-        final LoginActivity loginActivity = this;
-
-        mLoginButton.setOnClickListener(new View.OnClickListener() {
+    private void configureElements() {
+        mLoginImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email = mEmailTextView.getText().toString();
-                String password = mPasswordTextView.getText().toString();
-
-                Firebase ref = new Firebase(ConstantsUtil.FIREBASE_URL);
-                ref.authWithPassword(email, password, new
-                        Firebase.AuthResultHandler() {
-                            @Override
-                            public void onAuthenticated(AuthData authData) {
-                                startActivity(new Intent(loginActivity, MainActivity.class));
-                            }
-
-                            @Override
-                            public void onAuthenticationError(FirebaseError firebaseError) {
-                                //TODO feedback para o usuario
-                            }
-                        });
+                final String email = mEmailTextView.getText().toString();
+                final String password = mPasswordTextView.getText().toString();
+                if (mPresenter.isValidFields(email, password)) {
+                    mPresenter.performLogin(email, password);
+                }
             }
         });
 
-        mNewUserButton.setOnClickListener(new View.OnClickListener() {
+        mNewUserText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                String email = mEmailTextView.getText().toString();
-                String password = mPasswordTextView.getText().toString();
-
-                Firebase ref = new Firebase(ConstantsUtil.FIREBASE_URL);
-                ref.createUser(email, password, new Firebase
-                        .ValueResultHandler<Map<String, Object>>() {
-                    @Override
-                    public void onSuccess(Map<String, Object> result) {
-
-//                        User user = new User();
-//                        user.setUpdateDate(DateTime.now().toString());
-//                        user.setCreationDate(DateTime.now().toString());
-//                        user.setLastName();
-//                        user.getToken();
-//                        user.setExpires();
-//                        user.setUid();
-
-                        startActivity(new Intent(loginActivity, MainActivity.class));
-                        //TODO feedback para o usuario
-                    }
-
-                    @Override
-                    public void onError(FirebaseError firebaseError) {
-                        //TODO feedback para o usuario
-                    }
-                });
+                final String email = mEmailTextView.getText().toString();
+                final String password = mPasswordTextView.getText().toString();
+                if (mPresenter.isValidFields(email, password)) {
+                    mPresenter.performCreateAccount(email, password);
+                }
             }
         });
     }
 
+    public void showProgressDialog(final int resourceId) {
+        ProgressDialogUtil.getInstance()
+                .showProgressDialog(LoginActivity.this, getString(resourceId));
+    }
+
+    public void hideProgressDialog() {
+        ProgressDialogUtil.getInstance().hideProgressDialog();
+    }
+
+    @Override
+    public void onLoginSuccess() {
+        startActivity(new Intent(this, MainActivity.class));
+    }
+
+    @Override
+    public void onCreateUserSuccess() {
+        //TODO adicionar feedback para o usuario
+        startActivity(new Intent(this, MainActivity.class));
+    }
 }

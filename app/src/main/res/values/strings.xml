@@ -70,4 +70,7 @@
     <string name="new_contribution_message">Insira o valor do novo investimeno</string>
     <string name="confirm">Confirmar</string>
     <string name="invested">Investido</string>
+
+    <string name="loading_login">Entrando...</string>
+    <string name="loading_register">Criando conta...</string>
 </resources>

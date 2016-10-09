@@ -5,6 +5,4 @@ package com.jumbomob.invistoo.view;
  * @since 14/07/2016
  */
 public interface MainView {
-
-
 }
