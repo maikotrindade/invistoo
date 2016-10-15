@@ -35,7 +35,6 @@ public class LoginPresenter implements BasePresenter<LoginView> {
         attachView(view);
     }
 
-
     public boolean isValidFields(final String email, final String password) {
         if (TextUtils.isEmpty(email)) {
             //TODO Send feedback to the user
@@ -50,13 +49,13 @@ public class LoginPresenter implements BasePresenter<LoginView> {
         return true;
     }
 
-    public void performLogin(final String email, final String password) {
+    public void performLogin(final String email, final String password, final boolean isRememberUser) {
         mView.showProgressDialog(R.string.loading_login);
         final Firebase firebase = new Firebase(ConstantsUtil.FIREBASE_URL);
         firebase.authWithPassword(email, password, new Firebase.AuthResultHandler() {
             @Override
             public void onAuthenticated(AuthData authData) {
-                mView.onLoginSuccess();
+                mView.onLoginSuccess(isRememberUser);
                 mView.hideProgressDialog();
             }
 

@@ -12,6 +12,7 @@ import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.presenter.LoginPresenter;
 import com.jumbomob.invistoo.ui.component.CircleImageView;
 import com.jumbomob.invistoo.util.ProgressDialogUtil;
+import com.jumbomob.invistoo.util.SharedPrefsUtil;
 import com.jumbomob.invistoo.view.LoginView;
 
 public class LoginActivity extends AppCompatActivity implements LoginView {
@@ -49,8 +50,9 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
             public void onClick(View view) {
                 final String email = mEmailTextView.getText().toString();
                 final String password = mPasswordTextView.getText().toString();
+                boolean isRememberUser = mRememberCheckBox.isChecked();
                 if (mPresenter.isValidFields(email, password)) {
-                    mPresenter.performLogin(email, password);
+                    mPresenter.performLogin(email, password, isRememberUser);
                 }
             }
         });
@@ -77,13 +79,23 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     }
 
     @Override
-    public void onLoginSuccess() {
+    public void onLoginSuccess(boolean isRememberUser) {
+        SharedPrefsUtil.setUserLogged(true);
+        SharedPrefsUtil.setRememberUser(isRememberUser);
         startActivity(new Intent(this, MainActivity.class));
+        finish();
+    }
+
+    public void onLoginSuccess() {
+        SharedPrefsUtil.setUserLogged(true);
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 
     @Override
     public void onCreateUserSuccess() {
         //TODO adicionar feedback para o usuario
         startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 }

@@ -18,4 +18,8 @@ public class MainActivity extends BaseActivity implements MainView {
         return R.layout.activity_main;
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }

@@ -20,7 +20,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_medium_size"
+            android:textSize="@dimen/text_medium_large"
             android:text="@string/app_name"/>
     </LinearLayout>
 
@@ -32,12 +32,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_small_size"
+            android:textSize="@dimen/text_medium_normal"
             android:text="Build Version"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_extra_small_size"
+            android:textSize="@dimen/text_normal"
             android:padding="4dp"
             android:text="Version 0.3 Build 27 "/>
 
@@ -50,12 +50,12 @@
             android:layout_marginTop="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_small_size"
+            android:textSize="@dimen/text_medium_normal"
             android:text="Open Source licenses"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_extra_small_size"
+            android:textSize="@dimen/text_normal"
             android:padding="4dp"
             android:text="License details for open source software"/>
 

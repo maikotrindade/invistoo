@@ -12,7 +12,8 @@ import com.jumbomob.invistoo.R;
 public class SharedPrefsUtil {
 
     public static final String USER_SESSION = "user_session";
-    public static final String IS_LOGGED = "is_logged";
+    public static final String IS_USER_LOGGED = "is_user_logged";
+    public static final String IS_REMEMBER_USER = "is_remember_user";
     public static final String INFORMATION_SYNC = "information_sync";
     public static final String LAST_SYNC = "last_sync";
 
@@ -31,18 +32,33 @@ public class SharedPrefsUtil {
         editor.commit();
     }
 
-    public static boolean isUserLogged(Context context) {
+    public static boolean isRememberUser(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(
                 USER_SESSION, Context.MODE_PRIVATE);
-        return sharedPreferences.getBoolean(IS_LOGGED, false);
+        return sharedPreferences.getBoolean(IS_REMEMBER_USER, false);
     }
 
-    public static void setUsserLogged(Boolean isLogged) {
+    public static void setRememberUser(Boolean isRemember) {
         final Context context = InvistooApplication.getInstance().getBaseContext();
         SharedPreferences sharedPreferences = context.getSharedPreferences(
                 USER_SESSION, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(IS_LOGGED, isLogged);
+        editor.putBoolean(IS_REMEMBER_USER, isRemember);
+        editor.commit();
+    }
+
+    public static boolean isUserLogged(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(
+                USER_SESSION, Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean(IS_USER_LOGGED, false);
+    }
+
+    public static void setUserLogged(Boolean isLogged) {
+        final Context context = InvistooApplication.getInstance().getBaseContext();
+        SharedPreferences sharedPreferences = context.getSharedPreferences(
+                USER_SESSION, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(IS_USER_LOGGED, isLogged);
         editor.commit();
     }
 

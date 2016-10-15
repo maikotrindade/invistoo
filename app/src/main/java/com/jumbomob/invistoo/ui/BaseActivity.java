@@ -9,12 +9,14 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
 import com.jumbomob.invistoo.R;
+import com.jumbomob.invistoo.util.SharedPrefsUtil;
 
 /**
  * @author maiko.trindade
@@ -107,7 +109,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
                         getString(R.string.title_about));
                 break;
             case R.id.nav_logout:
-                //TODO temporarily
+                logoutAccount();
                 finish();
         }
 
@@ -156,5 +158,21 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
         TextView subtitleView = (TextView) mToolbar.findViewById(R.id.toolbar_subtitle);
         subtitleView.setVisibility(View.GONE);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        boolean isRemember = SharedPrefsUtil.isRememberUser(getBaseContext());
+        if (!isRemember) {
+            SharedPrefsUtil.setUserLogged(false);
+            SharedPrefsUtil.setRememberUser(false);
+        }
+        Log.d("LOGIN", "isRemember = " + isRemember);
+    }
+
+    private void logoutAccount() {
+        SharedPrefsUtil.setUserLogged(false);
     }
 }
