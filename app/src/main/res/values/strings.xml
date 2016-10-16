@@ -14,6 +14,7 @@
     <string name="nav_useful_information">Informações Úteis</string>
     <string name="nav_goals">Metas</string>
     <string name="nav_about">Sobre</string>
+    <string name="nav_account">Minha Conta</string>
     <string name="nav_logout">Sair</string>
 
     <!-- Errors -->
@@ -33,6 +34,7 @@
     <string name="title_useful_information">Informações Úteis</string>
     <string name="title_goals">Metas</string>
     <string name="title_home">Início</string>
+    <string name="title_my_account">Minha Conta</string>
     <string name="title_about">Sobre</string>
     <string name="title_brokerage">Corretoras</string>
     <string name="action_save">Salvar</string>
@@ -73,4 +75,7 @@
 
     <string name="loading_login">Entrando...</string>
     <string name="loading_register">Criando conta...</string>
+
+    <string name="select_image">Selecione uma imagem de perfil</string>
+    <string name="account_saved_message">Perfil atualizado com sucesso</string>
 </resources>

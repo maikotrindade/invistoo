@@ -7,6 +7,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ScaleXSpan;
 import android.util.Log;
 import android.view.View;
 
@@ -80,6 +83,24 @@ public class InvistooUtil {
             Log.e(TAG, e.getMessage());
         }
         return versionName;
+    }
+
+    public static SpannableString getSpacedText(CharSequence text) {
+        if (text == null) return null;
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < text.length(); i++) {
+            builder.append(text.charAt(i));
+            if (i + 1 < text.length()) {
+                builder.append("\u00A0");
+            }
+        }
+        SpannableString finalText = new SpannableString(builder.toString());
+        if (builder.toString().length() > 1) {
+            for (int i = 1; i < builder.toString().length(); i += 2) {
+                finalText.setSpan(new ScaleXSpan((0.3f + 1) / 10), i, i + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
+        }
+        return finalText;
     }
 
 }

@@ -31,6 +31,10 @@
             android:icon="@drawable/ic_help"
             android:title="@string/nav_about"/>
         <item
+            android:id="@+id/nav_account"
+            android:icon="@drawable/ic_user"
+            android:title="@string/nav_account"/>
+        <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/ic_logout"
             android:title="@string/nav_logout"/>

@@ -108,6 +108,10 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
                 setFragment(AboutFragment.newInstance(), R.id.nav_about,
                         getString(R.string.title_about));
                 break;
+            case R.id.nav_account:
+                setFragment(MyAccountFragment.newInstance(), R.id.nav_account,
+                        getString(R.string.title_my_account));
+                break;
             case R.id.nav_logout:
                 logoutAccount();
                 finish();

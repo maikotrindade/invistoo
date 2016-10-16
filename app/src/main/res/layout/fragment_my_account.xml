@@ -1,0 +1,94 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:padding="@dimen/activity_horizontal_margin"
+    tools:context="com.jumbomob.invistoo.ui.MyAccountFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="14dp">
+
+        <RelativeLayout
+            android:id="@+id/user_image_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="6dp">
+
+            <com.jumbomob.invistoo.ui.component.CircleImageView
+                android:id="@+id/profile_image"
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                android:layout_margin="12dp"
+                android:clickable="false"
+                android:src="@drawable/ic_user"
+                app:civ_border_color="#FFFFFF"
+                app:civ_border_width="1dp"/>
+
+            <ImageView
+                android:id="@+id/profile_image_status"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_alignBottom="@id/profile_image"
+                android:layout_alignRight="@id/profile_image"
+                android:clickable="false"
+                android:src="@drawable/ic_edit_pencil"/>
+        </RelativeLayout>
+
+
+        <EditText
+            android:id="@+id/name_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nome"
+            android:textSize="@dimen/text_medium"/>
+
+        <EditText
+            android:id="@+id/email_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="E-mail"
+            android:textSize="@dimen/text_medium"/>
+
+        <EditText
+            android:id="@+id/password_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Senha"
+            android:inputType="textPassword"
+            android:textSize="@dimen/text_medium"
+            android:typeface="normal"/>
+
+        <EditText
+            android:id="@+id/password_confirmation_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Confirmar Senha"
+            android:inputType="textPassword"
+            android:textSize="@dimen/text_medium"
+            android:typeface="normal"/>
+
+    </LinearLayout>
+
+
+    <com.jumbomob.invistoo.ui.component.InvistooButton
+        android:id="@+id/send_button"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/material_blue_600"
+        android:padding="20dp"
+        android:text="Enviar"
+        android:textColor="@color/material_white_1000"
+        android:textSize="@dimen/text_medium_normal"
+        app:hasSpacing="true"
+        app:isUpperCase="true"/>
+
+</RelativeLayout>

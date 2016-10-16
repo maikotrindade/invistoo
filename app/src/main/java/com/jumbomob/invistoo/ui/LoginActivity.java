@@ -15,6 +15,7 @@ import com.jumbomob.invistoo.util.ProgressDialogUtil;
 import com.jumbomob.invistoo.util.SharedPrefsUtil;
 import com.jumbomob.invistoo.view.LoginView;
 
+
 public class LoginActivity extends AppCompatActivity implements LoginView {
 
     private EditText mEmailTextView, mPasswordTextView;

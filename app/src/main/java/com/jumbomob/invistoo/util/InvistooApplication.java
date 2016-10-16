@@ -2,12 +2,10 @@ package com.jumbomob.invistoo.util;
 
 import android.app.Application;
 
-import com.crashlytics.android.Crashlytics;
 import com.firebase.client.Firebase;
 
 import net.danlew.android.joda.JodaTimeAndroid;
 
-import io.fabric.sdk.android.Fabric;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
@@ -27,7 +25,6 @@ public class InvistooApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Fabric.with(this, new Crashlytics());
         sInstance = this;
         Firebase.setAndroidContext(this);
         JodaTimeAndroid.init(this);
