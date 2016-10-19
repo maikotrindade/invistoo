@@ -11,12 +11,10 @@ public class User extends RealmObject {
 
     @PrimaryKey
     private Long id;
-    private String firstName;
-    private String lastName;
-    private String creationDate;
+    private String username;
+    private String email;
     private String updateDate;
-    private String token;
-    private long expires;
+    private String imagePath;
     private String uid;
 
     public Long getId() {
@@ -27,28 +25,20 @@ public class User extends RealmObject {
         this.id = id;
     }
 
-    public String getCreationDate() {
-        return creationDate;
+    public String getUsername() {
+        return username;
     }
 
-    public void setCreationDate(String creationDate) {
-        this.creationDate = creationDate;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getEmail() {
+        return email;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getUpdateDate() {
@@ -59,20 +49,12 @@ public class User extends RealmObject {
         this.updateDate = updateDate;
     }
 
-    public long getExpires() {
-        return expires;
+    public String getImagePath() {
+        return imagePath;
     }
 
-    public void setExpires(long expires) {
-        this.expires = expires;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     public String getUid() {

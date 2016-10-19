@@ -13,6 +13,7 @@ public class SharedPrefsUtil {
 
     public static final String USER_SESSION = "user_session";
     public static final String IS_USER_LOGGED = "is_user_logged";
+    public static final String LAST_USER = "last_user";
     public static final String IS_REMEMBER_USER = "is_remember_user";
     public static final String INFORMATION_SYNC = "information_sync";
     public static final String LAST_SYNC = "last_sync";
@@ -59,6 +60,21 @@ public class SharedPrefsUtil {
                 USER_SESSION, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(IS_USER_LOGGED, isLogged);
+        editor.commit();
+    }
+
+    public static String getLastUserUid(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(
+                USER_SESSION, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(LAST_USER, "");
+    }
+
+    public static void setLastUserUid(String lastUserUid) {
+        final Context context = InvistooApplication.getInstance().getBaseContext();
+        SharedPreferences sharedPreferences = context.getSharedPreferences(
+                USER_SESSION, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(LAST_USER, lastUserUid);
         editor.commit();
     }
 

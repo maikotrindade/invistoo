@@ -12,14 +12,13 @@ import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.presenter.LoginPresenter;
 import com.jumbomob.invistoo.ui.component.CircleImageView;
 import com.jumbomob.invistoo.util.ProgressDialogUtil;
-import com.jumbomob.invistoo.util.SharedPrefsUtil;
 import com.jumbomob.invistoo.view.LoginView;
 
 
 public class LoginActivity extends AppCompatActivity implements LoginView {
 
     private EditText mEmailTextView, mPasswordTextView;
-    private CircleImageView mNewProfileImage, mLoginImage;
+    private CircleImageView mLoginImage;
     private LoginPresenter mPresenter;
     private TextView mNewUserText;
     private CheckBox mRememberCheckBox;
@@ -33,7 +32,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
             bindElements();
             configureElements();
         } else {
-            onLoginSuccess();
+            mPresenter.loginAuthenticatedUser(getBaseContext());
         }
     }
 
@@ -80,22 +79,23 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     }
 
     @Override
-    public void onLoginSuccess(boolean isRememberUser) {
-        SharedPrefsUtil.setUserLogged(true);
-        SharedPrefsUtil.setRememberUser(isRememberUser);
-        startActivity(new Intent(this, MainActivity.class));
-        finish();
-    }
-
-    public void onLoginSuccess() {
-        SharedPrefsUtil.setUserLogged(true);
+    public void onLoginSuccess(String email, boolean isRememberUser) {
+        mPresenter.loadUser(email, isRememberUser);
         startActivity(new Intent(this, MainActivity.class));
         finish();
     }
 
     @Override
-    public void onCreateUserSuccess() {
+    public void onLoginSuccess() {
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
+    }
+
+    @Override
+    public void onCreateUserSuccess(String email) {
+
         //TODO adicionar feedback para o usuario
+        mPresenter.createUser(email);
         startActivity(new Intent(this, MainActivity.class));
         finish();
     }

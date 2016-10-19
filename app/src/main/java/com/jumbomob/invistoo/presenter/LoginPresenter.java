@@ -7,9 +7,14 @@ import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.jumbomob.invistoo.R;
+import com.jumbomob.invistoo.model.entity.User;
+import com.jumbomob.invistoo.model.persistence.UserDAO;
 import com.jumbomob.invistoo.util.ConstantsUtil;
+import com.jumbomob.invistoo.util.SecurityUtils;
 import com.jumbomob.invistoo.util.SharedPrefsUtil;
 import com.jumbomob.invistoo.view.LoginView;
+
+import org.joda.time.DateTime;
 
 import java.util.Map;
 
@@ -55,7 +60,7 @@ public class LoginPresenter implements BasePresenter<LoginView> {
         firebase.authWithPassword(email, password, new Firebase.AuthResultHandler() {
             @Override
             public void onAuthenticated(AuthData authData) {
-                mView.onLoginSuccess(isRememberUser);
+                mView.onLoginSuccess(email, isRememberUser);
                 mView.hideProgressDialog();
             }
 
@@ -73,14 +78,7 @@ public class LoginPresenter implements BasePresenter<LoginView> {
         firebase.createUser(email, password, new Firebase.ValueResultHandler<Map<String, Object>>() {
             @Override
             public void onSuccess(Map<String, Object> result) {
-//                User user = new User();
-//                user.setUpdateDate(DateTime.now().toString());
-//                user.setCreationDate(DateTime.now().toString());
-//                user.setLastName();
-//                user.getToken();
-//                user.setExpires();
-//                user.setUid();
-                mView.onCreateUserSuccess();
+                mView.onCreateUserSuccess(email);
                 mView.hideProgressDialog();
             }
 
@@ -95,4 +93,44 @@ public class LoginPresenter implements BasePresenter<LoginView> {
     public boolean isUserAlreadyLogged(final Context context) {
         return SharedPrefsUtil.isUserLogged(context);
     }
+
+    public void createUser(final String email) {
+        SharedPrefsUtil.setUserLogged(true);
+        User user = new User();
+        user.setUpdateDate(DateTime.now().toString());
+        user.setEmail(email);
+        final String userUid = SecurityUtils.generateId();
+        user.setUid(userUid);
+        SharedPrefsUtil.setLastUserUid(userUid);
+
+        final UserDAO userDAO = UserDAO.getInstance();
+        userDAO.insert(user);
+    }
+
+    public void loadUser(final String email, boolean isRememberUser) {
+        final UserDAO userDAO = UserDAO.getInstance();
+        final User userByEmail = userDAO.findByEmail(email);
+
+        if (userByEmail != null) {
+            SharedPrefsUtil.setLastUserUid(userByEmail.getUid());
+        } else {
+            createUser(email);
+        }
+
+        SharedPrefsUtil.setUserLogged(true);
+        SharedPrefsUtil.setRememberUser(isRememberUser);
+    }
+
+    public void loginAuthenticatedUser(final Context context) {
+        final String lastUserUid = SharedPrefsUtil.getLastUserUid(context);
+        final UserDAO userDAO = UserDAO.getInstance();
+        final User userByUid = userDAO.findByUid(lastUserUid);
+        if (userByUid != null) {
+            SharedPrefsUtil.setUserLogged(true);
+            mView.onLoginSuccess();
+        } else {
+            //TODO display error auth to the user
+        }
+    }
+
 }

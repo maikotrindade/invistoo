@@ -15,11 +15,11 @@ import io.realm.RealmResults;
  */
 public class UserDAO {
 
-    private static QuestionDAO sDaoInstance;
+    private static UserDAO sDaoInstance;
 
-    public static synchronized QuestionDAO getInstance() {
+    public static synchronized UserDAO getInstance() {
         if (sDaoInstance == null) {
-            sDaoInstance = new QuestionDAO();
+            sDaoInstance = new UserDAO();
         }
         return sDaoInstance;
     }
@@ -29,6 +29,20 @@ public class UserDAO {
         realm.beginTransaction();
         realm.insert(user);
         realm.commitTransaction();
+    }
+
+    public User findByEmail(String email) {
+        Realm realm = InvistooApplication.getInstance().getDatabaseInstance();
+        return realm.where(User.class)
+                .equalTo("email", email)
+                .findFirst();
+    }
+
+    public User findByUid(String uid) {
+        Realm realm = InvistooApplication.getInstance().getDatabaseInstance();
+        return realm.where(User.class)
+                .equalTo("uid", uid)
+                .findFirst();
     }
 
     public List<User> findAll() {

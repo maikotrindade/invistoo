@@ -6,9 +6,11 @@ package com.jumbomob.invistoo.view;
  */
 public interface LoginView {
 
-    void onLoginSuccess(boolean isRememberUser);
+    void onLoginSuccess(String email, boolean isRememberUser);
 
-    void onCreateUserSuccess();
+    void onLoginSuccess();
+
+    void onCreateUserSuccess(String email);
 
     void showProgressDialog(int resourceId);
 
