@@ -31,6 +31,13 @@ public class UserDAO {
         realm.commitTransaction();
     }
 
+    public void insertOrUpdate(final User user) {
+        Realm realm = InvistooApplication.getInstance().getDatabaseInstance();
+        realm.beginTransaction();
+        realm.insertOrUpdate(user);
+        realm.commitTransaction();
+    }
+
     public User findByEmail(String email) {
         Realm realm = InvistooApplication.getInstance().getDatabaseInstance();
         return realm.where(User.class)

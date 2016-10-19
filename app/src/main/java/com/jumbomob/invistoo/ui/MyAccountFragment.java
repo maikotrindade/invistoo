@@ -1,10 +1,14 @@
 package com.jumbomob.invistoo.ui;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +18,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.jumbomob.invistoo.R;
+import com.jumbomob.invistoo.model.entity.User;
 import com.jumbomob.invistoo.presenter.MyAccountPresenter;
+import com.jumbomob.invistoo.util.PermissionUtil;
+import com.jumbomob.invistoo.util.StorageUtil;
 import com.jumbomob.invistoo.view.MyAccountView;
 
 /**
@@ -25,14 +32,14 @@ public class MyAccountFragment extends BaseFragment implements MyAccountView {
 
     private View mRootView;
     private MyAccountPresenter mPresenter;
-    private ImageView userImg;
-    private EditText nameEdtText, emailEdtText, passwordEdtText, passwordConfirmationEdtText;
-    private RelativeLayout userImgContainer;
-    private Button sendButton;
+    private ImageView mUserImg;
+    private EditText mNameEdtText, mEmailEdtText, mPasswordEdtText, mPasswordConfirmationEdtText;
+    private RelativeLayout mUserImgContainer;
+    private User mUser;
+    private Button mSendButton;
 
     public static MyAccountFragment newInstance() {
-        MyAccountFragment fragment = new MyAccountFragment();
-        return fragment;
+        return new MyAccountFragment();
     }
 
     @Override
@@ -42,8 +49,11 @@ public class MyAccountFragment extends BaseFragment implements MyAccountView {
         mRootView = inflater.inflate(R.layout.fragment_my_account, container, false);
         mPresenter = new MyAccountPresenter(this, this);
 
-        bindElements();
+        mUser = mPresenter.loadUserInfo(getContext());
+        configureElements();
         configureListeners();
+        requestPermission();
+
         return mRootView;
     }
 
@@ -53,33 +63,54 @@ public class MyAccountFragment extends BaseFragment implements MyAccountView {
         getActivity().setTitle(R.string.title_my_account);
     }
 
-    private void bindElements() {
-        userImgContainer = (RelativeLayout) mRootView.findViewById(R.id.user_image_container);
-        sendButton = (Button) mRootView.findViewById(R.id.send_button);
-        nameEdtText = (EditText) mRootView.findViewById(R.id.name_edit_text);
-        emailEdtText = (EditText) mRootView.findViewById(R.id.email_edit_text);
-        passwordEdtText = (EditText) mRootView.findViewById(R.id.password_edit_text);
-        passwordConfirmationEdtText = (EditText) mRootView.findViewById(R.id.password_confirmation_edit_text);
-        userImg = (ImageView) mRootView.findViewById(R.id.profile_image);
+    private void configureElements() {
+        mUserImgContainer = (RelativeLayout) mRootView.findViewById(R.id.user_image_container);
+        mSendButton = (Button) mRootView.findViewById(R.id.send_button);
+        mNameEdtText = (EditText) mRootView.findViewById(R.id.name_edit_text);
+        mEmailEdtText = (EditText) mRootView.findViewById(R.id.email_edit_text);
+        mPasswordEdtText = (EditText) mRootView.findViewById(R.id.password_edit_text);
+        mPasswordConfirmationEdtText = (EditText) mRootView.findViewById(R.id.password_confirmation_edit_text);
+        mUserImg = (ImageView) mRootView.findViewById(R.id.profile_image);
+
+        if (mUser != null) {
+            if (!TextUtils.isEmpty(mUser.getUsername())) {
+                mNameEdtText.setText(mUser.getUsername());
+            }
+            if (!TextUtils.isEmpty(mUser.getEmail())) {
+                mEmailEdtText.setText(mUser.getEmail());
+            }
+            if (!TextUtils.isEmpty(mUser.getImagePath())) {
+                final Bitmap bitmap = StorageUtil.getBitmap(mUser.getImagePath(), getContext());
+                mUserImg.setImageBitmap(bitmap);
+            }
+        } else {
+
+            //TODO
+
+        }
     }
 
     private void configureListeners() {
-        userImgContainer.setOnClickListener(new View.OnClickListener() {
+        mUserImgContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mPresenter.openImagePicker();
             }
         });
 
-        sendButton.setOnClickListener(new View.OnClickListener() {
+        mSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final String name = nameEdtText.getText().toString();
-                final String email = emailEdtText.getText().toString();
-                final String password = passwordEdtText.getText().toString();
-                final String passwordConfirmation = passwordConfirmationEdtText.getText().toString();
+                final String name = mNameEdtText.getText().toString();
+                final String email = mEmailEdtText.getText().toString();
+                final String password = mPasswordEdtText.getText().toString();
+                final String passwordConfirmation = mPasswordConfirmationEdtText.getText().toString();
 
-                mPresenter.validateFields(name, email, password, passwordConfirmation);
+                if (mPresenter.validateFields(name, email, password, passwordConfirmation)) {
+                    mUser.setUsername(name);
+                    mUser.setEmail(email);
+                    mPresenter.updateUser(mUser);
+                }
             }
         });
     }
@@ -88,10 +119,26 @@ public class MyAccountFragment extends BaseFragment implements MyAccountView {
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == MyAccountPresenter.SELECT_PICTURE) {
                 final Uri selectedImageUri = data.getData();
-                if (selectedImageUri != null) {
-                    userImg.setImageURI(selectedImageUri);
+                if (selectedImageUri != null && mUser != null) {
+                    final ContentResolver resolver = getActivity().getContentResolver();
+                    mPresenter.saveImage(mUser, selectedImageUri, resolver, getContext());
+                    mUserImg.setImageURI(selectedImageUri);
+                } else {
+                    //TODO add error feedback to the user
                 }
             }
         }
     }
+
+    private void requestPermission() {
+        final String[] PERMISSIONS_STORAGE = {
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE};
+
+        if (!PermissionUtil.isGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            PermissionUtil.request(this, PERMISSIONS_STORAGE, StorageUtil.REQUEST_EXTERNAL_STORAGE);
+        }
+    }
+
+
 }
