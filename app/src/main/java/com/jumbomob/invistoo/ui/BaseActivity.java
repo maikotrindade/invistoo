@@ -1,5 +1,7 @@
 package com.jumbomob.invistoo.ui;
 
+import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -9,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,14 +19,17 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.jumbomob.invistoo.R;
+import com.jumbomob.invistoo.model.entity.User;
+import com.jumbomob.invistoo.model.persistence.UserDAO;
+import com.jumbomob.invistoo.ui.component.CircleImageView;
 import com.jumbomob.invistoo.util.SharedPrefsUtil;
+import com.jumbomob.invistoo.util.StorageUtil;
 
 /**
  * @author maiko.trindade
  * @since 06/02/2016
  */
-public abstract class BaseActivity extends AppCompatActivity implements NavigationView
-        .OnNavigationItemSelectedListener {
+public abstract class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private NavigationView mNavigationView;
     private DrawerLayout mDrawerLayout;
@@ -47,6 +53,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);
         mNavigationView.setNavigationItemSelectedListener(this);
+        configureNavigationHeader();
 
     }
 
@@ -178,5 +185,36 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 
     private void logoutAccount() {
         SharedPrefsUtil.setUserLogged(false);
+    }
+
+    public User loadUserInfo(final Context context) {
+        User user = null;
+        final String lastUserUid = SharedPrefsUtil.getLastUserUid(context);
+        if (!TextUtils.isEmpty(lastUserUid)) {
+            final UserDAO userDAO = UserDAO.getInstance();
+            user = userDAO.findByUid(lastUserUid);
+        }
+        return user;
+    }
+
+    private void configureNavigationHeader() {
+        final User user = loadUserInfo(getBaseContext());
+        final CircleImageView profileImage = (CircleImageView) mNavigationView.findViewById(R.id.profile_image);
+        final TextView usernameTxtView = (TextView) mNavigationView.findViewById(R.id.username_text_view);
+        final TextView emailTxtView = (TextView) mNavigationView.findViewById(R.id.email_edit_text);
+
+        if (!TextUtils.isEmpty(user.getImagePath())) {
+            final Bitmap bitmap = StorageUtil.getBitmap(user.getImagePath(), getBaseContext());
+            profileImage.setImageBitmap(bitmap);
+        }
+
+        if (!TextUtils.isEmpty(user.getEmail())) {
+            emailTxtView.setText(user.getEmail());
+        }
+
+        if (!TextUtils.isEmpty(user.getUsername())) {
+            usernameTxtView.setText(user.getUsername());
+        }
+
     }
 }

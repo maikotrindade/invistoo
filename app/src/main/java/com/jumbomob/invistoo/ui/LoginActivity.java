@@ -38,7 +38,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     private void bindElements() {
         mEmailTextView = (EditText) findViewById(R.id.email_edit_text);
-        mPasswordTextView = (EditText) findViewById(R.id.password_edit_text);
+        mPasswordTextView = (EditText) findViewById(R.id.new_password_text);
         mNewUserText = (TextView) findViewById(R.id.new_user_button);
         mLoginImage = (CircleImageView) findViewById(R.id.login_button);
         mRememberCheckBox = (CheckBox) findViewById(R.id.remember_me_check_box);

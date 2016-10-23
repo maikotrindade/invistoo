@@ -8,4 +8,10 @@ public interface MyAccountView {
 
     void showMessage(int messageId);
 
+    void showProgressDialog(int messageId);
+
+    void invalidatePasswords();
+
+    void invalidateEmail();
+
 }

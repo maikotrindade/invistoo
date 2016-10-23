@@ -33,7 +33,7 @@ public class MyAccountFragment extends BaseFragment implements MyAccountView {
     private View mRootView;
     private MyAccountPresenter mPresenter;
     private ImageView mUserImg;
-    private EditText mNameEdtText, mEmailEdtText, mPasswordEdtText, mPasswordConfirmationEdtText;
+    private EditText mNameEdtText, mEmailEdtText, mOldPasswordEdtText, mNewPasswordEdtText;
     private RelativeLayout mUserImgContainer;
     private User mUser;
     private Button mSendButton;
@@ -68,8 +68,8 @@ public class MyAccountFragment extends BaseFragment implements MyAccountView {
         mSendButton = (Button) mRootView.findViewById(R.id.send_button);
         mNameEdtText = (EditText) mRootView.findViewById(R.id.name_edit_text);
         mEmailEdtText = (EditText) mRootView.findViewById(R.id.email_edit_text);
-        mPasswordEdtText = (EditText) mRootView.findViewById(R.id.password_edit_text);
-        mPasswordConfirmationEdtText = (EditText) mRootView.findViewById(R.id.password_confirmation_edit_text);
+        mOldPasswordEdtText = (EditText) mRootView.findViewById(R.id.new_password_text);
+        mNewPasswordEdtText = (EditText) mRootView.findViewById(R.id.new_password_edit_text);
         mUserImg = (ImageView) mRootView.findViewById(R.id.profile_image);
 
         if (mUser != null) {
@@ -103,14 +103,10 @@ public class MyAccountFragment extends BaseFragment implements MyAccountView {
             public void onClick(View view) {
                 final String name = mNameEdtText.getText().toString();
                 final String email = mEmailEdtText.getText().toString();
-                final String password = mPasswordEdtText.getText().toString();
-                final String passwordConfirmation = mPasswordConfirmationEdtText.getText().toString();
+                final String password = mOldPasswordEdtText.getText().toString();
+                final String passwordConfirmation = mNewPasswordEdtText.getText().toString();
 
-                if (mPresenter.validateFields(name, email, password, passwordConfirmation)) {
-                    mUser.setUsername(name);
-                    mUser.setEmail(email);
-                    mPresenter.updateUser(mUser);
-                }
+                mPresenter.validateFields(mUser, name, email, password, passwordConfirmation);
             }
         });
     }
@@ -138,6 +134,17 @@ public class MyAccountFragment extends BaseFragment implements MyAccountView {
         if (!PermissionUtil.isGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             PermissionUtil.request(this, PERMISSIONS_STORAGE, StorageUtil.REQUEST_EXTERNAL_STORAGE);
         }
+    }
+
+    @Override
+    public void invalidateEmail() {
+        mEmailEdtText.setError("Preenchimento obrigatório.");
+    }
+
+    @Override
+    public void invalidatePasswords() {
+        mOldPasswordEdtText.setError("Preenchimento obrigatório.");
+        mNewPasswordEdtText.setError("Preencha o campo corretamente.");
     }
 
 

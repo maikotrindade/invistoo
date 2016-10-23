@@ -54,23 +54,23 @@
             android:id="@+id/email_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="E-mail"
+            android:hint="Novo E-mail"
             android:textSize="@dimen/text_medium"/>
 
         <EditText
-            android:id="@+id/password_edit_text"
+            android:id="@+id/new_password_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Senha"
+            android:hint="Senha Antiga"
             android:inputType="textPassword"
             android:textSize="@dimen/text_medium"
             android:typeface="normal"/>
 
         <EditText
-            android:id="@+id/password_confirmation_edit_text"
+            android:id="@+id/new_password_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Confirmar Senha"
+            android:hint="Nova Senha"
             android:inputType="textPassword"
             android:textSize="@dimen/text_medium"
             android:typeface="normal"/>
