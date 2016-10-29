@@ -45,7 +45,6 @@ public class QuestionListAdapter extends RecyclerView.Adapter<QuestionListAdapte
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Question question = mQuestions.get(position);
         holder.questionTxtView.setText(question.getQuestion());
-        holder.answerTxtView.setText(String.valueOf(question.getAnswer()));
     }
 
     @Override
@@ -56,12 +55,10 @@ public class QuestionListAdapter extends RecyclerView.Adapter<QuestionListAdapte
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView questionTxtView;
-        private TextView answerTxtView;
 
         public ViewHolder(View view) {
             super(view);
             questionTxtView = (TextView) view.findViewById(R.id.question_text_view);
-            answerTxtView = (TextView) view.findViewById(R.id.answer_text_view);
         }
     }
 

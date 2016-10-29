@@ -198,23 +198,20 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
     }
 
     private void configureNavigationHeader() {
+        final View headerLayout = mNavigationView.getHeaderView(0);
         final User user = loadUserInfo(getBaseContext());
-        final CircleImageView profileImage = (CircleImageView) mNavigationView.findViewById(R.id.profile_image);
-        final TextView usernameTxtView = (TextView) mNavigationView.findViewById(R.id.username_text_view);
-        final TextView emailTxtView = (TextView) mNavigationView.findViewById(R.id.email_edit_text);
-
-        if (!TextUtils.isEmpty(user.getImagePath())) {
-            final Bitmap bitmap = StorageUtil.getBitmap(user.getImagePath(), getBaseContext());
-            profileImage.setImageBitmap(bitmap);
+        if (user != null && headerLayout != null) {
+            final CircleImageView profileImage = (CircleImageView) headerLayout.findViewById(R.id.profile_image);
+            final TextView usernameTxtView = (TextView) headerLayout.findViewById(R.id.username_text_view);
+            final TextView emailTxtView = (TextView) headerLayout.findViewById(R.id.email_edit_text);
+            if (!TextUtils.isEmpty(user.getImagePath())) {
+                final Bitmap bitmap = StorageUtil.getBitmap(user.getImagePath(), getBaseContext());
+                profileImage.setImageBitmap(bitmap);
+            }
+            if (!TextUtils.isEmpty(user.getEmail()))
+                emailTxtView.setText(user.getEmail());
+            if (!TextUtils.isEmpty(user.getUsername()))
+                usernameTxtView.setText(user.getUsername());
         }
-
-        if (!TextUtils.isEmpty(user.getEmail())) {
-            emailTxtView.setText(user.getEmail());
-        }
-
-        if (!TextUtils.isEmpty(user.getUsername())) {
-            usernameTxtView.setText(user.getUsername());
-        }
-
     }
 }
