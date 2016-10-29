@@ -80,7 +80,7 @@ public class MyAccountFragment extends BaseFragment implements MyAccountView {
                 mEmailEdtText.setText(mUser.getEmail());
             }
             if (!TextUtils.isEmpty(mUser.getImagePath())) {
-                final Bitmap bitmap = StorageUtil.getBitmap(mUser.getImagePath(), getContext());
+                final Bitmap bitmap = StorageUtil.getBitmap(mUser.getImagePath(), mRootView.getContext());
                 mUserImg.setImageBitmap(bitmap);
             }
         } else {
@@ -147,5 +147,10 @@ public class MyAccountFragment extends BaseFragment implements MyAccountView {
         mNewPasswordEdtText.setError("Preencha o campo corretamente.");
     }
 
-
+    @Override
+    public void reloadNavigationHeader() {
+        final MainActivity mainActivity = (MainActivity) getActivity();
+        if (mainActivity != null)
+            mainActivity.configureNavigationHeader();
+    }
 }

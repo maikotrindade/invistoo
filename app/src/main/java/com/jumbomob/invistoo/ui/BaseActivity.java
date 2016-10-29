@@ -197,7 +197,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
         return user;
     }
 
-    private void configureNavigationHeader() {
+    public void configureNavigationHeader() {
         final View headerLayout = mNavigationView.getHeaderView(0);
         final User user = loadUserInfo(getBaseContext());
         if (user != null && headerLayout != null) {

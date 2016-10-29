@@ -14,4 +14,5 @@ public interface MyAccountView {
 
     void invalidateEmail();
 
+    void reloadNavigationHeader();
 }

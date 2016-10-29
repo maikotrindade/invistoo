@@ -141,7 +141,7 @@ public class MyAccountPresenter implements BasePresenter<MyAccountView> {
         try {
             final Bitmap bitmap = StorageUtil.getThumbnail(imageUri, resolver, 100);
             String imageToStorage = StorageUtil.saveImageToStorage(bitmap, context);
-            //user.setImagePath(imageToStorage);
+            updateUserImageProfile(user, imageToStorage);
         } catch (IOException e) {
             //TODO send an error message to the user
             Log.e(TAG, "IOException");
@@ -159,9 +159,18 @@ public class MyAccountPresenter implements BasePresenter<MyAccountView> {
             user.setEmail(email);
 
         realm.commitTransaction();
+        mView.reloadNavigationHeader();
+    }
 
-        final UserDAO userDAO = UserDAO.getInstance();
-        userDAO.insertOrUpdate(user);
+    private void updateUserImageProfile(final User user, final String imagePath) {
+        final Realm realm = InvistooApplication.getInstance().getDatabaseInstance();
+        realm.beginTransaction();
+
+        if (!TextUtils.isEmpty(imagePath))
+            user.setImagePath(imagePath);
+
+        realm.commitTransaction();
+        mView.reloadNavigationHeader();
     }
 
 }
