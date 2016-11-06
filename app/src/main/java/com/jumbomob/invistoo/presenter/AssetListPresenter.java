@@ -8,8 +8,10 @@ import com.jumbomob.invistoo.model.network.AssetInterface;
 import com.jumbomob.invistoo.model.network.BaseNetworkConfig;
 import com.jumbomob.invistoo.model.persistence.AssetDAO;
 import com.jumbomob.invistoo.ui.adapter.AssetListAdapter;
+import com.jumbomob.invistoo.util.DateUtil;
 import com.jumbomob.invistoo.view.AssetListView;
 
+import java.util.Date;
 import java.util.List;
 
 import retrofit.Call;
@@ -84,8 +86,15 @@ public class AssetListPresenter implements BasePresenter<AssetListView> {
     }
 
     public String getLastUpdate() {
-        //TODO
-        return "Atualizado a duas horas";
+        final AssetDAO assetDAO = AssetDAO.getInstance();
+        final Date lastUpdate = assetDAO.findLastUpdate();
+        if (lastUpdate != null) {
+            return DateUtil.formatDateUX(lastUpdate);
+        } else {
+            return "";
+        }
     }
+
+
 
 }

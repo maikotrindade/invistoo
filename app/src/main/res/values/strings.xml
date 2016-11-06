@@ -25,8 +25,8 @@
     <string name="error_download_questions">Não foi possível atualizar as informações úteis.
         Por favor, tente novamente.</string>
     <string name="error_general">Ocorreu um erro, por favor tente novamente</string>
-    <string name="error_goal_percentage">A porcentagem total dos objetivos deve ser igual a
-        100</string>
+    <string name="error_goal_percentage">A porcentagem total dos objetivos deve ser igual a100</string>
+
     <!-- Titles -->
     <string name="title_indexes">Cotação</string>
     <string name="my_investments">Meus Investimentos</string>
@@ -80,4 +80,14 @@
 
     <string name="select_image">Selecione uma imagem de perfil</string>
     <string name="account_saved_message">Perfil atualizado com sucesso</string>
+
+    <string name="last_update_days">Atualizado a %1$d dias atrás</string>
+    <string name="last_update_day">Atualizado a %1$d dia atrás</string>
+    <string name="last_update_hours">Atualizado a %1$d horas atrás</string>
+    <string name="last_update_hour">Atualizado a %1$d hora atrás</string>
+    <string name="last_update_minutes">Atualizado a %1$d minutos atrás</string>
+    <string name="last_update_minute">Atualizado a %1$d minuto atrás</string>
+    <string name="last_update_less_than_minute">Atualizado a menos de um minuto atrás</string>
+    <string name="last_update_time">Atualizado em %1$s</string>
+
 </resources>

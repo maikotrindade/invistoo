@@ -1,5 +1,7 @@
 package com.jumbomob.invistoo.model.network;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.logging.HttpLoggingInterceptor;
 
@@ -28,15 +30,22 @@ public class BaseNetworkConfig {
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         OkHttpClient okHttpClient = new OkHttpClient();
+//TIMEOUT
 //        okHttpClient.setConnectTimeout(5, TimeUnit.SECONDS);
 //        okHttpClient.setReadTimeout(5, TimeUnit.SECONDS);
 //        okHttpClient.setWriteTimeout(5, TimeUnit.SECONDS);
         okHttpClient.interceptors().add(interceptor);
 
+
+        Gson gson = new GsonBuilder()
+                .setDateFormat("EEE MMM dd yyyy hh:mm:ss Z")
+                .create();
+
         final Retrofit retrofit = builder.baseUrl(baseUrl)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(okHttpClient)
                 .build();
         return retrofit.create(serviceClass);
     }
+
 }

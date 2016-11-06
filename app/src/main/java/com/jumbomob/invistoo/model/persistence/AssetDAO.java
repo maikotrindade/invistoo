@@ -5,6 +5,7 @@ import android.util.Log;
 import com.jumbomob.invistoo.model.entity.Asset;
 import com.jumbomob.invistoo.util.InvistooApplication;
 
+import java.util.Date;
 import java.util.List;
 
 import io.realm.Realm;
@@ -17,7 +18,7 @@ import io.realm.RealmResults;
  * @author maiko.trindade
  * @since 09/02/2016
  */
-public class AssetDAO{
+public class AssetDAO {
 
     private static AssetDAO sDaoInstance;
 
@@ -62,6 +63,27 @@ public class AssetDAO{
         query.equalTo("name", "John");
         RealmResults<Asset> assets = query.findAll();
         return assets;
+    }
+
+    private Asset findLastAssetAdded() {
+        Asset lastAsset = null;
+        Realm realm = InvistooApplication.getInstance().getDatabaseInstance();
+        RealmQuery<Asset> query = realm.where(Asset.class);
+        RealmResults<Asset> assets = query.findAll();
+        if (!assets.isEmpty()) {
+            lastAsset = assets.get(assets.size() - 1);
+        }
+
+        return lastAsset;
+    }
+
+    public Date findLastUpdate() {
+        Date lastUpdate = null;
+        final Asset lastAssetAdded = findLastAssetAdded();
+        if (lastAssetAdded != null) {
+            lastUpdate = lastAssetAdded.getLastUpdate();
+        }
+        return lastUpdate;
     }
 
 }

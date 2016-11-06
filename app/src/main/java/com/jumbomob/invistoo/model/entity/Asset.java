@@ -3,6 +3,8 @@ package com.jumbomob.invistoo.model.entity;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
+
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -67,7 +69,7 @@ public class Asset extends RealmObject {
 
     @SerializedName("lastUpdate")
     @Expose
-    private String lastUpdate;
+    private Date lastUpdate;
 
     @SerializedName("index")
     @Expose
@@ -121,11 +123,11 @@ public class Asset extends RealmObject {
         this.lastMonthProfitability = lastMonthProfitability;
     }
 
-    public String getLastUpdate() {
+    public Date getLastUpdate() {
         return lastUpdate;
     }
 
-    public void setLastUpdate(String lastUpdate) {
+    public void setLastUpdate(Date lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
 
