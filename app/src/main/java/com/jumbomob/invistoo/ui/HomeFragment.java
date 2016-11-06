@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -36,14 +38,19 @@ public class HomeFragment extends BaseFragment implements HomeView {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
+
         mRootView = inflater.inflate(R.layout.fragment_home, container, false);
         mPresenter = new HomePresenter(this);
         configureChart();
         return mRootView;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.main_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
@@ -77,8 +84,7 @@ public class HomeFragment extends BaseFragment implements HomeView {
                 if (entry == null) {
                     return;
                 }
-                Log.i(TAG, "Value: " + entry.getVal() + ", xIndex: " + entry.getXIndex()
-                        + ", DataSet index: " + dataSetIndex);
+                Log.i(TAG, "Value: " + entry.getVal() + ", xIndex: " + entry.getXIndex() + ", DataSet index: " + dataSetIndex);
             }
 
             @Override
