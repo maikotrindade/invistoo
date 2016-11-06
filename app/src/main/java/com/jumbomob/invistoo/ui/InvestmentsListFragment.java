@@ -40,7 +40,7 @@ public class InvestmentsListFragment extends BaseFragment implements InvestmentL
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
-    Bundle
+            Bundle
             savedInstanceState) {
         super.onCreate(savedInstanceState);
         mRootView = inflater.inflate(R.layout.fragment_investments_list, container, false);
@@ -67,7 +67,7 @@ public class InvestmentsListFragment extends BaseFragment implements InvestmentL
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(mRootView.getContext()));
 
-        final InvestmentListAdapter adapter = new InvestmentListAdapter(dao.findAll());
+        final InvestmentListAdapter adapter = new InvestmentListAdapter(dao.findAll(), getContext());
         recyclerView.setAdapter(adapter);
     }
 
