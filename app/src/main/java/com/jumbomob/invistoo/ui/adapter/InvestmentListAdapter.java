@@ -61,7 +61,7 @@ public class InvestmentListAdapter extends RecyclerView.Adapter<InvestmentListAd
         holder.lastUpdateTxtView.setText(DateUtil.formatDate(investment.getUpdateDate()));
 
         final AssetTypeEnum typeEnum = AssetTypeEnum.getById(investment.getAssetType());
-        
+
         Drawable background = holder.circleContainer.getBackground();
         if (background instanceof ShapeDrawable) {
             ((ShapeDrawable) background).getPaint().setColor(ContextCompat.getColor(mContext, typeEnum.getColorResourceId()));
