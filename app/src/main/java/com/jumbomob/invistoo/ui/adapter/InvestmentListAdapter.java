@@ -47,9 +47,7 @@ public class InvestmentListAdapter extends RecyclerView.Adapter<InvestmentListAd
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Investment investment = mInvestments.get(position);
         holder.nameTxtView.setText(investment.getName());
-        holder.quantityTxtView.setText(NumericUtil.formatDouble(investment.getQuantity()));
-        holder.priceTxtView
-                .setText("R$" + NumericUtil.formatDouble(Double.valueOf(investment.getPrice())));
+        holder.valueTxtView.setText("R$" + NumericUtil.formatDouble(Double.valueOf(investment.getPrice())));
         holder.lastUpdateTxtView.setText(DateUtil.formatDate(investment.getUpdateDate()));
     }
 
@@ -61,15 +59,13 @@ public class InvestmentListAdapter extends RecyclerView.Adapter<InvestmentListAd
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView nameTxtView;
-        private TextView quantityTxtView;
-        private TextView priceTxtView;
+        private TextView valueTxtView;
         private TextView lastUpdateTxtView;
 
         public ViewHolder(View view) {
             super(view);
             nameTxtView = (TextView) view.findViewById(R.id.name_text_view);
-            quantityTxtView = (TextView) view.findViewById(R.id.quantity_text_view);
-            priceTxtView = (TextView) view.findViewById(R.id.price_text_view);
+            valueTxtView = (TextView) view.findViewById(R.id.value_text_view);
             lastUpdateTxtView = (TextView) view.findViewById(R.id.last_update_text_view);
         }
     }
