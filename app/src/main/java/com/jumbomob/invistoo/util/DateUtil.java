@@ -60,29 +60,29 @@ public class DateUtil {
         final DateTime date = new DateTime(unformattedDate);
         final DateTime currentDate = new DateTime();
 
-        final Duration duration = new Duration(date, currentDate);
-        if (duration.getStandardDays() > 0 && duration.getStandardDays() < 30) {
-            long days = duration.getStandardDays();
+        final Duration timeDifference = new Duration(date, currentDate);
+        if (timeDifference.getStandardDays() > 0 && timeDifference.getStandardDays() < 30) {
+            long days = timeDifference.getStandardDays();
             if (days == 1) {
-                return baseContext.getString(R.string.last_update_day, duration.getStandardDays());
+                return baseContext.getString(R.string.last_update_day, timeDifference.getStandardDays());
             } else {
-                return baseContext.getString(R.string.last_update_days, duration.getStandardDays());
+                return baseContext.getString(R.string.last_update_days, timeDifference.getStandardDays());
             }
-        } else if (duration.getStandardHours() > 0) {
-            long hours = duration.getStandardHours();
+        } else if (timeDifference.getStandardHours() > 0 && timeDifference.getStandardHours() < 24) {
+            long hours = timeDifference.getStandardHours();
             if (hours == 1) {
-                return baseContext.getString(R.string.last_update_hour, duration.getStandardHours());
+                return baseContext.getString(R.string.last_update_hour, timeDifference.getStandardHours());
             } else {
-                return baseContext.getString(R.string.last_update_hours, duration.getStandardHours());
+                return baseContext.getString(R.string.last_update_hours, timeDifference.getStandardHours());
             }
-        } else if (duration.getStandardMinutes() > 0) {
-            long minutes = duration.getStandardMinutes();
+        } else if (timeDifference.getStandardMinutes() > 0 && timeDifference.getStandardMinutes() < 60) {
+            long minutes = timeDifference.getStandardMinutes();
             if (minutes == 1) {
-                return baseContext.getString(R.string.last_update_minute, duration.getStandardMinutes());
+                return baseContext.getString(R.string.last_update_minute, timeDifference.getStandardMinutes());
             } else {
-                return baseContext.getString(R.string.last_update_minutes, duration.getStandardMinutes());
+                return baseContext.getString(R.string.last_update_minutes, timeDifference.getStandardMinutes());
             }
-        } else if (duration.getStandardSeconds() > 0) {
+        } else if (timeDifference.getStandardSeconds() > 0 && timeDifference.getStandardMinutes() < 60) {
             return baseContext.getString(R.string.last_update_less_than_minute);
         } else {
             return baseContext.getString(R.string.last_update_time, formatDate(date.toDate(), SIMPLE_DATE_FORMAT));
