@@ -5,17 +5,23 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.ShapeDrawable;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jumbomob.invistoo.R;
+import com.jumbomob.invistoo.model.entity.AssetStatusEnum;
 import com.jumbomob.invistoo.model.entity.AssetTypeEnum;
 import com.jumbomob.invistoo.model.entity.Investment;
+import com.jumbomob.invistoo.model.persistence.InvestmentDAO;
 import com.jumbomob.invistoo.ui.callback.onSearchResultListener;
 import com.jumbomob.invistoo.util.DateUtil;
 import com.jumbomob.invistoo.util.NumericUtil;
@@ -33,9 +39,9 @@ public class InvestmentListAdapter extends RecyclerView.Adapter<InvestmentListAd
     private Context mContext;
     private onSearchResultListener mSearchListener;
 
-    public InvestmentListAdapter(List<Investment> investments, Context context) {
+    public InvestmentListAdapter(List<Investment> investments, Fragment fragment) {
         mInvestments = investments;
-        mContext = context;
+        mContext = fragment.getContext();
     }
 
     public void setItens(List<Investment> investments) {
@@ -54,11 +60,14 @@ public class InvestmentListAdapter extends RecyclerView.Adapter<InvestmentListAd
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         final Investment investment = mInvestments.get(position);
         holder.nameTxtView.setText(investment.getName());
         holder.valueTxtView.setText("R$" + NumericUtil.formatDouble(Double.valueOf(investment.getPrice())));
         holder.lastUpdateTxtView.setText(DateUtil.formatDate(investment.getUpdateDate()));
+
+        final AssetStatusEnum statusEnum = AssetStatusEnum.getById(investment.getAssetStatus());
+        holder.statusTextView.setText(statusEnum.getTitle());
 
         final AssetTypeEnum typeEnum = AssetTypeEnum.getById(investment.getAssetType());
 
@@ -73,6 +82,43 @@ public class InvestmentListAdapter extends RecyclerView.Adapter<InvestmentListAd
 
         holder.abbreviationTxtView.setText(typeEnum.getAbbreviation());
         holder.yearTxtView.setText(String.valueOf(typeEnum.getYear()));
+
+        holder.contextMenuImgView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final PopupMenu popup = new PopupMenu(mContext, view);
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        final Investment investment = getSelectedItem();
+                        switch (item.getItemId()) {
+                            case R.id.sell_action:
+                                sellInvestment(investment, position);
+                                return true;
+                            case R.id.more_info_action:
+                                changeToMoreInfoScreen(investment);
+                                return true;
+                            default:
+                                return false;
+                        }
+                    }
+                });
+                popup.inflate(R.menu.main_menu);
+                popup.show();
+
+            }
+        });
+    }
+
+    private void sellInvestment(final Investment investment, int position) {
+        InvestmentDAO investmentDAO = InvestmentDAO.getInstance();
+        investmentDAO.updateSold(investment);
+        notifyItemChanged(position);
+    }
+
+    private void changeToMoreInfoScreen(final Investment investment) {
+        //TODO
+        //((BaseActivity) mContext).setFragment(, final String title)
     }
 
     @Override
@@ -84,19 +130,23 @@ public class InvestmentListAdapter extends RecyclerView.Adapter<InvestmentListAd
 
         private LinearLayout circleContainer;
         private TextView abbreviationTxtView;
+        private TextView statusTextView;
         private TextView yearTxtView;
         private TextView nameTxtView;
         private TextView valueTxtView;
         private TextView lastUpdateTxtView;
+        private ImageView contextMenuImgView;
 
         public ViewHolder(View view) {
             super(view);
             circleContainer = (LinearLayout) view.findViewById(R.id.circle_container);
             abbreviationTxtView = (TextView) view.findViewById(R.id.abbreviation_text_view);
+            statusTextView = (TextView) view.findViewById(R.id.status_text_view);
             yearTxtView = (TextView) view.findViewById(R.id.year_text_view);
             nameTxtView = (TextView) view.findViewById(R.id.name_text_view);
             valueTxtView = (TextView) view.findViewById(R.id.value_text_view);
             lastUpdateTxtView = (TextView) view.findViewById(R.id.last_update_text_view);
+            contextMenuImgView = (ImageView) view.findViewById(R.id.context_menu_image_view);
         }
     }
 

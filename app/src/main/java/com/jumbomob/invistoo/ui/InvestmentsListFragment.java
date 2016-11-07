@@ -32,6 +32,7 @@ public class InvestmentsListFragment extends BaseFragment implements InvestmentL
     private View mRootView;
     private FloatingActionMenu menuRed;
     private InvestmentListPresenter mPresenter;
+    private InvestmentListAdapter mAdapter;
 
     public static InvestmentsListFragment newInstance() {
         InvestmentsListFragment fragment = new InvestmentsListFragment();
@@ -60,15 +61,13 @@ public class InvestmentsListFragment extends BaseFragment implements InvestmentL
 
     private void configureRecyclerView() {
         final InvestmentDAO dao = InvestmentDAO.getInstance();
-        RecyclerView recyclerView = (RecyclerView) mRootView.findViewById(R.id
-                .investments_recycler_view);
-        recyclerView.addItemDecoration(new DividerItemDecorator(getActivity(), DividerItemDecorator
-                .VERTICAL_LIST));
+        RecyclerView recyclerView = (RecyclerView) mRootView.findViewById(R.id.investments_recycler_view);
+        recyclerView.addItemDecoration(new DividerItemDecorator(getActivity(), DividerItemDecorator.VERTICAL_LIST));
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(mRootView.getContext()));
 
-        final InvestmentListAdapter adapter = new InvestmentListAdapter(dao.findAll(), getContext());
-        recyclerView.setAdapter(adapter);
+        mAdapter = new InvestmentListAdapter(dao.findAll(), this);
+        recyclerView.setAdapter(mAdapter);
     }
 
     private void configureFab() {

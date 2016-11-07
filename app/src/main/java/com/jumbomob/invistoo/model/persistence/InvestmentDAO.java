@@ -1,5 +1,6 @@
 package com.jumbomob.invistoo.model.persistence;
 
+import com.jumbomob.invistoo.model.entity.AssetStatusEnum;
 import com.jumbomob.invistoo.model.entity.Investment;
 import com.jumbomob.invistoo.util.InvistooApplication;
 
@@ -66,5 +67,13 @@ public class InvestmentDAO {
         return realm.where(Investment.class)
                 .equalTo("assetType", assetType)
                 .findAll();
+    }
+
+    public void updateSold(final Investment investment) {
+        Realm realm = InvistooApplication.getInstance().getDatabaseInstance();
+        realm.beginTransaction();
+        investment.setAssetStatus(AssetStatusEnum.SELL);
+        realm.insertOrUpdate(investment);
+        realm.commitTransaction();
     }
 }

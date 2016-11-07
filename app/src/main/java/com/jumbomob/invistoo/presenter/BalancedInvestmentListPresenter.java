@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.model.dto.InvestmentSuggestion;
+import com.jumbomob.invistoo.model.entity.AssetStatusEnum;
 import com.jumbomob.invistoo.model.entity.AssetTypeEnum;
 import com.jumbomob.invistoo.model.entity.Goal;
 import com.jumbomob.invistoo.model.entity.Investment;
@@ -131,6 +132,7 @@ public class BalancedInvestmentListPresenter implements BasePresenter<BalancedIn
             final AssetTypeEnum assetTypeEnum = AssetTypeEnum.getById(suggestion.getAssetType());
             investment.setName(assetTypeEnum.getTitle());
             investment.setAssetType(assetTypeEnum);
+            investment.setAssetStatus(AssetStatusEnum.BUY);
             dao.insert(investment);
         }
 

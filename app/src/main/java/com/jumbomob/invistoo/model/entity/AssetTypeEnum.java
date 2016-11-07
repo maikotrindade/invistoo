@@ -69,9 +69,9 @@ public enum AssetTypeEnum {
     }
 
     public static AssetTypeEnum getById(long id) {
-        for (AssetTypeEnum paxStatus : AssetTypeEnum.values()) {
-            if (paxStatus.getId() == id) {
-                return paxStatus;
+        for (AssetTypeEnum typeEnum : AssetTypeEnum.values()) {
+            if (typeEnum.getId() == id) {
+                return typeEnum;
             }
         }
         return null;

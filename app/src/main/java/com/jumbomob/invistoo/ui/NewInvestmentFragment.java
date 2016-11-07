@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.model.entity.Asset;
+import com.jumbomob.invistoo.model.entity.AssetStatusEnum;
 import com.jumbomob.invistoo.model.entity.AssetTypeEnum;
 import com.jumbomob.invistoo.model.entity.Investment;
 import com.jumbomob.invistoo.model.persistence.AssetDAO;
@@ -110,6 +111,7 @@ public class NewInvestmentFragment extends BaseFragment {
             investment.setUpdateDate(DateUtil.formatDate(new Date()));
             investment.setPrice(mAssetPriceTxtView.getText().toString());
             investment.setAssetType((AssetTypeEnum) mSpinner.getSelectedItem());
+            investment.setAssetStatus(AssetStatusEnum.BUY);
 
             final InvestmentDAO investmentDao = InvestmentDAO.getInstance();
             investmentDao.insert(investment);
