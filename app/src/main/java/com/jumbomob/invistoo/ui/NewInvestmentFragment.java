@@ -112,6 +112,7 @@ public class NewInvestmentFragment extends BaseFragment {
             investment.setPrice(mAssetPriceTxtView.getText().toString());
             investment.setAssetType((AssetTypeEnum) mSpinner.getSelectedItem());
             investment.setAssetStatus(AssetStatusEnum.BUY);
+            investment.setActive(true);
 
             final InvestmentDAO investmentDao = InvestmentDAO.getInstance();
             investmentDao.insert(investment);

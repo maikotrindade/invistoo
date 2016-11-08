@@ -1,6 +1,7 @@
 package com.jumbomob.invistoo.ui.adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
@@ -24,6 +25,7 @@ import com.jumbomob.invistoo.model.entity.Investment;
 import com.jumbomob.invistoo.model.persistence.InvestmentDAO;
 import com.jumbomob.invistoo.ui.callback.onSearchResultListener;
 import com.jumbomob.invistoo.util.DateUtil;
+import com.jumbomob.invistoo.util.DialogUtil;
 import com.jumbomob.invistoo.util.NumericUtil;
 
 import java.util.List;
@@ -87,38 +89,76 @@ public class InvestmentListAdapter extends RecyclerView.Adapter<InvestmentListAd
             @Override
             public void onClick(View view) {
                 final PopupMenu popup = new PopupMenu(mContext, view);
+                popup.inflate(R.menu.investment_list_context_menu);
+                popup.show();
+
+                final MenuItem statusItem = popup.getMenu().findItem(R.id.handle_status_action);
+                if (statusEnum.equals(AssetStatusEnum.SELL)) {
+                    statusItem.setTitle(mContext.getString(R.string.bought_action_menu));
+                } else {
+                    statusItem.setTitle(mContext.getString(R.string.sold_action_menu));
+                }
+
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-                        final Investment investment = getSelectedItem();
+
                         switch (item.getItemId()) {
-                            case R.id.sell_action:
-                                sellInvestment(investment, position);
+                            case R.id.handle_status_action:
+                                handleInvestmentStatus(investment, position);
                                 return true;
                             case R.id.more_info_action:
                                 changeToMoreInfoScreen(investment);
+                                return true;
+                            case R.id.remove_action:
+                                showDialogRemoveInvestment(investment);
                                 return true;
                             default:
                                 return false;
                         }
                     }
                 });
-                popup.inflate(R.menu.main_menu);
-                popup.show();
 
             }
         });
     }
 
-    private void sellInvestment(final Investment investment, int position) {
+    private void handleInvestmentStatus(final Investment investment, int position) {
         InvestmentDAO investmentDAO = InvestmentDAO.getInstance();
-        investmentDAO.updateSold(investment);
+        AssetStatusEnum statusEnum = AssetStatusEnum.getById(investment.getAssetStatus());
+
+        if (statusEnum.equals(AssetStatusEnum.SELL)) {
+            statusEnum = AssetStatusEnum.BUY;
+        } else {
+            statusEnum = AssetStatusEnum.SELL;
+        }
+        investmentDAO.updateSold(investment, statusEnum);
+        
         notifyItemChanged(position);
     }
 
     private void changeToMoreInfoScreen(final Investment investment) {
         //TODO
         //((BaseActivity) mContext).setFragment(, final String title)
+    }
+
+    private void showDialogRemoveInvestment(final Investment investment) {
+
+        DialogUtil.getInstance(mContext).show(mContext, R.string.remove_investment_title, R.string.remove_investment_message,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                        InvestmentDAO investmentDAO = InvestmentDAO.getInstance();
+                        investmentDAO.updateActive(investment);
+                        notifyDataSetChanged();
+                    }
+                }, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
     }
 
     @Override

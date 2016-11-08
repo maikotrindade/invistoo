@@ -39,6 +39,8 @@
     <string name="title_brokerage">Corretoras</string>
     <string name="action_save">Salvar</string>
     <string name="action_settings">Configurações</string>
+    <string name="NO">NÃO</string>
+    <string name="YES">SIM</string>
     <string name="OK">OK</string>
     <string name="ok">ok</string>
     <string name="msg_asset_questions_success">Informações úteis atualizadas com sucesso</string>
@@ -89,5 +91,13 @@
     <string name="last_update_minute">Atualizado a %1$d minuto atrás</string>
     <string name="last_update_less_than_minute">Atualizado a menos de um minuto atrás</string>
     <string name="last_update_time">Atualizado em %1$s</string>
+    <string name="status_action_menu">Status</string>
+    <string name="sold_action_menu">Marcar como vendido</string>
+    <string name="bought_action_menu">Marcar como comprado</string>
+
+    <string name="more_info_action_menu">Mais informações</string>
+    <string name="remove">Remover</string>
+    <string name="remove_investment_title">Remover</string>
+    <string name="remove_investment_message">Você deseja realmente remover este investimento?</string>
 
 </resources>

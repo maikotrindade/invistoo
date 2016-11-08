@@ -133,6 +133,7 @@ public class BalancedInvestmentListPresenter implements BasePresenter<BalancedIn
             investment.setName(assetTypeEnum.getTitle());
             investment.setAssetType(assetTypeEnum);
             investment.setAssetStatus(AssetStatusEnum.BUY);
+            investment.setActive(true);
             dao.insert(investment);
         }
 

@@ -49,7 +49,7 @@ public class HomeFragment extends BaseFragment implements HomeView {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.main_menu, menu);
+        inflater.inflate(R.menu.investment_list_context_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 

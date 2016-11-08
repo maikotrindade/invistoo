@@ -19,6 +19,7 @@ public class Investment extends RealmObject {
     private String removedDate;
     private Long assetType;
     private Long assetStatus;
+    private boolean isActive;
 
     //TODO add user
 
@@ -94,17 +95,27 @@ public class Investment extends RealmObject {
         this.assetStatus = assetStatus.getId();
     }
 
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
     @Override
     public String toString() {
         return "Investment{" +
-                "assetType=" + assetType +
-                ", id=" + id +
+                "id=" + id +
                 ", name='" + name + '\'' +
                 ", quantity=" + quantity +
                 ", price='" + price + '\'' +
                 ", creationDate='" + creationDate + '\'' +
                 ", updateDate='" + updateDate + '\'' +
                 ", removedDate='" + removedDate + '\'' +
+                ", assetType=" + assetType +
+                ", assetStatus=" + assetStatus +
+                ", isActive=" + isActive +
                 '}';
     }
 }
