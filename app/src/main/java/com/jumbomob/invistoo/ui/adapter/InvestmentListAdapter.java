@@ -66,7 +66,7 @@ public class InvestmentListAdapter extends RecyclerView.Adapter<InvestmentListAd
         final Investment investment = mInvestments.get(position);
         holder.nameTxtView.setText(investment.getName());
         holder.valueTxtView.setText("R$" + NumericUtil.formatDouble(Double.valueOf(investment.getPrice())));
-        holder.lastUpdateTxtView.setText(DateUtil.formatDate(investment.getUpdateDate()));
+        holder.lastUpdateTxtView.setText(DateUtil.formatDate(investment.getUpdateDate(), DateUtil.SIMPLE_DATETIME_FORMAT));
 
         final AssetStatusEnum statusEnum = AssetStatusEnum.getById(investment.getAssetStatus());
         holder.statusTextView.setText(statusEnum.getTitle());
@@ -133,7 +133,7 @@ public class InvestmentListAdapter extends RecyclerView.Adapter<InvestmentListAd
             statusEnum = AssetStatusEnum.SELL;
         }
         investmentDAO.updateSold(investment, statusEnum);
-        
+
         notifyItemChanged(position);
     }
 

@@ -1,5 +1,7 @@
 package com.jumbomob.invistoo.model.entity;
 
+import java.util.Date;
+
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -14,9 +16,9 @@ public class Investment extends RealmObject {
     private String name;
     private double quantity;
     private String price;
-    private String creationDate;
-    private String updateDate;
-    private String removedDate;
+    private Date creationDate;
+    private Date updateDate;
+    private Date removedDate;
     private Long assetType;
     private Long assetStatus;
     private boolean isActive;
@@ -31,11 +33,11 @@ public class Investment extends RealmObject {
         this.id = id;
     }
 
-    public String getCreationDate() {
+    public Date getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(String creationDate) {
+    public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }
 
@@ -63,19 +65,19 @@ public class Investment extends RealmObject {
         this.quantity = quantity;
     }
 
-    public String getRemovedDate() {
+    public Date getRemovedDate() {
         return removedDate;
     }
 
-    public void setRemovedDate(String removedDate) {
+    public void setRemovedDate(Date removedDate) {
         this.removedDate = removedDate;
     }
 
-    public String getUpdateDate() {
+    public Date getUpdateDate() {
         return updateDate;
     }
 
-    public void setUpdateDate(String updateDate) {
+    public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
     }
 

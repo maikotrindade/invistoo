@@ -10,7 +10,6 @@ import com.jumbomob.invistoo.model.entity.Goal;
 import com.jumbomob.invistoo.model.entity.Investment;
 import com.jumbomob.invistoo.model.persistence.GoalDAO;
 import com.jumbomob.invistoo.model.persistence.InvestmentDAO;
-import com.jumbomob.invistoo.util.DateUtil;
 import com.jumbomob.invistoo.util.NumericUtil;
 import com.jumbomob.invistoo.view.BalancedInvestmentListView;
 
@@ -124,10 +123,10 @@ public class BalancedInvestmentListPresenter implements BasePresenter<BalancedIn
 
         for (InvestmentSuggestion suggestion : suggestions) {
             Investment investment = new Investment();
-            investment.setCreationDate(DateUtil.formatDate(new Date()));
+            investment.setCreationDate(new Date());
             investment.setPrice(suggestion.getSuggestion().toString());
             investment.setQuantity(1);
-            investment.setUpdateDate(DateUtil.formatDate(new Date()));
+            investment.setUpdateDate(new Date());
 
             final AssetTypeEnum assetTypeEnum = AssetTypeEnum.getById(suggestion.getAssetType());
             investment.setName(assetTypeEnum.getTitle());

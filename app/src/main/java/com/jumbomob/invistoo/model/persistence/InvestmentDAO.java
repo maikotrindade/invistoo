@@ -9,6 +9,7 @@ import java.util.List;
 import io.realm.Realm;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
+import io.realm.Sort;
 
 ;
 
@@ -57,9 +58,22 @@ public class InvestmentDAO {
 
     public List<Investment> findAll() {
         Realm realm = InvistooApplication.getInstance().getDatabaseInstance();
-        RealmQuery<Investment> query = realm.where(Investment.class).equalTo("isActive", true);
+        RealmQuery<Investment> query = realm.where(Investment.class)
+                .equalTo("isActive", true);
         RealmResults<Investment> investments = query.findAll();
         return investments;
+    }
+
+    public List<Investment> findAllOrderedByDate(boolean sortAsc) {
+        Realm realm = InvistooApplication.getInstance().getDatabaseInstance();
+        RealmQuery<Investment> query = realm.where(Investment.class)
+                .equalTo("isActive", true);
+
+        if (sortAsc) {
+            return query.findAll().sort("creationDate", Sort.ASCENDING);
+        } else {
+            return query.findAll().sort("creationDate", Sort.DESCENDING);
+        }
     }
 
     public List<Investment> findByAssetType(Long assetType) {

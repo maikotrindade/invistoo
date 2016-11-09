@@ -8,6 +8,9 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -16,12 +19,14 @@ import android.widget.EditText;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 import com.jumbomob.invistoo.R;
-import com.jumbomob.invistoo.model.persistence.InvestmentDAO;
+import com.jumbomob.invistoo.model.entity.Investment;
 import com.jumbomob.invistoo.presenter.InvestmentListPresenter;
 import com.jumbomob.invistoo.ui.adapter.InvestmentListAdapter;
 import com.jumbomob.invistoo.ui.component.DividerItemDecorator;
 import com.jumbomob.invistoo.util.NumericUtil;
 import com.jumbomob.invistoo.view.InvestmentListView;
+
+import java.util.List;
 
 /**
  * @author maiko.trindade
@@ -33,6 +38,9 @@ public class InvestmentsListFragment extends BaseFragment implements InvestmentL
     private FloatingActionMenu menuRed;
     private InvestmentListPresenter mPresenter;
     private InvestmentListAdapter mAdapter;
+    private InvestmentListAdapter mGroupAdapter;
+    private boolean isSortedDescByDate;
+
 
     public static InvestmentsListFragment newInstance() {
         InvestmentsListFragment fragment = new InvestmentsListFragment();
@@ -40,10 +48,9 @@ public class InvestmentsListFragment extends BaseFragment implements InvestmentL
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
-            Bundle
-            savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
         mRootView = inflater.inflate(R.layout.fragment_investments_list, container, false);
 
         mPresenter = new InvestmentListPresenter(this);
@@ -54,19 +61,38 @@ public class InvestmentsListFragment extends BaseFragment implements InvestmentL
     }
 
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.investment_list_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_order_by_date:
+            mPresenter.orderListByDate(isSortedDescByDate);
+                isSortedDescByDate = isSortedDescByDate ? false : true;
+                break;
+            case R.id.action_order_by_name:
+
+                break;
+        }
+        return false;
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         getActivity().setTitle(R.string.my_investments);
     }
 
     private void configureRecyclerView() {
-        final InvestmentDAO dao = InvestmentDAO.getInstance();
         RecyclerView recyclerView = (RecyclerView) mRootView.findViewById(R.id.investments_recycler_view);
         recyclerView.addItemDecoration(new DividerItemDecorator(getActivity(), DividerItemDecorator.VERTICAL_LIST));
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(mRootView.getContext()));
 
-        mAdapter = new InvestmentListAdapter(dao.findAll(), this);
+        mAdapter = new InvestmentListAdapter(mPresenter.findInvestments(), this);
         recyclerView.setAdapter(mAdapter);
     }
 
@@ -133,6 +159,11 @@ public class InvestmentsListFragment extends BaseFragment implements InvestmentL
         dialog.show();
     }
 
+    @Override
+    public void updateList(List<Investment> investments) {
+        mAdapter.setItens(investments);
+        mAdapter.notifyDataSetChanged();
+    }
 }
 
 

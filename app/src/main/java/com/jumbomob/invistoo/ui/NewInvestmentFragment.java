@@ -22,7 +22,6 @@ import com.jumbomob.invistoo.model.entity.Investment;
 import com.jumbomob.invistoo.model.persistence.AssetDAO;
 import com.jumbomob.invistoo.model.persistence.InvestmentDAO;
 import com.jumbomob.invistoo.ui.adapter.SpinnerAssetAdapter;
-import com.jumbomob.invistoo.util.DateUtil;
 import com.jumbomob.invistoo.util.InvistooUtil;
 import com.jumbomob.invistoo.util.NumericUtil;
 
@@ -105,10 +104,9 @@ public class NewInvestmentFragment extends BaseFragment {
             Investment investment = new Investment();
             final AssetTypeEnum selectedItem = (AssetTypeEnum) mSpinner.getSelectedItem();
             investment.setName(selectedItem.getTitle());
-            investment.setCreationDate(DateUtil.formatDate(new Date()));
-            investment.setQuantity(NumericUtil.getValidDouble(mAssetQuantityTxtView.getText()
-                    .toString()));
-            investment.setUpdateDate(DateUtil.formatDate(new Date()));
+            investment.setCreationDate(new Date());
+            investment.setQuantity(NumericUtil.getValidDouble(mAssetQuantityTxtView.getText().toString()));
+            investment.setUpdateDate(new Date());
             investment.setPrice(mAssetPriceTxtView.getText().toString());
             investment.setAssetType((AssetTypeEnum) mSpinner.getSelectedItem());
             investment.setAssetStatus(AssetStatusEnum.BUY);

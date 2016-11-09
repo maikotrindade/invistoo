@@ -2,8 +2,12 @@ package com.jumbomob.invistoo.presenter;
 
 import android.text.TextUtils;
 
+import com.jumbomob.invistoo.model.entity.Investment;
+import com.jumbomob.invistoo.model.persistence.InvestmentDAO;
 import com.jumbomob.invistoo.util.NumericUtil;
 import com.jumbomob.invistoo.view.InvestmentListView;
+
+import java.util.List;
 
 /**
  * @author maiko.trindade
@@ -29,5 +33,15 @@ public class InvestmentListPresenter implements BasePresenter<InvestmentListView
 
     public boolean isContributionValid(String contribution) {
         return !TextUtils.isEmpty(contribution) && NumericUtil.isValidDouble(contribution);
+    }
+
+    public void orderListByDate(boolean sortAsc) {
+        final InvestmentDAO dao = InvestmentDAO.getInstance();
+        mView.updateList(dao.findAllOrderedByDate(sortAsc));
+    }
+
+    public List<Investment> findInvestments() {
+        final InvestmentDAO dao = InvestmentDAO.getInstance();
+        return dao.findAll();
     }
 }
