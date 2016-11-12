@@ -23,4 +23,25 @@ public class NewInvestmentPresenter implements BasePresenter<NewInvestmentView> 
     public NewInvestmentPresenter(NewInvestmentView view) {
         attachView(view);
     }
+
+
+    public boolean isValidFields(String price, String quantity, String assetTitle) {
+
+        boolean isValid = true;
+        if (price.isEmpty()) {
+            mView.setPriceError();
+            isValid = false;
+        }
+
+        if (quantity.isEmpty()) {
+            mView.setQuantityError();
+            isValid = false;
+        }
+
+        if (assetTitle.isEmpty()) {
+            isValid = false;
+        }
+
+        return isValid;
+    }
 }

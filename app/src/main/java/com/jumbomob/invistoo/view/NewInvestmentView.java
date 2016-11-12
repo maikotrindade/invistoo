@@ -6,5 +6,8 @@ package com.jumbomob.invistoo.view;
  */
 public interface NewInvestmentView {
 
+    void setPriceError();
+
+    void setQuantityError();
 
 }

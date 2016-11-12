@@ -12,6 +12,7 @@ import android.text.SpannableString;
 import android.text.style.ScaleXSpan;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import com.jumbomob.invistoo.R;
 
@@ -83,6 +84,14 @@ public class InvistooUtil {
             Log.e(TAG, e.getMessage());
         }
         return versionName;
+    }
+
+    public static void hideKeyboard(Activity activity) {
+        View view = activity.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 
     public static SpannableString getSpacedText(CharSequence text) {

@@ -21,13 +21,15 @@ import com.jumbomob.invistoo.model.entity.AssetTypeEnum;
 import com.jumbomob.invistoo.model.entity.Investment;
 import com.jumbomob.invistoo.model.persistence.AssetDAO;
 import com.jumbomob.invistoo.model.persistence.InvestmentDAO;
+import com.jumbomob.invistoo.presenter.NewInvestmentPresenter;
 import com.jumbomob.invistoo.ui.adapter.SpinnerAssetAdapter;
 import com.jumbomob.invistoo.util.InvistooUtil;
 import com.jumbomob.invistoo.util.NumericUtil;
+import com.jumbomob.invistoo.view.NewInvestmentView;
 
 import java.util.Date;
 
-public class NewInvestmentFragment extends BaseFragment {
+public class NewInvestmentFragment extends BaseFragment implements NewInvestmentView {
 
     private View mRootView;
     private TextView mAssetAnnualInterestTxtView;
@@ -35,6 +37,7 @@ public class NewInvestmentFragment extends BaseFragment {
     private EditText mAssetPriceTxtView;
     private EditText mAssetQuantityTxtView;
     private Spinner mSpinner;
+    private NewInvestmentPresenter mPresenter;
 
     public static NewInvestmentFragment newInstance() {
         NewInvestmentFragment fragment = new NewInvestmentFragment();
@@ -42,11 +45,11 @@ public class NewInvestmentFragment extends BaseFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         mRootView = inflater.inflate(R.layout.fragment_new_investment, container, false);
+        mPresenter = new NewInvestmentPresenter(this);
 
         configureAssetSpinner();
         bindElements();
@@ -100,23 +103,29 @@ public class NewInvestmentFragment extends BaseFragment {
 
     private void saveInvestment() {
 
-        if (isValidFields()) {
+        final String price = mAssetPriceTxtView.getText().toString();
+        final String quantity = mAssetQuantityTxtView.getText().toString();
+        final String selected = mSpinner.getSelectedItem().toString();
+
+        if (mPresenter.isValidFields(price, quantity, selected)) {
             Investment investment = new Investment();
+
             final AssetTypeEnum selectedItem = (AssetTypeEnum) mSpinner.getSelectedItem();
             investment.setName(selectedItem.getTitle());
             investment.setCreationDate(new Date());
-            investment.setQuantity(NumericUtil.getValidDouble(mAssetQuantityTxtView.getText().toString()));
+            investment.setQuantity(NumericUtil.getValidDouble(quantity));
             investment.setUpdateDate(new Date());
-            investment.setPrice(mAssetPriceTxtView.getText().toString());
+            investment.setPrice(price);
             investment.setAssetType((AssetTypeEnum) mSpinner.getSelectedItem());
             investment.setAssetStatus(AssetStatusEnum.BUY);
             investment.setActive(true);
 
             final InvestmentDAO investmentDao = InvestmentDAO.getInstance();
             investmentDao.insert(investment);
+
+            InvistooUtil.hideKeyboard(getActivity());
             InvistooUtil.makeSnackBar(getActivity(), getContext().getString(R.string
                     .msg_save_investment), Snackbar.LENGTH_LONG).show();
-
             ((MainActivity) getActivity()).goBackFragment();
         }
     }
@@ -137,26 +146,13 @@ public class NewInvestmentFragment extends BaseFragment {
         return false;
     }
 
-    private boolean isValidFields() {
+    @Override
+    public void setPriceError() {
+        mAssetPriceTxtView.setError("");
+    }
 
-        boolean isValid = true;
-        final String price = mAssetPriceTxtView.getText().toString();
-        if (price.isEmpty() || price.equals("")) {
-            mAssetPriceTxtView.setError("");
-            isValid = false;
-        }
-
-        final String quantity = mAssetQuantityTxtView.getText().toString();
-        if (quantity.isEmpty() || quantity.equals("")) {
-            mAssetQuantityTxtView.setError("");
-            isValid = false;
-        }
-
-        final String assetTitle = mSpinner.getSelectedItem().toString();
-        if (assetTitle.isEmpty() || assetTitle.equals("")) {
-            isValid = false;
-        }
-
-        return isValid;
+    @Override
+    public void setQuantityError() {
+        mAssetQuantityTxtView.setError("");
     }
 }
