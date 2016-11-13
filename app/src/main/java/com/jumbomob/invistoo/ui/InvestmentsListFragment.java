@@ -70,12 +70,9 @@ public class InvestmentsListFragment extends BaseFragment implements InvestmentL
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_order_by_date:
-            mPresenter.orderListByDate(isSortedDescByDate);
+                mPresenter.orderListByDate(isSortedDescByDate);
                 isSortedDescByDate = isSortedDescByDate ? false : true;
-                break;
-            case R.id.action_order_by_name:
-
-                break;
+                return true;
         }
         return false;
     }
