@@ -100,5 +100,7 @@
     <string name="remove_investment_title">Remover</string>
     <string name="remove_investment_message">Você deseja realmente remover este investimento?</string>
     <string name="balance">Balanço</string>
+    <string name="invested_sum">Total Investido</string>
+    <string name="sold_sum">Total retirado</string>
 
 </resources>

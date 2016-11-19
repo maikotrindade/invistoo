@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
@@ -21,6 +22,7 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.presenter.HomePresenter;
+import com.jumbomob.invistoo.util.NumericUtil;
 import com.jumbomob.invistoo.view.HomeView;
 
 /**
@@ -64,8 +66,16 @@ public class HomeFragment extends BaseFragment implements HomeView {
     }
 
     private void configureBalance() {
+        final LinearLayout balanceContainer = (LinearLayout) mRootView.findViewById(R.id.balance_container);
         final ImageView hideBalanceImgView = (ImageView) mRootView.findViewById(R.id.minimize_image_view);
-        final LinearLayout balanceContainer = (LinearLayout) mRootView.findViewById(R.id.balanceContainer);
+        final TextView balanceTextView = (TextView) mRootView.findViewById(R.id.balance_text_view);
+        final TextView balanceSoldTextView = (TextView) mRootView.findViewById(R.id.balance_sold_text_view);
+
+        final Long balance = mPresenter.getBalance();
+        balanceTextView.setText(NumericUtil.formatCurrency(balance));
+
+        final Long balanceSold = mPresenter.getBalanceSold();
+        balanceSoldTextView.setText(NumericUtil.formatCurrency(balanceSold));
 
         hideBalanceImgView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,6 +90,8 @@ public class HomeFragment extends BaseFragment implements HomeView {
 
             }
         });
+
+
 
     }
 

@@ -7,9 +7,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/activity_vertical_small_margin"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_small_margin"
         android:orientation="vertical">
 
         <LinearLayout
@@ -44,10 +44,11 @@
             </RelativeLayout>
 
             <LinearLayout
-                android:id="@+id/balanceContainer"
+                android:id="@+id/balance_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_small2"
+                android:layout_marginRight="@dimen/margin_small2"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -59,17 +60,17 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="R$"
+                        android:text="@string/invested_sum"
                         android:textSize="10sp" />
 
-                    <TextView
-                        android:id="@+id/balance"
+                    <com.jumbomob.invistoo.ui.component.ResizableTextView
+                        android:id="@+id/balance_text_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-thin"
-                        android:layout_marginLeft="@dimen/margin_small4"
+                        android:layout_gravity="center_vertical"
                         android:layout_marginBottom="@dimen/margin_small2"
-                        android:text="1.637.009,95"
+                        android:fontFamily="sans-serif-thin"
+                        android:maxLines="1"
                         android:textSize="@dimen/text_x_large" />
 
                 </LinearLayout>
@@ -77,12 +78,25 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_small1"
                     android:layout_marginLeft="@dimen/margin_small2"
+                    android:layout_marginRight="@dimen/margin_small2"
                     android:layout_weight="5"
                     android:orientation="vertical">
 
-                    <!--TODO-->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sold_sum"
+                        android:textSize="10sp" />
+
+                    <com.jumbomob.invistoo.ui.component.ResizableTextView
+                        android:id="@+id/balance_sold_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin_small2"
+                        android:fontFamily="sans-serif-thin"
+                        android:maxLines="1"
+                        android:textSize="@dimen/text_x_large" />
 
                 </LinearLayout>
 

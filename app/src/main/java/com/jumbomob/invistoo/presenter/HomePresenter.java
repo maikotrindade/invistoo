@@ -91,4 +91,24 @@ public class HomePresenter implements BasePresenter<HomeView> {
         legend.setYEntrySpace(0f);
         legend.setYOffset(0f);
     }
+
+    public Long getBalance() {
+        InvestmentDAO investmentDAO = InvestmentDAO.getInstance();
+        final List<Investment> buyInvestments = investmentDAO.findBoughtInvestments();
+        long balance = 0;
+        for (Investment buy : buyInvestments) {
+            balance += Long.parseLong(buy.getPrice());
+        }
+        return balance;
+    }
+
+    public Long getBalanceSold() {
+        InvestmentDAO investmentDAO = InvestmentDAO.getInstance();
+        final List<Investment> soldInvestments = investmentDAO.findSoldInvestments();
+        long balanceSold = 0;
+        for (Investment sold : soldInvestments) {
+            balanceSold += Long.parseLong(sold.getPrice());
+        }
+        return balanceSold;
+    }
 }
