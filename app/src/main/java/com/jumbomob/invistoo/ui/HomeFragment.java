@@ -3,12 +3,15 @@ package com.jumbomob.invistoo.ui;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
@@ -44,6 +47,7 @@ public class HomeFragment extends BaseFragment implements HomeView {
         mRootView = inflater.inflate(R.layout.fragment_home, container, false);
         mPresenter = new HomePresenter(this);
         configureChart();
+        configureBalance();
         return mRootView;
     }
 
@@ -57,6 +61,26 @@ public class HomeFragment extends BaseFragment implements HomeView {
     public void onResume() {
         super.onResume();
         getActivity().setTitle(R.string.title_home);
+    }
+
+    private void configureBalance() {
+        final ImageView hideBalanceImgView = (ImageView) mRootView.findViewById(R.id.minimize_image_view);
+        final LinearLayout balanceContainer = (LinearLayout) mRootView.findViewById(R.id.balanceContainer);
+
+        hideBalanceImgView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (balanceContainer.getVisibility() == View.VISIBLE) {
+                    balanceContainer.setVisibility(View.GONE);
+                    hideBalanceImgView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_maximize));
+                } else {
+                    balanceContainer.setVisibility(View.VISIBLE);
+                    hideBalanceImgView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_minimize));
+                }
+
+            }
+        });
+
     }
 
     private void configureChart() {

@@ -50,7 +50,7 @@ public class HomePresenter implements BasePresenter<HomeView> {
             final List<Investment> investments = dao.findByAssetType(assetTypeEnum.getId());
             if (investments != null && !investments.isEmpty()) {
                 InvestmentChartDTO chartDTO = new InvestmentChartDTO();
-                chartDTO.setDescription(assetTypeEnum.getTitle());
+                chartDTO.setDescription(assetTypeEnum.getAbbreviation());
                 chartDTO.setInvestments(investments);
                 Long chartDTOSum = new Long(0);
                 for (Investment investment : investments) {
@@ -71,7 +71,7 @@ public class HomePresenter implements BasePresenter<HomeView> {
                 subtitles.add(chartDTOs.get(index).getDescription());
             }
 
-            PieDataSet dataSet = new PieDataSet(chartEntries, "Total Investido");
+            PieDataSet dataSet = new PieDataSet(chartEntries, "");
             dataSet.setSliceSpace(3f);
             dataSet.setSelectionShift(5f);
             dataSet.setColors(ChartUtil.getMaterialTheme());

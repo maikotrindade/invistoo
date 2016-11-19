@@ -82,7 +82,7 @@ public class InvestmentListAdapter extends RecyclerView.Adapter<InvestmentListAd
             ((ColorDrawable) background).setColor(ContextCompat.getColor(mContext, typeEnum.getColorResourceId()));
         }
 
-        holder.abbreviationTxtView.setText(typeEnum.getAbbreviation());
+        holder.abbreviationTxtView.setText(typeEnum.getInitials());
         holder.yearTxtView.setText(String.valueOf(typeEnum.getYear()));
 
         holder.contextMenuImgView.setOnClickListener(new View.OnClickListener() {

@@ -99,5 +99,6 @@
     <string name="remove">Remover</string>
     <string name="remove_investment_title">Remover</string>
     <string name="remove_investment_message">Você deseja realmente remover este investimento?</string>
+    <string name="balance">Balanço</string>
 
 </resources>
