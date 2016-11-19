@@ -21,6 +21,7 @@ public class DateUtil {
 
     public static final String TAG = DateUtil.class.getSimpleName();
 
+    public static final String ISO_8601_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
     public static final String DEFAULT_FORMAT = "yyyy-MM-dd HH:mm:ss";
     public static final String SIMPLE_DATETIME_FORMAT = "dd/MM/yyyy 'às' HH:mm";
     public static final String SIMPLE_DATE_FORMAT = "dd/MM/yyyy";

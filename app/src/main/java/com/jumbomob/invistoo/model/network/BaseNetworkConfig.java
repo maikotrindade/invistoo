@@ -2,6 +2,7 @@ package com.jumbomob.invistoo.model.network;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.jumbomob.invistoo.util.DateUtil;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.logging.HttpLoggingInterceptor;
 
@@ -38,7 +39,7 @@ public class BaseNetworkConfig {
 
 
         Gson gson = new GsonBuilder()
-                .setDateFormat("EEE MMM dd yyyy hh:mm:ss Z")
+                .setDateFormat(DateUtil.ISO_8601_FORMAT)
                 .create();
 
         final Retrofit retrofit = builder.baseUrl(baseUrl)
