@@ -2,9 +2,15 @@ package com.jumbomob.invistoo.model.network;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.jumbomob.invistoo.util.DateUtil;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.logging.HttpLoggingInterceptor;
+
+import java.lang.reflect.Type;
+import java.util.Date;
 
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
@@ -38,9 +44,17 @@ public class BaseNetworkConfig {
         okHttpClient.interceptors().add(interceptor);
 
 
-        Gson gson = new GsonBuilder()
-                .setDateFormat(DateUtil.ISO_8601_FORMAT)
-                .create();
+        // Creates the json object which will manage the information received
+        GsonBuilder gsonBuilder = new GsonBuilder();
+
+// Register an adapter to manage the date types as long values
+        gsonBuilder.registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
+            @Override
+            public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+                return new Date(json.getAsJsonPrimitive().getAsLong());
+            }
+        });
+        Gson gson = gsonBuilder.create();
 
         final Retrofit retrofit = builder.baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create(gson))
