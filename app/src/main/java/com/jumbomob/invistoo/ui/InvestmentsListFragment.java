@@ -23,6 +23,7 @@ import com.jumbomob.invistoo.model.entity.Investment;
 import com.jumbomob.invistoo.presenter.InvestmentListPresenter;
 import com.jumbomob.invistoo.ui.adapter.InvestmentListAdapter;
 import com.jumbomob.invistoo.ui.component.DividerItemDecorator;
+import com.jumbomob.invistoo.util.ConstantsUtil;
 import com.jumbomob.invistoo.util.NumericUtil;
 import com.jumbomob.invistoo.view.InvestmentListView;
 
@@ -38,7 +39,6 @@ public class InvestmentsListFragment extends BaseFragment implements InvestmentL
     private FloatingActionMenu menuRed;
     private InvestmentListPresenter mPresenter;
     private InvestmentListAdapter mAdapter;
-    private InvestmentListAdapter mGroupAdapter;
     private boolean isSortedDescByDate;
 
 
@@ -141,13 +141,13 @@ public class InvestmentsListFragment extends BaseFragment implements InvestmentL
                     final Activity activity = getActivity();
                     final Fragment fragment = new BalancedInvestmentListFragment();
                     Bundle bundle = new Bundle();
-                    bundle.putDouble("contribution", contribution);
+                    bundle.putDouble(ConstantsUtil.CONTRIBUTION_BUNDLE, contribution);
                     fragment.setArguments(bundle);
                     ((BaseActivity) activity).setFragment(fragment, activity.getString(R.string.title_new_investment));
 
                     dialog.dismiss();
                 } else {
-                    contributionEdtText.setError("Digite um valor de aporte válido");
+                    contributionEdtText.setError(getString(R.string.vaild_contribution));
                 }
             }
         });

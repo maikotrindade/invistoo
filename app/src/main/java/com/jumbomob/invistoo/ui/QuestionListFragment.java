@@ -40,7 +40,7 @@ public class QuestionListFragment extends BaseFragment implements QuestionListVi
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mRootView = inflater.inflate(R.layout.fragment_useful_info_list, container, false);
+        mRootView = inflater.inflate(R.layout.fragment_question_list, container, false);
         mPresenter = new QuestionListPresenter(this);
 
         configureRecyclerView();

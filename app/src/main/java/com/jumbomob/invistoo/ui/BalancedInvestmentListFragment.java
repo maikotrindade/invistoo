@@ -16,6 +16,7 @@ import com.jumbomob.invistoo.model.dto.InvestmentSuggestion;
 import com.jumbomob.invistoo.presenter.BalancedInvestmentListPresenter;
 import com.jumbomob.invistoo.ui.adapter.BalancedInvestmentListAdapter;
 import com.jumbomob.invistoo.ui.component.DividerItemDecorator;
+import com.jumbomob.invistoo.util.ConstantsUtil;
 import com.jumbomob.invistoo.view.BalancedInvestmentListView;
 
 import java.util.List;
@@ -65,7 +66,7 @@ public class BalancedInvestmentListFragment extends BaseFragment
 
     private void configureElements() {
         final Bundle arguments = getArguments();
-        final double contribution = arguments.getDouble("contribution", 0);
+        final double contribution = arguments.getDouble(ConstantsUtil.CONTRIBUTION_BUNDLE, 0);
         final List<InvestmentSuggestion> suggestions = mPresenter.calculateBalance(contribution);
         configureRecyclerView(suggestions);
     }

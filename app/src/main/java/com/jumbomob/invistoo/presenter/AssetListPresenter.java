@@ -8,6 +8,7 @@ import com.jumbomob.invistoo.model.network.AssetInterface;
 import com.jumbomob.invistoo.model.network.BaseNetworkConfig;
 import com.jumbomob.invistoo.model.persistence.AssetDAO;
 import com.jumbomob.invistoo.ui.adapter.AssetListAdapter;
+import com.jumbomob.invistoo.util.ConstantsUtil;
 import com.jumbomob.invistoo.util.DateUtil;
 import com.jumbomob.invistoo.view.AssetListView;
 
@@ -47,7 +48,7 @@ public class AssetListPresenter implements BasePresenter<AssetListView> {
         mView.showProgressDialog(R.string.loading_assets);
 
         final AssetInterface service = BaseNetworkConfig.createService(AssetInterface.class,
-                BaseNetworkConfig.BASE_URL);
+                ConstantsUtil.BASE_URL);
 
         final Call<List<Asset>> call = service.getAssets();
         call.enqueue(new Callback<List<Asset>>() {

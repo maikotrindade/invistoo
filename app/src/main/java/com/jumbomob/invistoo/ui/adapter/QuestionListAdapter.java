@@ -13,6 +13,7 @@ import com.jumbomob.invistoo.model.entity.Question;
 import com.jumbomob.invistoo.ui.BaseActivity;
 import com.jumbomob.invistoo.ui.QuestionDetailsFragment;
 import com.jumbomob.invistoo.ui.callback.onSearchResultListener;
+import com.jumbomob.invistoo.util.ConstantsUtil;
 
 import java.util.List;
 
@@ -56,9 +57,9 @@ public class QuestionListAdapter extends RecyclerView.Adapter<QuestionListAdapte
             public void onClick(View view) {
                 final QuestionDetailsFragment questionDetailsFragment = QuestionDetailsFragment.newInstance();
                 Bundle bundle = new Bundle();
-                bundle.putParcelable("DETAILS", question);
+                bundle.putParcelable(ConstantsUtil.QUESTION_DETAILS_BUNDLE, question);
                 questionDetailsFragment.setArguments(bundle);
-                ((BaseActivity) mActivity).setFragment(questionDetailsFragment, "Detalhes");
+                ((BaseActivity) mActivity).setFragment(questionDetailsFragment, mActivity.getString(R.string.title_useful_information));
             }
         });
     }

@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.model.entity.Question;
+import com.jumbomob.invistoo.util.ConstantsUtil;
 
 public class QuestionDetailsFragment extends Fragment {
 
@@ -32,11 +33,16 @@ public class QuestionDetailsFragment extends Fragment {
 
     private void configureElements() {
         final Bundle arguments = getArguments();
-        final Question question = arguments.getParcelable("DETAILS");
+        final Question question = arguments.getParcelable(ConstantsUtil.QUESTION_DETAILS_BUNDLE);
 
         final TextView questionTxtView = (TextView) mRootView.findViewById(R.id.question_text_view);
         questionTxtView.setText(question.getQuestion());
 
+        final TextView groupTxtView = (TextView) mRootView.findViewById(R.id.group_text_view);
+        groupTxtView.setText(question.getGroup());
+        
+        final TextView answerTxtView = (TextView) mRootView.findViewById(R.id.answer_text_view);
+        answerTxtView.setText(question.getAnswer());
     }
 
 }

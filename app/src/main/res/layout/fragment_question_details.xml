@@ -1,24 +1,28 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
     tools:context="com.jumbomob.invistoo.ui.QuestionDetailsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:id="@+id/question_text_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:textSize="@dimen/text_medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
+    <TextView
+        android:id="@+id/group_text_view"
+        android:layout_width="wrap_content"
+        android:textSize="@dimen/text_small"
+        android:layout_height="wrap_content" />
 
+    <TextView
+        android:id="@+id/answer_text_view"
+        android:layout_width="wrap_content"
+        android:textSize="@dimen/text_normal"
+        android:layout_height="wrap_content" />
 
-    <!--private Long id;-->
-<!--e-->
-    <!--private String question;-->
-
-    <!--private String answer;-->
-
-    <!--private String group;-->
-
-
-</FrameLayout>
+</LinearLayout>

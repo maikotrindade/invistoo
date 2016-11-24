@@ -7,6 +7,7 @@ import com.jumbomob.invistoo.model.entity.Question;
 import com.jumbomob.invistoo.model.network.BaseNetworkConfig;
 import com.jumbomob.invistoo.model.network.QuestionInterface;
 import com.jumbomob.invistoo.model.persistence.QuestionDAO;
+import com.jumbomob.invistoo.util.ConstantsUtil;
 import com.jumbomob.invistoo.view.QuestionListView;
 
 import java.util.List;
@@ -49,7 +50,7 @@ public class QuestionListPresenter implements BasePresenter<QuestionListView> {
         mView.showProgressDialog(R.string.loading_questions);
 
         final QuestionInterface service = BaseNetworkConfig.createService(QuestionInterface.class,
-                BaseNetworkConfig.BASE_URL);
+                ConstantsUtil.BASE_URL);
 
         final Call<List<Question>> call = service.getQuestions();
         call.enqueue(new Callback<List<Question>>() {
