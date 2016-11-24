@@ -40,7 +40,7 @@ public class QuestionDetailsFragment extends Fragment {
 
         final TextView groupTxtView = (TextView) mRootView.findViewById(R.id.group_text_view);
         groupTxtView.setText(question.getGroup());
-        
+
         final TextView answerTxtView = (TextView) mRootView.findViewById(R.id.answer_text_view);
         answerTxtView.setText(question.getAnswer());
     }

@@ -69,7 +69,7 @@ public class GoalsFragment extends BaseFragment implements GoalsView {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
-        inflater.inflate(R.menu.new_settings_menu, menu);
+        inflater.inflate(R.menu.goal_list_menu, menu);
     }
 
     @Override
@@ -77,7 +77,10 @@ public class GoalsFragment extends BaseFragment implements GoalsView {
         switch (item.getItemId()) {
             case R.id.action_save:
                 mPresenter.saveGoals(mGoals);
-                break;
+                return true;
+            case R.id.action_info:
+                showDialog(R.string.title_goals, R.string.goals_more_info_message);
+                return true;
         }
         return false;
     }
@@ -155,50 +158,50 @@ public class GoalsFragment extends BaseFragment implements GoalsView {
             removeGoalContainer.setVisibility(View.GONE);
         }
 
-            //Percentage EditText
-            final EditText percentageEditText = (EditText)
-                    newGoalView.findViewById(R.id.percentage_edit_text);
-            percentageEditText.addTextChangedListener(new TextWatcher() {
-                public void onTextChanged(CharSequence textChanged, int start, int before, int
-                        count) {
-                    final String percentage = textChanged.toString();
-                    if (!TextUtils.isEmpty(percentage)) {
-                        if (NumericUtil.isValidDouble(percentage)) {
-                            goal.setPercent(Double.valueOf(percentage));
-                        }
+        //Percentage EditText
+        final EditText percentageEditText = (EditText)
+                newGoalView.findViewById(R.id.percentage_edit_text);
+        percentageEditText.addTextChangedListener(new TextWatcher() {
+            public void onTextChanged(CharSequence textChanged, int start, int before, int
+                    count) {
+                final String percentage = textChanged.toString();
+                if (!TextUtils.isEmpty(percentage)) {
+                    if (NumericUtil.isValidDouble(percentage)) {
+                        goal.setPercent(Double.valueOf(percentage));
                     }
                 }
+            }
 
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
-                public void afterTextChanged(Editable s) {
-                }
-            });
+            public void afterTextChanged(Editable s) {
+            }
+        });
 
-            //Spinner Widget
-            final SpinnerAssetAdapter dataAdapter = new SpinnerAssetAdapter
-                    (getContext(), android.R.layout.simple_spinner_item, AssetTypeEnum.values());
-            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            final Spinner assetSpinner = (Spinner) newGoalView.findViewById(R.id
-                    .assets_spinner);
-            assetSpinner.setAdapter(dataAdapter);
-            assetSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long
-                        id) {
-                    goal.setAssetTypeEnum(dataAdapter.getItem(pos).getId());
-                }
+        //Spinner Widget
+        final SpinnerAssetAdapter dataAdapter = new SpinnerAssetAdapter
+                (getContext(), android.R.layout.simple_spinner_item, AssetTypeEnum.values());
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        final Spinner assetSpinner = (Spinner) newGoalView.findViewById(R.id
+                .assets_spinner);
+        assetSpinner.setAdapter(dataAdapter);
+        assetSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long
+                    id) {
+                goal.setAssetTypeEnum(dataAdapter.getItem(pos).getId());
+            }
 
-                @Override
-                public void onNothingSelected(AdapterView<?> adapterView) {
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
-                }
-            });
+            }
+        });
 
-            goal.setAssetTypeEnum(((AssetTypeEnum) assetSpinner.getSelectedItem()).getId());
-            mGoals.add(goal);
-        }
+        goal.setAssetTypeEnum(((AssetTypeEnum) assetSpinner.getSelectedItem()).getId());
+        mGoals.add(goal);
+    }
 
     private void loadGoals(final Goal goal) {
         LayoutInflater layoutInflater =
@@ -206,9 +209,7 @@ public class GoalsFragment extends BaseFragment implements GoalsView {
         final View newGoalView = layoutInflater.inflate(R.layout.item_goals_list, null);
         mRowContainer.addView(newGoalView);
 
-        final EditText percentageEditText = (EditText)
-                newGoalView.findViewById(R.id.percentage_edit_text);
-
+        final EditText percentageEditText = (EditText) newGoalView.findViewById(R.id.percentage_edit_text);
         final Double percent = goal.getPercent();
         if (percent != null) {
             percentageEditText.setText(String.valueOf(percent));
