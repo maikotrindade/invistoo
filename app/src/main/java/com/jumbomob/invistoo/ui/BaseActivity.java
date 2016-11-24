@@ -85,7 +85,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 //                        getString(R.string.title_brokerage));
 //                break;
             case R.id.nav_useful_information:
-                setFragment(UsefulInformationListFragment.newInstance(), R.id
+                setFragment(QuestionListFragment.newInstance(), R.id
                         .nav_useful_information, getString(R.string.title_useful_information));
                 break;
             case R.id.nav_goals:

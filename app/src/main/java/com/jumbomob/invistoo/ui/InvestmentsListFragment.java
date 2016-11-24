@@ -143,8 +143,7 @@ public class InvestmentsListFragment extends BaseFragment implements InvestmentL
                     Bundle bundle = new Bundle();
                     bundle.putDouble("contribution", contribution);
                     fragment.setArguments(bundle);
-                    ((BaseActivity) activity).setFragment(fragment,
-                            activity.getString(R.string.title_new_investment));
+                    ((BaseActivity) activity).setFragment(fragment, activity.getString(R.string.title_new_investment));
 
                     dialog.dismiss();
                 } else {

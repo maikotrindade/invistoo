@@ -1,0 +1,24 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.jumbomob.invistoo.ui.QuestionDetailsFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/question_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+
+    <!--private Long id;-->
+<!--e-->
+    <!--private String question;-->
+
+    <!--private String answer;-->
+
+    <!--private String group;-->
+
+
+</FrameLayout>

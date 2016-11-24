@@ -103,4 +103,7 @@
     <string name="invested_sum">Total Investido</string>
     <string name="sold_sum">Total retirado</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

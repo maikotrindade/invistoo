@@ -1,5 +1,8 @@
 package com.jumbomob.invistoo.model.entity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -10,7 +13,7 @@ import io.realm.annotations.PrimaryKey;
  * @author maiko.trindade
  * @since 28/03/2016
  */
-public class Question extends RealmObject {
+public class Question extends RealmObject implements Parcelable {
 
     @SerializedName("_id")
     @Expose
@@ -60,4 +63,39 @@ public class Question extends RealmObject {
     public void setQuestion(String question) {
         this.question = question;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(this.id);
+        dest.writeString(this.question);
+        dest.writeString(this.answer);
+        dest.writeString(this.group);
+    }
+
+    public Question() {
+    }
+
+    protected Question(Parcel in) {
+        this.id = (Long) in.readValue(Long.class.getClassLoader());
+        this.question = in.readString();
+        this.answer = in.readString();
+        this.group = in.readString();
+    }
+
+    public static final Parcelable.Creator<Question> CREATOR = new Parcelable.Creator<Question>() {
+        @Override
+        public Question createFromParcel(Parcel source) {
+            return new Question(source);
+        }
+
+        @Override
+        public Question[] newArray(int size) {
+            return new Question[size];
+        }
+    };
 }

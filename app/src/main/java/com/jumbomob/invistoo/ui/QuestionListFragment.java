@@ -12,10 +12,10 @@ import android.view.ViewGroup;
 
 import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.model.entity.Question;
-import com.jumbomob.invistoo.presenter.UsefulInformationListPresenter;
+import com.jumbomob.invistoo.presenter.QuestionListPresenter;
 import com.jumbomob.invistoo.ui.adapter.QuestionListAdapter;
 import com.jumbomob.invistoo.util.InvistooUtil;
-import com.jumbomob.invistoo.view.UsefulInformationListView;
+import com.jumbomob.invistoo.view.QuestionListView;
 
 import java.util.List;
 
@@ -23,17 +23,16 @@ import java.util.List;
  * @author maiko.trindade
  * @since 28/03/2016
  */
-public class UsefulInformationListFragment extends BaseFragment implements
-        UsefulInformationListView {
+public class QuestionListFragment extends BaseFragment implements QuestionListView {
 
     private View mRootView;
-    private UsefulInformationListPresenter mPresenter;
+    private QuestionListPresenter mPresenter;
     private SwipeRefreshLayout mSwipeLayout;
     private QuestionListAdapter mAdapter;
     private RecyclerView mRecyclerView;
 
-    public static UsefulInformationListFragment newInstance() {
-        UsefulInformationListFragment fragment = new UsefulInformationListFragment();
+    public static QuestionListFragment newInstance() {
+        QuestionListFragment fragment = new QuestionListFragment();
         return fragment;
     }
 
@@ -42,7 +41,7 @@ public class UsefulInformationListFragment extends BaseFragment implements
                              @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mRootView = inflater.inflate(R.layout.fragment_useful_info_list, container, false);
-        mPresenter = new UsefulInformationListPresenter(this);
+        mPresenter = new QuestionListPresenter(this);
 
         configureRecyclerView();
         configureSwipe();
@@ -61,7 +60,7 @@ public class UsefulInformationListFragment extends BaseFragment implements
         mRecyclerView.setLayoutManager(new GridLayoutManager(mRootView.getContext(), 2));
 
         final List<Question> questions = mPresenter.getQuestions();
-        mAdapter = new QuestionListAdapter(questions);
+        mAdapter = new QuestionListAdapter(questions, getActivity());
         mRecyclerView.setAdapter(mAdapter);
 
         if (questions.isEmpty()) {

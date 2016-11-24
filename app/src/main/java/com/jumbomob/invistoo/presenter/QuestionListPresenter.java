@@ -7,7 +7,7 @@ import com.jumbomob.invistoo.model.entity.Question;
 import com.jumbomob.invistoo.model.network.BaseNetworkConfig;
 import com.jumbomob.invistoo.model.network.QuestionInterface;
 import com.jumbomob.invistoo.model.persistence.QuestionDAO;
-import com.jumbomob.invistoo.view.UsefulInformationListView;
+import com.jumbomob.invistoo.view.QuestionListView;
 
 import java.util.List;
 
@@ -17,16 +17,16 @@ import retrofit.Retrofit;
 
 /**
  * @author maiko.trindade
- * @since 23/07/2016
+ * @since 24/11/2016
  */
-public class UsefulInformationListPresenter implements BasePresenter<UsefulInformationListView> {
+public class QuestionListPresenter implements BasePresenter<QuestionListView> {
 
-    private static final String TAG =  UsefulInformationListPresenter.class.getSimpleName();
+    private static final String TAG =  QuestionListPresenter.class.getSimpleName();
 
-    private UsefulInformationListView mView;
+    private QuestionListView mView;
 
     @Override
-    public void attachView(UsefulInformationListView view) {
+    public void attachView(QuestionListView view) {
         mView = view;
     }
 
@@ -35,7 +35,7 @@ public class UsefulInformationListPresenter implements BasePresenter<UsefulInfor
         mView = null;
     }
 
-    public UsefulInformationListPresenter(UsefulInformationListView view) {
+    public QuestionListPresenter(QuestionListView view) {
         attachView(view);
     }
 

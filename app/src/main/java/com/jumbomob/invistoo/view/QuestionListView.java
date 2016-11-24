@@ -6,9 +6,9 @@ import java.util.List;
 
 /**
  * @author maiko.trindade
- * @since 23/07/2016
+ * @since 24/11/2016
  */
-public interface UsefulInformationListView {
+public interface QuestionListView {
 
     void onDownloadError();
 
