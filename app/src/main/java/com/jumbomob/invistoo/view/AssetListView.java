@@ -18,4 +18,6 @@ public interface AssetListView {
 
     void showProgressDialog(final int resourceId);
 
+    void setLastUpdateTitle();
+
 }

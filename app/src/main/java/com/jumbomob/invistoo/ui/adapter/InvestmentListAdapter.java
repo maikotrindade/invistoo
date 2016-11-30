@@ -65,7 +65,7 @@ public class InvestmentListAdapter extends RecyclerView.Adapter<InvestmentListAd
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final Investment investment = mInvestments.get(position);
         holder.nameTxtView.setText(investment.getName());
-        holder.valueTxtView.setText("R$" + NumericUtil.formatDouble(Double.valueOf(investment.getPrice())));
+        holder.valueTxtView.setText(NumericUtil.formatCurrency(NumericUtil.getValidLong((investment.getPrice()))));
         holder.lastUpdateTxtView.setText(DateUtil.formatDate(investment.getUpdateDate(), DateUtil.SIMPLE_DATETIME_FORMAT));
 
         final AssetStatusEnum statusEnum = AssetStatusEnum.getById(investment.getAssetStatus());
@@ -81,6 +81,10 @@ public class InvestmentListAdapter extends RecyclerView.Adapter<InvestmentListAd
         } else if (background instanceof ColorDrawable) {
             ((ColorDrawable) background).setColor(ContextCompat.getColor(mContext, typeEnum.getColorResourceId()));
         }
+
+
+        //holder.circleContainer.setBackgroundColor(InvistooUtil.getColor(mContext, typeEnum.getColorResourceId()));
+
 
         holder.abbreviationTxtView.setText(typeEnum.getInitials());
         holder.yearTxtView.setText(String.valueOf(typeEnum.getYear()));

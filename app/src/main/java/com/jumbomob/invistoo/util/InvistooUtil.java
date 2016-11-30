@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.text.Spannable;
@@ -110,6 +111,15 @@ public class InvistooUtil {
             }
         }
         return finalText;
+    }
+
+    public static final int getColor(Context context, int id) {
+        final int version = Build.VERSION.SDK_INT;
+        if (version >= 23) {
+            return ContextCompat.getColor(context, id);
+        } else {
+            return context.getResources().getColor(id);
+        }
     }
 
 }

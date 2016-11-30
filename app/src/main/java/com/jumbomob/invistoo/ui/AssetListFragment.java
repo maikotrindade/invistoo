@@ -30,9 +30,11 @@ public class AssetListFragment extends BaseFragment implements AssetListView {
 
     private View mRootView;
     private SearchView mSearchView;
+    private RecyclerView mRecyclerView;
     private AssetListAdapter mAdapter;
     private SwipeRefreshLayout mSwipeLayout;
     private AssetListPresenter mPresenter;
+    private BaseActivity mBaseActivity;
 
     public static AssetListFragment newInstance() {
         AssetListFragment fragment = new AssetListFragment();
@@ -44,6 +46,7 @@ public class AssetListFragment extends BaseFragment implements AssetListView {
                              @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        mBaseActivity = (BaseActivity) getActivity();
         mRootView = inflater.inflate(R.layout.fragment_asset_list, container, false);
         mPresenter = new AssetListPresenter(this);
         configureSwipe();
@@ -52,35 +55,24 @@ public class AssetListFragment extends BaseFragment implements AssetListView {
     }
 
     private void configureRecyclerView() {
-        RecyclerView recyclerView = (RecyclerView) mRootView.findViewById(R.id
-                .assets_recycler_view);
-        recyclerView.addItemDecoration(new DividerItemDecorator(getActivity(), DividerItemDecorator
-                .VERTICAL_LIST));
-        recyclerView.setItemAnimator(new SlideInUpAnimator(new OvershootInterpolator(1f)));
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(mRootView.getContext()));
-
-        final List<Asset> assetList = mPresenter.getAssets();
-        mAdapter = new AssetListAdapter(getActivity(), assetList);
-        recyclerView.setAdapter(mAdapter);
-
-        if (assetList.isEmpty()) {
-            mPresenter.downloadAssets();
-        }
+        mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.assets_recycler_view);
+        mRecyclerView.addItemDecoration(new DividerItemDecorator(getActivity(), DividerItemDecorator.VERTICAL_LIST));
+        mRecyclerView.setItemAnimator(new SlideInUpAnimator(new OvershootInterpolator(1f)));
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(mRootView.getContext()));
+        mPresenter.downloadAssets();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        BaseActivity baseActivity = (BaseActivity) getActivity();
-        baseActivity.setCustomToolbar(R.string.nav_indexes, mPresenter.getLastUpdate());
+        setLastUpdateTitle();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        BaseActivity baseActivity = (BaseActivity) getActivity();
-        baseActivity.setDefaultToolbar();
+        mBaseActivity.setDefaultToolbar();
     }
 
     @Override
@@ -114,6 +106,7 @@ public class AssetListFragment extends BaseFragment implements AssetListView {
     @Override
     public void onDownloadError() {
         hideProgressDialog();
+        mPresenter.getAssetsFromDatabase();
         InvistooUtil.makeSnackBar(getActivity(), getActivity()
                 .getString(R.string.error_download_assets), Snackbar.LENGTH_LONG).show();
     }
@@ -121,6 +114,7 @@ public class AssetListFragment extends BaseFragment implements AssetListView {
     @Override
     public void onDownloadSuccess() {
         hideProgressDialog();
+        setLastUpdateTitle();
         InvistooUtil.makeSnackBar(getActivity(), getString(R.string.msg_asset_updated_success),
                 Snackbar.LENGTH_LONG).show();
     }
@@ -144,10 +138,21 @@ public class AssetListFragment extends BaseFragment implements AssetListView {
         });
     }
 
+
     @Override
     public void updateAssetList(final List<Asset> assets) {
-        mAdapter.setItens(assets);
-        mAdapter.notifyDataSetChanged();
+        if (mAdapter == null) {
+            mAdapter = new AssetListAdapter(getActivity(), assets);
+            mRecyclerView.setAdapter(mAdapter);
+        } else {
+            mAdapter.setItens(assets);
+            mAdapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void setLastUpdateTitle() {
+        mBaseActivity.setCustomToolbar(R.string.nav_indexes, mPresenter.getLastUpdate());
     }
 
 }

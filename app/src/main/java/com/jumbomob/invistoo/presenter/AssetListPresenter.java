@@ -44,9 +44,7 @@ public class AssetListPresenter implements BasePresenter<AssetListView> {
     }
 
     public void downloadAssets() {
-
         mView.showProgressDialog(R.string.loading_assets);
-
         final AssetInterface service = BaseNetworkConfig.createService(AssetInterface.class,
                 ConstantsUtil.BASE_URL);
 
@@ -58,6 +56,7 @@ public class AssetListPresenter implements BasePresenter<AssetListView> {
                     final AssetDAO assetDAO = AssetDAO.getInstance();
                     final List<Asset> assetsResult = response.body();
                     mView.updateAssetList(assetsResult);
+
                     for (Asset asset : assetsResult) {
                         assetDAO.insert(asset);
                     }
@@ -76,9 +75,13 @@ public class AssetListPresenter implements BasePresenter<AssetListView> {
         });
     }
 
-    public List<Asset> getAssets() {
+    public void getAssetsFromDatabase() {
         final AssetDAO assetDAO = AssetDAO.getInstance();
-        return assetDAO.findLast();
+        final List<Asset> lastFromDatabase = assetDAO.findLastFromDatabase();
+        if (!lastFromDatabase.isEmpty()) {
+            mView.updateAssetList(lastFromDatabase);
+            mView.setLastUpdateTitle();
+        }
     }
 
     public void searchByText(final AssetListAdapter adapter, final String name) {
@@ -95,7 +98,5 @@ public class AssetListPresenter implements BasePresenter<AssetListView> {
             return "";
         }
     }
-
-
 
 }
