@@ -3,7 +3,6 @@ package com.jumbomob.invistoo.ui.adapter;
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,6 @@ import com.jumbomob.invistoo.ui.AssetChartFragment;
 import com.jumbomob.invistoo.ui.BaseActivity;
 import com.jumbomob.invistoo.ui.callback.onSearchResultListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,23 +38,12 @@ public class AssetListAdapter extends RecyclerView.Adapter<AssetListAdapter.View
         this.mAssets = assets;
     }
 
-    public Asset getSelectedItem() {
-        return mAssets.get(mPosition);
+    public List<Asset> getAssets() {
+        return mAssets;
     }
 
-    public List<Asset> filterByName(final String name) {
-        List<Asset> filteredAssets = new ArrayList<>();
-        final String filter = name.toLowerCase();
-        Log.e("Adapter", "Texto para filtro: " + name);
-        Log.e("Adapter", "O adapter tinha #: " + mAssets.size());
-        for (Asset asset : mAssets) {
-            final String assetName = asset.getName().toString();
-            if ((assetName).contains(filter)) {
-                filteredAssets.add(asset);
-            }
-        }
-        Log.e("Adapter", "O filtro tem #: " + filteredAssets.size());
-        return filteredAssets;
+    public Asset getSelectedItem() {
+        return mAssets.get(mPosition);
     }
 
     @Override

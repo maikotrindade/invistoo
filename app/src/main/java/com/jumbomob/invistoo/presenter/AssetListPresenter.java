@@ -12,6 +12,7 @@ import com.jumbomob.invistoo.util.ConstantsUtil;
 import com.jumbomob.invistoo.util.DateUtil;
 import com.jumbomob.invistoo.view.AssetListView;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -85,8 +86,15 @@ public class AssetListPresenter implements BasePresenter<AssetListView> {
     }
 
     public void searchByText(final AssetListAdapter adapter, final String name) {
-        final List<Asset> filteredAssets = adapter.filterByName(name);
-        mView.updateAssetList(filteredAssets);
+        final List<Asset> assets = adapter.getAssets();
+        if (assets.isEmpty()) {
+            final AssetDAO assetDAO = AssetDAO.getInstance();
+            final List<Asset> filteredAssets = filterByName(name, assetDAO.findLastFromDatabase());
+            mView.updateAssetList(filteredAssets);
+        } else {
+            final List<Asset> filteredAssets = filterByName(name, adapter.getAssets());
+            mView.updateAssetList(filteredAssets);
+        }
     }
 
     public String getLastUpdate() {
@@ -97,6 +105,21 @@ public class AssetListPresenter implements BasePresenter<AssetListView> {
         } else {
             return "";
         }
+    }
+
+    public List<Asset> filterByName(final String name, final List<Asset> assets) {
+        List<Asset> filteredAssets = new ArrayList<>();
+        final String filter = name.toLowerCase();
+        Log.e("Adapter", "Texto para filtro: " + name);
+        Log.e("Adapter", "O adapter tinha #: " + assets.size());
+        for (Asset asset : assets) {
+            final String assetName = asset.getName().toString().toLowerCase();
+            if ((assetName).contains(filter)) {
+                filteredAssets.add(asset);
+            }
+        }
+        Log.e("Adapter", "O filtro tem #: " + filteredAssets.size());
+        return filteredAssets;
     }
 
 }

@@ -21,6 +21,7 @@ import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.model.entity.User;
 import com.jumbomob.invistoo.model.persistence.UserDAO;
 import com.jumbomob.invistoo.ui.component.CircleImageView;
+import com.jumbomob.invistoo.util.InvistooUtil;
 import com.jumbomob.invistoo.util.SharedPrefsUtil;
 import com.jumbomob.invistoo.util.StorageUtil;
 
@@ -116,6 +117,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
                 .addToBackStack(fragment.getTag())
                 .commit();
         setTitle(title);
+        InvistooUtil.hideKeyboard(this);
         mNavigationView.setCheckedItem(navigationItemId);
         mDrawerLayout.closeDrawer(GravityCompat.START);
     }
@@ -126,6 +128,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
                 .replace(R.id.content, fragment)
                 .addToBackStack(fragment.getTag())
                 .commit();
+        InvistooUtil.hideKeyboard(this);
         setTitle(title);
     }
 
