@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ScrollView
+        android:id="@+id/goals_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -15,15 +15,28 @@
 
             <LinearLayout
                 android:id="@+id/rows_container"
-                android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
-            </LinearLayout>
+                android:layout_marginTop="8dp"
+                android:orientation="vertical" />
 
         </RelativeLayout>
 
     </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/no_goals_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_goal_defined"
+            android:textSize="@dimen/text_medium" />
+
+    </LinearLayout>
 
     <com.github.clans.fab.FloatingActionButton
         android:id="@+id/new_asset_settings"
@@ -31,8 +44,8 @@
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:elevation="12dp"
         android:layout_marginBottom="8dp"
         android:layout_marginRight="8dp"
-        fab:fab_size="normal"/>
+        android:elevation="12dp"
+        fab:fab_size="normal" />
 </RelativeLayout>

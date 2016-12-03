@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 
 import com.github.clans.fab.FloatingActionButton;
@@ -40,7 +41,8 @@ public class GoalsFragment extends BaseFragment implements GoalsView {
 
     private View mRootView;
     private GoalsPresenter mPresenter;
-    private LinearLayout mRowContainer;
+    private LinearLayout mRowContainer, mNoGoalsLayout;
+    private ScrollView mGoalsLayout;
     private RealmList<Goal> mGoals;
 
     public static GoalsFragment newInstance() {
@@ -52,7 +54,7 @@ public class GoalsFragment extends BaseFragment implements GoalsView {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mRootView = inflater.inflate(R.layout.fragment_settings, container, false);
+        mRootView = inflater.inflate(R.layout.fragment_goals, container, false);
         setHasOptionsMenu(true);
         mGoals = new RealmList<>();
         mPresenter = new GoalsPresenter(this);
@@ -109,14 +111,23 @@ public class GoalsFragment extends BaseFragment implements GoalsView {
 
     private void configureElements() {
         mRowContainer = (LinearLayout) mRootView.findViewById(R.id.rows_container);
+        mGoalsLayout = (ScrollView) mRootView.findViewById(R.id.goals_layout);
+        mNoGoalsLayout = (LinearLayout) mRootView.findViewById(R.id.no_goals_layout);
         loadGoals();
         configureFab();
     }
 
     private void loadGoals() {
         mGoals.addAll(mPresenter.getGoals());
-        for (Goal goal : mGoals) {
-            loadGoals(goal);
+        if (!mGoals.isEmpty()) {
+            mGoalsLayout.setVisibility(View.VISIBLE);
+            mNoGoalsLayout.setVisibility(View.GONE);
+            for (Goal goal : mGoals) {
+                loadGoals(goal);
+            }
+        } else {
+            mGoalsLayout.setVisibility(View.GONE);
+            mNoGoalsLayout.setVisibility(View.VISIBLE);
         }
     }
 
@@ -132,6 +143,9 @@ public class GoalsFragment extends BaseFragment implements GoalsView {
     }
 
     private void addNewGoal() {
+        mGoalsLayout.setVisibility(View.VISIBLE);
+        mNoGoalsLayout.setVisibility(View.GONE);
+
         final Goal goal = new Goal();
         goal.setPercent(new Double(0));
 
@@ -204,8 +218,7 @@ public class GoalsFragment extends BaseFragment implements GoalsView {
     }
 
     private void loadGoals(final Goal goal) {
-        LayoutInflater layoutInflater =
-                (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater layoutInflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View newGoalView = layoutInflater.inflate(R.layout.item_goals_list, null);
         mRowContainer.addView(newGoalView);
 
