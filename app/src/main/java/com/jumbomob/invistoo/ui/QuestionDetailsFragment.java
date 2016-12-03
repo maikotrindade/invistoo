@@ -36,13 +36,15 @@ public class QuestionDetailsFragment extends Fragment {
         final Bundle arguments = getArguments();
         final Question question = arguments.getParcelable(ConstantsUtil.QUESTION_DETAILS_BUNDLE);
 
+        final Long groupId = Long.valueOf(question.getGroup());
+        final String groupName = QuestionGroupEnum.getById(groupId).getTitle();
+        getActivity().setTitle(groupName);
+
         final TextView questionTxtView = (TextView) mRootView.findViewById(R.id.question_text_view);
         questionTxtView.setText(question.getQuestion());
 
         final TextView groupTxtView = (TextView) mRootView.findViewById(R.id.group_text_view);
-        final Long groupId = Long.valueOf(question.getGroup());
-        final QuestionGroupEnum groupEnum = QuestionGroupEnum.getById(groupId);
-        groupTxtView.setText(groupEnum.getTitle());
+        groupTxtView.setText(groupName);
 
         final TextView answerTxtView = (TextView) mRootView.findViewById(R.id.answer_text_view);
         answerTxtView.setText(question.getAnswer());

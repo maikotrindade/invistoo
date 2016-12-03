@@ -59,7 +59,7 @@ public class QuestionListAdapter extends RecyclerView.Adapter<QuestionListAdapte
                 Bundle bundle = new Bundle();
                 bundle.putParcelable(ConstantsUtil.QUESTION_DETAILS_BUNDLE, question);
                 questionDetailsFragment.setArguments(bundle);
-                ((BaseActivity) mActivity).setFragment(questionDetailsFragment, mActivity.getString(R.string.title_useful_information));
+                ((BaseActivity) mActivity).setFragment(questionDetailsFragment);
             }
         });
     }

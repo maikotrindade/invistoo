@@ -132,6 +132,15 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
         setTitle(title);
     }
 
+    public void setFragment(final Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.content, fragment)
+                .addToBackStack(fragment.getTag())
+                .commit();
+        InvistooUtil.hideKeyboard(this);
+    }
+
     public void goBackFragment() {
         getSupportFragmentManager().popBackStack();
     }
