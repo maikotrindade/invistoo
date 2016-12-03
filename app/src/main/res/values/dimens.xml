@@ -13,6 +13,8 @@
     <dimen name="margin_small2">4dp</dimen>
     <dimen name="margin_small3">6dp</dimen>
     <dimen name="margin_small4">8dp</dimen>
+    <dimen name="margin_medium1">14dp</dimen>
+    <dimen name="margin_medium2">18dp</dimen>
     <dimen name="margin_large">48dp</dimen>
 
     <!-- Texts -->

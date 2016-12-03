@@ -35,6 +35,7 @@ public class HomeFragment extends BaseFragment implements HomeView {
     private View mRootView;
 
     private PieChart mChart;
+    private LinearLayout mChartContainer;
     private HomePresenter mPresenter;
 
     public static HomeFragment newInstance() {
@@ -92,11 +93,11 @@ public class HomeFragment extends BaseFragment implements HomeView {
         });
 
 
-
     }
 
     private void configureChart() {
         mChart = (PieChart) mRootView.findViewById(R.id.investments_chart);
+        mChartContainer = (LinearLayout) mRootView.findViewById(R.id.investments_chart_container);
 
         mChart.setUsePercentValues(true);
         mChart.setExtraOffsets(5, 10, 5, 5);
@@ -137,5 +138,20 @@ public class HomeFragment extends BaseFragment implements HomeView {
         mChart.setData(data);
         mChart.highlightValues(null);
         mChart.invalidate();
+    }
+
+    @Override
+    public void setNoChartData() {
+        mChartContainer.setVisibility(View.GONE);
+        final LinearLayout newInvestmentContainer = (LinearLayout) mRootView.findViewById(R.id.new_investment_container);
+        newInvestmentContainer.setVisibility(View.VISIBLE);
+        final LinearLayout newInvestmentLayout = (LinearLayout) mRootView.findViewById(R.id.new_investment_layout);
+        newInvestmentLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((BaseActivity) getActivity()).setFragment(InvestmentsListFragment.newInstance(), R.id.nav_my_wallet,
+                        getString(R.string.my_investments));
+            }
+        });
     }
 }

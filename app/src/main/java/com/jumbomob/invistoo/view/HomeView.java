@@ -9,4 +9,6 @@ import com.github.mikephil.charting.data.PieData;
 public interface HomeView {
 
     void setChartData(PieData data);
+
+    void setNoChartData();
 }

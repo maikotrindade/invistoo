@@ -105,6 +105,44 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/new_investment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/margin_small4"
+            android:layout_marginTop="@dimen/margin_small4"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:id="@+id/new_investment_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/full_border_grey"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="@dimen/margin_medium2">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:text="Simule um \nnovo Investimento"
+                    android:textAlignment="center" />
+
+                <ImageView
+                    android:layout_width="172px"
+                    android:layout_height="172px"
+                    android:layout_marginTop="@dimen/margin_small4"
+                    android:clickable="false"
+                    android:src="@drawable/savings" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/investments_chart_container"
             android:layout_width="match_parent"
             android:layout_height="500dp"
             android:orientation="vertical">

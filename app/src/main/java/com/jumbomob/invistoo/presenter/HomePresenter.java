@@ -82,6 +82,8 @@ public class HomePresenter implements BasePresenter<HomeView> {
             pieData.setValueTextColor(Color.DKGRAY);
             generateLegend(chart.getLegend());
             mHomeView.setChartData(pieData);
+        } else {
+            mHomeView.setNoChartData();
         }
     }
 
