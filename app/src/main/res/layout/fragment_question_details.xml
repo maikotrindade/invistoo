@@ -9,20 +9,25 @@
 
     <TextView
         android:id="@+id/question_text_view"
-        android:textSize="@dimen/text_medium"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_small4"
+        android:layout_marginTop="@dimen/margin_medium1"
+        android:textAlignment="center"
+        android:textSize="@dimen/text_medium_large" />
 
     <TextView
         android:id="@+id/group_text_view"
         android:layout_width="wrap_content"
-        android:textSize="@dimen/text_small"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_medium"
+        android:textSize="@dimen/text_medium"
+        android:textStyle="bold|italic" />
 
     <TextView
         android:id="@+id/answer_text_view"
         android:layout_width="wrap_content"
-        android:textSize="@dimen/text_normal"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_medium" />
 
 </LinearLayout>

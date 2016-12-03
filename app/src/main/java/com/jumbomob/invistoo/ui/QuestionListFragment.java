@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,7 +57,8 @@ public class QuestionListFragment extends BaseFragment implements QuestionListVi
     private void configureRecyclerView() {
         mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.questions_recycler_view);
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(mRootView.getContext(), 2));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(mRootView.getContext()));
+        //mRecyclerView.setLayoutManager(new GridLayoutManager(mRootView.getContext(), 2));
 
         final List<Question> questions = mPresenter.getQuestions();
         mAdapter = new QuestionListAdapter(questions, getActivity());

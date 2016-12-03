@@ -13,8 +13,10 @@
     <dimen name="margin_small2">4dp</dimen>
     <dimen name="margin_small3">6dp</dimen>
     <dimen name="margin_small4">8dp</dimen>
-    <dimen name="margin_medium1">14dp</dimen>
-    <dimen name="margin_medium2">18dp</dimen>
+    <dimen name="margin_medium">10dp</dimen>
+    <dimen name="margin_medium1">12dp</dimen>
+    <dimen name="margin_medium2">14dp</dimen>
+    <dimen name="margin_medium3">18dp</dimen>
     <dimen name="margin_large">48dp</dimen>
 
     <!-- Texts -->
@@ -24,6 +26,7 @@
     <dimen name="text_large">24sp</dimen>
     <dimen name="text_medium_large">20sp</dimen>
     <dimen name="text_medium_normal">18sp</dimen>
+    <dimen name="text_medium1">16sp</dimen>
     <dimen name="text_medium">15sp</dimen>
     <dimen name="text_normal">14sp</dimen>
     <dimen name="text_small">13sp</dimen>

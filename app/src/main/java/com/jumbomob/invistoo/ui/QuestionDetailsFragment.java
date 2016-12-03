@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.model.entity.Question;
+import com.jumbomob.invistoo.model.entity.QuestionGroupEnum;
 import com.jumbomob.invistoo.util.ConstantsUtil;
 
 public class QuestionDetailsFragment extends Fragment {
@@ -39,7 +40,9 @@ public class QuestionDetailsFragment extends Fragment {
         questionTxtView.setText(question.getQuestion());
 
         final TextView groupTxtView = (TextView) mRootView.findViewById(R.id.group_text_view);
-        groupTxtView.setText(question.getGroup());
+        final Long groupId = Long.valueOf(question.getGroup());
+        final QuestionGroupEnum groupEnum = QuestionGroupEnum.getById(groupId);
+        groupTxtView.setText(groupEnum.getTitle());
 
         final TextView answerTxtView = (TextView) mRootView.findViewById(R.id.answer_text_view);
         answerTxtView.setText(question.getAnswer());
