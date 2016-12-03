@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
@@ -84,13 +85,21 @@ public class InvestmentsListFragment extends BaseFragment implements InvestmentL
     }
 
     private void configureRecyclerView() {
+        LinearLayout investmentsContainer = (LinearLayout) mRootView.findViewById(R.id.no_investments_container);
         RecyclerView recyclerView = (RecyclerView) mRootView.findViewById(R.id.investments_recycler_view);
         recyclerView.addItemDecoration(new DividerItemDecorator(getActivity(), DividerItemDecorator.VERTICAL_LIST));
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(mRootView.getContext()));
 
-        mAdapter = new InvestmentListAdapter(mPresenter.findInvestments(), this);
-        recyclerView.setAdapter(mAdapter);
+        if (!mPresenter.findInvestments().isEmpty()) {
+            recyclerView.setVisibility(View.VISIBLE);
+            investmentsContainer.setVisibility(View.GONE);
+            mAdapter = new InvestmentListAdapter(mPresenter.findInvestments(), this);
+            recyclerView.setAdapter(mAdapter);
+        } else {
+            investmentsContainer.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+        }
     }
 
     private void configureFab() {
