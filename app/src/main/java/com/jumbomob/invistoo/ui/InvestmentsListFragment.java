@@ -126,7 +126,7 @@ public class InvestmentsListFragment extends BaseFragment implements InvestmentL
                     final Double contribution = NumericUtil.getValidDouble(
                             contributionEdtText.getText().toString());
                     final Activity activity = getActivity();
-                    final Fragment fragment = new BalancedInvestmentListFragment();
+                    final Fragment fragment = new NewInvestmentFragment();
                     Bundle bundle = new Bundle();
                     bundle.putDouble(ConstantsUtil.CONTRIBUTION_BUNDLE, contribution);
                     fragment.setArguments(bundle);

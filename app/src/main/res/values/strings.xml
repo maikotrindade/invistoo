@@ -73,8 +73,9 @@
 
     <string name="no_data_chart">Sem dados para serem mostrados</string>
     <string name="new_contribution_title">Novo investimento</string>
-    <string name="new_contribution_message">Insira o valor do novo investimeno</string>
+    <string name="new_contribution_message">Valor do novo investimento:</string>
     <string name="confirm">Confirmar</string>
+    <string name="cancel">Cancelar</string>
     <string name="invested">Investido</string>
 
     <string name="loading_login">Entrando...</string>
@@ -103,7 +104,7 @@
     <string name="invested_sum">Total Investido</string>
     <string name="sold_sum">Total retirado</string>
 
-    <string name="vaild_contribution">Digite um valor de aporte válido</string>
+    <string name="vaild_contribution">Digite um valor válido.</string>
 
     <string name="goals_more_info_message">Devido a variação diária do mercado, sua carteira de investimentos apresentará uma alocação diferente da alocação de ativos original.
         A estratégia para aumentar a rentabilidade e diminuir riscos é simples: rebalancear a carteira de acordo com <b>metas</b>, assim o investidor vende ativos que subiram para comprar ativos que caíram de preço no mercado.

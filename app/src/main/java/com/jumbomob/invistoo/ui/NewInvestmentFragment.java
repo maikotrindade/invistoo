@@ -2,42 +2,35 @@ package com.jumbomob.invistoo.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.jumbomob.invistoo.R;
-import com.jumbomob.invistoo.model.entity.Asset;
-import com.jumbomob.invistoo.model.entity.AssetStatusEnum;
-import com.jumbomob.invistoo.model.entity.AssetTypeEnum;
-import com.jumbomob.invistoo.model.entity.Investment;
-import com.jumbomob.invistoo.model.persistence.AssetDAO;
-import com.jumbomob.invistoo.model.persistence.InvestmentDAO;
-import com.jumbomob.invistoo.presenter.NewInvestmentPresenter;
-import com.jumbomob.invistoo.ui.adapter.SpinnerAssetAdapter;
-import com.jumbomob.invistoo.util.InvistooUtil;
-import com.jumbomob.invistoo.util.NumericUtil;
-import com.jumbomob.invistoo.view.NewInvestmentView;
+import com.jumbomob.invistoo.model.dto.InvestmentSuggestion;
+import com.jumbomob.invistoo.presenter.BalancedInvestmentListPresenter;
+import com.jumbomob.invistoo.ui.adapter.BalancedInvestmentListAdapter;
+import com.jumbomob.invistoo.ui.component.DividerItemDecorator;
+import com.jumbomob.invistoo.util.ConstantsUtil;
+import com.jumbomob.invistoo.view.BalancedInvestmentListView;
 
-import java.util.Date;
+import java.util.List;
 
-public class NewInvestmentFragment extends BaseFragment implements NewInvestmentView {
+/**
+ * @author maiko.trindade
+ * @since 14/07/2016
+ */
+public class NewInvestmentFragment extends BaseFragment
+        implements BalancedInvestmentListView {
 
     private View mRootView;
-    private TextView mAssetAnnualInterestTxtView;
-    private TextView mAssetDueDateTxtView;
-    private EditText mAssetPriceTxtView;
-    private EditText mAssetQuantityTxtView;
-    private Spinner mSpinner;
-    private NewInvestmentPresenter mPresenter;
+    private BalancedInvestmentListPresenter mPresenter;
+    private BalancedInvestmentListAdapter mAdapter;
 
     public static NewInvestmentFragment newInstance() {
         NewInvestmentFragment fragment = new NewInvestmentFragment();
@@ -45,89 +38,14 @@ public class NewInvestmentFragment extends BaseFragment implements NewInvestment
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
+    Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        mRootView = inflater.inflate(R.layout.fragment_new_investment, container, false);
-        mPresenter = new NewInvestmentPresenter(this);
-
-        configureAssetSpinner();
-        bindElements();
-
+        mRootView = inflater.inflate(R.layout.fragment_balanced_investment_list, container, false);
+        mPresenter = new BalancedInvestmentListPresenter(this);
+        configureElements();
         return mRootView;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        getActivity().setTitle(R.string.title_new_investment);
-    }
-
-    private void configureAssetSpinner() {
-        mSpinner = (Spinner) mRootView.findViewById(R.id.assets_spinner);
-        final SpinnerAssetAdapter dataAdapter = new SpinnerAssetAdapter
-                (getContext(), android.R.layout.simple_spinner_item, AssetTypeEnum.values());
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mSpinner.setAdapter(dataAdapter);
-        mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
-                configureElements(pos + 1);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-    }
-
-    private void bindElements() {
-        mAssetAnnualInterestTxtView = (TextView) mRootView.findViewById(R.id
-                .asset_buy_tax_text_view);
-        mAssetDueDateTxtView = (TextView) mRootView.findViewById(R.id.asset_due_date_text_view);
-        mAssetPriceTxtView = (EditText) mRootView.findViewById(R.id.asset_price_edit_text);
-        mAssetQuantityTxtView = (EditText) mRootView.findViewById(R.id.asset_quantity_edit_text);
-    }
-
-    private void configureElements(final int assetIndex) {
-        AssetDAO dao = AssetDAO.getInstance();
-        final Asset asset = dao.findLastByIndex(assetIndex);
-        if (asset != null) {
-            mAssetAnnualInterestTxtView.setText(asset.getBuyPrice());
-            mAssetDueDateTxtView.setText(asset.getDueDate());
-            mAssetPriceTxtView.setText(asset.getBuyPrice());
-        }
-    }
-
-    private void saveInvestment() {
-
-        final String price = mAssetPriceTxtView.getText().toString();
-        final String quantity = mAssetQuantityTxtView.getText().toString();
-        final String selected = mSpinner.getSelectedItem().toString();
-
-        if (mPresenter.isValidFields(price, quantity, selected)) {
-            Investment investment = new Investment();
-
-            final AssetTypeEnum selectedItem = (AssetTypeEnum) mSpinner.getSelectedItem();
-            investment.setName(selectedItem.getTitle());
-            investment.setCreationDate(new Date());
-            investment.setQuantity(NumericUtil.getValidDouble(quantity));
-            investment.setUpdateDate(new Date());
-            investment.setPrice(price);
-            investment.setAssetType((AssetTypeEnum) mSpinner.getSelectedItem());
-            investment.setAssetStatus(AssetStatusEnum.BUY);
-            investment.setActive(true);
-
-            final InvestmentDAO investmentDao = InvestmentDAO.getInstance();
-            investmentDao.insert(investment);
-
-            InvistooUtil.hideKeyboard(getActivity());
-            InvistooUtil.makeSnackBar(getActivity(), getContext().getString(R.string
-                    .msg_save_investment), Snackbar.LENGTH_LONG).show();
-            ((MainActivity) getActivity()).goBackFragment();
-        }
     }
 
     @Override
@@ -140,19 +58,33 @@ public class NewInvestmentFragment extends BaseFragment implements NewInvestment
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_save:
-                saveInvestment();
+                mPresenter.saveInvestments(mAdapter.getItens());
                 break;
         }
         return false;
     }
 
-    @Override
-    public void setPriceError() {
-        mAssetPriceTxtView.setError("");
+    private void configureElements() {
+        final Bundle arguments = getArguments();
+        final double contribution = arguments.getDouble(ConstantsUtil.CONTRIBUTION_BUNDLE, 0);
+        final List<InvestmentSuggestion> suggestions = mPresenter.calculateBalance(contribution);
+        configureRecyclerView(suggestions);
+    }
+
+    private void configureRecyclerView(final List<InvestmentSuggestion> suggestions) {
+        RecyclerView recyclerView = (RecyclerView) mRootView.findViewById(R.id
+                .balanced_investments_recycler_view);
+        recyclerView.addItemDecoration(new DividerItemDecorator(getActivity(), DividerItemDecorator
+                .VERTICAL_LIST));
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(mRootView.getContext()));
+
+        mAdapter = new BalancedInvestmentListAdapter(suggestions);
+        recyclerView.setAdapter(mAdapter);
     }
 
     @Override
-    public void setQuantityError() {
-        mAssetQuantityTxtView.setError("");
+    public void showMessage(final int resourceId) {
+        super.showMessage(resourceId);
     }
 }
