@@ -112,5 +112,7 @@
     <string name="no_investments_performed">Nenhum investimento realizado.</string>
     <string name="assets_error">Não possível obter as cotações atualizadas.</string>
     <string name="no_goal_defined">Nenhuma meta definida.</string>
+    <string name="rate_us">Avalie este aplicativo</string>
+    <string name="send_suggestion">Envie sua sugestão</string>
 
 </resources>
