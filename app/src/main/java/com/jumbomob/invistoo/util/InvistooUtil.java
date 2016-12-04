@@ -54,10 +54,8 @@ public class InvistooUtil {
         final View viewById = activity.findViewById(R.id.container);
         Snackbar snackbar = Snackbar.make(viewById, text, duration);
         View snackBarView = snackbar.getView();
-        snackBarView.setBackgroundColor(ContextCompat.getColor(viewById.getContext(), R.color
-                .material_blue_600));
-        snackbar.setActionTextColor(ContextCompat.getColor(viewById.getContext(), R.color
-                .material_grey_400));
+        snackBarView.setBackgroundColor(ContextCompat.getColor(viewById.getContext(), R.color.colorAccent));
+        snackbar.setActionTextColor(ContextCompat.getColor(viewById.getContext(), R.color.material_grey_400));
         return snackbar;
     }
 

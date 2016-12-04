@@ -18,7 +18,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.github.clans.fab.FloatingActionButton;
-import com.github.clans.fab.FloatingActionMenu;
 import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.model.entity.Investment;
 import com.jumbomob.invistoo.presenter.InvestmentListPresenter;
@@ -37,11 +36,9 @@ import java.util.List;
 public class InvestmentsListFragment extends BaseFragment implements InvestmentListView {
 
     private View mRootView;
-    private FloatingActionMenu menuRed;
     private InvestmentListPresenter mPresenter;
     private InvestmentListAdapter mAdapter;
-    private boolean isSortedDescByDate;
-
+    private boolean mIsSortedDescByDate;
 
     public static InvestmentsListFragment newInstance() {
         InvestmentsListFragment fragment = new InvestmentsListFragment();
@@ -71,8 +68,8 @@ public class InvestmentsListFragment extends BaseFragment implements InvestmentL
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_order_by_date:
-                mPresenter.orderListByDate(isSortedDescByDate);
-                isSortedDescByDate = isSortedDescByDate ? false : true;
+                mPresenter.orderListByDate(mIsSortedDescByDate);
+                mIsSortedDescByDate = mIsSortedDescByDate ? false : true;
                 return true;
         }
         return false;
@@ -103,25 +100,6 @@ public class InvestmentsListFragment extends BaseFragment implements InvestmentL
     }
 
     private void configureFab() {
-        menuRed = (FloatingActionMenu) mRootView.findViewById(R.id.new_investment_fab_menu);
-        menuRed.setOnMenuButtonClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                menuRed.toggle(true);
-            }
-        });
-
-        FloatingActionButton newInvestFab = (FloatingActionButton)
-                mRootView.findViewById(R.id.new_investment_fab);
-        newInvestFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final Activity activity = getActivity();
-                ((BaseActivity) activity).setFragment(NewInvestmentFragment.newInstance(),
-                        activity.getString(R.string.title_new_investment));
-            }
-        });
-
         FloatingActionButton newBalancedInvestFab = (FloatingActionButton)
                 mRootView.findViewById(R.id.new_balanced_investment_fab);
         newBalancedInvestFab.setOnClickListener(new View.OnClickListener() {

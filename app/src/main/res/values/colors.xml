@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#1976D2</color>
-    <color name="colorPrimaryDark">#1565C0</color>
-    <color name="colorAccent">#FF6D00</color>
+    <color name="colorPrimary">#009688</color>
+    <color name="colorPrimaryDark">#00796B</color>
+    <color name="colorAccent">#8BC34A</color>
+    <color name="colorPrimaryLight">#B2DFDB</color>
+    <color name="primaryText">#212121</color>
+    <color name="secondaryText">#FF6D00</color>
 
+    <!-- Fab color -->
+    <color name="fab_pressed">#9CD45B</color>
+    <color name="fab_ripple">@color/material_green_400</color>
 
     <!-- google's material design colours from
     http://www.google.com/design/spec/style/color.html#color-ui-color-palette -->
