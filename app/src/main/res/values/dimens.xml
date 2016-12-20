@@ -17,7 +17,9 @@
     <dimen name="margin_medium1">12dp</dimen>
     <dimen name="margin_medium2">14dp</dimen>
     <dimen name="margin_medium3">18dp</dimen>
-    <dimen name="margin_large">48dp</dimen>
+    <dimen name="margin_large">32dp</dimen>
+    <dimen name="margin_large1">38dp</dimen>
+    <dimen name="margin_large2">48dp</dimen>
 
     <!-- Texts -->
     <dimen name="text_xxx_large">48sp</dimen>

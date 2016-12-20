@@ -121,7 +121,7 @@
                 android:background="@drawable/circle_border_grey"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:padding="@dimen/margin_medium3">
+                android:padding="@dimen/margin_large">
 
                 <TextView
                     android:layout_width="wrap_content"
