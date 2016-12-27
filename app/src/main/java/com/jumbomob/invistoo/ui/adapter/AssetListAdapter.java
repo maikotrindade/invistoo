@@ -63,7 +63,7 @@ public class AssetListAdapter extends RecyclerView.Adapter<AssetListAdapter.View
         if (TextUtils.isEmpty(buyPrice) || buyPrice.equals(" ")) {
             holder.buyPriceTxtView.setText("-");
         } else {
-            holder.sellPriceTxtView.setText("R$" + buyPrice);
+            holder.buyPriceTxtView.setText("R$" + buyPrice);
         }
 
         final String sellPrice = asset.getSellPrice();
