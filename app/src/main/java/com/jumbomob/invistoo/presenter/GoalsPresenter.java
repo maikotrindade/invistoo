@@ -3,6 +3,7 @@ package com.jumbomob.invistoo.presenter;
 import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.model.entity.Goal;
 import com.jumbomob.invistoo.model.persistence.GoalDAO;
+import com.jumbomob.invistoo.util.SharedPrefsUtil;
 import com.jumbomob.invistoo.view.GoalsView;
 
 import io.realm.RealmList;
@@ -38,6 +39,7 @@ public class GoalsPresenter implements BasePresenter<GoalsView> {
     public void saveGoals(RealmList<Goal> goals) {
         if (isValidPercentage(goals)) {
             mGoalDAO.insertOrUpdate(goals);
+            SharedPrefsUtil.setUserHasGoals(true);
             mView.showMessage(R.string.msg_goals_success);
         }
     }

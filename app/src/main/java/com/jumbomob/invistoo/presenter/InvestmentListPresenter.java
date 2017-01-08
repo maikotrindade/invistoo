@@ -1,10 +1,12 @@
 package com.jumbomob.invistoo.presenter;
 
+import android.content.Context;
 import android.text.TextUtils;
 
 import com.jumbomob.invistoo.model.entity.Investment;
 import com.jumbomob.invistoo.model.persistence.InvestmentDAO;
 import com.jumbomob.invistoo.util.NumericUtil;
+import com.jumbomob.invistoo.util.SharedPrefsUtil;
 import com.jumbomob.invistoo.view.InvestmentListView;
 
 import java.util.List;
@@ -43,5 +45,14 @@ public class InvestmentListPresenter implements BasePresenter<InvestmentListView
     public List<Investment> findInvestments() {
         final InvestmentDAO dao = InvestmentDAO.getInstance();
         return dao.findAll();
+    }
+
+    public void redirectUserNewInvestment(final Context context) {
+        final boolean userHasGoals = SharedPrefsUtil.userHasGoals(context);
+        if (userHasGoals) {
+            mView.showContributionDialog();
+        } else {
+            mView.showGoalsDialog();
+        }
     }
 }

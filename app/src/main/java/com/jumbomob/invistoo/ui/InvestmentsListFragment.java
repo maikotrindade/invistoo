@@ -2,6 +2,7 @@ package com.jumbomob.invistoo.ui;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -24,6 +25,7 @@ import com.jumbomob.invistoo.presenter.InvestmentListPresenter;
 import com.jumbomob.invistoo.ui.adapter.InvestmentListAdapter;
 import com.jumbomob.invistoo.ui.component.DividerItemDecorator;
 import com.jumbomob.invistoo.util.ConstantsUtil;
+import com.jumbomob.invistoo.util.DialogUtil;
 import com.jumbomob.invistoo.util.NumericUtil;
 import com.jumbomob.invistoo.view.InvestmentListView;
 
@@ -105,12 +107,13 @@ public class InvestmentsListFragment extends BaseFragment implements InvestmentL
         newBalancedInvestFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showContributionDialog();
+                mPresenter.redirectUserNewInvestment(getContext());
             }
         });
     }
 
-    private void showContributionDialog() {
+    @Override
+    public void showContributionDialog() {
         final Dialog dialog = new Dialog(mRootView.getContext());
         dialog.setContentView(R.layout.contribution_dialog);
         dialog.setTitle(getString(R.string.new_contribution_title));
@@ -146,6 +149,20 @@ public class InvestmentsListFragment extends BaseFragment implements InvestmentL
     public void updateList(List<Investment> investments) {
         mAdapter.setItens(investments);
         mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showGoalsDialog() {
+        DialogUtil.getInstance(getContext()).show(getContext(), R.string.new_contribution_title,
+                R.string.register_goals_message, R.string.OK,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                        ((BaseActivity) getActivity()).setFragment(GoalsListFragment.newInstance(), R.id.nav_goals,
+                                getString(R.string.title_goals));
+                    }
+                }, null);
     }
 }
 

@@ -8,13 +8,13 @@
     <string name="navigation_drawer_open">Open</string>
     <string name="navigation_drawer_close">Close</string>
     <string name="nav_home">Início</string>
-    <string name="nav_my_investments">Meus Investimentos</string>
+    <string name="nav_my_investments">Investimentos</string>
     <string name="nav_indexes">Cotação</string>
     <string name="nav_brokerage">Corretoras</string>
     <string name="nav_useful_information">Informações Úteis</string>
     <string name="nav_goals">Metas</string>
     <string name="nav_about">Sobre</string>
-    <string name="nav_account">Minha Conta</string>
+    <string name="nav_account">Conta</string>
     <string name="nav_logout">Sair</string>
 
     <!-- Errors -->
@@ -25,16 +25,16 @@
     <string name="error_download_questions">Não foi possível atualizar as informações úteis.
         Por favor, tente novamente.</string>
     <string name="error_general">Ocorreu um erro, por favor tente novamente</string>
-    <string name="error_goal_percentage">A porcentagem total dos objetivos deve ser igual a100</string>
+    <string name="error_goal_percentage">A porcentagem total dos objetivos deve ser igual a 100%</string>
 
     <!-- Titles -->
     <string name="title_indexes">Cotação</string>
-    <string name="my_investments">Meus Investimentos</string>
+    <string name="my_investments">Investimentos</string>
     <string name="title_new_investment">Novo Investimento</string>
     <string name="title_useful_information">Informações Úteis</string>
     <string name="title_goals">Metas</string>
     <string name="title_home">Início</string>
-    <string name="title_my_account">Minha Conta</string>
+    <string name="title_my_account">Conta</string>
     <string name="title_about">Sobre</string>
     <string name="title_brokerage">Corretoras</string>
     <string name="action_save">Salvar</string>
@@ -93,13 +93,14 @@
     <string name="last_update_less_than_minute">Atualizado a menos de um minuto atrás</string>
     <string name="last_update_time">Atualizado em %1$s</string>
     <string name="status_action_menu">Status</string>
-    <string name="sold_action_menu">Marcar como vendido</string>
-    <string name="bought_action_menu">Marcar como comprado</string>
+    <string name="sold_action_menu">Marcar como venda</string>
+    <string name="bought_action_menu">Marcar como compra</string>
 
     <string name="more_info_action_menu">Mais informações</string>
     <string name="remove">Remover</string>
     <string name="remove_investment_title">Remover</string>
     <string name="remove_investment_message">Você deseja realmente remover este investimento?</string>
+    <string name="register_goals_message">Você precisa definir suas metas antes de registrar um novo investimento</string>
     <string name="balance">Balanço</string>
     <string name="invested_sum">Total Investido</string>
     <string name="sold_sum">Total retirado</string>

@@ -35,9 +35,9 @@ import io.realm.RealmList;
  * @author maiko.trindade
  * @since 30/03/2016
  */
-public class GoalsFragment extends BaseFragment implements GoalsView {
+public class GoalsListFragment extends BaseFragment implements GoalsView {
 
-    private static final String TAG = GoalsFragment.class.getSimpleName();
+    private static final String TAG = GoalsListFragment.class.getSimpleName();
 
     private View mRootView;
     private GoalsPresenter mPresenter;
@@ -45,8 +45,8 @@ public class GoalsFragment extends BaseFragment implements GoalsView {
     private ScrollView mGoalsLayout;
     private RealmList<Goal> mGoals;
 
-    public static GoalsFragment newInstance() {
-        GoalsFragment fragment = new GoalsFragment();
+    public static GoalsListFragment newInstance() {
+        GoalsListFragment fragment = new GoalsListFragment();
         return fragment;
     }
 

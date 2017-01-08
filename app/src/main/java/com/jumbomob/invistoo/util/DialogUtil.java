@@ -61,4 +61,24 @@ public class DialogUtil extends Dialog {
         builder.show();
     }
 
+    public void show(Context context, int titleResourceId, int messageResourceId, int yesListenerTitle,
+                     OnClickListener yesListener, OnClickListener noListener) {
+        builder = new AlertDialog.Builder(context);
+
+        builder.setTitle(context.getString(titleResourceId));
+        builder.setMessage(context.getString(messageResourceId));
+        builder.setCancelable(false);
+
+        if (yesListener != null) {
+            builder.setPositiveButton(context.getString(yesListenerTitle), yesListener);
+        }
+
+        if (noListener != null) {
+            builder.setNegativeButton(context.getString(R.string.NO), noListener);
+        }
+
+        builder.create();
+        builder.show();
+    }
+
 }

@@ -12,4 +12,8 @@ public interface InvestmentListView {
 
     void updateList(List<Investment> investments);
 
+    void showContributionDialog();
+
+    void showGoalsDialog();
+
 }
