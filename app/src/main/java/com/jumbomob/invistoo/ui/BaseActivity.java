@@ -201,10 +201,20 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
                 final Bitmap bitmap = StorageUtil.getBitmap(user.getImagePath(), getBaseContext());
                 profileImage.setImageBitmap(bitmap);
             }
-            if (!TextUtils.isEmpty(user.getEmail()))
+
+            if (!TextUtils.isEmpty(user.getEmail())) {
+                emailTxtView.setVisibility(View.VISIBLE);
                 emailTxtView.setText(user.getEmail());
-            if (!TextUtils.isEmpty(user.getUsername()))
+            } else {
+                emailTxtView.setVisibility(View.GONE);
+            }
+
+            if (!TextUtils.isEmpty(user.getUsername())) {
+                usernameTxtView.setVisibility(View.VISIBLE);
                 usernameTxtView.setText(user.getUsername());
+            } else {
+                usernameTxtView.setVisibility(View.GONE);
+            }
         }
     }
 }

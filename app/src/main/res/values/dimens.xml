@@ -1,6 +1,5 @@
 <resources>
-    <dimen name="nav_header_vertical_spacing">8dp</dimen>
-    <dimen name="nav_header_height">160dp</dimen>
+    <dimen name="nav_header_subtitle_height">64dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="circle_view">50dp</dimen>
     <dimen name="activity_horizontal_small_margin">8dp</dimen>
@@ -33,5 +32,12 @@
     <dimen name="text_normal">14sp</dimen>
     <dimen name="text_small">13sp</dimen>
     <dimen name="text_extra_small">12sp</dimen>
+
+    <!--android:fontFamily="sans-serif"           // roboto regular-->
+    <!--android:fontFamily="sans-serif-light"     // roboto light-->
+    <!--android:fontFamily="sans-serif-condensed" // roboto condensed-->
+    <!--android:fontFamily="sans-serif-black"     // roboto black-->
+    <!--android:fontFamily="sans-serif-thin"      // roboto thin (android 4.2)-->
+    <!--android:fontFamily="sans-serif-medium"    // roboto medium (android 5.0)-->
 
 </resources>
