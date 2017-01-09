@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,19 +20,20 @@ import android.widget.RelativeLayout;
 
 import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.model.entity.User;
-import com.jumbomob.invistoo.presenter.MyAccountPresenter;
+import com.jumbomob.invistoo.presenter.AccountPresenter;
+import com.jumbomob.invistoo.util.InvistooUtil;
 import com.jumbomob.invistoo.util.PermissionUtil;
 import com.jumbomob.invistoo.util.StorageUtil;
-import com.jumbomob.invistoo.view.MyAccountView;
+import com.jumbomob.invistoo.view.AccountView;
 
 /**
  * @author maiko.trindade
  * @since 16/10/2016
  */
-public class AccountFragment extends BaseFragment implements MyAccountView {
+public class AccountFragment extends BaseFragment implements AccountView {
 
     private View mRootView;
-    private MyAccountPresenter mPresenter;
+    private AccountPresenter mPresenter;
     private ImageView mUserImg;
     private EditText mNameEdtText, mEmailEdtText, mOldPasswordEdtText, mNewPasswordEdtText;
     private RelativeLayout mUserImgContainer;
@@ -46,8 +48,8 @@ public class AccountFragment extends BaseFragment implements MyAccountView {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        mRootView = inflater.inflate(R.layout.fragment_my_account, container, false);
-        mPresenter = new MyAccountPresenter(this, this);
+        mRootView = inflater.inflate(R.layout.fragment_account, container, false);
+        mPresenter = new AccountPresenter(this, this);
 
         mUser = mPresenter.loadUserInfo(getContext());
         configureElements();
@@ -113,7 +115,7 @@ public class AccountFragment extends BaseFragment implements MyAccountView {
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == MyAccountPresenter.SELECT_PICTURE) {
+            if (requestCode == AccountPresenter.SELECT_PICTURE) {
                 final Uri selectedImageUri = data.getData();
                 if (selectedImageUri != null && mUser != null) {
                     final ContentResolver resolver = getActivity().getContentResolver();
@@ -152,5 +154,12 @@ public class AccountFragment extends BaseFragment implements MyAccountView {
         final MainActivity mainActivity = (MainActivity) getActivity();
         if (mainActivity != null)
             mainActivity.configureNavigationHeader();
+    }
+
+    @Override
+    public void showFeedbackToUser(int messageResourceId) {
+        InvistooUtil.makeSnackBar(getActivity(), getActivity()
+                .getString(messageResourceId), Snackbar.LENGTH_LONG).show();
+
     }
 }

@@ -18,7 +18,7 @@ import com.jumbomob.invistoo.util.ConstantsUtil;
 import com.jumbomob.invistoo.util.InvistooApplication;
 import com.jumbomob.invistoo.util.SharedPrefsUtil;
 import com.jumbomob.invistoo.util.StorageUtil;
-import com.jumbomob.invistoo.view.MyAccountView;
+import com.jumbomob.invistoo.view.AccountView;
 
 import java.io.IOException;
 
@@ -28,15 +28,15 @@ import io.realm.Realm;
  * @author maiko.trindade
  * @since 16/10/2016
  */
-public class MyAccountPresenter implements BasePresenter<MyAccountView> {
+public class AccountPresenter implements BasePresenter<AccountView> {
 
-    private MyAccountView mView;
+    private AccountView mView;
     private AccountFragment mFragment;
-    private static final String TAG = MyAccountPresenter.class.getSimpleName();
+    private static final String TAG = AccountPresenter.class.getSimpleName();
     public static final int SELECT_PICTURE = 1;
 
     @Override
-    public void attachView(MyAccountView view) {
+    public void attachView(AccountView view) {
         mView = view;
     }
 
@@ -45,7 +45,7 @@ public class MyAccountPresenter implements BasePresenter<MyAccountView> {
         mView = null;
     }
 
-    public MyAccountPresenter(AccountFragment fragment, MyAccountView view) {
+    public AccountPresenter(AccountFragment fragment, AccountView view) {
         mFragment = fragment;
         attachView(view);
     }
@@ -160,6 +160,7 @@ public class MyAccountPresenter implements BasePresenter<MyAccountView> {
 
         realm.commitTransaction();
         mView.reloadNavigationHeader();
+        mView.showFeedbackToUser(R.string.update_user_profile_success_message);
     }
 
     private void updateUserImageProfile(final User user, final String imagePath) {
@@ -171,6 +172,7 @@ public class MyAccountPresenter implements BasePresenter<MyAccountView> {
 
         realm.commitTransaction();
         mView.reloadNavigationHeader();
+        mView.showFeedbackToUser(R.string.update_user_profile_success_message);
     }
 
 }

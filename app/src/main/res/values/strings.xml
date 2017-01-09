@@ -107,6 +107,8 @@
 
     <string name="vaild_contribution">Digite um valor válido.</string>
 
+    <string name="update_user_profile_success_message">A conta foi alterada com sucesso.</string>
+
     <string name="goals_more_info_message">Devido a variação diária do mercado, sua carteira de investimentos apresentará uma alocação diferente da alocação de ativos original.
         A estratégia para aumentar a rentabilidade e diminuir riscos é simples: rebalancear a carteira de acordo com <b>metas</b>, assim o investidor vende ativos que subiram para comprar ativos que caíram de preço no mercado.
         Mas para isto deve-se traçar <b>metas</b>: escolher a porcentagem de cada tipo de ativo financeiro a ser investido.</string>
@@ -115,5 +117,9 @@
     <string name="no_goal_defined">Nenhuma meta definida.</string>
     <string name="rate_us">Avalie este aplicativo</string>
     <string name="send_suggestion">Envie sua sugestão</string>
+    <string name="new_password_hint">Nova Senha</string>
+    <string name="new_email_hint">Novo E-mail</string>
+    <string name="name_hint">Nome</string>
+    <string name="send_button">Enviar</string>
 
 </resources>
