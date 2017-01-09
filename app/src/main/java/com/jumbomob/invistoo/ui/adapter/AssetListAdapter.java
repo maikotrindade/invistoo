@@ -14,6 +14,7 @@ import com.jumbomob.invistoo.model.entity.Asset;
 import com.jumbomob.invistoo.ui.AssetChartFragment;
 import com.jumbomob.invistoo.ui.BaseActivity;
 import com.jumbomob.invistoo.ui.callback.onSearchResultListener;
+import com.jumbomob.invistoo.util.NumericUtil;
 
 import java.util.List;
 
@@ -63,14 +64,14 @@ public class AssetListAdapter extends RecyclerView.Adapter<AssetListAdapter.View
         if (TextUtils.isEmpty(buyPrice) || buyPrice.equals(" ")) {
             holder.buyPriceTxtView.setText("-");
         } else {
-            holder.buyPriceTxtView.setText("R$" + buyPrice);
+            holder.buyPriceTxtView.setText(NumericUtil.formatCurrency(NumericUtil.getValidDouble((buyPrice))));
         }
 
         final String sellPrice = asset.getSellPrice();
         if (TextUtils.isEmpty(sellPrice) || sellPrice.equals(" ")) {
             holder.sellPriceTxtView.setText("-");
         } else {
-            holder.sellPriceTxtView.setText("R$" + sellPrice);
+            holder.sellPriceTxtView.setText(NumericUtil.formatCurrency(NumericUtil.getValidDouble((sellPrice))));
         }
 
         holder.containerView.setOnClickListener(new View.OnClickListener() {

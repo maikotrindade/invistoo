@@ -45,7 +45,7 @@ public class NumericUtil {
     public static Long getValidLong(String stringLong) {
         if (stringLong != null && !stringLong.isEmpty()) {
             stringLong = stringLong.replaceAll(",", ".");
-            return new Long(stringLong.trim());
+            return Long.parseLong(stringLong.trim());
         }
         return null;
     }
