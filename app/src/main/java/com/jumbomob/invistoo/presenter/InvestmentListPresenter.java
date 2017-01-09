@@ -39,7 +39,11 @@ public class InvestmentListPresenter implements BasePresenter<InvestmentListView
 
     public void orderListByDate(boolean sortAsc) {
         final InvestmentDAO dao = InvestmentDAO.getInstance();
-        mView.updateList(dao.findAllOrderedByDate(sortAsc));
+        List<Investment> investments = dao.findAllOrderedByDate(sortAsc);
+        if (!investments.isEmpty()) {
+            mView.updateList(investments);
+            mView.setIsSortedDescByDate(sortAsc ? false : true);
+        }
     }
 
     public List<Investment> findInvestments() {

@@ -16,4 +16,6 @@ public interface InvestmentListView {
 
     void showGoalsDialog();
 
+    void setIsSortedDescByDate(boolean sortedDescByDate);
+
 }

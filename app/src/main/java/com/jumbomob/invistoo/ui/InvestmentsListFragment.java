@@ -71,7 +71,6 @@ public class InvestmentsListFragment extends BaseFragment implements InvestmentL
         switch (item.getItemId()) {
             case R.id.action_order_by_date:
                 mPresenter.orderListByDate(mIsSortedDescByDate);
-                mIsSortedDescByDate = mIsSortedDescByDate ? false : true;
                 return true;
         }
         return false;
@@ -121,7 +120,7 @@ public class InvestmentsListFragment extends BaseFragment implements InvestmentL
         final EditText contributionEdtText = (EditText)
                 dialog.findViewById(R.id.contribution_edit_text);
 
-        Button confirmButton = (Button) dialog.findViewById(R.id.confirm_contribution_button);
+        final Button confirmButton = (Button) dialog.findViewById(R.id.confirm_contribution_button);
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -163,6 +162,11 @@ public class InvestmentsListFragment extends BaseFragment implements InvestmentL
                                 getString(R.string.title_goals));
                     }
                 }, null);
+    }
+
+    @Override
+    public void setIsSortedDescByDate(boolean sortedDescByDate) {
+        mIsSortedDescByDate = sortedDescByDate;
     }
 }
 
