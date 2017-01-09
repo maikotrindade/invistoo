@@ -12,9 +12,9 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jumbomob.invistoo.R;
@@ -98,8 +98,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
                         getString(R.string.title_about));
                 break;
             case R.id.nav_account:
-                setFragment(MyAccountFragment.newInstance(), R.id.nav_account,
-                        getString(R.string.title_my_account));
+                setFragment(AccountFragment.newInstance(), R.id.nav_account,
+                        getString(R.string.title_account));
                 break;
             case R.id.nav_logout:
                 logoutAccount();
@@ -173,7 +173,6 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
             SharedPrefsUtil.setUserLogged(false);
             SharedPrefsUtil.setRememberUser(false);
         }
-        Log.d("LOGIN", "isRemember = " + isRemember);
     }
 
     private void logoutAccount() {
@@ -194,9 +193,19 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
         final View headerLayout = mNavigationView.getHeaderView(0);
         final User user = loadUserInfo(getBaseContext());
         if (user != null && headerLayout != null) {
+
+            final LinearLayout container = (LinearLayout) headerLayout.findViewById(R.id.user_info_container);
             final CircleImageView profileImage = (CircleImageView) headerLayout.findViewById(R.id.profile_image);
             final TextView usernameTxtView = (TextView) headerLayout.findViewById(R.id.username_text_view);
             final TextView emailTxtView = (TextView) headerLayout.findViewById(R.id.email_edit_text);
+
+            container.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                   setFragment(AccountFragment.newInstance(), R.id.nav_account, getString(R.string.title_account));
+                }
+            });
+
             if (!TextUtils.isEmpty(user.getImagePath())) {
                 final Bitmap bitmap = StorageUtil.getBitmap(user.getImagePath(), getBaseContext());
                 profileImage.setImageBitmap(bitmap);

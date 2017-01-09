@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:padding="@dimen/activity_horizontal_margin"
-    tools:context="com.jumbomob.invistoo.ui.MyAccountFragment">
+    tools:context="com.jumbomob.invistoo.ui.AccountFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

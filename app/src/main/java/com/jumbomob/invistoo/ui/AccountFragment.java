@@ -28,7 +28,7 @@ import com.jumbomob.invistoo.view.MyAccountView;
  * @author maiko.trindade
  * @since 16/10/2016
  */
-public class MyAccountFragment extends BaseFragment implements MyAccountView {
+public class AccountFragment extends BaseFragment implements MyAccountView {
 
     private View mRootView;
     private MyAccountPresenter mPresenter;
@@ -38,8 +38,8 @@ public class MyAccountFragment extends BaseFragment implements MyAccountView {
     private User mUser;
     private Button mSendButton;
 
-    public static MyAccountFragment newInstance() {
-        return new MyAccountFragment();
+    public static AccountFragment newInstance() {
+        return new AccountFragment();
     }
 
     @Override
@@ -60,7 +60,7 @@ public class MyAccountFragment extends BaseFragment implements MyAccountView {
     @Override
     public void onResume() {
         super.onResume();
-        getActivity().setTitle(R.string.title_my_account);
+        getActivity().setTitle(R.string.title_account);
     }
 
     private void configureElements() {

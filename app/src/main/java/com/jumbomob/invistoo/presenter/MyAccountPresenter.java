@@ -13,7 +13,7 @@ import com.firebase.client.FirebaseError;
 import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.model.entity.User;
 import com.jumbomob.invistoo.model.persistence.UserDAO;
-import com.jumbomob.invistoo.ui.MyAccountFragment;
+import com.jumbomob.invistoo.ui.AccountFragment;
 import com.jumbomob.invistoo.util.ConstantsUtil;
 import com.jumbomob.invistoo.util.InvistooApplication;
 import com.jumbomob.invistoo.util.SharedPrefsUtil;
@@ -31,7 +31,7 @@ import io.realm.Realm;
 public class MyAccountPresenter implements BasePresenter<MyAccountView> {
 
     private MyAccountView mView;
-    private MyAccountFragment mFragment;
+    private AccountFragment mFragment;
     private static final String TAG = MyAccountPresenter.class.getSimpleName();
     public static final int SELECT_PICTURE = 1;
 
@@ -45,7 +45,7 @@ public class MyAccountPresenter implements BasePresenter<MyAccountView> {
         mView = null;
     }
 
-    public MyAccountPresenter(MyAccountFragment fragment, MyAccountView view) {
+    public MyAccountPresenter(AccountFragment fragment, MyAccountView view) {
         mFragment = fragment;
         attachView(view);
     }
