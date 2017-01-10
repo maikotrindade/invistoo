@@ -11,7 +11,9 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.jumbomob.invistoo.R;
+import com.jumbomob.invistoo.model.entity.AssetTypeEnum;
 import com.jumbomob.invistoo.presenter.AboutPresenter;
+import com.jumbomob.invistoo.util.ConstantsUtil;
 import com.jumbomob.invistoo.view.AboutView;
 
 /**
@@ -59,10 +61,19 @@ public class AboutFragment extends BaseFragment implements AboutView {
         });
 
         final LinearLayout suggestionContainer = (LinearLayout) mRootView.findViewById(R.id.send_suggestion);
+        suggestionContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("plain/text");
+                intent.putExtra(Intent.EXTRA_EMAIL, ConstantsUtil.DEVELOPER_EMAIL);
+                intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.email_suggestion));
+                startActivity(Intent.createChooser(intent, getString(R.string.send_suggestion)));
+            }
+        });
+
         final LinearLayout licensesContainer = (LinearLayout) mRootView.findViewById(R.id.licenses_container);
-
-
-        //https://github.com/maikotrindade/flisol-guide/blob/master/app/src/main/java/org/flisolsaocarlos/flisolapp/ui/AboutAppActivity.java
+        
 
     }
 

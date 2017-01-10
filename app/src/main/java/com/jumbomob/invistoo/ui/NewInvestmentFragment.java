@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 
 import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.model.dto.InvestmentSuggestion;
-import com.jumbomob.invistoo.presenter.BalancedInvestmentListPresenter;
+import com.jumbomob.invistoo.presenter.NewInvestmentListPresenter;
 import com.jumbomob.invistoo.ui.adapter.BalancedInvestmentListAdapter;
 import com.jumbomob.invistoo.ui.component.DividerItemDecorator;
 import com.jumbomob.invistoo.util.ConstantsUtil;
@@ -29,7 +29,7 @@ public class NewInvestmentFragment extends BaseFragment
         implements BalancedInvestmentListView {
 
     private View mRootView;
-    private BalancedInvestmentListPresenter mPresenter;
+    private NewInvestmentListPresenter mPresenter;
     private BalancedInvestmentListAdapter mAdapter;
 
     public static NewInvestmentFragment newInstance() {
@@ -43,7 +43,7 @@ public class NewInvestmentFragment extends BaseFragment
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         mRootView = inflater.inflate(R.layout.fragment_balanced_investment_list, container, false);
-        mPresenter = new BalancedInvestmentListPresenter(this);
+        mPresenter = new NewInvestmentListPresenter(this);
         configureElements();
         return mRootView;
     }

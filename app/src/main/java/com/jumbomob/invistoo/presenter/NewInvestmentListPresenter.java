@@ -23,9 +23,9 @@ import io.realm.RealmList;
  * @author maiko.trindade
  * @since 23/07/2016
  */
-public class BalancedInvestmentListPresenter implements BasePresenter<BalancedInvestmentListView> {
+public class NewInvestmentListPresenter implements BasePresenter<BalancedInvestmentListView> {
 
-    private final static String TAG = BalancedInvestmentListPresenter.class.getSimpleName();
+    private final static String TAG = NewInvestmentListPresenter.class.getSimpleName();
 
     private BalancedInvestmentListView mView;
 
@@ -39,7 +39,7 @@ public class BalancedInvestmentListPresenter implements BasePresenter<BalancedIn
         mView = null;
     }
 
-    public BalancedInvestmentListPresenter(BalancedInvestmentListView view) {
+    public NewInvestmentListPresenter(BalancedInvestmentListView view) {
         attachView(view);
     }
 

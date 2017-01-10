@@ -122,4 +122,6 @@
     <string name="name_hint">Nome</string>
     <string name="send_button">Enviar</string>
 
+    <string name="email_suggestion">Invistoo [Sugestão]"</string>
+
 </resources>
