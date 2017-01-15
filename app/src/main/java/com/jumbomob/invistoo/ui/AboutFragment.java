@@ -73,7 +73,7 @@ public class AboutFragment extends BaseFragment implements AboutView {
         });
 
         final LinearLayout licensesContainer = (LinearLayout) mRootView.findViewById(R.id.licenses_container);
-        
+
 
     }
 
