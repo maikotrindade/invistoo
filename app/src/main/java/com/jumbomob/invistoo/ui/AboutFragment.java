@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.jumbomob.invistoo.R;
-import com.jumbomob.invistoo.model.entity.AssetTypeEnum;
 import com.jumbomob.invistoo.presenter.AboutPresenter;
 import com.jumbomob.invistoo.util.ConstantsUtil;
 import com.jumbomob.invistoo.view.AboutView;
@@ -64,10 +63,13 @@ public class AboutFragment extends BaseFragment implements AboutView {
         suggestionContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.setType("plain/text");
-                intent.putExtra(Intent.EXTRA_EMAIL, ConstantsUtil.DEVELOPER_EMAIL);
-                intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.email_suggestion));
+                String subject = getString(R.string.email_suggestion);
+                String intentType = "text/html";
+                String mailToParse = "mailto:" + ConstantsUtil.DEVELOPER_EMAIL;
+                Intent intent = new Intent(Intent.ACTION_SENDTO);
+                intent.setType(intentType);
+                intent.setData(Uri.parse(mailToParse));
+                intent.putExtra(Intent.EXTRA_SUBJECT, subject);
                 startActivity(Intent.createChooser(intent, getString(R.string.send_suggestion)));
             }
         });
