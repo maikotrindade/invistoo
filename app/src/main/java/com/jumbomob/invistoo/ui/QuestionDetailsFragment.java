@@ -38,7 +38,6 @@ public class QuestionDetailsFragment extends Fragment {
 
         final Long groupId = Long.valueOf(question.getGroup());
         final String groupName = QuestionGroupEnum.getById(groupId).getTitle();
-        getActivity().setTitle(groupName);
 
         final TextView questionTxtView = (TextView) mRootView.findViewById(R.id.question_text_view);
         questionTxtView.setText(question.getQuestion());
@@ -48,6 +47,15 @@ public class QuestionDetailsFragment extends Fragment {
 
         final TextView answerTxtView = (TextView) mRootView.findViewById(R.id.answer_text_view);
         answerTxtView.setText(question.getAnswer());
+
+        final TextView datetimeTxtView = (TextView) mRootView.findViewById(R.id.datetime_text_view);
+        datetimeTxtView.setText(question.getDatetime());
+
+        final TextView authorTxtView = (TextView) mRootView.findViewById(R.id.author_text_view);
+        authorTxtView.setText(question.getAuthor());
+
+        final TextView referenceUrlTxtView = (TextView) mRootView.findViewById(R.id.reference_url_text_view);
+        referenceUrlTxtView.setText(question.getReferenceUrl());
     }
 
 }

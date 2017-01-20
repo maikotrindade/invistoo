@@ -32,21 +32,17 @@ public class Question extends RealmObject implements Parcelable {
     @Expose
     private String group;
 
-    public String getAnswer() {
-        return answer;
-    }
+    @SerializedName("datetime")
+    @Expose
+    private String datetime;
 
-    public void setAnswer(String answer) {
-        this.answer = answer;
-    }
+    @SerializedName("author")
+    @Expose
+    private String author;
 
-    public String getGroup() {
-        return group;
-    }
-
-    public void setGroup(String group) {
-        this.group = group;
-    }
+    @SerializedName("referenceUrl")
+    @Expose
+    private String referenceUrl;
 
     public Long getId() {
         return id;
@@ -64,6 +60,47 @@ public class Question extends RealmObject implements Parcelable {
         this.question = question;
     }
 
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
+    public String getGroup() {
+        return group;
+    }
+
+    public void setGroup(String group) {
+        this.group = group;
+    }
+
+    public String getDatetime() {
+        return datetime;
+    }
+
+    public void setDatetime(String datetime) {
+        this.datetime = datetime;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getReferenceUrl() {
+        return referenceUrl;
+    }
+
+    public void setReferenceUrl(String referenceUrl) {
+        this.referenceUrl = referenceUrl;
+    }
+
+
     @Override
     public int describeContents() {
         return 0;
@@ -75,6 +112,9 @@ public class Question extends RealmObject implements Parcelable {
         dest.writeString(this.question);
         dest.writeString(this.answer);
         dest.writeString(this.group);
+        dest.writeString(this.datetime);
+        dest.writeString(this.author);
+        dest.writeString(this.referenceUrl);
     }
 
     public Question() {
@@ -85,9 +125,12 @@ public class Question extends RealmObject implements Parcelable {
         this.question = in.readString();
         this.answer = in.readString();
         this.group = in.readString();
+        this.datetime = in.readString();
+        this.author = in.readString();
+        this.referenceUrl = in.readString();
     }
 
-    public static final Parcelable.Creator<Question> CREATOR = new Parcelable.Creator<Question>() {
+    public static final Creator<Question> CREATOR = new Creator<Question>() {
         @Override
         public Question createFromParcel(Parcel source) {
             return new Question(source);
