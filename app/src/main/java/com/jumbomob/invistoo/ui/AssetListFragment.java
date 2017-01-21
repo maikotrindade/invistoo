@@ -10,6 +10,7 @@ import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
@@ -35,6 +36,8 @@ public class AssetListFragment extends BaseFragment implements AssetListView {
     private SwipeRefreshLayout mSwipeLayout;
     private AssetListPresenter mPresenter;
     private BaseActivity mBaseActivity;
+    private boolean mIsShowingBuyable;
+    private Menu mMenu;
 
     public static AssetListFragment newInstance() {
         AssetListFragment fragment = new AssetListFragment();
@@ -46,6 +49,7 @@ public class AssetListFragment extends BaseFragment implements AssetListView {
                              @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        mIsShowingBuyable = true;
         mBaseActivity = (BaseActivity) getActivity();
         mRootView = inflater.inflate(R.layout.fragment_asset_list, container, false);
         mPresenter = new AssetListPresenter(this);
@@ -60,7 +64,7 @@ public class AssetListFragment extends BaseFragment implements AssetListView {
         mRecyclerView.setItemAnimator(new SlideInUpAnimator(new OvershootInterpolator(1f)));
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mRootView.getContext()));
-        mPresenter.downloadAssets();
+        mPresenter.downloadAssets(mIsShowingBuyable);
     }
 
     @Override
@@ -91,7 +95,7 @@ public class AssetListFragment extends BaseFragment implements AssetListView {
             @Override
             public void onRefresh() {
                 mSwipeLayout.setRefreshing(false);
-                mPresenter.downloadAssets();
+                mPresenter.downloadAssets(mIsShowingBuyable);
             }
         });
     }
@@ -99,14 +103,29 @@ public class AssetListFragment extends BaseFragment implements AssetListView {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
+        mMenu = menu;
         inflater.inflate(R.menu.search_asset_list_menu, menu);
         bindSearchView(menu);
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_show_hide_buyable:
+                mPresenter.showHideAssets(mIsShowingBuyable);
+                return true;
+        }
+        return false;
+    }
+
+    @Override
     public void onDownloadError() {
         hideProgressDialog();
-        mPresenter.getAssetsFromDatabase();
+        List<Asset> lastFromDatabase = mPresenter.getAssetsFromDatabase();
+        if (!lastFromDatabase.isEmpty()) {
+            updateAssetList(mPresenter.filterAssetsByBuyable(lastFromDatabase, true));
+            setLastUpdateTitle();
+        }
         InvistooUtil.makeSnackBar(getActivity(), getActivity()
                 .getString(R.string.error_download_assets), Snackbar.LENGTH_LONG).show();
     }
@@ -155,4 +174,19 @@ public class AssetListFragment extends BaseFragment implements AssetListView {
         mBaseActivity.setCustomToolbar(R.string.nav_indexes, mPresenter.getLastUpdate());
     }
 
+    @Override
+    public void setShowingBuyable(boolean mIsShowingBuyable) {
+        this.mIsShowingBuyable = mIsShowingBuyable;
+    }
+
+    @Override
+    public void changeMenuIcon(boolean isShowingBuyable) {
+        int iconResourceId;
+        if (isShowingBuyable) {
+            iconResourceId = R.drawable.ic_action_attach_money;
+        } else {
+            iconResourceId = R.drawable.ic_action_money_off;
+        }
+        mMenu.findItem(R.id.action_show_hide_buyable).setIcon(getResources().getDrawable(iconResourceId));
+    }
 }

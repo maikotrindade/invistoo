@@ -9,7 +9,8 @@ public enum QuestionGroupEnum {
     BEGINNER(1, "Iniciante"),
     PROFITABILITY(2, "Rentabilidade"),
     ADVANCED(3, "Avançado"),
-    TAXES(4, "Tributos");
+    TAXES(4, "Tributos"),
+    NEWS(5, "Notícias");
 
     private long id;
     private String title;

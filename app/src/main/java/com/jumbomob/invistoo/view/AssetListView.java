@@ -20,4 +20,8 @@ public interface AssetListView {
 
     void setLastUpdateTitle();
 
+    void setShowingBuyable(boolean isShowingBuyable);
+
+    void changeMenuIcon(boolean isShowingBuyable);
+
 }

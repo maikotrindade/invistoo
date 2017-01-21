@@ -44,7 +44,7 @@ public class AssetListPresenter implements BasePresenter<AssetListView> {
         mView = null;
     }
 
-    public void downloadAssets() {
+    public void downloadAssets(final boolean isShowBuyable) {
         mView.showProgressDialog(R.string.loading_assets);
         final AssetInterface service = BaseNetworkConfig.createService(AssetInterface.class,
                 ConstantsUtil.BASE_URL);
@@ -56,7 +56,7 @@ public class AssetListPresenter implements BasePresenter<AssetListView> {
                 if (response.isSuccess()) {
                     final AssetDAO assetDAO = AssetDAO.getInstance();
                     final List<Asset> assetsResult = response.body();
-                    mView.updateAssetList(assetsResult);
+                    mView.updateAssetList(filterAssetsByBuyable(assetsResult, isShowBuyable));
 
                     for (Asset asset : assetsResult) {
                         assetDAO.insert(asset);
@@ -76,13 +76,8 @@ public class AssetListPresenter implements BasePresenter<AssetListView> {
         });
     }
 
-    public void getAssetsFromDatabase() {
-        final AssetDAO assetDAO = AssetDAO.getInstance();
-        final List<Asset> lastFromDatabase = assetDAO.findLastFromDatabase();
-        if (!lastFromDatabase.isEmpty()) {
-            mView.updateAssetList(lastFromDatabase);
-            mView.setLastUpdateTitle();
-        }
+    public List<Asset> getAssetsFromDatabase() {
+        return AssetDAO.getInstance().findLastFromDatabase();
     }
 
     public void searchByText(final AssetListAdapter adapter, final String name) {
@@ -119,6 +114,25 @@ public class AssetListPresenter implements BasePresenter<AssetListView> {
             }
         }
         Log.e("Adapter", "O filtro tem #: " + filteredAssets.size());
+        return filteredAssets;
+    }
+
+    public void showHideAssets(boolean isShowingBuyable) {
+        mView.setShowingBuyable(!isShowingBuyable);
+        final List<Asset> filteredAssets = filterAssetsByBuyable(getAssetsFromDatabase(), !isShowingBuyable);
+        mView.changeMenuIcon(!isShowingBuyable);
+        mView.updateAssetList(filteredAssets);
+    }
+
+    public List<Asset> filterAssetsByBuyable(List<Asset> assets, boolean isShowBuyable) {
+        List<Asset> filteredAssets = new ArrayList<>();
+        for (Asset asset : assets) {
+            if (isShowBuyable && (!asset.getBuyPrice().equals(" "))) {
+                filteredAssets.add(asset);
+            } else if (!isShowBuyable && (asset.getBuyPrice().equals(" "))) {
+                filteredAssets.add(asset);
+            }
+        }
         return filteredAssets;
     }
 

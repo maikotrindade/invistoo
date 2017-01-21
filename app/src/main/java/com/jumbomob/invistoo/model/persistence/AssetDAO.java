@@ -36,21 +36,12 @@ public class AssetDAO {
         realm.commitTransaction();
     }
 
-    public Asset findLastByIndex(final int index) {
-//        String query = "SELECT " + columns +
-//                " FROM " + Tables.ASSET +
-//                " WHERE " + Tables.ASSET + "." + AssetTable.COLUMN_INDEX + " = ? " +
-//                " ORDER BY " + AssetTable.COLUMN_LAST_UPDATE + " ASC " +
-//                " LIMIT 1 ";
-        return new Asset();
-    }
-
     public List<Asset> findLastFromDatabase() {
         Realm realm = InvistooApplication.getInstance().getDatabaseInstance();
         RealmQuery<Asset> query = realm.where(Asset.class);
         RealmResults<Asset> allAssets = query.findAll().sort("lastUpdate", Sort.DESCENDING);
         List<Asset> assets = new ArrayList<>();
-        for (int index = 0; index < 25; index++) {
+        for (int index = 0; index < allAssets.size(); index++) {
             assets.add(allAssets.get(index));
         }
 

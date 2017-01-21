@@ -62,8 +62,11 @@ public class AssetListAdapter extends RecyclerView.Adapter<AssetListAdapter.View
 
         final String buyPrice = asset.getBuyPrice();
         if (TextUtils.isEmpty(buyPrice) || buyPrice.equals(" ")) {
-            holder.buyPriceTxtView.setText("-");
+            holder.buyPriceTxtView.setVisibility(View.GONE);
+            holder.buyPriceLabel.setVisibility(View.GONE);
         } else {
+            holder.buyPriceTxtView.setVisibility(View.VISIBLE);
+            holder.buyPriceLabel.setVisibility(View.VISIBLE);
             holder.buyPriceTxtView.setText(NumericUtil.formatCurrency(NumericUtil.getValidDouble((buyPrice))));
         }
 
@@ -92,7 +95,9 @@ public class AssetListAdapter extends RecyclerView.Adapter<AssetListAdapter.View
         private LinearLayout containerView;
         private TextView titleTxtView;
         private TextView dueDateTxtView;
+        private TextView buyPriceLabel;
         private TextView buyPriceTxtView;
+        private TextView sellPriceLabel;
         private TextView sellPriceTxtView;
 
         public ViewHolder(View view) {
@@ -100,7 +105,9 @@ public class AssetListAdapter extends RecyclerView.Adapter<AssetListAdapter.View
             containerView = (LinearLayout) view.findViewById(R.id.container_view);
             titleTxtView = (TextView) view.findViewById(R.id.title_text_view);
             dueDateTxtView = (TextView) view.findViewById(R.id.due_date_text_view);
+            buyPriceLabel = (TextView) view.findViewById(R.id.buy_price_label);
             buyPriceTxtView = (TextView) view.findViewById(R.id.buy_price_text_view);
+            sellPriceLabel = (TextView) view.findViewById(R.id.sell_price_label);
             sellPriceTxtView = (TextView) view.findViewById(R.id.sell_price_text_view);
         }
     }
@@ -112,7 +119,4 @@ public class AssetListAdapter extends RecyclerView.Adapter<AssetListAdapter.View
         }
     }
 
-    public void setSearchListener(onSearchResultListener listener) {
-        mSearchListener = listener;
-    }
 }

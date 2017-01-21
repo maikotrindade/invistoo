@@ -55,6 +55,8 @@
     <string name="todo">Not implemented yet!</string>
     <string name="percentage">Porcentagem</string>
     <string name="title">Título</string>
+    <string name="show_hide_assets">Mostar/esconder cotações compráveis</string>
+    <string name="search">Pesquisar</string>
 
     <string name="msg_goals_defined">Metas definidas com sucesso!</string>
     <string name="quantity">Quantidade</string>
@@ -62,9 +64,9 @@
     <string name="value">Valor</string>
     <string name="last_update">Última Atualização</string>
     <string name="date">Data</string>
-    <string name="due_date">Date de Vencimento</string>
-    <string name="buy_price">Preço de Compra</string>
-    <string name="sell_price">Preço de Venda</string>
+    <string name="due_date">Vencimento</string>
+    <string name="buy_price">Compra</string>
+    <string name="sell_price">Venda</string>
 
     <string name="loading_assets">Carregando as cotações</string>
     <string name="loading_questions">Carregando as informações úteis</string>
