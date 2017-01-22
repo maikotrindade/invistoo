@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/action_group"
+        android:orderInCategory="99"
+        android:title="@string/action_group"
+        android:icon="@drawable/ic_action_group"
+        app:showAsAction="always"/>
+
+    <item
         android:id="@+id/action_order_by_date"
         android:orderInCategory="100"
         android:title="@string/action_save"

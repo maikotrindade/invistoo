@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,16 +21,25 @@ import android.widget.LinearLayout;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.jumbomob.invistoo.R;
+import com.jumbomob.invistoo.model.entity.AssetTypeEnum;
 import com.jumbomob.invistoo.model.entity.Investment;
 import com.jumbomob.invistoo.presenter.InvestmentListPresenter;
+import com.jumbomob.invistoo.ui.adapter.GroupSectionItem;
+import com.jumbomob.invistoo.ui.adapter.HeaderItem;
+import com.jumbomob.invistoo.ui.adapter.InvestmentGroupListAdapter;
 import com.jumbomob.invistoo.ui.adapter.InvestmentListAdapter;
+import com.jumbomob.invistoo.ui.adapter.ListItem;
 import com.jumbomob.invistoo.ui.component.DividerItemDecorator;
 import com.jumbomob.invistoo.util.ConstantsUtil;
 import com.jumbomob.invistoo.util.DialogUtil;
 import com.jumbomob.invistoo.util.NumericUtil;
 import com.jumbomob.invistoo.view.InvestmentListView;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * @author maiko.trindade
@@ -71,6 +81,9 @@ public class InvestmentsListFragment extends BaseFragment implements InvestmentL
         switch (item.getItemId()) {
             case R.id.action_order_by_date:
                 mPresenter.orderListByDate(mIsSortedDescByDate);
+                return true;
+            case R.id.action_group:
+                doTheMagicHere();
                 return true;
         }
         return false;
@@ -168,6 +181,58 @@ public class InvestmentsListFragment extends BaseFragment implements InvestmentL
     public void setIsSortedDescByDate(boolean sortedDescByDate) {
         mIsSortedDescByDate = sortedDescByDate;
     }
+
+    public void doTheMagicHere() {
+        TreeMap<AssetTypeEnum, List<Investment>> investmentsMapped = new TreeMap<>();
+        final List<Investment> investments = mAdapter.getItens();
+        for (Investment investment : investments) {
+            final AssetTypeEnum assetType = AssetTypeEnum.getById(investment.getAssetType());
+            if (!investmentsMapped.containsKey(assetType)) {
+                List<Investment> investmentList = new ArrayList<>();
+                investmentList.add(investment);
+                investmentsMapped.put(assetType, investmentList);
+            } else {
+                investmentsMapped.get(assetType).add(investment);
+            }
+        }
+
+        Log.i(TAG, investmentsMapped.toString());
+
+        List<GroupSectionItem> groupSectionItems = new ArrayList<>();
+        for (AssetTypeEnum assetType : investmentsMapped.keySet()) {
+            HeaderItem header = new HeaderItem();
+            header.setAssetType(assetType);
+            groupSectionItems.add(header);
+            for (Investment investment : investmentsMapped.get(assetType)) {
+                ListItem item = new ListItem();
+                item.setInvestment(investment);
+                groupSectionItems.add(item);
+            }
+        }
+
+        //remove it
+        LinearLayout investmentsContainer = (LinearLayout) mRootView.findViewById(R.id.no_investments_container);
+        investmentsContainer.setVisibility(View.GONE);
+
+        RecyclerView recyclerView = (RecyclerView) mRootView.findViewById(R.id.investments_recycler_view);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(mRootView.getContext()));
+        InvestmentGroupListAdapter adapter = new InvestmentGroupListAdapter(groupSectionItems, this);
+        recyclerView.setAdapter(adapter);
+
+    }
+
+//    HashMap<Integer, List<Location>> hashMap = new HashMap<Integer, List<Location>>();
+//    if (!hashMap.containsKey(locationId)) {
+//        List<Location> list = new ArrayList<Location>();
+//        list.add(student);
+//
+//        hashMap.put(locationId, list);
+//    } else {
+//        hashMap.get(locationId).add(student);
+//    }
+
+
 }
 
 

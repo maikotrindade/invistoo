@@ -23,7 +23,6 @@ import com.jumbomob.invistoo.model.entity.AssetStatusEnum;
 import com.jumbomob.invistoo.model.entity.AssetTypeEnum;
 import com.jumbomob.invistoo.model.entity.Investment;
 import com.jumbomob.invistoo.model.persistence.InvestmentDAO;
-import com.jumbomob.invistoo.ui.callback.onSearchResultListener;
 import com.jumbomob.invistoo.util.DateUtil;
 import com.jumbomob.invistoo.util.DialogUtil;
 import com.jumbomob.invistoo.util.NumericUtil;
@@ -31,44 +30,60 @@ import com.jumbomob.invistoo.util.NumericUtil;
 import java.util.List;
 
 /**
- * @author maiko.trindade
- * @since 24/02/2016
+ * Created by trindade on 1/21/17.
  */
-public class InvestmentListAdapter extends RecyclerView.Adapter<InvestmentListAdapter.ViewHolder> {
 
-    private List<Investment> mInvestments;
+public class InvestmentGroupListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+    private List<GroupSectionItem> mItems;
     private int mPosition;
     private Context mContext;
-    private onSearchResultListener mSearchListener;
 
-    public InvestmentListAdapter(List<Investment> investments, Fragment fragment) {
-        mInvestments = investments;
+    public InvestmentGroupListAdapter(List<GroupSectionItem> groupSectionItems, Fragment fragment) {
+        mItems = groupSectionItems;
         mContext = fragment.getContext();
     }
 
-    public void setItens(List<Investment> investments) {
-        this.mInvestments = investments;
+    public void setItens(List<GroupSectionItem> investments) {
+        this.mItems = investments;
     }
 
-    public List<Investment> getItens() {
-        return mInvestments;
+    public List<GroupSectionItem> getItens() {
+        return mItems;
     }
 
-    public Investment getSelectedItem() {
-        return mInvestments.get(mPosition);
+    public GroupSectionItem getSelectedItem() {
+        return mItems.get(mPosition);
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        final View view = layoutInflater.inflate(R.layout.item_investment_list, parent, false);
-        return new ViewHolder(view);
+        if (viewType == GroupSectionItem.SECTION_GROUP_HEADER) {
+            View itemView = layoutInflater.inflate(R.layout.item_investment_header, parent, false);
+            return new HeaderViewHolder(itemView);
+        } else {
+            View itemView = layoutInflater.inflate(R.layout.item_investment_list_content, parent, false);
+            return new ListViewHolder(itemView);
+        }
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position) {
-        final Investment investment = mInvestments.get(position);
-        holder.nameTxtView.setText(investment.getName());
+    public void onBindViewHolder(final RecyclerView.ViewHolder viewHolder, final int position) {
+        int type = getItemViewType(position);
+        if (type == GroupSectionItem.SECTION_GROUP_HEADER) {
+            HeaderItem header = (HeaderItem) mItems.get(position);
+            HeaderViewHolder holder = (HeaderViewHolder) viewHolder;
+            holder.titleTxtView.setText(header.getAssetType().getTitle());
+        } else {
+            ListItem listItem = (ListItem) mItems.get(position);
+            ListViewHolder holder = (ListViewHolder) viewHolder;
+            bindHolderWithInvestment(holder, listItem.getInvestment(), position);
+        }
+    }
+
+    private void bindHolderWithInvestment(final ListViewHolder holder, final Investment investment,
+                                          final int position) {
         holder.valueTxtView.setText(NumericUtil.formatCurrency(NumericUtil.getValidLong((investment.getPrice()))));
         holder.lastUpdateTxtView.setText(DateUtil.formatDate(investment.getUpdateDate(), DateUtil.SIMPLE_DATETIME_FORMAT));
 
@@ -167,31 +182,41 @@ public class InvestmentListAdapter extends RecyclerView.Adapter<InvestmentListAd
 
     @Override
     public int getItemCount() {
-        return mInvestments.size();
+        return mItems.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    @Override
+    public int getItemViewType(int position) {
+        return mItems.get(position).getSection();
+    }
 
+    public static class HeaderViewHolder extends RecyclerView.ViewHolder {
+        private TextView titleTxtView;
+
+        public HeaderViewHolder(View view) {
+            super(view);
+            titleTxtView = (TextView) view.findViewById(R.id.header_title_text_view);
+        }
+    }
+
+    public static class ListViewHolder extends RecyclerView.ViewHolder {
         private LinearLayout circleContainer;
         private TextView abbreviationTxtView;
         private TextView statusTextView;
         private TextView yearTxtView;
-        private TextView nameTxtView;
         private TextView valueTxtView;
         private TextView lastUpdateTxtView;
         private ImageView contextMenuImgView;
 
-        public ViewHolder(View view) {
+        public ListViewHolder(View view) {
             super(view);
             circleContainer = (LinearLayout) view.findViewById(R.id.circle_container);
             abbreviationTxtView = (TextView) view.findViewById(R.id.abbreviation_text_view);
             statusTextView = (TextView) view.findViewById(R.id.status_text_view);
             yearTxtView = (TextView) view.findViewById(R.id.year_text_view);
-            nameTxtView = (TextView) view.findViewById(R.id.name_text_view);
             valueTxtView = (TextView) view.findViewById(R.id.value_text_view);
             lastUpdateTxtView = (TextView) view.findViewById(R.id.last_update_text_view);
             contextMenuImgView = (ImageView) view.findViewById(R.id.context_menu_image_view);
         }
     }
-
 }

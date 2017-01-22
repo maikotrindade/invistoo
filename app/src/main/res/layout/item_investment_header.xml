@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/activity_horizontal_small_margin"
+    android:orientation="horizontal"
+    android:gravity="center_vertical">
+
+    <!--<ImageView-->
+        <!--android:layout_width="16dp"-->
+        <!--android:layout_height="16dp"-->
+        <!--android:src="@drawable/ic_star" />-->
+
+    <TextView
+        android:id="@+id/header_title_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tesouro Selic 2021"
+        android:textSize="@dimen/text_extra_small" />
+
+</LinearLayout>
