@@ -19,7 +19,6 @@ import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.model.entity.Asset;
 import com.jumbomob.invistoo.presenter.AssetListPresenter;
 import com.jumbomob.invistoo.ui.adapter.AssetListAdapter;
-import com.jumbomob.invistoo.ui.component.DividerItemDecorator;
 import com.jumbomob.invistoo.util.InvistooUtil;
 import com.jumbomob.invistoo.view.AssetListView;
 
@@ -60,7 +59,6 @@ public class AssetListFragment extends BaseFragment implements AssetListView {
 
     private void configureRecyclerView() {
         mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.assets_recycler_view);
-        mRecyclerView.addItemDecoration(new DividerItemDecorator(getActivity(), DividerItemDecorator.VERTICAL_LIST));
         mRecyclerView.setItemAnimator(new SlideInUpAnimator(new OvershootInterpolator(1f)));
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mRootView.getContext()));

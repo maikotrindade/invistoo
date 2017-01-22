@@ -31,8 +31,8 @@ public enum AssetTypeEnum {
     IGPM_2017(21, "Tesouro IGPM+ com Juros Semestrais 2017", "IG", 2017, R.color.material_teal_700, "IGPM c/ Juros 2017"),
     IGPM_2021(22, "Tesouro IGPM+ com Juros Semestrais 2021", "IG", 2021, R.color.material_teal_700, "IGPM c/ Juros 2021"),
     IGPM_2031(23, "Tesouro IGPM+ com Juros Semestrais 2031", "IG", 2031, R.color.material_teal_700, "IGPM c/ Juros 2031"),
-    SELIC_2017(24, "Tesouro Selic 2017", "S", 2017, R.color.material_yellow_A400, "SELIC 2017"),
-    SELIC_2021(25, "Tesouro Selic 2021", "S", 2021, R.color.material_yellow_A400, "SELIC 2021");
+    SELIC_2017(24, "Tesouro Selic 2017", "S", 2017, R.color.material_yellow_A700, "SELIC 2017"),
+    SELIC_2021(25, "Tesouro Selic 2021", "S", 2021, R.color.material_yellow_A700, "SELIC 2021");
 
     private long id;
     private String title;

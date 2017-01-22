@@ -22,6 +22,7 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.presenter.HomePresenter;
+import com.jumbomob.invistoo.util.AnimationUtil;
 import com.jumbomob.invistoo.util.NumericUtil;
 import com.jumbomob.invistoo.view.HomeView;
 
@@ -68,6 +69,10 @@ public class HomeFragment extends BaseFragment implements HomeView {
 
     private void configureBalance() {
         final LinearLayout balanceContainer = (LinearLayout) mRootView.findViewById(R.id.balance_container);
+
+        balanceContainer.setLayoutAnimation(AnimationUtil.getFadeInAnimation());
+
+        final LinearLayout balanceSubContainer = (LinearLayout) mRootView.findViewById(R.id.balance_sub_container);
         final ImageView hideBalanceImgView = (ImageView) mRootView.findViewById(R.id.minimize_image_view);
         final TextView balanceTextView = (TextView) mRootView.findViewById(R.id.balance_text_view);
         final TextView balanceSoldTextView = (TextView) mRootView.findViewById(R.id.balance_sold_text_view);
@@ -81,17 +86,17 @@ public class HomeFragment extends BaseFragment implements HomeView {
         hideBalanceImgView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (balanceContainer.getVisibility() == View.VISIBLE) {
-                    balanceContainer.setVisibility(View.GONE);
+                if (balanceSubContainer.getVisibility() == View.VISIBLE) {
+                    balanceSubContainer.setVisibility(View.GONE);
                     hideBalanceImgView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_maximize));
                 } else {
-                    balanceContainer.setVisibility(View.VISIBLE);
+                    balanceSubContainer.setVisibility(View.VISIBLE);
                     hideBalanceImgView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_minimize));
-                }
 
+                    balanceSubContainer.setLayoutAnimation(AnimationUtil.getFadeInAnimation());
+                }
             }
         });
-
 
     }
 
