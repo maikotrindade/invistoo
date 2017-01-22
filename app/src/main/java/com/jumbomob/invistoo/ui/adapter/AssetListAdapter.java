@@ -6,13 +6,10 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.model.entity.Asset;
-import com.jumbomob.invistoo.ui.AssetChartFragment;
-import com.jumbomob.invistoo.ui.BaseActivity;
 import com.jumbomob.invistoo.ui.callback.onSearchResultListener;
 import com.jumbomob.invistoo.util.NumericUtil;
 
@@ -72,17 +69,13 @@ public class AssetListAdapter extends RecyclerView.Adapter<AssetListAdapter.View
 
         final String sellPrice = asset.getSellPrice();
         if (TextUtils.isEmpty(sellPrice) || sellPrice.equals(" ")) {
-            holder.sellPriceTxtView.setText("-");
+            holder.sellPriceLabel.setVisibility(View.GONE);
+            holder.sellPriceTxtView.setVisibility(View.GONE);
         } else {
+            holder.sellPriceLabel.setVisibility(View.VISIBLE);
+            holder.sellPriceTxtView.setVisibility(View.VISIBLE);
             holder.sellPriceTxtView.setText(NumericUtil.formatCurrency(NumericUtil.getValidDouble((sellPrice))));
         }
-
-        holder.containerView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((BaseActivity) mActivity).setFragment(AssetChartFragment.newInstance(), "Chart");
-            }
-        });
     }
 
     @Override
@@ -92,7 +85,6 @@ public class AssetListAdapter extends RecyclerView.Adapter<AssetListAdapter.View
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        private LinearLayout containerView;
         private TextView titleTxtView;
         private TextView dueDateTxtView;
         private TextView buyPriceLabel;
@@ -102,7 +94,6 @@ public class AssetListAdapter extends RecyclerView.Adapter<AssetListAdapter.View
 
         public ViewHolder(View view) {
             super(view);
-            containerView = (LinearLayout) view.findViewById(R.id.container_view);
             titleTxtView = (TextView) view.findViewById(R.id.title_text_view);
             dueDateTxtView = (TextView) view.findViewById(R.id.due_date_text_view);
             buyPriceLabel = (TextView) view.findViewById(R.id.buy_price_label);

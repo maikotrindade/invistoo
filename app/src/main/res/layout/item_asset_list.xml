@@ -10,7 +10,6 @@
     android:background="@color/material_white_1000">
 
     <LinearLayout
-        android:id="@+id/container_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/activity_horizontal_small_margin"
