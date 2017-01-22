@@ -125,7 +125,10 @@
     <string name="new_email_hint">Novo E-mail</string>
     <string name="name_hint">Nome</string>
     <string name="send_button">Enviar</string>
+    <string name="read_more_button">Leia Mais</string>
 
     <string name="email_suggestion">Invistoo [Sugestão]"</string>
+
+    <string name="written_by">Escrito por %1$s</string>
 
 </resources>

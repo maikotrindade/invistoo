@@ -1,4 +1,5 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,45 +8,92 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     tools:context="com.jumbomob.invistoo.ui.QuestionDetailsFragment">
 
-    <TextView
-        android:id="@+id/question_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_small4"
-        android:layout_marginTop="@dimen/margin_medium1"
-        android:textAlignment="center"
-        android:textSize="@dimen/text_medium_large" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/group_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_medium"
-        android:textSize="@dimen/text_medium"
-        android:textStyle="bold|italic" />
+        <TextView
+            android:id="@+id/question_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_small4"
+            android:layout_marginTop="@dimen/margin_medium1"
+            android:textAlignment="center"
+            android:textSize="@dimen/text_medium_large" />
 
-    <TextView
-        android:id="@+id/answer_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/text_medium" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_small1"
+            android:layout_marginTop="@dimen/margin_small1">
 
-    <TextView
-        android:id="@+id/datetime_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/text_medium" />
+            <TextView
+                android:id="@+id/group_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginBottom="@dimen/margin_medium"
+                android:textSize="@dimen/text_medium"
+                android:textStyle="bold|italic" />
 
-    <TextView
-        android:id="@+id/author_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/text_medium" />
+            <android.support.v7.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_margin="@dimen/margin_small1"
+                app:cardBackgroundColor="@color/material_grey_500"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp">
 
-    <TextView
-        android:id="@+id/reference_url_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/text_medium" />
+                <TextView
+                    android:id="@+id/datetime_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/margin_small0"
+                    android:paddingLeft="@dimen/margin_small4"
+                    android:paddingRight="@dimen/margin_small4"
+                    android:paddingTop="@dimen/margin_small0"
+                    android:text="Data"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/text_extra_small" />
+            </android.support.v7.widget.CardView>
 
-</LinearLayout>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/answer_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_small3"
+            android:layout_marginRight="@dimen/margin_small3"
+            android:textSize="@dimen/text_medium" />
+
+        <TextView
+            android:id="@+id/author_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_small3"
+            android:layout_marginRight="@dimen/margin_small3"
+            android:layout_marginTop="@dimen/margin_small3"
+            android:textSize="@dimen/text_small"
+            android:textStyle="italic" />
+
+        <com.jumbomob.invistoo.ui.component.InvistooButton
+            android:id="@+id/read_more_button"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_marginLeft="@dimen/margin_medium1"
+            android:layout_marginRight="@dimen/margin_medium1"
+            android:layout_marginTop="@dimen/margin_medium3"
+            android:background="@drawable/invistoo_ripple_button"
+            android:text="@string/read_more_button"
+            android:textColor="@color/material_white_1000"
+            android:textSize="@dimen/text_medium"
+            android:visibility="visible"
+            app:hasSpacing="true"
+            app:isUpperCase="true" />
+
+    </LinearLayout>
+
+</ScrollView>
