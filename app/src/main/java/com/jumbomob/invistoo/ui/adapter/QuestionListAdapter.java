@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.model.entity.Question;
+import com.jumbomob.invistoo.model.entity.QuestionGroupEnum;
 import com.jumbomob.invistoo.ui.BaseActivity;
 import com.jumbomob.invistoo.ui.QuestionDetailsFragment;
 import com.jumbomob.invistoo.ui.callback.onSearchResultListener;
@@ -52,6 +53,9 @@ public class QuestionListAdapter extends RecyclerView.Adapter<QuestionListAdapte
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Question question = mQuestions.get(position);
         holder.questionTxtView.setText(question.getQuestion());
+        final QuestionGroupEnum questionGroup = QuestionGroupEnum.getById(Long.parseLong(question.getGroup()));
+        holder.questionGroupTxtView.setText(questionGroup.getTitle());
+
         holder.questionContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,12 +75,13 @@ public class QuestionListAdapter extends RecyclerView.Adapter<QuestionListAdapte
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView questionTxtView;
+        private TextView questionTxtView, questionGroupTxtView;
         private View questionContainer;
 
         public ViewHolder(View view) {
             super(view);
             questionTxtView = (TextView) view.findViewById(R.id.question_text_view);
+            questionGroupTxtView = (TextView) view.findViewById(R.id.question_group_text_view);
             questionContainer = view.findViewById(R.id.question_adapter);
         }
     }
