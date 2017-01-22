@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,25 +20,17 @@ import android.widget.LinearLayout;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.jumbomob.invistoo.R;
-import com.jumbomob.invistoo.model.entity.AssetTypeEnum;
 import com.jumbomob.invistoo.model.entity.Investment;
 import com.jumbomob.invistoo.presenter.InvestmentListPresenter;
 import com.jumbomob.invistoo.ui.adapter.GroupSectionItem;
-import com.jumbomob.invistoo.ui.adapter.HeaderItem;
 import com.jumbomob.invistoo.ui.adapter.InvestmentGroupListAdapter;
 import com.jumbomob.invistoo.ui.adapter.InvestmentListAdapter;
-import com.jumbomob.invistoo.ui.adapter.ListItem;
-import com.jumbomob.invistoo.ui.component.DividerItemDecorator;
 import com.jumbomob.invistoo.util.ConstantsUtil;
 import com.jumbomob.invistoo.util.DialogUtil;
 import com.jumbomob.invistoo.util.NumericUtil;
 import com.jumbomob.invistoo.view.InvestmentListView;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.TreeMap;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * @author maiko.trindade
@@ -49,8 +40,11 @@ public class InvestmentsListFragment extends BaseFragment implements InvestmentL
 
     private View mRootView;
     private InvestmentListPresenter mPresenter;
+    private RecyclerView mRecyclerView;
     private InvestmentListAdapter mAdapter;
+    private Menu mMenu;
     private boolean mIsSortedDescByDate;
+    private boolean mIsGroupByAssetType;
 
     public static InvestmentsListFragment newInstance() {
         InvestmentsListFragment fragment = new InvestmentsListFragment();
@@ -64,7 +58,8 @@ public class InvestmentsListFragment extends BaseFragment implements InvestmentL
         mRootView = inflater.inflate(R.layout.fragment_investments_list, container, false);
 
         mPresenter = new InvestmentListPresenter(this);
-        configureRecyclerView();
+        mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.investments_recycler_view);
+        configureInvestmentList();
         configureFab();
 
         return mRootView;
@@ -73,6 +68,7 @@ public class InvestmentsListFragment extends BaseFragment implements InvestmentL
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
+        mMenu = menu;
         inflater.inflate(R.menu.investment_list_menu, menu);
     }
 
@@ -83,7 +79,9 @@ public class InvestmentsListFragment extends BaseFragment implements InvestmentL
                 mPresenter.orderListByDate(mIsSortedDescByDate);
                 return true;
             case R.id.action_group:
-                doTheMagicHere();
+                if (mAdapter != null) {
+                    mPresenter.switchInvestmentListLayout(mAdapter.getItens(), mIsGroupByAssetType);
+                }
                 return true;
         }
         return false;
@@ -95,22 +93,30 @@ public class InvestmentsListFragment extends BaseFragment implements InvestmentL
         getActivity().setTitle(R.string.my_investments);
     }
 
-    private void configureRecyclerView() {
+    @Override
+    public void configureInvestmentList() {
         LinearLayout investmentsContainer = (LinearLayout) mRootView.findViewById(R.id.no_investments_container);
-        RecyclerView recyclerView = (RecyclerView) mRootView.findViewById(R.id.investments_recycler_view);
-        recyclerView.addItemDecoration(new DividerItemDecorator(getActivity(), DividerItemDecorator.VERTICAL_LIST));
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(mRootView.getContext()));
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(mRootView.getContext()));
 
         if (!mPresenter.findInvestments().isEmpty()) {
-            recyclerView.setVisibility(View.VISIBLE);
+            mRecyclerView.setVisibility(View.VISIBLE);
             investmentsContainer.setVisibility(View.GONE);
             mAdapter = new InvestmentListAdapter(mPresenter.findInvestments(), this);
-            recyclerView.setAdapter(mAdapter);
+            mRecyclerView.setAdapter(mAdapter);
         } else {
             investmentsContainer.setVisibility(View.VISIBLE);
-            recyclerView.setVisibility(View.GONE);
+            mRecyclerView.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void configureInvestmentListGroup(List<GroupSectionItem> groupSectionItems) {
+
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(mRootView.getContext()));
+        InvestmentGroupListAdapter adapter = new InvestmentGroupListAdapter(groupSectionItems, this);
+        mRecyclerView.setAdapter(adapter);
     }
 
     private void configureFab() {
@@ -161,6 +167,24 @@ public class InvestmentsListFragment extends BaseFragment implements InvestmentL
     public void updateList(List<Investment> investments) {
         mAdapter.setItens(investments);
         mAdapter.notifyDataSetChanged();
+        updateMenuItems(investments.size());
+    }
+
+    private void updateMenuItems(int investmentListSize) {
+        if (investmentListSize > 0) {
+            handleItemMenu(true, R.id.action_order_by_date);
+            handleItemMenu(true, R.id.action_group);
+        } else {
+            handleItemMenu(false, R.id.action_order_by_date);
+            handleItemMenu(false, R.id.action_group);
+            ;
+        }
+    }
+
+    private void handleItemMenu(boolean isVisible, int menuActionId) {
+        if (mMenu != null) {
+            mMenu.findItem(menuActionId).setVisible(isVisible);
+        }
     }
 
     @Override
@@ -178,60 +202,14 @@ public class InvestmentsListFragment extends BaseFragment implements InvestmentL
     }
 
     @Override
-    public void setIsSortedDescByDate(boolean sortedDescByDate) {
+    public void setGroupByAssetType(boolean groupedByAssetType) {
+        mIsGroupByAssetType = groupedByAssetType;
+    }
+
+    @Override
+    public void setSortedDescByDate(boolean sortedDescByDate) {
         mIsSortedDescByDate = sortedDescByDate;
     }
-
-    public void doTheMagicHere() {
-        TreeMap<AssetTypeEnum, List<Investment>> investmentsMapped = new TreeMap<>();
-        final List<Investment> investments = mAdapter.getItens();
-        for (Investment investment : investments) {
-            final AssetTypeEnum assetType = AssetTypeEnum.getById(investment.getAssetType());
-            if (!investmentsMapped.containsKey(assetType)) {
-                List<Investment> investmentList = new ArrayList<>();
-                investmentList.add(investment);
-                investmentsMapped.put(assetType, investmentList);
-            } else {
-                investmentsMapped.get(assetType).add(investment);
-            }
-        }
-
-        Log.i(TAG, investmentsMapped.toString());
-
-        List<GroupSectionItem> groupSectionItems = new ArrayList<>();
-        for (AssetTypeEnum assetType : investmentsMapped.keySet()) {
-            HeaderItem header = new HeaderItem();
-            header.setAssetType(assetType);
-            groupSectionItems.add(header);
-            for (Investment investment : investmentsMapped.get(assetType)) {
-                ListItem item = new ListItem();
-                item.setInvestment(investment);
-                groupSectionItems.add(item);
-            }
-        }
-
-        //remove it
-        LinearLayout investmentsContainer = (LinearLayout) mRootView.findViewById(R.id.no_investments_container);
-        investmentsContainer.setVisibility(View.GONE);
-
-        RecyclerView recyclerView = (RecyclerView) mRootView.findViewById(R.id.investments_recycler_view);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(mRootView.getContext()));
-        InvestmentGroupListAdapter adapter = new InvestmentGroupListAdapter(groupSectionItems, this);
-        recyclerView.setAdapter(adapter);
-
-    }
-
-//    HashMap<Integer, List<Location>> hashMap = new HashMap<Integer, List<Location>>();
-//    if (!hashMap.containsKey(locationId)) {
-//        List<Location> list = new ArrayList<Location>();
-//        list.add(student);
-//
-//        hashMap.put(locationId, list);
-//    } else {
-//        hashMap.get(locationId).add(student);
-//    }
-
 
 }
 

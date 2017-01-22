@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_marginLeft="@dimen/margin_small4"
     android:layout_marginRight="@dimen/margin_small4"
-    android:layout_marginTop="@dimen/activity_horizontal_small_margin"
+    android:layout_marginBottom="@dimen/activity_horizontal_small_margin"
     android:background="@color/material_white_1000">
 
     <RelativeLayout

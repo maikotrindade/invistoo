@@ -1,6 +1,7 @@
 package com.jumbomob.invistoo.view;
 
 import com.jumbomob.invistoo.model.entity.Investment;
+import com.jumbomob.invistoo.ui.adapter.GroupSectionItem;
 
 import java.util.List;
 
@@ -16,6 +17,11 @@ public interface InvestmentListView {
 
     void showGoalsDialog();
 
-    void setIsSortedDescByDate(boolean sortedDescByDate);
+    void setSortedDescByDate(boolean sortedDescByDate);
 
+    void setGroupByAssetType(boolean groupedByAssetType);
+
+    void configureInvestmentList();
+
+    void configureInvestmentListGroup(List<GroupSectionItem> groupSectionItems);
 }
