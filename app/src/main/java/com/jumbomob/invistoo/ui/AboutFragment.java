@@ -1,17 +1,22 @@
 package com.jumbomob.invistoo.ui;
 
+import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.LinearLayout;
 
 import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.presenter.AboutPresenter;
+import com.jumbomob.invistoo.ui.adapter.LicenseListAdapter;
 import com.jumbomob.invistoo.util.ConstantsUtil;
 import com.jumbomob.invistoo.view.AboutView;
 
@@ -20,8 +25,6 @@ import com.jumbomob.invistoo.view.AboutView;
  * @since 30/03/2016
  */
 public class AboutFragment extends BaseFragment implements AboutView {
-
-    private static final String TAG = AboutFragment.class.getSimpleName();
 
     private View mRootView;
     private AboutPresenter mPresenter;
@@ -75,7 +78,12 @@ public class AboutFragment extends BaseFragment implements AboutView {
         });
 
         final LinearLayout licensesContainer = (LinearLayout) mRootView.findViewById(R.id.licenses_container);
-
+        licensesContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showLicensesDialog();
+            }
+        });
 
     }
 
@@ -90,5 +98,30 @@ public class AboutFragment extends BaseFragment implements AboutView {
             startActivity(new Intent(Intent.ACTION_VIEW,
                     Uri.parse("http://play.google.com/store/apps/details?id=" + mRootView.getContext().getPackageName())));
         }
+    }
+
+    private void showLicensesDialog() {
+        final Dialog dialog = new Dialog(mRootView.getContext());
+
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.licenses_dialog);
+        dialog.setCancelable(true);
+        dialog.setCanceledOnTouchOutside(true);
+
+        final RecyclerView recyclerView = (RecyclerView) dialog.findViewById(R.id.licenses_recycler_view);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(mRootView.getContext()));
+        LicenseListAdapter adapter = new LicenseListAdapter(mPresenter.getLicenses());
+        recyclerView.setAdapter(adapter);
+
+        (dialog.findViewById(R.id.ok_text_view)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+
     }
 }

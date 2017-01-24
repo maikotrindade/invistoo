@@ -8,7 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.jumbomob.invistoo.R;
-import com.jumbomob.invistoo.model.dto.InvestmentSuggestion;
+import com.jumbomob.invistoo.model.dto.InvestmentSuggestionDTO;
 import com.jumbomob.invistoo.model.entity.AssetTypeEnum;
 import com.jumbomob.invistoo.ui.callback.onSearchResultListener;
 import com.jumbomob.invistoo.util.NumericUtil;
@@ -22,23 +22,23 @@ import java.util.List;
 public class BalancedInvestmentListAdapter extends RecyclerView
         .Adapter<BalancedInvestmentListAdapter.ViewHolder> {
 
-    private List<InvestmentSuggestion> mInvestments;
+    private List<InvestmentSuggestionDTO> mInvestments;
     private int mPosition;
     private onSearchResultListener mSearchListener;
 
-    public BalancedInvestmentListAdapter(List<InvestmentSuggestion> investments) {
+    public BalancedInvestmentListAdapter(List<InvestmentSuggestionDTO> investments) {
         mInvestments = investments;
     }
 
-    public void setItens(List<InvestmentSuggestion> investments) {
+    public void setItens(List<InvestmentSuggestionDTO> investments) {
         this.mInvestments = investments;
     }
 
-    public List<InvestmentSuggestion> getItens() {
+    public List<InvestmentSuggestionDTO> getItens() {
         return mInvestments;
     }
 
-    public InvestmentSuggestion getSelectedItem() {
+    public InvestmentSuggestionDTO getSelectedItem() {
         return mInvestments.get(mPosition);
     }
 
@@ -52,7 +52,7 @@ public class BalancedInvestmentListAdapter extends RecyclerView
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final InvestmentSuggestion suggestion = mInvestments.get(position);
+        final InvestmentSuggestionDTO suggestion = mInvestments.get(position);
         AssetTypeEnum assetTypeEnum = AssetTypeEnum.getById(suggestion.getAssetType());
         holder.nameTxtView.setText(assetTypeEnum.getTitle());
         holder.investedTxtView

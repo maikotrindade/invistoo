@@ -4,7 +4,7 @@ package com.jumbomob.invistoo.model.dto;
  * @author maiko.trindade
  * @since 16/08/2016
  */
-public class InvestmentSuggestion {
+public class InvestmentSuggestionDTO {
 
     private Double total;
     private Long assetType;
@@ -36,7 +36,7 @@ public class InvestmentSuggestion {
 
     @Override
     public String toString() {
-        return "InvestmentSuggestion{" +
+        return "InvestmentSuggestionDTO{" +
                 "assetType=" + assetType +
                 ", total=" + total +
                 ", suggestion=" + suggestion +

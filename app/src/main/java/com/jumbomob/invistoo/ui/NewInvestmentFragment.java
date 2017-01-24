@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jumbomob.invistoo.R;
-import com.jumbomob.invistoo.model.dto.InvestmentSuggestion;
+import com.jumbomob.invistoo.model.dto.InvestmentSuggestionDTO;
 import com.jumbomob.invistoo.presenter.NewInvestmentListPresenter;
 import com.jumbomob.invistoo.ui.adapter.BalancedInvestmentListAdapter;
 import com.jumbomob.invistoo.ui.component.DividerItemDecorator;
@@ -67,11 +67,11 @@ public class NewInvestmentFragment extends BaseFragment
     private void configureElements() {
         final Bundle arguments = getArguments();
         final double contribution = arguments.getDouble(ConstantsUtil.CONTRIBUTION_BUNDLE, 0);
-        final List<InvestmentSuggestion> suggestions = mPresenter.calculateBalance(contribution);
+        final List<InvestmentSuggestionDTO> suggestions = mPresenter.calculateBalance(contribution);
         configureRecyclerView(suggestions);
     }
 
-    private void configureRecyclerView(final List<InvestmentSuggestion> suggestions) {
+    private void configureRecyclerView(final List<InvestmentSuggestionDTO> suggestions) {
         RecyclerView recyclerView = (RecyclerView) mRootView.findViewById(R.id
                 .balanced_investments_recycler_view);
         recyclerView.addItemDecoration(new DividerItemDecorator(getActivity(), DividerItemDecorator

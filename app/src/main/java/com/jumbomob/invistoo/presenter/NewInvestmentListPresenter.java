@@ -3,7 +3,7 @@ package com.jumbomob.invistoo.presenter;
 import android.util.Log;
 
 import com.jumbomob.invistoo.R;
-import com.jumbomob.invistoo.model.dto.InvestmentSuggestion;
+import com.jumbomob.invistoo.model.dto.InvestmentSuggestionDTO;
 import com.jumbomob.invistoo.model.entity.AssetStatusEnum;
 import com.jumbomob.invistoo.model.entity.AssetTypeEnum;
 import com.jumbomob.invistoo.model.entity.Goal;
@@ -43,7 +43,7 @@ public class NewInvestmentListPresenter implements BasePresenter<BalancedInvestm
         attachView(view);
     }
 
-    public List<InvestmentSuggestion> calculateBalance(Double aporte) {
+    public List<InvestmentSuggestionDTO> calculateBalance(Double aporte) {
         Log.d(TAG, "Aporte: " + aporte);
 
         final GoalDAO goalDAO = GoalDAO.getInstance();
@@ -52,10 +52,10 @@ public class NewInvestmentListPresenter implements BasePresenter<BalancedInvestm
         //encontrar porcentagem de cada meta
         final RealmList<Goal> goals = goalDAO.findAll();
 
-        List<InvestmentSuggestion> auxInvestmentList = new ArrayList<>();
+        List<InvestmentSuggestionDTO> auxInvestmentList = new ArrayList<>();
 
         for (Goal goal : goals) {
-            InvestmentSuggestion invesTest = new InvestmentSuggestion();
+            InvestmentSuggestionDTO invesTest = new InvestmentSuggestionDTO();
             Log.d(TAG, "Goal com assetType #" + goal.getAssetTypeEnum());
 
             //quantidade investida em cada assetType
@@ -77,7 +77,7 @@ public class NewInvestmentListPresenter implements BasePresenter<BalancedInvestm
 
         Double totalinvestido = 0D;
         //calcula o total investido
-        for (InvestmentSuggestion investment : auxInvestmentList) {
+        for (InvestmentSuggestionDTO investment : auxInvestmentList) {
             totalinvestido += investment.getTotal();
         }
 
@@ -90,9 +90,9 @@ public class NewInvestmentListPresenter implements BasePresenter<BalancedInvestm
                 "\n\n");
         // ------------------------------------------------------------------******************
 
-        List<InvestmentSuggestion> balancedInvestments = new ArrayList<>();
+        List<InvestmentSuggestionDTO> balancedInvestments = new ArrayList<>();
         for (Goal goal : goals) {
-            InvestmentSuggestion suggestion = new InvestmentSuggestion();
+            InvestmentSuggestionDTO suggestion = new InvestmentSuggestionDTO();
             suggestion.setAssetType(goal.getAssetTypeEnum());
 
             //quantidade investida em cada assetType
@@ -118,10 +118,10 @@ public class NewInvestmentListPresenter implements BasePresenter<BalancedInvestm
         return balancedInvestments;
     }
 
-    public void saveInvestments(List<InvestmentSuggestion> suggestions) {
+    public void saveInvestments(List<InvestmentSuggestionDTO> suggestions) {
         InvestmentDAO dao = InvestmentDAO.getInstance();
 
-        for (InvestmentSuggestion suggestion : suggestions) {
+        for (InvestmentSuggestionDTO suggestion : suggestions) {
             Investment investment = new Investment();
             investment.setCreationDate(new Date());
             investment.setPrice(suggestion.getSuggestion().toString());

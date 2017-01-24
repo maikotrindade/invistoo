@@ -13,7 +13,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.OvershootInterpolator;
 
 import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.model.entity.Asset;
@@ -23,8 +22,6 @@ import com.jumbomob.invistoo.util.InvistooUtil;
 import com.jumbomob.invistoo.view.AssetListView;
 
 import java.util.List;
-
-import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 public class AssetListFragment extends BaseFragment implements AssetListView {
 
@@ -59,7 +56,6 @@ public class AssetListFragment extends BaseFragment implements AssetListView {
 
     private void configureRecyclerView() {
         mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.assets_recycler_view);
-        mRecyclerView.setItemAnimator(new SlideInUpAnimator(new OvershootInterpolator(1f)));
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mRootView.getContext()));
         mPresenter.downloadAssets(mIsShowingBuyable);

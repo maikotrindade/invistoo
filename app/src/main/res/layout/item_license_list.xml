@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/margin_medium2"
+    android:layout_marginLeft="@dimen/margin_small2"
+    android:gravity="center_vertical"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/library_name_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/margin_small2"
+        android:textColor="@color/material_grey_900"
+        android:textSize="@dimen/text_extra_small" />
+
+    <TextView
+        android:id="@+id/license_summary_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/material_grey_300"
+        android:padding="@dimen/margin_small2"
+        android:textColor="@color/material_grey_900"
+        android:textSize="@dimen/text_extra_small1"
+        android:typeface="monospace" />
+
+</LinearLayout>
