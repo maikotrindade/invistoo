@@ -118,7 +118,7 @@
         <LinearLayout
             android:id="@+id/licenses_container"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="62dp"
             android:gravity="center_vertical"
             android:orientation="vertical">
 
@@ -126,14 +126,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Open Source licenses"
+                android:text="@string/licenses_opensource"
                 android:textSize="@dimen/text_medium_normal" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="4dp"
-                android:text="License details for open source software"
+                android:paddingtop="4dp"
+                android:paddingtop="4dp"
+                android:text="@string/details_opensource_text"
                 android:textSize="@dimen/text_normal" />
 
         </LinearLayout>

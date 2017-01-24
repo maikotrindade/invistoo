@@ -132,5 +132,7 @@
     <string name="written_by">Escrito por %1$s</string>
     <string name="numberOfItem">%1$d item</string>
     <string name="numberOfItems">%1$d itens</string>
+    <string name="details_opensource_text">Detalhes de licenças de software <i>open source</i></string>
+    <string name="licenses_opensource">Licenças Open Source</string>
 
 </resources>
