@@ -35,31 +35,31 @@ import java.util.List;
 
 public class InvestmentGroupListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<GroupSectionItem> mItems;
+    private List<InvestmentSectionItem> mItems;
     private int mPosition;
     private Context mContext;
 
-    public InvestmentGroupListAdapter(List<GroupSectionItem> groupSectionItems, Fragment fragment) {
-        mItems = groupSectionItems;
+    public InvestmentGroupListAdapter(List<InvestmentSectionItem> investmentSectionItems, Fragment fragment) {
+        mItems = investmentSectionItems;
         mContext = fragment.getContext();
     }
 
-    public void setItens(List<GroupSectionItem> investments) {
+    public void setItens(List<InvestmentSectionItem> investments) {
         this.mItems = investments;
     }
 
-    public List<GroupSectionItem> getItens() {
+    public List<InvestmentSectionItem> getItens() {
         return mItems;
     }
 
-    public GroupSectionItem getSelectedItem() {
+    public InvestmentSectionItem getSelectedItem() {
         return mItems.get(mPosition);
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        if (viewType == GroupSectionItem.SECTION_GROUP_HEADER) {
+        if (viewType == InvestmentSectionItem.INVESTMENT_SECTION_HEADER) {
             View itemView = layoutInflater.inflate(R.layout.item_investment_header, parent, false);
             return new HeaderViewHolder(itemView);
         } else {
@@ -71,12 +71,12 @@ public class InvestmentGroupListAdapter extends RecyclerView.Adapter<RecyclerVie
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder viewHolder, final int position) {
         int type = getItemViewType(position);
-        if (type == GroupSectionItem.SECTION_GROUP_HEADER) {
-            HeaderItem header = (HeaderItem) mItems.get(position);
+        if (type == InvestmentSectionItem.INVESTMENT_SECTION_HEADER) {
+            InvestmentHeaderItem header = (InvestmentHeaderItem) mItems.get(position);
             HeaderViewHolder holder = (HeaderViewHolder) viewHolder;
             holder.titleTxtView.setText(header.getAssetType().getTitle());
         } else {
-            ListItem listItem = (ListItem) mItems.get(position);
+            InvestmentListItem listItem = (InvestmentListItem) mItems.get(position);
             ListViewHolder holder = (ListViewHolder) viewHolder;
             bindHolderWithInvestment(holder, listItem.getInvestment(), position);
         }

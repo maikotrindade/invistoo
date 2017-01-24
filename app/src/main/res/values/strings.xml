@@ -130,5 +130,7 @@
     <string name="email_suggestion">Invistoo [Sugestão]"</string>
 
     <string name="written_by">Escrito por %1$s</string>
+    <string name="numberOfItem">%1$d item</string>
+    <string name="numberOfItems">%1$d itens</string>
 
 </resources>

@@ -6,9 +6,9 @@ import android.text.TextUtils;
 import com.jumbomob.invistoo.model.entity.AssetTypeEnum;
 import com.jumbomob.invistoo.model.entity.Investment;
 import com.jumbomob.invistoo.model.persistence.InvestmentDAO;
-import com.jumbomob.invistoo.ui.adapter.GroupSectionItem;
-import com.jumbomob.invistoo.ui.adapter.HeaderItem;
-import com.jumbomob.invistoo.ui.adapter.ListItem;
+import com.jumbomob.invistoo.ui.adapter.InvestmentSectionItem;
+import com.jumbomob.invistoo.ui.adapter.InvestmentHeaderItem;
+import com.jumbomob.invistoo.ui.adapter.InvestmentListItem;
 import com.jumbomob.invistoo.util.NumericUtil;
 import com.jumbomob.invistoo.util.SharedPrefsUtil;
 import com.jumbomob.invistoo.view.InvestmentListView;
@@ -86,19 +86,19 @@ public class InvestmentListPresenter implements BasePresenter<InvestmentListView
                 }
 
                 //preparing a list for Investment Group List Adapter
-                List<GroupSectionItem> groupSectionItems = new ArrayList<>();
+                List<InvestmentSectionItem> investmentSectionItems = new ArrayList<>();
                 for (AssetTypeEnum assetType : investmentsMapped.keySet()) {
-                    HeaderItem header = new HeaderItem();
+                    InvestmentHeaderItem header = new InvestmentHeaderItem();
                     header.setAssetType(assetType);
-                    groupSectionItems.add(header);
+                    investmentSectionItems.add(header);
                     for (Investment investment : investmentsMapped.get(assetType)) {
-                        ListItem item = new ListItem();
+                        InvestmentListItem item = new InvestmentListItem();
                         item.setInvestment(investment);
-                        groupSectionItems.add(item);
+                        investmentSectionItems.add(item);
                     }
                 }
 
-                mView.configureInvestmentListGroup(groupSectionItems);
+                mView.configureInvestmentListGroup(investmentSectionItems);
             }
         }
     }

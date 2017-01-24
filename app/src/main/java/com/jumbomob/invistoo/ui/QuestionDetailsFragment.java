@@ -59,7 +59,7 @@ public class QuestionDetailsFragment extends Fragment {
         final Date date = DateUtil.stringToDate(question.getDatetime(), DateUtil.ISO_FORMAT);
         if (date != null) {
             datetimeTxtView.setVisibility(View.VISIBLE);
-            datetimeTxtView.setText(DateUtil.formatDate(date, DateUtil.SIMPLE_DATE_FORMAT));
+            datetimeTxtView.setText(DateUtil.formatDate(date, DateUtil.MATERIAL_DATE_FORMAT));
         } else {
             datetimeTxtView.setVisibility(View.GONE);
         }

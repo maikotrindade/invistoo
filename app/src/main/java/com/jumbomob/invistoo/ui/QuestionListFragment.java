@@ -12,12 +12,18 @@ import android.view.ViewGroup;
 
 import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.model.entity.Question;
+import com.jumbomob.invistoo.model.entity.QuestionGroupEnum;
 import com.jumbomob.invistoo.presenter.QuestionListPresenter;
-import com.jumbomob.invistoo.ui.adapter.QuestionListAdapter;
+import com.jumbomob.invistoo.ui.adapter.QuestionGroupListAdapter;
+import com.jumbomob.invistoo.ui.adapter.QuestionHeaderItem;
+import com.jumbomob.invistoo.ui.adapter.QuestionListItem;
+import com.jumbomob.invistoo.ui.adapter.QuestionSectionItem;
 import com.jumbomob.invistoo.util.InvistooUtil;
 import com.jumbomob.invistoo.view.QuestionListView;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
 
 /**
  * @author maiko.trindade
@@ -28,7 +34,7 @@ public class QuestionListFragment extends BaseFragment implements QuestionListVi
     private View mRootView;
     private QuestionListPresenter mPresenter;
     private SwipeRefreshLayout mSwipeLayout;
-    private QuestionListAdapter mAdapter;
+    private QuestionGroupListAdapter mAdapter;
     private RecyclerView mRecyclerView;
 
     public static QuestionListFragment newInstance() {
@@ -55,18 +61,51 @@ public class QuestionListFragment extends BaseFragment implements QuestionListVi
     }
 
     private void configureRecyclerView() {
+
         mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.questions_recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mRootView.getContext()));
         //mRecyclerView.setLayoutManager(new GridLayoutManager(mRootView.getContext(), 2));
 
         final List<Question> questions = mPresenter.getQuestions();
-        mAdapter = new QuestionListAdapter(questions, getActivity());
-        mRecyclerView.setAdapter(mAdapter);
-
         if (questions.isEmpty()) {
             mPresenter.downloadQuestions();
+        } else {
+            final List<QuestionSectionItem> questionSectionItems = prepareQuestionGroupList(questions);
+            mAdapter = new QuestionGroupListAdapter(questionSectionItems, getActivity());
+            mRecyclerView.setAdapter(mAdapter);
         }
+    }
+
+    private List<QuestionSectionItem> prepareQuestionGroupList(List<Question> questions) {
+        //group by questionGroup
+        TreeMap<QuestionGroupEnum, List<Question>> questionsMapped = new TreeMap<>();
+        for (Question question : questions) {
+            final QuestionGroupEnum groupType = QuestionGroupEnum.getById(Long.parseLong(question.getGroup()));
+            if (!questionsMapped.containsKey(groupType)) {
+                List<Question> questionList = new ArrayList<>();
+                questionList.add(question);
+                questionsMapped.put(groupType, questionList);
+            } else {
+                questionsMapped.get(groupType).add(question);
+            }
+        }
+
+        //preparing a list for Question Group List Adapter
+        List<QuestionSectionItem> groupSectionItems = new ArrayList<>();
+        for (QuestionGroupEnum groupEnum : questionsMapped.keySet()) {
+            QuestionHeaderItem header = new QuestionHeaderItem();
+            header.setQuestionGroupEnum(groupEnum);
+            header.setNumberOfElements(questionsMapped.get(groupEnum).size());
+            groupSectionItems.add(header);
+            for (Question question : questionsMapped.get(groupEnum)) {
+                QuestionListItem item = new QuestionListItem();
+                item.setQuestion(question);
+                groupSectionItems.add(item);
+            }
+        }
+
+        return groupSectionItems;
     }
 
     @Override
@@ -106,8 +145,16 @@ public class QuestionListFragment extends BaseFragment implements QuestionListVi
 
     @Override
     public void updateRecycler(final List<Question> questions) {
-        mAdapter.setItens(questions);
-        mAdapter.notifyDataSetChanged();
+        final List<QuestionSectionItem> questionSectionItems = prepareQuestionGroupList(questions);
+        if (mAdapter == null) {
+            mAdapter = new QuestionGroupListAdapter(questionSectionItems, getActivity());
+            mRecyclerView.setAdapter(mAdapter);
+        } else {
+            mAdapter.setItens(questionSectionItems);
+            mAdapter.notifyDataSetChanged();
+        }
+
+
     }
 
 }

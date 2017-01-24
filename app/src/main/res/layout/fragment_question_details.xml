@@ -26,7 +26,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_small1"
-            android:layout_marginTop="@dimen/margin_small1">
+            android:layout_marginLeft="@dimen/margin_small3"
+            android:layout_marginTop="@dimen/margin_small3">
 
             <TextView
                 android:id="@+id/group_text_view"
@@ -37,27 +38,18 @@
                 android:textSize="@dimen/text_medium"
                 android:textStyle="bold|italic" />
 
-            <android.support.v7.widget.CardView
+            <TextView
+                android:id="@+id/datetime_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_margin="@dimen/margin_small1"
-                app:cardBackgroundColor="@color/material_grey_500"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="0dp">
-
-                <TextView
-                    android:id="@+id/datetime_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="@dimen/margin_small0"
-                    android:paddingLeft="@dimen/margin_small4"
-                    android:paddingRight="@dimen/margin_small4"
-                    android:paddingTop="@dimen/margin_small0"
-                    android:text="Data"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/text_extra_small" />
-            </android.support.v7.widget.CardView>
+                android:layout_marginBottom="@dimen/margin_medium"
+                android:paddingLeft="@dimen/margin_small4"
+                android:paddingRight="@dimen/margin_small4"
+                android:paddingTop="@dimen/margin_small0"
+                android:text="Data"
+                android:textSize="@dimen/text_extra_small1" />
 
         </RelativeLayout>
 
@@ -67,6 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_small3"
             android:layout_marginRight="@dimen/margin_small3"
+            android:textColor="@color/material_grey_800"
             android:textSize="@dimen/text_medium" />
 
         <TextView
@@ -75,7 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_small3"
             android:layout_marginRight="@dimen/margin_small3"
-            android:layout_marginTop="@dimen/margin_small3"
+            android:layout_marginTop="@dimen/margin_small4"
             android:textSize="@dimen/text_small"
             android:textStyle="italic" />
 
@@ -85,7 +78,7 @@
             android:layout_height="36dp"
             android:layout_marginLeft="@dimen/margin_medium1"
             android:layout_marginRight="@dimen/margin_medium1"
-            android:layout_marginTop="@dimen/margin_medium3"
+            android:layout_marginTop="@dimen/margin_medium4"
             android:background="@drawable/invistoo_ripple_button"
             android:text="@string/read_more_button"
             android:textColor="@color/material_white_1000"

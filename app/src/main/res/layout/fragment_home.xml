@@ -62,7 +62,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/invested_sum"
-                        android:textSize="10sp" />
+                        android:textSize="@dimen/text_extra_small2" />
 
                     <com.jumbomob.invistoo.ui.component.ResizableTextView
                         android:id="@+id/balance_text_view"
@@ -88,7 +88,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/sold_sum"
-                        android:textSize="10sp" />
+                        android:textSize="@dimen/text_extra_small2" />
 
                     <com.jumbomob.invistoo.ui.component.ResizableTextView
                         android:id="@+id/balance_sold_text_view"

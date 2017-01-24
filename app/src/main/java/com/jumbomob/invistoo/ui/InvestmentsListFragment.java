@@ -22,7 +22,7 @@ import com.github.clans.fab.FloatingActionButton;
 import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.model.entity.Investment;
 import com.jumbomob.invistoo.presenter.InvestmentListPresenter;
-import com.jumbomob.invistoo.ui.adapter.GroupSectionItem;
+import com.jumbomob.invistoo.ui.adapter.InvestmentSectionItem;
 import com.jumbomob.invistoo.ui.adapter.InvestmentGroupListAdapter;
 import com.jumbomob.invistoo.ui.adapter.InvestmentListAdapter;
 import com.jumbomob.invistoo.util.ConstantsUtil;
@@ -111,11 +111,11 @@ public class InvestmentsListFragment extends BaseFragment implements InvestmentL
     }
 
     @Override
-    public void configureInvestmentListGroup(List<GroupSectionItem> groupSectionItems) {
+    public void configureInvestmentListGroup(List<InvestmentSectionItem> investmentSectionItems) {
 
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mRootView.getContext()));
-        InvestmentGroupListAdapter adapter = new InvestmentGroupListAdapter(groupSectionItems, this);
+        InvestmentGroupListAdapter adapter = new InvestmentGroupListAdapter(investmentSectionItems, this);
         mRecyclerView.setAdapter(adapter);
     }
 

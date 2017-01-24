@@ -6,7 +6,7 @@ import com.jumbomob.invistoo.model.entity.Investment;
  * Created by trindade on 1/21/17.
  */
 
-public class ListItem extends GroupSectionItem {
+public class InvestmentListItem extends InvestmentSectionItem {
     private Investment investment;
 
     public Investment getInvestment() {
@@ -19,6 +19,6 @@ public class ListItem extends GroupSectionItem {
 
     @Override
     public int getSection() {
-        return SECTION_GROUP_LIST;
+        return INVESTMENT_SECTION_LIST;
     }
 }

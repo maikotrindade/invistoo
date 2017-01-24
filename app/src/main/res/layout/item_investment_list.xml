@@ -65,7 +65,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/margin_small1"
                 android:text="COMPRA"
-                android:textSize="11sp"
+                android:textSize="@dimen/text_extra_small1"
                 android:textStyle="bold" />
 
         </LinearLayout>

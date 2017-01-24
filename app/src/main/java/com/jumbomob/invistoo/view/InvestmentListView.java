@@ -1,7 +1,7 @@
 package com.jumbomob.invistoo.view;
 
 import com.jumbomob.invistoo.model.entity.Investment;
-import com.jumbomob.invistoo.ui.adapter.GroupSectionItem;
+import com.jumbomob.invistoo.ui.adapter.InvestmentSectionItem;
 
 import java.util.List;
 
@@ -23,5 +23,5 @@ public interface InvestmentListView {
 
     void configureInvestmentList();
 
-    void configureInvestmentListGroup(List<GroupSectionItem> groupSectionItems);
+    void configureInvestmentListGroup(List<InvestmentSectionItem> investmentSectionItems);
 }

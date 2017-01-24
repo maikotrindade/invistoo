@@ -25,6 +25,7 @@ public class DateUtil {
     public static final String ISO_FORMAT = "yyyy-MM-dd";
     public static final String SIMPLE_DATETIME_FORMAT = "dd/MM/yyyy 'às' HH:mm";
     public static final String SIMPLE_DATE_FORMAT = "dd/MM/yyyy";
+    public static final String MATERIAL_DATE_FORMAT = "dd MMM. yyyy";
 
     public static String formatDate(final Date date, final String format) {
         final SimpleDateFormat dateFormat = new SimpleDateFormat(format);

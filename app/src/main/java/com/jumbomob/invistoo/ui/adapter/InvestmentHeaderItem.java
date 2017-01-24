@@ -6,7 +6,7 @@ import com.jumbomob.invistoo.model.entity.AssetTypeEnum;
  * Created by trindade on 1/21/17.
  */
 
-public class HeaderItem extends GroupSectionItem {
+public class InvestmentHeaderItem extends InvestmentSectionItem {
     private AssetTypeEnum assetType;
 
     public AssetTypeEnum getAssetType() {
@@ -19,7 +19,7 @@ public class HeaderItem extends GroupSectionItem {
 
     @Override
     public int getSection() {
-        return SECTION_GROUP_HEADER;
+        return INVESTMENT_SECTION_HEADER;
     }
 
 }

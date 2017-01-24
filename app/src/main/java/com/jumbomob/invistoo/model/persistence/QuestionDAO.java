@@ -27,7 +27,7 @@ public class QuestionDAO {
     public void insert(final Question question) {
         Realm realm = InvistooApplication.getInstance().getDatabaseInstance();
         realm.beginTransaction();
-        realm.insert(question);
+        realm.insertOrUpdate(question);
         realm.commitTransaction();
     }
 
