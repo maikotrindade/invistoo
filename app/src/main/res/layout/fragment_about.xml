@@ -133,7 +133,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingtop="4dp"
-                android:paddingtop="4dp"
+                android:paddingBottom="4dp"
                 android:text="@string/details_opensource_text"
                 android:textSize="@dimen/text_normal" />
 
