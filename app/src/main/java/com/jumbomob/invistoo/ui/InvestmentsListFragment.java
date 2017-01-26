@@ -195,7 +195,7 @@ public class InvestmentsListFragment extends BaseFragment implements InvestmentL
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.dismiss();
-                        ((BaseActivity) getActivity()).setFragment(GoalsListFragment.newInstance(), R.id.nav_goals,
+                        ((BaseActivity) getActivity()).setFragment(GoalListFragment.newInstance(), R.id.nav_goals,
                                 getString(R.string.title_goals));
                     }
                 }, null);

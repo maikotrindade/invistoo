@@ -6,6 +6,8 @@ import com.jumbomob.invistoo.model.persistence.GoalDAO;
 import com.jumbomob.invistoo.util.SharedPrefsUtil;
 import com.jumbomob.invistoo.view.GoalsView;
 
+import java.util.List;
+
 import io.realm.RealmList;
 
 /**
@@ -36,7 +38,7 @@ public class GoalsPresenter implements BasePresenter<GoalsView> {
         return mGoalDAO.findAll();
     }
 
-    public void saveGoals(RealmList<Goal> goals) {
+    public void saveGoals(List<Goal> goals) {
         if (isValidPercentage(goals)) {
             mGoalDAO.insertOrUpdate(goals);
             SharedPrefsUtil.setUserHasGoals(true);
@@ -44,15 +46,7 @@ public class GoalsPresenter implements BasePresenter<GoalsView> {
         }
     }
 
-    public void updatePercentage(Goal goal, Double percentage) {
-        mGoalDAO.updatePercentage(goal, percentage);
-    }
-
-    public void updateAssetType(Goal goal, Long assetTypeId) {
-        mGoalDAO.updateAssetType(goal, assetTypeId);
-    }
-
-    private boolean isValidPercentage(RealmList<Goal> goals) {
+    private boolean isValidPercentage(List<Goal> goals) {
         double sum = 0;
         for (Goal goal : goals) {
             sum += goal.getPercent();
@@ -62,7 +56,6 @@ public class GoalsPresenter implements BasePresenter<GoalsView> {
             return true;
         } else {
             mView.showDialog(R.string.error, R.string.error_goal_percentage);
-            mView.errorDecorate();
             return false;
         }
     }

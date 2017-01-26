@@ -4,37 +4,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
-        android:id="@+id/goals_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:id="@+id/rows_container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="8dp"
-                android:orientation="vertical" />
-
-        </RelativeLayout>
-
-    </ScrollView>
-
     <LinearLayout
-        android:id="@+id/no_goals_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center">
+        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/no_goal_defined"
-            android:textSize="@dimen/text_medium" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/goals_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="@dimen/activity_vertical_small_margin" />
+
+        <LinearLayout
+            android:id="@+id/no_goals_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_goal_defined"
+                android:textSize="@dimen/text_medium" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -53,3 +47,5 @@
         fab:fab_colorRipple="@color/fab_ripple"
         fab:fab_size="normal" />
 </RelativeLayout>
+
+
