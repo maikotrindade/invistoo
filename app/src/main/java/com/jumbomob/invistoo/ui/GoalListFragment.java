@@ -15,7 +15,6 @@ import android.widget.LinearLayout;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.jumbomob.invistoo.R;
-import com.jumbomob.invistoo.model.entity.AssetTypeEnum;
 import com.jumbomob.invistoo.model.entity.Goal;
 import com.jumbomob.invistoo.presenter.GoalsPresenter;
 import com.jumbomob.invistoo.ui.adapter.GoalListAdapter;
@@ -96,21 +95,16 @@ public class GoalListFragment extends BaseFragment implements GoalsView {
     }
 
     private void configureRecyclerView() {
-
-
         final List<Goal> goals = mPresenter.getGoals();
 
 //        if (!goals.isEmpty()) {
         //mNoGoalsLayout.setVisibility(View.GONE);
-
 
         mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.goals_recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mRootView.getContext()));
         mAdapter = new GoalListAdapter(getActivity(), goals);
         mRecyclerView.setAdapter(mAdapter);
-
-
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
 
             @Override
@@ -123,17 +117,10 @@ public class GoalListFragment extends BaseFragment implements GoalsView {
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
                 mAdapter.removeAt(viewHolder.getAdapterPosition());
             }
-            
+
         };
-
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
-
         itemTouchHelper.attachToRecyclerView(mRecyclerView);
-
-
-//        } else {
-        //mNoGoalsLayout.setVisibility(View.VISIBLE);
-//        }
     }
 
 
@@ -165,7 +152,6 @@ public class GoalListFragment extends BaseFragment implements GoalsView {
     private void addNewGoal(final List<Goal> goals) {
         final Goal goal = new Goal();
         goal.setPercent(new Double(0));
-        goal.setAssetTypeEnum(AssetTypeEnum.IGPM_2017.getId());
         goals.add(goal);
         updateGoalList(goals);
     }

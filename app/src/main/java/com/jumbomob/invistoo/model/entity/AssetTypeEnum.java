@@ -2,6 +2,9 @@ package com.jumbomob.invistoo.model.entity;
 
 import com.jumbomob.invistoo.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author maiko.trindade
  * @since 17/04/2016
@@ -83,13 +86,32 @@ public enum AssetTypeEnum {
         return null;
     }
 
-    public static String[] getTitles() {
+    public static AssetTypeEnum getByTitle(String title) {
+        for (AssetTypeEnum typeEnum : AssetTypeEnum.values()) {
+            if (typeEnum.getTitle().equals(title)) {
+                return typeEnum;
+            }
+        }
+        return null;
+    }
+
+    public static List<String> getTitles() {
         final AssetTypeEnum[] types = AssetTypeEnum.values();
-        String[] titles = new String[types.length];
+        List<String> titles = new ArrayList<>();
         for (int index = 0; index < types.length; index++) {
-            titles[index] = types[index].title;
+            titles.add(types[index].title);
         }
         return titles;
+    }
+
+    public static int getPositionById(long typeAsset) {
+        final AssetTypeEnum[] types = AssetTypeEnum.values();
+        for (int index = 0; index < types.length; index++) {
+            if (types[index].getId() == typeAsset) {
+                return index;
+            }
+        }
+        return 0;
     }
 
 }

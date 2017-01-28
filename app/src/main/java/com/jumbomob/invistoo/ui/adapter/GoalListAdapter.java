@@ -5,21 +5,20 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 
+import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.model.entity.AssetTypeEnum;
 import com.jumbomob.invistoo.model.entity.Goal;
 import com.jumbomob.invistoo.model.persistence.GoalDAO;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -31,7 +30,7 @@ public class GoalListAdapter extends RecyclerView.Adapter<GoalListAdapter.ViewHo
     private List<Goal> mItems;
     private int mPosition;
     private Activity mActivity;
-
+    private List<String> assetTypeList = AssetTypeEnum.getTitles();
     private final static int FADE_DURATION = 300; // in milliseconds
 
     public GoalListAdapter(Activity activity, List<Goal> goals) {
@@ -60,12 +59,10 @@ public class GoalListAdapter extends RecyclerView.Adapter<GoalListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-
         //temporary
         holder.setIsRecyclable(false);
 
         final Goal goal = mItems.get(position);
-
         final Double percent = goal.getPercent();
         if (percent != null) {
             holder.percentageEditText.setText(String.valueOf(percent));
@@ -87,36 +84,45 @@ public class GoalListAdapter extends RecyclerView.Adapter<GoalListAdapter.ViewHo
             }
         });
 
-        final SpinnerAssetAdapter dataAdapter = new SpinnerAssetAdapter
-                (mActivity.getBaseContext(), android.R.layout.simple_spinner_item, AssetTypeEnum.values());
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        holder.assetSpinner.setAdapter(dataAdapter);
-        final int positionSpinner = dataAdapter.getPosition(goal.getAssetTypeEnum());
+        final Long assetTypeEnum = goal.getAssetTypeEnum();
+        if (assetTypeEnum != null) {
+            removeAssetFromSpinner(assetTypeEnum);
+        }
 
-        holder.assetSpinner.setSelection(positionSpinner);
-        holder.assetSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        holder.assetSpinner.setItems(assetTypeList);
+        holder.assetSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long
-                    id) {
-                final long assetTypeId = dataAdapter.getItem(pos).getId();
-                updateAssetType(goal, assetTypeId);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
+            public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+                final AssetTypeEnum assetType = AssetTypeEnum.getByTitle(item);
+                if (assetType != null) {
+                    updateAssetType(goal, assetType.getId());
+                }
             }
         });
+
+        if (assetTypeEnum != null) {
+            removeAssetFromSpinner(assetTypeEnum);
+            final int positionById = AssetTypeEnum.getPositionById(assetTypeEnum);
+            holder.assetSpinner.setSelectedIndex(positionById);
+        }
 
         holder.removeGoalContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.e("Goal List Adap", "remove_goal_container CLIKED");
-                //TODO
                 removeAt(position);
             }
         });
-
         setFadeAnimation(holder.itemView);
+    }
+
+    private void removeAssetFromSpinner(long assetTypeId) {
+        final String titleToDelete = AssetTypeEnum.getById(assetTypeId).getTitle();
+        for (Iterator<String> iterator = assetTypeList.iterator(); iterator.hasNext(); ) {
+            final String title = iterator.next();
+            if (title.equals(titleToDelete)) {
+                iterator.remove();
+            }
+        }
     }
 
     public void removeAt(int position) {
@@ -141,21 +147,21 @@ public class GoalListAdapter extends RecyclerView.Adapter<GoalListAdapter.ViewHo
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         private EditText percentageEditText;
-        private Spinner assetSpinner;
+        private MaterialSpinner assetSpinner;
         private LinearLayout removeGoalContainer;
 
         public ViewHolder(View view) {
             super(view);
             percentageEditText = (EditText) view.findViewById(R.id.percentage_edit_text);
-            assetSpinner = (Spinner) view.findViewById(R.id.assets_spinner);
+            assetSpinner = (MaterialSpinner) view.findViewById(R.id.assets_spinner);
             removeGoalContainer = (LinearLayout) view.findViewById(R.id.remove_goal_container);
         }
     }
-
 
     private void setFadeAnimation(View view) {
         AlphaAnimation anim = new AlphaAnimation(0.2f, 1.0f);
         anim.setDuration(FADE_DURATION);
         view.startAnimation(anim);
     }
+
 }
