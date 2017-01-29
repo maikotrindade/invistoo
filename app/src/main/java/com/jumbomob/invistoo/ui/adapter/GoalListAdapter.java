@@ -84,10 +84,7 @@ public class GoalListAdapter extends RecyclerView.Adapter<GoalListAdapter.ViewHo
             }
         });
 
-        final Long assetTypeEnum = goal.getAssetTypeEnum();
-        if (assetTypeEnum != null) {
-            removeAssetFromSpinner(assetTypeEnum);
-        }
+        final AssetTypeEnum assetTypeEnum = AssetTypeEnum.getById(goal.getAssetTypeEnum());
 
         holder.assetSpinner.setItems(assetTypeList);
         holder.assetSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
@@ -101,9 +98,9 @@ public class GoalListAdapter extends RecyclerView.Adapter<GoalListAdapter.ViewHo
         });
 
         if (assetTypeEnum != null) {
-            removeAssetFromSpinner(assetTypeEnum);
-            final int positionById = AssetTypeEnum.getPositionById(assetTypeEnum);
+            final int positionById = AssetTypeEnum.getPositionById(assetTypeEnum.getTitle(), assetTypeList);
             holder.assetSpinner.setSelectedIndex(positionById);
+            removeAssetFromSpinner(assetTypeEnum.getId());
         }
 
         holder.removeGoalContainer.setOnClickListener(new View.OnClickListener() {
@@ -133,6 +130,7 @@ public class GoalListAdapter extends RecyclerView.Adapter<GoalListAdapter.ViewHo
 
     public void updatePercentage(Goal goal, Double percentage) {
         GoalDAO.getInstance().updatePercentage(goal, percentage);
+        notifyDataSetChanged();
     }
 
     public void updateAssetType(Goal goal, Long assetTypeId) {
