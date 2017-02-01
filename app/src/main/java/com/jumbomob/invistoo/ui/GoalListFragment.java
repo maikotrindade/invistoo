@@ -142,6 +142,7 @@ public class GoalListFragment extends BaseFragment implements GoalsView {
         newSettingsFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                InvistooUtil.hideKeyboard(getActivity());
                 List<Goal> goals = mAdapter.getItems();
                 if (goals == null) {
                     goals = new ArrayList<>();
@@ -153,7 +154,7 @@ public class GoalListFragment extends BaseFragment implements GoalsView {
 
     private void addNewGoal(final List<Goal> goals) {
         final Goal goal = new Goal();
-        goal.setPercent(new Double(0));
+        goal.setPercent(mPresenter.getPercentLeft(goals));
         goals.add(goal);
         updateGoalList(goals);
     }

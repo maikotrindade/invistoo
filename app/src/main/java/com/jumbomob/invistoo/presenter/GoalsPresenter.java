@@ -58,4 +58,13 @@ public class GoalsPresenter implements BasePresenter<GoalsView> {
         }
     }
 
+    public double getPercentLeft(List<Goal> goals) {
+        double sum = 0;
+        for (Goal goal : goals) {
+            sum += goal.getPercent();
+        }
+        final double percentLeft = 100 - sum;
+        return (percentLeft > 0) ? percentLeft : 0;
+    }
+
 }
