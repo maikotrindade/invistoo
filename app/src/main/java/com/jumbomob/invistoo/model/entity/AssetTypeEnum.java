@@ -104,10 +104,11 @@ public enum AssetTypeEnum {
         return titles;
     }
 
-    public static int getPositionById(String assetTypeTitle, List<String> types) {
-        for (String assetTitle : types) {
-            if (assetTitle.equals(assetTypeTitle)) {
-                return types.indexOf(assetTitle);
+    public static int getPositionById(long typeAsset) {
+        final AssetTypeEnum[] types = AssetTypeEnum.values();
+        for (int index = 0; index < types.length; index++) {
+            if (types[index].getId() == typeAsset) {
+                return index;
             }
         }
         return 0;
