@@ -18,6 +18,7 @@ import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.model.entity.Goal;
 import com.jumbomob.invistoo.presenter.GoalsPresenter;
 import com.jumbomob.invistoo.ui.adapter.GoalListAdapter;
+import com.jumbomob.invistoo.util.InvistooUtil;
 import com.jumbomob.invistoo.view.GoalsView;
 
 import java.util.ArrayList;
@@ -69,6 +70,7 @@ public class GoalListFragment extends BaseFragment implements GoalsView {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_save:
+                InvistooUtil.hideKeyboard(getActivity());
                 mPresenter.saveGoals(mAdapter.getItems());
                 return true;
             case R.id.action_info:

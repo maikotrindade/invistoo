@@ -18,7 +18,6 @@ import com.jumbomob.invistoo.model.entity.AssetTypeEnum;
 import com.jumbomob.invistoo.model.entity.Goal;
 import com.jumbomob.invistoo.model.persistence.GoalDAO;
 
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -30,7 +29,6 @@ public class GoalListAdapter extends RecyclerView.Adapter<GoalListAdapter.ViewHo
     private List<Goal> mItems;
     private int mPosition;
     private Activity mActivity;
-    private List<String> assetTypeList = AssetTypeEnum.getTitles();
     private final static int FADE_DURATION = 300; // in milliseconds
 
     public GoalListAdapter(Activity activity, List<Goal> goals) {
@@ -84,12 +82,8 @@ public class GoalListAdapter extends RecyclerView.Adapter<GoalListAdapter.ViewHo
             }
         });
 
-        final Long assetTypeEnum = goal.getAssetTypeEnum();
-        if (assetTypeEnum != null) {
-            removeAssetFromSpinner(assetTypeEnum);
-        }
 
-        holder.assetSpinner.setItems(assetTypeList);
+        holder.assetSpinner.setItems(AssetTypeEnum.getTitles());
         holder.assetSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
@@ -100,8 +94,9 @@ public class GoalListAdapter extends RecyclerView.Adapter<GoalListAdapter.ViewHo
             }
         });
 
+        final Long assetTypeEnum = goal.getAssetTypeEnum();
         if (assetTypeEnum != null) {
-            removeAssetFromSpinner(assetTypeEnum);
+//            removeAssetFromSpinner(assetTypeEnum);
             final int positionById = AssetTypeEnum.getPositionById(assetTypeEnum);
             holder.assetSpinner.setSelectedIndex(positionById);
         }
@@ -115,15 +110,15 @@ public class GoalListAdapter extends RecyclerView.Adapter<GoalListAdapter.ViewHo
         setFadeAnimation(holder.itemView);
     }
 
-    private void removeAssetFromSpinner(long assetTypeId) {
-        final String titleToDelete = AssetTypeEnum.getById(assetTypeId).getTitle();
-        for (Iterator<String> iterator = assetTypeList.iterator(); iterator.hasNext(); ) {
-            final String title = iterator.next();
-            if (title.equals(titleToDelete)) {
-                iterator.remove();
-            }
-        }
-    }
+//    private void removeAssetFromSpinner(long assetTypeId) {
+//        final String titleToDelete = AssetTypeEnum.getById(assetTypeId).getTitle();
+//        for (Iterator<String> iterator = assetTypeList.iterator(); iterator.hasNext(); ) {
+//            final String title = iterator.next();
+//            if (title.equals(titleToDelete)) {
+//                iterator.remove();
+//            }
+//        }
+//    }
 
     public void removeAt(int position) {
         mItems.remove(position);

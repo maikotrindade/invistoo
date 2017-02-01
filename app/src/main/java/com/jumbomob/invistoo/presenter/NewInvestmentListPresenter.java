@@ -17,8 +17,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import io.realm.RealmList;
-
 /**
  * @author maiko.trindade
  * @since 23/07/2016
@@ -50,7 +48,7 @@ public class NewInvestmentListPresenter implements BasePresenter<BalancedInvestm
         final InvestmentDAO investmentDAO = InvestmentDAO.getInstance();
 
         //encontrar porcentagem de cada meta
-        final RealmList<Goal> goals = goalDAO.findAll();
+        final List<Goal> goals = goalDAO.findAll();
 
         List<InvestmentSuggestionDTO> auxInvestmentList = new ArrayList<>();
 

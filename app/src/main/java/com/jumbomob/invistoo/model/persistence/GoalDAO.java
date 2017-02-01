@@ -6,9 +6,7 @@ import com.jumbomob.invistoo.util.InvistooApplication;
 import java.util.List;
 
 import io.realm.Realm;
-import io.realm.RealmList;
 import io.realm.RealmQuery;
-import io.realm.RealmResults;
 
 /**
  * Data Access Object for {@link Goal} domain
@@ -37,6 +35,8 @@ public class GoalDAO {
      */
     public void insertOrUpdate(final List<Goal> goals) {
         sRealm.beginTransaction();
+        //delete the old entries
+        removeAll();
         for (Goal goal : goals) {
             if (goal.getId() == null) {
                 goal.setId(RealmAutoIncrement.getInstance().getNextIdFromModel(Goal.class));
@@ -48,17 +48,18 @@ public class GoalDAO {
         sRealm.commitTransaction();
     }
 
+    public void removeAll() {
+        sRealm.where(Goal.class).findAll().deleteAllFromRealm();
+    }
+
     /**
      * Find all {@link Goal}
      *
      * @return a list of {@link Goal}
      */
-    public RealmList<Goal> findAll() {
+    public List<Goal> findAll() {
         RealmQuery<Goal> query = sRealm.where(Goal.class);
-        RealmResults<Goal> goals = query.findAll();
-        RealmList<Goal> results = new RealmList<>();
-        results.addAll(goals);
-        return results;
+        return sRealm.copyFromRealm(query.findAll());
     }
 
     /**
@@ -83,12 +84,4 @@ public class GoalDAO {
         sRealm.commitTransaction();
     }
 
-    /**
-     * verify if there is any goal for the user
-     *
-     * @return true whether there is at least 1 Goal or false otherwise
-     */
-    public boolean isThereGoal() {
-        return (!findAll().isEmpty());
-    }
 }

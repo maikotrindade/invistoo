@@ -8,8 +8,6 @@ import com.jumbomob.invistoo.view.GoalsView;
 
 import java.util.List;
 
-import io.realm.RealmList;
-
 /**
  * @author maiko.trindade
  * @since 22/07/2016
@@ -34,7 +32,7 @@ public class GoalsPresenter implements BasePresenter<GoalsView> {
         mGoalDAO = GoalDAO.getInstance();
     }
 
-    public RealmList<Goal> getGoals() {
+    public List<Goal> getGoals() {
         return mGoalDAO.findAll();
     }
 
