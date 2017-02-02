@@ -107,33 +107,47 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 
     protected void setFragment(final Fragment fragment, final int navigationItemId,
                                final String title) {
+
+        final String fragmentTag = fragment.getClass().getName();
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.content, fragment)
-                .addToBackStack(fragment.getTag())
-                .commit();
-        setTitle(title);
-        InvistooUtil.hideKeyboard(this);
-        mNavigationView.setCheckedItem(navigationItemId);
+        boolean fragmentPopped = fragmentManager.popBackStackImmediate(fragmentTag, 0);
+        if (!fragmentPopped && fragmentManager.findFragmentByTag(fragmentTag) == null) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content, fragment, fragmentTag)
+                    .addToBackStack(fragmentTag)
+                    .commit();
+            fragmentManager.executePendingTransactions();
+
+            setTitle(title);
+            InvistooUtil.hideKeyboard(this);
+            mNavigationView.setCheckedItem(navigationItemId);
+        }
+
         mDrawerLayout.closeDrawer(GravityCompat.START);
     }
 
     public void setFragment(final Fragment fragment, final String title) {
+        final String fragmentTag = fragment.getClass().getName();
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.content, fragment)
-                .addToBackStack(fragment.getTag())
+                .replace(R.id.content, fragment, fragmentTag)
+                .addToBackStack(fragmentTag)
                 .commit();
+        fragmentManager.executePendingTransactions();
+
         InvistooUtil.hideKeyboard(this);
         setTitle(title);
     }
 
     public void setFragment(final Fragment fragment) {
+        final String fragmentTag = fragment.getClass().getName();
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.content, fragment)
-                .addToBackStack(fragment.getTag())
+                .replace(R.id.content, fragment, fragmentTag)
+                .addToBackStack(fragmentTag)
                 .commit();
+        fragmentManager.executePendingTransactions();
+
         InvistooUtil.hideKeyboard(this);
     }
 
@@ -198,7 +212,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
             container.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                   setFragment(AccountFragment.newInstance(), R.id.nav_account, getString(R.string.title_account));
+                    setFragment(AccountFragment.newInstance(), R.id.nav_account, getString(R.string.title_account));
                 }
             });
 
