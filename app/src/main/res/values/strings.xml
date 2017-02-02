@@ -134,5 +134,7 @@
     <string name="numberOfItems">%1$d itens</string>
     <string name="details_opensource_text">Detalhes de licenças de software <i>open source</i></string>
     <string name="licenses_opensource">Licenças Open Source</string>
+    <string name="new_account_title">NOVA CONTA</string>
+    <string name="next_lbl">PRÓXIMO</string>
 
 </resources>

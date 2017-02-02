@@ -1,9 +1,11 @@
 package com.jumbomob.invistoo.ui;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -60,11 +62,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         mNewUserText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final String email = mEmailTextView.getText().toString();
-                final String password = mPasswordTextView.getText().toString();
-                if (mPresenter.isValidFields(email, password)) {
-                    mPresenter.performCreateAccount(email, password);
-                }
+                showRegisterNewUserDialog();
             }
         });
     }
@@ -93,10 +91,35 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     @Override
     public void onCreateUserSuccess(String email) {
-
-        //TODO adicionar feedback para o usuario
         mPresenter.createUser(email);
         startActivity(new Intent(this, MainActivity.class));
         finish();
+    }
+
+    private void showRegisterNewUserDialog() {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.register_user_dialog);
+        dialog.setCancelable(true);
+        dialog.setCanceledOnTouchOutside(true);
+
+        final EditText emailEdtTxt = (EditText) dialog.findViewById(R.id.register_email_edit_text);
+        final EditText passwordEdtTxt = (EditText) dialog.findViewById(R.id.register_password_text);
+
+        (dialog.findViewById(R.id.ok_text_view)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+
+                final String email = emailEdtTxt.getText().toString();
+                final String password = passwordEdtTxt.getText().toString();
+                if (mPresenter.isValidFields(email, password)) {
+                    mPresenter.performCreateAccount(email, password);
+                }
+            }
+        });
+
+        dialog.show();
+
     }
 }

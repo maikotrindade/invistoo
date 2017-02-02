@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/activity_horizontal_small_margin"
+    android:layout_marginRight="@dimen/activity_horizontal_small_margin"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/register_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/material_white_1000"
+        android:gravity="center_horizontal"
+        android:minHeight="@dimen/register_dialog_min_height"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/new_account_title"
+            android:textSize="@dimen/text_medium1"
+            android:textColor="@color/colorPrimaryDark"
+            android:gravity="center_horizontal"/>
+
+        <EditText
+            android:id="@+id/register_email_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_medium4"
+            android:drawableLeft="@drawable/ic_person"
+            android:hint="e-mail"
+            android:textSize="@dimen/text_normal" />
+
+        <EditText
+            android:id="@+id/register_password_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:drawableLeft="@drawable/ic_password"
+            android:hint="senha"
+            android:inputType="textPassword"
+            android:textSize="@dimen/text_normal" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/ok_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/register_container"
+        android:layout_marginRight="@dimen/margin_medium1"
+        android:layout_marginBottom="@dimen/margin_medium1"
+        android:padding="@dimen/margin_small4"
+        android:text="@string/next_lbl"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/text_medium1"
+        android:typeface="monospace" />
+
+</RelativeLayout>

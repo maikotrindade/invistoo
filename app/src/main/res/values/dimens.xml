@@ -3,6 +3,7 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="circle_view_small">40dp</dimen>
     <dimen name="circle_view">50dp</dimen>
+    <dimen name="register_dialog_min_height">320dp</dimen>
     <dimen name="activity_horizontal_small_margin">8dp</dimen>
     <dimen name="activity_vertical_small_margin">8dp</dimen>
     <dimen name="activity_horizontal_margin">16dp</dimen>

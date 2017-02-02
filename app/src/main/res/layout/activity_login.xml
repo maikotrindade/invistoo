@@ -1,11 +1,11 @@
-<RelativeLayout
-    android:id="@+id/container"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background1">
+    android:background="@drawable/background1"
+    tools:context="com.jumbomob.invistoo.ui.LoginActivity">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -27,18 +27,17 @@
             android:orientation="vertical"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_vertical_margin"
-            tools:context="com.jumbomob.invistoo.ui.LoginActivity">
+            android:paddingTop="@dimen/activity_vertical_margin">
 
             <EditText
                 android:id="@+id/email_edit_text"
                 android:layout_width="match_parent"
-                android:layout_marginTop="12dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
                 android:drawableLeft="@drawable/ic_person"
                 android:hint="email"
                 android:text="maiko@email.com"
-                android:textSize="@dimen/text_normal"/>
+                android:textSize="@dimen/text_normal" />
 
             <EditText
                 android:id="@+id/new_password_text"
@@ -49,7 +48,7 @@
                 android:hint="password"
                 android:inputType="textPassword"
                 android:text="maiko"
-                android:textSize="@dimen/text_normal"/>
+                android:textSize="@dimen/text_normal" />
 
             <CheckBox
                 android:id="@+id/remember_me_check_box"
@@ -58,14 +57,14 @@
                 android:layout_marginBottom="4dp"
                 android:text="Lembre-se de mim"
                 android:textColor="@color/material_grey_700"
-                android:textSize="@dimen/text_small"/>
+                android:textSize="@dimen/text_small" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
                 android:text="Não é cadastrado ainda?"
-                android:textSize="@dimen/text_small"/>
+                android:textSize="@dimen/text_small" />
 
             <TextView
                 android:id="@+id/new_user_button"
@@ -73,19 +72,18 @@
                 android:layout_height="wrap_content"
                 android:text="Criar uma nova conta"
                 android:textColor="@color/material_blue_700"
-                android:textSize="@dimen/text_small"/>
+                android:textSize="@dimen/text_small" />
 
 
-            <com.jumbomob.invistoo.ui.component.CircleImageView
+            <com.jumbomob.invistoo.ui.component.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/login_button"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginBottom="18dp"
                 android:layout_marginTop="18dp"
                 android:src="@drawable/ic_nav_right"
                 app:civ_border_color="@color/material_grey_700"
-                app:civ_border_width="1dp"/>
+                app:civ_border_width="1dp" />
 
         </LinearLayout>
 
