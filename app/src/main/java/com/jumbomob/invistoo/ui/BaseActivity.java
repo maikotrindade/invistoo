@@ -112,6 +112,9 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
         FragmentManager fragmentManager = getSupportFragmentManager();
         boolean fragmentPopped = fragmentManager.popBackStackImmediate(fragmentTag, 0);
         if (!fragmentPopped && fragmentManager.findFragmentByTag(fragmentTag) == null) {
+
+            fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
             fragmentManager.beginTransaction()
                     .replace(R.id.content, fragment, fragmentTag)
                     .addToBackStack(fragmentTag)
