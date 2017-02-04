@@ -26,6 +26,9 @@
         Por favor, tente novamente.</string>
     <string name="error_general">Ocorreu um erro, por favor tente novamente</string>
     <string name="error_goal_percentage">A porcentagem total dos objetivos deve ser igual a 100%</string>
+    <string name="required_field">Campo Obrigatório</string>
+    <string name="invalid_email">E-mail Inválido</string>
+    <string name="no_internet_connection">Sem conexão a internet</string>
 
     <!-- Titles -->
     <string name="title_indexes">Cotação</string>

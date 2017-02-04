@@ -13,13 +13,14 @@ import android.widget.TextView;
 import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.presenter.LoginPresenter;
 import com.jumbomob.invistoo.ui.component.CircleImageView;
+import com.jumbomob.invistoo.util.InvistooUtil;
 import com.jumbomob.invistoo.util.ProgressDialogUtil;
 import com.jumbomob.invistoo.view.LoginView;
 
 
 public class LoginActivity extends AppCompatActivity implements LoginView {
 
-    private EditText mEmailTextView, mPasswordTextView;
+    private EditText mEmailEdtView, mPasswordEdtView;
     private CircleImageView mLoginImage;
     private LoginPresenter mPresenter;
     private TextView mNewUserText;
@@ -39,8 +40,8 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     }
 
     private void bindElements() {
-        mEmailTextView = (EditText) findViewById(R.id.email_edit_text);
-        mPasswordTextView = (EditText) findViewById(R.id.new_password_text);
+        mEmailEdtView = (EditText) findViewById(R.id.email_edit_text);
+        mPasswordEdtView = (EditText) findViewById(R.id.new_password_text);
         mNewUserText = (TextView) findViewById(R.id.new_user_button);
         mLoginImage = (CircleImageView) findViewById(R.id.login_button);
         mRememberCheckBox = (CheckBox) findViewById(R.id.remember_me_check_box);
@@ -50,11 +51,9 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         mLoginImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final String email = mEmailTextView.getText().toString();
-                final String password = mPasswordTextView.getText().toString();
-                boolean isRememberUser = mRememberCheckBox.isChecked();
-                if (mPresenter.isValidFields(email, password)) {
-                    mPresenter.performLogin(email, password, isRememberUser);
+                if (mPresenter.isValidEmailField(mEmailEdtView) && mPresenter.isValidField(mPasswordEdtView)) {
+                    boolean isRememberUser = mRememberCheckBox.isChecked();
+                    mPresenter.performLogin(mEmailEdtView.getText().toString(), mPasswordEdtView.getText().toString(), isRememberUser);
                 }
             }
         });
@@ -109,17 +108,24 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         (dialog.findViewById(R.id.ok_text_view)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.dismiss();
-
-                final String email = emailEdtTxt.getText().toString();
-                final String password = passwordEdtTxt.getText().toString();
-                if (mPresenter.isValidFields(email, password)) {
-                    mPresenter.performCreateAccount(email, password);
+                if (mPresenter.isValidEmailField(emailEdtTxt) && mPresenter.isValidField(passwordEdtTxt)) {
+                    mPresenter.performCreateAccount(emailEdtTxt.getText().toString(), passwordEdtTxt.getText().toString());
+                    dialog.dismiss();
                 }
             }
         });
 
         dialog.show();
 
+    }
+
+    @Override
+    public void setErrorMessage(final int messageResourceId, final EditText editText) {
+        editText.setError(getString(messageResourceId));
+    }
+
+    @Override
+    public void showMessage(final int messageResourceId, final int length) {
+        InvistooUtil.makeSnackBar(this, getString(messageResourceId), length).show();
     }
 }

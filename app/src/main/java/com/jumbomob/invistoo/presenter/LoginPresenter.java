@@ -1,7 +1,9 @@
 package com.jumbomob.invistoo.presenter;
 
 import android.content.Context;
+import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
+import android.widget.EditText;
 
 import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
@@ -10,6 +12,7 @@ import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.model.entity.User;
 import com.jumbomob.invistoo.model.persistence.UserDAO;
 import com.jumbomob.invistoo.util.ConstantsUtil;
+import com.jumbomob.invistoo.util.InvistooUtil;
 import com.jumbomob.invistoo.util.SecurityUtils;
 import com.jumbomob.invistoo.util.SharedPrefsUtil;
 import com.jumbomob.invistoo.view.LoginView;
@@ -17,6 +20,8 @@ import com.jumbomob.invistoo.view.LoginView;
 import org.joda.time.DateTime;
 
 import java.util.Map;
+
+import static com.jumbomob.invistoo.R.string.error_general;
 
 /**
  * @author maiko.trindade
@@ -40,18 +45,34 @@ public class LoginPresenter implements BasePresenter<LoginView> {
         attachView(view);
     }
 
-    public boolean isValidFields(final String email, final String password) {
-        if (TextUtils.isEmpty(email)) {
-            //TODO Send feedback to the user
+    public boolean isValidEmailField(final EditText editText) {
+        boolean valid = false;
+        if (editText != null) {
+            final String email = editText.getText().toString();
+            if (TextUtils.isEmpty(email)) {
+                mView.setErrorMessage(R.string.required_field, editText);
+            } else {
+                if (InvistooUtil.isValidEmailAddress(email)) {
+                    valid = true;
+                } else {
+                    mView.setErrorMessage(R.string.invalid_email, editText);
+                }
+            }
+        }
+        return valid;
+    }
+
+    public boolean isValidField(final EditText editText) {
+        if (editText != null) {
+            if (TextUtils.isEmpty(editText.getText().toString())) {
+                mView.setErrorMessage(R.string.required_field, editText);
+                return false;
+            } else {
+                return true;
+            }
+        } else {
             return false;
         }
-
-        if (TextUtils.isEmpty(password)) {
-            //TODO Send feedback to the user
-            return false;
-        }
-
-        return true;
     }
 
     public void performLogin(final String email, final String password, final boolean isRememberUser) {
@@ -66,8 +87,8 @@ public class LoginPresenter implements BasePresenter<LoginView> {
 
             @Override
             public void onAuthenticationError(FirebaseError firebaseError) {
-                //TODO feedback para o usuario
                 mView.hideProgressDialog();
+                mView.showMessage(error_general, Snackbar.LENGTH_LONG);
             }
         });
     }
@@ -84,8 +105,8 @@ public class LoginPresenter implements BasePresenter<LoginView> {
 
             @Override
             public void onError(FirebaseError firebaseError) {
-                //TODO feedback para o usuario
                 mView.hideProgressDialog();
+                mView.showMessage(error_general, Snackbar.LENGTH_LONG);
             }
         });
     }
@@ -129,7 +150,7 @@ public class LoginPresenter implements BasePresenter<LoginView> {
             SharedPrefsUtil.setUserLogged(true);
             mView.onLoginSuccess();
         } else {
-            //TODO display error auth to the user
+            mView.showMessage(error_general, Snackbar.LENGTH_LONG);
         }
     }
 

@@ -25,19 +25,16 @@ public class BaseNetworkConfig {
     private static Retrofit.Builder builder = new Retrofit.Builder().baseUrl(ConstantsUtil.BASE_URL);
 
     public static <S> S createService(Class<S> serviceClass, String baseUrl) {
+
         //TODO remove Retrofit logging
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         OkHttpClient okHttpClient = new OkHttpClient();
-//TIMEOUT
 //        okHttpClient.setConnectTimeout(5, TimeUnit.SECONDS);
 //        okHttpClient.setReadTimeout(5, TimeUnit.SECONDS);
 //        okHttpClient.setWriteTimeout(5, TimeUnit.SECONDS);
         okHttpClient.interceptors().add(interceptor);
-
-
-        // Creates the json object which will manage the information received
         GsonBuilder gsonBuilder = new GsonBuilder();
 
 // Register an adapter to manage the date types as long values
