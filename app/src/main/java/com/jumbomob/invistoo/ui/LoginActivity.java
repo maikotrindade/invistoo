@@ -2,12 +2,14 @@ package com.jumbomob.invistoo.ui;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jumbomob.invistoo.R;
@@ -48,6 +50,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     }
 
     private void configureElements() {
+        mPresenter.randomizeBackground(getBaseContext());
         mLoginImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -116,8 +119,8 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         });
 
         dialog.show();
-
     }
+
 
     @Override
     public void setErrorMessage(final int messageResourceId, final EditText editText) {
@@ -127,5 +130,11 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     @Override
     public void showMessage(final int messageResourceId, final int length) {
         InvistooUtil.makeSnackBar(this, getString(messageResourceId), length).show();
+    }
+
+    @Override
+    public void updateBackground(Drawable background) {
+        final RelativeLayout container = (RelativeLayout) findViewById(R.id.container);
+        container.setBackground(background);
     }
 }

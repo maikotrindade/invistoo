@@ -1,5 +1,6 @@
 package com.jumbomob.invistoo.view;
 
+import android.graphics.drawable.Drawable;
 import android.widget.EditText;
 
 /**
@@ -22,4 +23,5 @@ public interface LoginView {
 
     void showMessage(final int messageResourceId, final int length);
 
+    void updateBackground(Drawable background);
 }
