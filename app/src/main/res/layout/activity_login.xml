@@ -35,7 +35,7 @@
                 android:layout_marginTop="12dp"
                 android:drawableLeft="@drawable/ic_person"
                 android:hint="email"
-                android:text="maiko@email.com"
+                android:inputType="textEmailAddress"
                 android:textSize="@dimen/text_normal" />
 
             <EditText
@@ -46,7 +46,6 @@
                 android:drawableLeft="@drawable/ic_password"
                 android:hint="password"
                 android:inputType="textPassword"
-                android:text="maiko"
                 android:textSize="@dimen/text_normal" />
 
             <CheckBox

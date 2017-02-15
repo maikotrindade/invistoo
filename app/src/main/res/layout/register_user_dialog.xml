@@ -21,10 +21,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
             android:text="@string/new_account_title"
-            android:textSize="@dimen/text_medium1"
             android:textColor="@color/colorPrimaryDark"
-            android:gravity="center_horizontal"/>
+            android:textSize="@dimen/text_medium1" />
 
         <EditText
             android:id="@+id/register_email_edit_text"
@@ -33,6 +33,7 @@
             android:layout_marginTop="@dimen/margin_medium4"
             android:drawableLeft="@drawable/ic_person"
             android:hint="e-mail"
+            android:inputType="textEmailAddress"
             android:textSize="@dimen/text_normal" />
 
         <EditText
@@ -53,8 +54,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@id/register_container"
-        android:layout_marginRight="@dimen/margin_medium1"
         android:layout_marginBottom="@dimen/margin_medium1"
+        android:layout_marginRight="@dimen/margin_medium1"
         android:padding="@dimen/margin_small4"
         android:text="@string/next_lbl"
         android:textColor="@color/colorAccent"
