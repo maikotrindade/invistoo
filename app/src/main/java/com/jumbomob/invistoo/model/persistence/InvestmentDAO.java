@@ -56,18 +56,20 @@ public class InvestmentDAO {
         realm.commitTransaction();
     }
 
-    public List<Investment> findAll() {
+    public List<Investment> findAll(String userId) {
         Realm realm = InvistooApplication.getInstance().getDatabaseInstance();
         RealmQuery<Investment> query = realm.where(Investment.class)
-                .equalTo("isActive", true);
+                .equalTo("isActive", true)
+                .equalTo("userId", userId);
         RealmResults<Investment> investments = query.findAll();
         return investments;
     }
 
-    public List<Investment> findAllOrderedByDate(boolean sortAsc) {
+    public List<Investment> findAllOrderedByDate(boolean sortAsc, String userId) {
         Realm realm = InvistooApplication.getInstance().getDatabaseInstance();
         RealmQuery<Investment> query = realm.where(Investment.class)
-                .equalTo("isActive", true);
+                .equalTo("isActive", true)
+                .equalTo("userId", userId);
 
         if (sortAsc) {
             return query.findAll().sort("creationDate", Sort.ASCENDING);
@@ -76,12 +78,13 @@ public class InvestmentDAO {
         }
     }
 
-    public List<Investment> findByAssetType(Long assetType) {
+    public List<Investment> findByAssetType(Long assetType, String userId) {
         Realm realm = InvistooApplication.getInstance().getDatabaseInstance();
         return realm.where(Investment.class)
                 .equalTo("assetType", assetType)
                 .equalTo("assetStatus", AssetStatusEnum.BUY.getId())
                 .equalTo("isActive", true)
+                .equalTo("userId", userId)
                 .findAll();
     }
 
@@ -99,20 +102,22 @@ public class InvestmentDAO {
         realm.commitTransaction();
     }
 
-    public List<Investment> findBoughtInvestments() {
+    public List<Investment> findBoughtInvestments(String userId) {
         Realm realm = InvistooApplication.getInstance().getDatabaseInstance();
         RealmQuery<Investment> query = realm.where(Investment.class)
                 .equalTo("isActive", true)
-                .equalTo("assetStatus", AssetStatusEnum.BUY.getId());
+                .equalTo("assetStatus", AssetStatusEnum.BUY.getId())
+                .equalTo("userId", userId);
         RealmResults<Investment> investments = query.findAll();
         return investments;
     }
 
-    public List<Investment> findSoldInvestments() {
+    public List<Investment> findSoldInvestments(String userId) {
         Realm realm = InvistooApplication.getInstance().getDatabaseInstance();
         RealmQuery<Investment> query = realm.where(Investment.class)
                 .equalTo("isActive", true)
-                .equalTo("assetStatus", AssetStatusEnum.SELL.getId());
+                .equalTo("assetStatus", AssetStatusEnum.SELL.getId())
+                .equalTo("userId", userId);
         RealmResults<Investment> investments = query.findAll();
         return investments;
     }

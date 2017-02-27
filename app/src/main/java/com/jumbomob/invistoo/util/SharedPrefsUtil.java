@@ -13,7 +13,6 @@ public class SharedPrefsUtil {
     public static final String IS_USER_LOGGED = "is_user_logged";
     public static final String LAST_USER = "last_user";
     public static final String IS_REMEMBER_USER = "is_remember_user";
-    public static final String USER_HAS_GOALS = "user_has_goals";
 
     public static boolean isRememberUser(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(
@@ -59,20 +58,4 @@ public class SharedPrefsUtil {
         editor.putString(LAST_USER, lastUserUid);
         editor.commit();
     }
-
-    public static boolean userHasGoals(Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(
-                USER_SESSION, Context.MODE_PRIVATE);
-        return sharedPreferences.getBoolean(USER_HAS_GOALS, false);
-    }
-
-    public static void setUserHasGoals(Boolean isLogged) {
-        final Context context = InvistooApplication.getInstance().getBaseContext();
-        SharedPreferences sharedPreferences = context.getSharedPreferences(
-                USER_SESSION, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(USER_HAS_GOALS, isLogged);
-        editor.commit();
-    }
-
 }

@@ -21,6 +21,7 @@ import android.widget.RelativeLayout;
 import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.model.entity.User;
 import com.jumbomob.invistoo.presenter.AccountPresenter;
+import com.jumbomob.invistoo.util.InvistooApplication;
 import com.jumbomob.invistoo.util.InvistooUtil;
 import com.jumbomob.invistoo.util.PermissionUtil;
 import com.jumbomob.invistoo.util.StorageUtil;
@@ -51,7 +52,7 @@ public class AccountFragment extends BaseFragment implements AccountView {
         mRootView = inflater.inflate(R.layout.fragment_account, container, false);
         mPresenter = new AccountPresenter(this, this);
 
-        mUser = mPresenter.loadUserInfo(getContext());
+        mUser = InvistooApplication.getLoggedUser();
         configureElements();
         configureListeners();
         requestPermission();

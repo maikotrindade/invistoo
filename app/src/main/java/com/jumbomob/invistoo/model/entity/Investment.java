@@ -22,8 +22,7 @@ public class Investment extends RealmObject {
     private Long assetType;
     private Long assetStatus;
     private boolean isActive;
-
-    //TODO add user
+    private String userId;
 
     public Long getId() {
         return id;
@@ -103,6 +102,14 @@ public class Investment extends RealmObject {
 
     public void setActive(boolean active) {
         isActive = active;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     @Override

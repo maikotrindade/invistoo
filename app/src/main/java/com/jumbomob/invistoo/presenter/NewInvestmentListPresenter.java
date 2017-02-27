@@ -10,6 +10,7 @@ import com.jumbomob.invistoo.model.entity.Goal;
 import com.jumbomob.invistoo.model.entity.Investment;
 import com.jumbomob.invistoo.model.persistence.GoalDAO;
 import com.jumbomob.invistoo.model.persistence.InvestmentDAO;
+import com.jumbomob.invistoo.util.InvistooApplication;
 import com.jumbomob.invistoo.util.NumericUtil;
 import com.jumbomob.invistoo.view.BalancedInvestmentListView;
 
@@ -48,7 +49,8 @@ public class NewInvestmentListPresenter implements BasePresenter<BalancedInvestm
         final InvestmentDAO investmentDAO = InvestmentDAO.getInstance();
 
         //encontrar porcentagem de cada meta
-        final List<Goal> goals = goalDAO.findAll();
+        final String userUid = InvistooApplication.getLoggedUser().getUid();
+        final List<Goal> goals = goalDAO.findAll(userUid);
 
         List<InvestmentSuggestionDTO> auxInvestmentList = new ArrayList<>();
 
@@ -58,7 +60,7 @@ public class NewInvestmentListPresenter implements BasePresenter<BalancedInvestm
 
             //quantidade investida em cada assetType
             final List<Investment> byAssetType = investmentDAO.findByAssetType(goal
-                    .getAssetTypeEnum());
+                    .getAssetTypeEnum(), userUid);
             Double sum = 0D;
             for (Investment investment : byAssetType) {
                 sum += (NumericUtil.getValidDouble(investment.getPrice())
@@ -95,7 +97,7 @@ public class NewInvestmentListPresenter implements BasePresenter<BalancedInvestm
 
             //quantidade investida em cada assetType
             final List<Investment> byAssetType = investmentDAO.findByAssetType(goal
-                    .getAssetTypeEnum());
+                    .getAssetTypeEnum(), userUid);
             Double sum = 0D;
             for (Investment investment : byAssetType) {
                 sum += (NumericUtil.getValidDouble(investment.getPrice())
@@ -131,6 +133,7 @@ public class NewInvestmentListPresenter implements BasePresenter<BalancedInvestm
             investment.setAssetType(assetTypeEnum);
             investment.setAssetStatus(AssetStatusEnum.BUY);
             investment.setActive(true);
+            investment.setUserId(InvistooApplication.getLoggedUser().getUid());
             dao.insert(investment);
         }
 

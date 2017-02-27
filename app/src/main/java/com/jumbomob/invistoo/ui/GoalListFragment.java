@@ -18,6 +18,7 @@ import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.model.entity.Goal;
 import com.jumbomob.invistoo.presenter.GoalsPresenter;
 import com.jumbomob.invistoo.ui.adapter.GoalListAdapter;
+import com.jumbomob.invistoo.util.InvistooApplication;
 import com.jumbomob.invistoo.util.InvistooUtil;
 import com.jumbomob.invistoo.view.GoalsView;
 
@@ -153,7 +154,10 @@ public class GoalListFragment extends BaseFragment implements GoalsView {
     }
 
     private void addNewGoal(final List<Goal> goals) {
+        final String userUid = InvistooApplication.getLoggedUser().getUid();
+
         final Goal goal = new Goal();
+        goal.setUserId(userUid);
         goal.setPercent(mPresenter.getPercentLeft(goals));
         goals.add(goal);
         updateGoalList(goals);

@@ -25,8 +25,7 @@ import java.util.List;
  * @author maiko.trindade
  * @since 14/07/2016
  */
-public class NewInvestmentFragment extends BaseFragment
-        implements BalancedInvestmentListView {
+public class NewInvestmentFragment extends BaseFragment implements BalancedInvestmentListView {
 
     private View mRootView;
     private NewInvestmentListPresenter mPresenter;

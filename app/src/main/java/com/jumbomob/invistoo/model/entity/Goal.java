@@ -13,6 +13,7 @@ public class Goal extends RealmObject {
     private Long id;
     private Double percent;
     private Long assetTypeEnum;
+    private String userId;
 
     public Long getId() {
         return id;
@@ -36,6 +37,14 @@ public class Goal extends RealmObject {
 
     public void setPercent(Double percent) {
         this.percent = percent;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     @Override

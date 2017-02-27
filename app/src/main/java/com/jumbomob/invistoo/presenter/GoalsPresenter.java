@@ -3,6 +3,7 @@ package com.jumbomob.invistoo.presenter;
 import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.model.entity.Goal;
 import com.jumbomob.invistoo.model.persistence.GoalDAO;
+import com.jumbomob.invistoo.util.InvistooApplication;
 import com.jumbomob.invistoo.util.SharedPrefsUtil;
 import com.jumbomob.invistoo.view.GoalsView;
 
@@ -33,13 +34,13 @@ public class GoalsPresenter implements BasePresenter<GoalsView> {
     }
 
     public List<Goal> getGoals() {
-        return mGoalDAO.findAll();
+        final String userUid = InvistooApplication.getLoggedUser().getUid();
+        return mGoalDAO.findAll(userUid);
     }
 
     public void saveGoals(List<Goal> goals) {
         if (isValidPercentage(goals)) {
             mGoalDAO.insertOrUpdate(goals);
-            SharedPrefsUtil.setUserHasGoals(true);
             mView.showMessage(R.string.msg_goals_success);
         }
     }

@@ -13,6 +13,7 @@ import com.jumbomob.invistoo.model.entity.AssetTypeEnum;
 import com.jumbomob.invistoo.model.entity.Investment;
 import com.jumbomob.invistoo.model.persistence.InvestmentDAO;
 import com.jumbomob.invistoo.util.ChartUtil;
+import com.jumbomob.invistoo.util.InvistooApplication;
 import com.jumbomob.invistoo.view.HomeView;
 
 import java.util.ArrayList;
@@ -46,8 +47,9 @@ public class HomePresenter implements BasePresenter<HomeView> {
         Long total = new Long(0);
         List<InvestmentChartDTO> chartDTOs = new ArrayList<>();
         final List<AssetTypeEnum> assetTypes = Arrays.asList(AssetTypeEnum.values());
+        final String userUid = InvistooApplication.getLoggedUser().getUid();
         for (AssetTypeEnum assetTypeEnum : assetTypes) {
-            final List<Investment> investments = dao.findByAssetType(assetTypeEnum.getId());
+            final List<Investment> investments = dao.findByAssetType(assetTypeEnum.getId(), userUid);
             if (investments != null && !investments.isEmpty()) {
                 InvestmentChartDTO chartDTO = new InvestmentChartDTO();
                 chartDTO.setDescription(assetTypeEnum.getAbbreviation());
@@ -96,7 +98,8 @@ public class HomePresenter implements BasePresenter<HomeView> {
 
     public Long getBalance() {
         InvestmentDAO investmentDAO = InvestmentDAO.getInstance();
-        final List<Investment> buyInvestments = investmentDAO.findBoughtInvestments();
+        final String userUid = InvistooApplication.getLoggedUser().getUid();
+        final List<Investment> buyInvestments = investmentDAO.findBoughtInvestments(userUid);
         long balance = 0;
         for (Investment buy : buyInvestments) {
             balance += Long.parseLong(buy.getPrice());
@@ -106,7 +109,8 @@ public class HomePresenter implements BasePresenter<HomeView> {
 
     public Long getBalanceSold() {
         InvestmentDAO investmentDAO = InvestmentDAO.getInstance();
-        final List<Investment> soldInvestments = investmentDAO.findSoldInvestments();
+        final String userUid = InvistooApplication.getLoggedUser().getUid();
+        final List<Investment> soldInvestments = investmentDAO.findSoldInvestments(userUid);
         long balanceSold = 0;
         for (Investment sold : soldInvestments) {
             balanceSold += Long.parseLong(sold.getPrice());

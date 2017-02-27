@@ -1,16 +1,17 @@
 package com.jumbomob.invistoo.presenter;
 
-import android.content.Context;
 import android.text.TextUtils;
 
 import com.jumbomob.invistoo.model.entity.AssetTypeEnum;
+import com.jumbomob.invistoo.model.entity.Goal;
 import com.jumbomob.invistoo.model.entity.Investment;
+import com.jumbomob.invistoo.model.persistence.GoalDAO;
 import com.jumbomob.invistoo.model.persistence.InvestmentDAO;
-import com.jumbomob.invistoo.ui.adapter.InvestmentSectionItem;
 import com.jumbomob.invistoo.ui.adapter.InvestmentHeaderItem;
 import com.jumbomob.invistoo.ui.adapter.InvestmentListItem;
+import com.jumbomob.invistoo.ui.adapter.InvestmentSectionItem;
+import com.jumbomob.invistoo.util.InvistooApplication;
 import com.jumbomob.invistoo.util.NumericUtil;
-import com.jumbomob.invistoo.util.SharedPrefsUtil;
 import com.jumbomob.invistoo.view.InvestmentListView;
 
 import java.util.ArrayList;
@@ -45,21 +46,24 @@ public class InvestmentListPresenter implements BasePresenter<InvestmentListView
 
     public List<Investment> findInvestments() {
         final InvestmentDAO dao = InvestmentDAO.getInstance();
-        return dao.findAll();
+        return dao.findAll(InvistooApplication.getLoggedUser().getUid());
     }
 
-    public void redirectUserNewInvestment(final Context context) {
-        final boolean userHasGoals = SharedPrefsUtil.userHasGoals(context);
-        if (userHasGoals) {
-            mView.showContributionDialog();
-        } else {
+    public void redirectUserNewInvestment() {
+        GoalDAO goalDAO = GoalDAO.getInstance();
+        final String userId = InvistooApplication.getLoggedUser().getUid();
+        final List<Goal> goals = goalDAO.findAll(userId);
+        if (goals.isEmpty()) {
             mView.showGoalsDialog();
+        } else {
+            mView.showContributionDialog();
         }
     }
 
     public void orderListByDate(boolean sortAsc) {
         final InvestmentDAO dao = InvestmentDAO.getInstance();
-        List<Investment> investments = dao.findAllOrderedByDate(sortAsc);
+        final String userUid = InvistooApplication.getLoggedUser().getUid();
+        List<Investment> investments = dao.findAllOrderedByDate(sortAsc, userUid);
         if (!investments.isEmpty()) {
             mView.updateList(investments);
             mView.setSortedDescByDate(sortAsc ? false : true);

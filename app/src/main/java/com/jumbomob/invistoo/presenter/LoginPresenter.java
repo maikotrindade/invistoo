@@ -13,6 +13,7 @@ import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.model.entity.User;
 import com.jumbomob.invistoo.model.persistence.UserDAO;
 import com.jumbomob.invistoo.util.ConstantsUtil;
+import com.jumbomob.invistoo.util.InvistooApplication;
 import com.jumbomob.invistoo.util.InvistooUtil;
 import com.jumbomob.invistoo.util.SecurityUtils;
 import com.jumbomob.invistoo.util.SharedPrefsUtil;
@@ -83,8 +84,9 @@ public class LoginPresenter implements BasePresenter<LoginView> {
         firebase.authWithPassword(email, password, new Firebase.AuthResultHandler() {
             @Override
             public void onAuthenticated(AuthData authData) {
-                mView.onLoginSuccess(email, isRememberUser);
+                loadUser(email, isRememberUser);
                 mView.hideProgressDialog();
+                mView.onLoginSuccess();
             }
 
             @Override
@@ -117,43 +119,45 @@ public class LoginPresenter implements BasePresenter<LoginView> {
         return SharedPrefsUtil.isUserLogged(context);
     }
 
-    public void createUser(final String email) {
-        SharedPrefsUtil.setUserLogged(true);
-        User user = new User();
-        user.setUpdateDate(DateTime.now().toString());
-        user.setEmail(email);
-        final String userUid = SecurityUtils.generateId();
-        user.setUid(userUid);
-        SharedPrefsUtil.setLastUserUid(userUid);
-
+    public User createUserIfNecessary(final String email) {
         final UserDAO userDAO = UserDAO.getInstance();
-        userDAO.insert(user);
+        User user = userDAO.findByEmail(email);
+
+        if (user == null) {
+            user = new User();
+            user.setUpdateDate(DateTime.now().toString());
+            user.setEmail(email);
+            final String userUid = SecurityUtils.generateId();
+            user.setUid(userUid);
+            userDAO.insert(user);
+        }
+        SharedPrefsUtil.setUserLogged(true);
+
+        return user;
     }
 
     public void loadUser(final String email, boolean isRememberUser) {
-        final UserDAO userDAO = UserDAO.getInstance();
-        final User userByEmail = userDAO.findByEmail(email);
+        final User user = createUserIfNecessary(email);
 
-        if (userByEmail != null) {
-            SharedPrefsUtil.setLastUserUid(userByEmail.getUid());
-        } else {
-            createUser(email);
-        }
-
+        InvistooApplication.getInstance().setLoggedUser(user);
         SharedPrefsUtil.setUserLogged(true);
         SharedPrefsUtil.setRememberUser(isRememberUser);
+
+        if (isRememberUser) {
+            SharedPrefsUtil.setLastUserUid(user.getUid());
+        }
     }
 
-    public void loginAuthenticatedUser(final Context context) {
-        final String lastUserUid = SharedPrefsUtil.getLastUserUid(context);
+    public void loadUser(Context context) {
         final UserDAO userDAO = UserDAO.getInstance();
-        final User userByUid = userDAO.findByUid(lastUserUid);
-        if (userByUid != null) {
-            SharedPrefsUtil.setUserLogged(true);
-            mView.onLoginSuccess();
-        } else {
-            mView.showMessage(error_general, Snackbar.LENGTH_LONG);
-        }
+        final String lastUserUid = SharedPrefsUtil.getLastUserUid(context);
+        InvistooApplication.getInstance().setLoggedUser(userDAO.findByUid(lastUserUid));
+        SharedPrefsUtil.setUserLogged(true);
+    }
+
+    public void loadUser(final User user) {
+        InvistooApplication.getInstance().setLoggedUser(user);
+        SharedPrefsUtil.setUserLogged(true);
     }
 
     public void randomizeBackground(Context context) {
@@ -164,11 +168,14 @@ public class LoginPresenter implements BasePresenter<LoginView> {
 
         switch (randomNum) {
             case 1:
-                mView.updateBackground(ContextCompat.getDrawable(context, R.drawable.background1)); break;
+                mView.updateBackground(ContextCompat.getDrawable(context, R.drawable.background1));
+                break;
             case 2:
-                mView.updateBackground(ContextCompat.getDrawable(context, R.drawable.background2)); break;
+                mView.updateBackground(ContextCompat.getDrawable(context, R.drawable.background2));
+                break;
             case 3:
-                mView.updateBackground(ContextCompat.getDrawable(context, R.drawable.background3)); break;
+                mView.updateBackground(ContextCompat.getDrawable(context, R.drawable.background3));
+                break;
             default:
                 mView.updateBackground(ContextCompat.getDrawable(context, R.drawable.background1));
         }

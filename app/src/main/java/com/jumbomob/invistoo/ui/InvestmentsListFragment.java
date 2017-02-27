@@ -125,7 +125,7 @@ public class InvestmentsListFragment extends BaseFragment implements InvestmentL
         newBalancedInvestFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPresenter.redirectUserNewInvestment(getContext());
+                mPresenter.redirectUserNewInvestment();
             }
         });
     }

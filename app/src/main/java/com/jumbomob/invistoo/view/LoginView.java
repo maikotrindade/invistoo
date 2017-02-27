@@ -9,8 +9,6 @@ import android.widget.EditText;
  */
 public interface LoginView {
 
-    void onLoginSuccess(String email, boolean isRememberUser);
-
     void onLoginSuccess();
 
     void onCreateUserSuccess(String email);

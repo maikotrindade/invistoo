@@ -57,8 +57,8 @@ public class GoalDAO {
      *
      * @return a list of {@link Goal}
      */
-    public List<Goal> findAll() {
-        RealmQuery<Goal> query = sRealm.where(Goal.class);
+    public List<Goal> findAll(String userId) {
+        RealmQuery<Goal> query = sRealm.where(Goal.class).equalTo("userId", userId);
         return sRealm.copyFromRealm(query.findAll());
     }
 

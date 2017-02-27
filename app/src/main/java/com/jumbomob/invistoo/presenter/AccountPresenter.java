@@ -12,11 +12,9 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.model.entity.User;
-import com.jumbomob.invistoo.model.persistence.UserDAO;
 import com.jumbomob.invistoo.ui.AccountFragment;
 import com.jumbomob.invistoo.util.ConstantsUtil;
 import com.jumbomob.invistoo.util.InvistooApplication;
-import com.jumbomob.invistoo.util.SharedPrefsUtil;
 import com.jumbomob.invistoo.util.StorageUtil;
 import com.jumbomob.invistoo.view.AccountView;
 
@@ -85,16 +83,6 @@ public class AccountPresenter implements BasePresenter<AccountView> {
         //TODO
         //mFragment.showMessage(R.string.account_saved_message);
 
-    }
-
-    public User loadUserInfo(final Context context) {
-        User user = null;
-        final String lastUserUid = SharedPrefsUtil.getLastUserUid(context);
-        if (!TextUtils.isEmpty(lastUserUid)) {
-            final UserDAO userDAO = UserDAO.getInstance();
-            user = userDAO.findByUid(lastUserUid);
-        }
-        return user;
     }
 
     public void performChangePassword(final String email, final String oldPassword, final String newPassword) {

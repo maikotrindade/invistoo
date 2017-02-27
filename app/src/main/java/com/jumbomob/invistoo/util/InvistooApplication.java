@@ -3,6 +3,7 @@ package com.jumbomob.invistoo.util;
 import android.app.Application;
 
 import com.firebase.client.Firebase;
+import com.jumbomob.invistoo.model.entity.User;
 
 import net.danlew.android.joda.JodaTimeAndroid;
 
@@ -17,6 +18,7 @@ public class InvistooApplication extends Application {
 
     private static InvistooApplication sInstance;
     private static Realm sRealm;
+    private static User sLoggedUser;
 
     public static synchronized InvistooApplication getInstance() {
         return sInstance;
@@ -38,5 +40,13 @@ public class InvistooApplication extends Application {
             sRealm = Realm.getDefaultInstance();
         }
         return sRealm;
+    }
+
+    public static User getLoggedUser() {
+        return sLoggedUser;
+    }
+
+    public static void setLoggedUser(User loggedUser) {
+        InvistooApplication.sLoggedUser = loggedUser;
     }
 }

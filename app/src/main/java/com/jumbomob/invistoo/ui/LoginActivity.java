@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jumbomob.invistoo.R;
+import com.jumbomob.invistoo.model.entity.User;
 import com.jumbomob.invistoo.presenter.LoginPresenter;
 import com.jumbomob.invistoo.ui.component.CircleImageView;
 import com.jumbomob.invistoo.util.InvistooUtil;
@@ -33,11 +34,12 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mPresenter = new LoginPresenter(this);
-        if (!mPresenter.isUserAlreadyLogged(getBaseContext())) {
+        if (mPresenter.isUserAlreadyLogged(getBaseContext())) {
+            mPresenter.loadUser(getBaseContext());
+            onLoginSuccess();
+        } else {
             bindElements();
             configureElements();
-        } else {
-            mPresenter.loginAuthenticatedUser(getBaseContext());
         }
     }
 
@@ -79,13 +81,6 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     }
 
     @Override
-    public void onLoginSuccess(String email, boolean isRememberUser) {
-        mPresenter.loadUser(email, isRememberUser);
-        startActivity(new Intent(this, MainActivity.class));
-        finish();
-    }
-
-    @Override
     public void onLoginSuccess() {
         startActivity(new Intent(this, MainActivity.class));
         finish();
@@ -93,7 +88,8 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     @Override
     public void onCreateUserSuccess(String email) {
-        mPresenter.createUser(email);
+        final User user = mPresenter.createUserIfNecessary(email);
+        mPresenter.loadUser(user);
         startActivity(new Intent(this, MainActivity.class));
         finish();
     }
@@ -117,7 +113,6 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
                 }
             }
         });
-
         dialog.show();
     }
 

@@ -1,6 +1,5 @@
 package com.jumbomob.invistoo.ui;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -19,8 +18,8 @@ import android.widget.TextView;
 
 import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.model.entity.User;
-import com.jumbomob.invistoo.model.persistence.UserDAO;
 import com.jumbomob.invistoo.ui.component.CircleImageView;
+import com.jumbomob.invistoo.util.InvistooApplication;
 import com.jumbomob.invistoo.util.InvistooUtil;
 import com.jumbomob.invistoo.util.SharedPrefsUtil;
 import com.jumbomob.invistoo.util.StorageUtil;
@@ -192,19 +191,9 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
         SharedPrefsUtil.setUserLogged(false);
     }
 
-    public User loadUserInfo(final Context context) {
-        User user = null;
-        final String lastUserUid = SharedPrefsUtil.getLastUserUid(context);
-        if (!TextUtils.isEmpty(lastUserUid)) {
-            final UserDAO userDAO = UserDAO.getInstance();
-            user = userDAO.findByUid(lastUserUid);
-        }
-        return user;
-    }
-
     public void configureNavigationHeader() {
         final View headerLayout = mNavigationView.getHeaderView(0);
-        final User user = loadUserInfo(getBaseContext());
+        final User user = InvistooApplication.getLoggedUser();
         if (user != null && headerLayout != null) {
 
             final LinearLayout container = (LinearLayout) headerLayout.findViewById(R.id.user_info_container);
