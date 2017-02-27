@@ -99,10 +99,6 @@ public class GoalListFragment extends BaseFragment implements GoalsView {
 
     private void configureRecyclerView() {
         final List<Goal> goals = mPresenter.getGoals();
-
-//        if (!goals.isEmpty()) {
-        //mNoGoalsLayout.setVisibility(View.GONE);
-
         mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.goals_recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mRootView.getContext()));
@@ -124,8 +120,15 @@ public class GoalListFragment extends BaseFragment implements GoalsView {
         };
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
         itemTouchHelper.attachToRecyclerView(mRecyclerView);
-    }
 
+        if (goals.isEmpty()) {
+            mNoGoalsLayout.setVisibility(View.VISIBLE);
+            mRecyclerView.setVisibility(View.GONE);
+        } else {
+            mNoGoalsLayout.setVisibility(View.GONE);
+            mRecyclerView.setVisibility(View.VISIBLE);
+        }
+    }
 
     public void updateGoalList(final List<Goal> goals) {
         if (mAdapter == null) {
@@ -135,6 +138,7 @@ public class GoalListFragment extends BaseFragment implements GoalsView {
             mAdapter.setItems(goals);
             mRecyclerView.scrollToPosition(goals.size() - 1);
         }
+        mRecyclerView.setVisibility(View.VISIBLE);
     }
 
     private void configureFab() {
@@ -155,7 +159,6 @@ public class GoalListFragment extends BaseFragment implements GoalsView {
 
     private void addNewGoal(final List<Goal> goals) {
         final String userUid = InvistooApplication.getLoggedUser().getUid();
-
         final Goal goal = new Goal();
         goal.setUserId(userUid);
         goal.setPercent(mPresenter.getPercentLeft(goals));
