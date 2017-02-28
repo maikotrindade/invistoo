@@ -74,7 +74,7 @@ public class DateUtil {
             } else {
                 return baseContext.getString(R.string.last_update_minutes, timeDifference.getStandardMinutes());
             }
-        } else if (timeDifference.getStandardSeconds() > 0 && timeDifference.getStandardMinutes() < 60) {
+        } else if (timeDifference.getStandardSeconds() >= 0 && timeDifference.getStandardMinutes() < 60) {
             return baseContext.getString(R.string.last_update_less_than_minute);
         } else {
             return baseContext.getString(R.string.last_update_time, formatDate(date.toDate(), SIMPLE_DATE_FORMAT));

@@ -12,6 +12,8 @@ import com.jumbomob.invistoo.util.ConstantsUtil;
 import com.jumbomob.invistoo.util.DateUtil;
 import com.jumbomob.invistoo.view.AssetListView;
 
+import org.joda.time.DateTime;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -93,8 +95,7 @@ public class AssetListPresenter implements BasePresenter<AssetListView> {
     }
 
     public String getLastUpdate() {
-        final AssetDAO assetDAO = AssetDAO.getInstance();
-        final Date lastUpdate = assetDAO.findLastUpdate();
+        final Date lastUpdate = new DateTime().toDate();
         if (lastUpdate != null) {
             return DateUtil.formatDateUX(lastUpdate);
         } else {

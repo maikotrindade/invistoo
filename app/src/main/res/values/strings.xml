@@ -98,7 +98,7 @@
     <string name="last_update_hour">Atualizado a %1$d hora atrás</string>
     <string name="last_update_minutes">Atualizado a %1$d minutos atrás</string>
     <string name="last_update_minute">Atualizado a %1$d minuto atrás</string>
-    <string name="last_update_less_than_minute">Atualizado a menos de um minuto atrás</string>
+    <string name="last_update_less_than_minute">Atualizado a menos de um minuto</string>
     <string name="last_update_time">Atualizado em %1$s</string>
     <string name="status_action_menu">Status</string>
     <string name="sold_action_menu">Marcar como venda</string>
