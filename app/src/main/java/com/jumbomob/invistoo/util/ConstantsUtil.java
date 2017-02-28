@@ -21,6 +21,7 @@ public class ConstantsUtil {
 
     //MISC
     public static final String DEVELOPER_EMAIL = "hellojumbomob@gmail.com";
+    public static final int MAX_NUMBER_OF_GOALS = 8;
     public static final int MAX_NUMBER_OF_BACKGROUND_IMAGES = 3;
     public static final int MIN_NUMBER_OF_BACKGROUND_IMAGES = 1;
 }

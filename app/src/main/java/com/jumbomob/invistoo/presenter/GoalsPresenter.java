@@ -1,11 +1,17 @@
 package com.jumbomob.invistoo.presenter;
 
+import android.content.Context;
+
 import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.model.entity.Goal;
 import com.jumbomob.invistoo.model.persistence.GoalDAO;
+import com.jumbomob.invistoo.util.ConstantsUtil;
+import com.jumbomob.invistoo.util.DialogUtil;
 import com.jumbomob.invistoo.util.InvistooApplication;
+import com.jumbomob.invistoo.util.InvistooUtil;
 import com.jumbomob.invistoo.view.GoalsView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,7 +44,7 @@ public class GoalsPresenter implements BasePresenter<GoalsView> {
     }
 
     public void saveGoals(List<Goal> goals, boolean isNewInvestmentFlow) {
-        if (isValidPercentage(goals)) {
+        if (areValidGoals(goals)) {
             mGoalDAO.insertOrUpdate(goals);
             mView.showMessage(R.string.msg_goals_success);
             if (isNewInvestmentFlow) {
@@ -47,18 +53,25 @@ public class GoalsPresenter implements BasePresenter<GoalsView> {
         }
     }
 
-    private boolean isValidPercentage(List<Goal> goals) {
+    private boolean areValidGoals(List<Goal> goals) {
+        boolean valid = true;
+        //validating sum of goals and repeated assetTypes
+        List<Long> assetTypeIds = new ArrayList<>();
         double sum = 0;
         for (Goal goal : goals) {
             sum += goal.getPercent();
+            assetTypeIds.add(goal.getId());
         }
-
-        if (sum == 100) {
-            return true;
-        } else {
+        if (sum != 100) {
             mView.showDialog(R.string.error, R.string.error_goal_percentage);
-            return false;
+            valid = false;
+        } else {
+            if (InvistooUtil.areThereDuplicates(assetTypeIds)) {
+                mView.showDialog(R.string.error, R.string.error_goal_asset_type_enum);
+                return false;
+            }
         }
+        return valid;
     }
 
     public double getPercentLeft(List<Goal> goals) {
@@ -68,6 +81,20 @@ public class GoalsPresenter implements BasePresenter<GoalsView> {
         }
         final double percentLeft = 100 - sum;
         return (percentLeft > 0) ? percentLeft : 0;
+    }
+
+    public void addNewGoal(final List<Goal> goals, Context context) {
+        if (goals.size() <= ConstantsUtil.MAX_NUMBER_OF_GOALS) {
+            final String userUid = InvistooApplication.getLoggedUser().getUid();
+            final Goal goal = new Goal();
+            goal.setUserId(userUid);
+            goal.setPercent(getPercentLeft(goals));
+            goals.add(goal);
+            mView.updateGoalList(goals);
+        } else {
+            DialogUtil.getInstance(context).show(context, context.getString(R.string.app_name),
+                    context.getString(R.string.limit_goals));
+        }
     }
 
 }

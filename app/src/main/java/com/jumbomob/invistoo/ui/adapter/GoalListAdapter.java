@@ -82,7 +82,6 @@ public class GoalListAdapter extends RecyclerView.Adapter<GoalListAdapter.ViewHo
             }
         });
 
-
         holder.assetSpinner.setItems(AssetTypeEnum.getTitles());
         holder.assetSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
             @Override
@@ -96,7 +95,6 @@ public class GoalListAdapter extends RecyclerView.Adapter<GoalListAdapter.ViewHo
 
         final Long assetTypeEnum = goal.getAssetTypeEnum();
         if (assetTypeEnum != null) {
-//            removeAssetFromSpinner(assetTypeEnum);
             final int positionById = AssetTypeEnum.getPositionById(assetTypeEnum);
             holder.assetSpinner.setSelectedIndex(positionById);
         }
@@ -109,16 +107,6 @@ public class GoalListAdapter extends RecyclerView.Adapter<GoalListAdapter.ViewHo
         });
         setFadeAnimation(holder.itemView);
     }
-
-//    private void removeAssetFromSpinner(long assetTypeId) {
-//        final String titleToDelete = AssetTypeEnum.getById(assetTypeId).getTitle();
-//        for (Iterator<String> iterator = assetTypeList.iterator(); iterator.hasNext(); ) {
-//            final String title = iterator.next();
-//            if (title.equals(titleToDelete)) {
-//                iterator.remove();
-//            }
-//        }
-//    }
 
     public void removeAt(int position) {
         mItems.remove(position);

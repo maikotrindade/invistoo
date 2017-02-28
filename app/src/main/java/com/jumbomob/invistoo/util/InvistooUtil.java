@@ -17,6 +17,10 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.jumbomob.invistoo.R;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 /**
  * @author maiko.trindade
  * @since 09/02/2016
@@ -125,6 +129,11 @@ public class InvistooUtil {
         java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
         java.util.regex.Matcher m = p.matcher(email);
         return m.matches();
+    }
+
+    public static boolean areThereDuplicates(List<Long> unverifiedList) {
+        final Set<Long> notRepeatedList = new HashSet<>(unverifiedList);
+        return notRepeatedList.size() != unverifiedList.size() ? true : false;
     }
 
 }

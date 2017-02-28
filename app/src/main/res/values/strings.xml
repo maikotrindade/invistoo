@@ -25,6 +25,7 @@
     <string name="error_download_questions">Não foi possível atualizar as informações úteis.
         Por favor, tente novamente.</string>
     <string name="error_general">Ocorreu um erro, por favor tente novamente</string>
+    <string name="error_goal_asset_type_enum">Títulos públicos não podem ser repetidos.</string>
     <string name="error_goal_percentage">A porcentagem total dos objetivos deve ser igual a 100%</string>
     <string name="required_field">Campo Obrigatório</string>
     <string name="invalid_email">E-mail Inválido</string>
@@ -104,6 +105,7 @@
     <string name="sold_action_menu">Marcar como venda</string>
     <string name="bought_action_menu">Marcar como compra</string>
 
+    <string name="limit_goals">Você atingiu o limite de metas.</string>
     <string name="more_info_action_menu">Mais informações</string>
     <string name="remove">Remover</string>
     <string name="remove_investment_title">Remover</string>

@@ -19,7 +19,6 @@ import com.jumbomob.invistoo.model.entity.Goal;
 import com.jumbomob.invistoo.presenter.GoalsPresenter;
 import com.jumbomob.invistoo.ui.adapter.GoalListAdapter;
 import com.jumbomob.invistoo.util.ConstantsUtil;
-import com.jumbomob.invistoo.util.InvistooApplication;
 import com.jumbomob.invistoo.util.InvistooUtil;
 import com.jumbomob.invistoo.view.GoalsView;
 
@@ -74,8 +73,10 @@ public class GoalListFragment extends BaseFragment implements GoalsView {
             case R.id.action_save:
                 InvistooUtil.hideKeyboard(getActivity());
                 final Bundle arguments = getArguments();
-                final boolean newInvestmentFlow =
-                        arguments.getBoolean(ConstantsUtil.NEW_INVESTMENTS_FROM_GOALS_FLOW, false);
+                boolean newInvestmentFlow = false;
+                if (arguments != null) {
+                    newInvestmentFlow = arguments.getBoolean(ConstantsUtil.NEW_INVESTMENTS_FROM_GOALS_FLOW, false);
+                }
                 mPresenter.saveGoals(mAdapter.getItems(), newInvestmentFlow);
                 return true;
             case R.id.action_info:
@@ -140,6 +141,7 @@ public class GoalListFragment extends BaseFragment implements GoalsView {
         }
     }
 
+    @Override
     public void updateGoalList(final List<Goal> goals) {
         if (mAdapter == null) {
             mAdapter = new GoalListAdapter(getActivity(), goals);
@@ -162,19 +164,8 @@ public class GoalListFragment extends BaseFragment implements GoalsView {
                 if (goals == null) {
                     goals = new ArrayList<>();
                 }
-                addNewGoal(goals);
+                mPresenter.addNewGoal(goals, getContext());
             }
         });
     }
-
-    private void addNewGoal(final List<Goal> goals) {
-        final String userUid = InvistooApplication.getLoggedUser().getUid();
-        final Goal goal = new Goal();
-        goal.setUserId(userUid);
-        goal.setPercent(mPresenter.getPercentLeft(goals));
-        goals.add(goal);
-        updateGoalList(goals);
-    }
-
-
 }
