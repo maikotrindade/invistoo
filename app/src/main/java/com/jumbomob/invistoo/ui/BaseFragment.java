@@ -39,7 +39,7 @@ public class BaseFragment extends Fragment {
 
     public void showDialog(final int titleResourceId, final int messageResourceId) {
         DialogUtil.getInstance(getActivity()).show(getActivity(), getString(titleResourceId),
-                getString(messageResourceId));
+                getText(messageResourceId).toString());
     }
 
 }

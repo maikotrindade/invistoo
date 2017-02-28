@@ -147,7 +147,6 @@ public class InvestmentListAdapter extends RecyclerView.Adapter<InvestmentListAd
     }
 
     private void showDialogRemoveInvestment(final Investment investment) {
-
         DialogUtil.getInstance(mContext).show(mContext, R.string.remove_investment_title, R.string.remove_investment_message,
                 new DialogInterface.OnClickListener() {
                     @Override

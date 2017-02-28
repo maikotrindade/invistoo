@@ -1,5 +1,6 @@
 package com.jumbomob.invistoo.ui;
 
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.model.entity.User;
 import com.jumbomob.invistoo.ui.component.CircleImageView;
+import com.jumbomob.invistoo.util.DialogUtil;
 import com.jumbomob.invistoo.util.InvistooApplication;
 import com.jumbomob.invistoo.util.InvistooUtil;
 import com.jumbomob.invistoo.util.SharedPrefsUtil;
@@ -32,6 +34,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 
     private NavigationView mNavigationView;
     private DrawerLayout mDrawerLayout;
+    private FragmentManager mFragmentManager;
     private Toolbar mToolbar;
 
     public abstract int setContentView();
@@ -41,6 +44,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
         super.onCreate(savedInstanceState);
         setContentView(setContentView());
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mFragmentManager = getSupportFragmentManager();
         setSupportActionBar(mToolbar);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -52,6 +56,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);
         mNavigationView.setNavigationItemSelectedListener(this);
         configureNavigationHeader();
+
     }
 
     @Override
@@ -59,8 +64,29 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if (mFragmentManager.getBackStackEntryCount() == 1) {
+                showQuitDialog();
+            } else {
+                super.onBackPressed();
+            }
         }
+    }
+
+    private void showQuitDialog() {
+        final BaseActivity baseActivity = this;
+        DialogUtil.getInstance(baseActivity).show(baseActivity, R.string.app_name,
+                R.string.quit_message,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        baseActivity.finishAffinity();
+                    }
+                }, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
     }
 
     @Override
@@ -108,17 +134,16 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
                                final String title) {
 
         final String fragmentTag = fragment.getClass().getName();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        boolean fragmentPopped = fragmentManager.popBackStackImmediate(fragmentTag, 0);
-        if (!fragmentPopped && fragmentManager.findFragmentByTag(fragmentTag) == null) {
+        boolean fragmentPopped = mFragmentManager.popBackStackImmediate(fragmentTag, 0);
+        if (!fragmentPopped && mFragmentManager.findFragmentByTag(fragmentTag) == null) {
 
-            fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            mFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
-            fragmentManager.beginTransaction()
+            mFragmentManager.beginTransaction()
                     .replace(R.id.content, fragment, fragmentTag)
                     .addToBackStack(fragmentTag)
                     .commit();
-            fragmentManager.executePendingTransactions();
+            mFragmentManager.executePendingTransactions();
 
             setTitle(title);
             InvistooUtil.hideKeyboard(this);
@@ -130,12 +155,11 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 
     public void setFragment(final Fragment fragment, final String title) {
         final String fragmentTag = fragment.getClass().getName();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
+        mFragmentManager.beginTransaction()
                 .replace(R.id.content, fragment, fragmentTag)
                 .addToBackStack(fragmentTag)
                 .commit();
-        fragmentManager.executePendingTransactions();
+        mFragmentManager.executePendingTransactions();
 
         InvistooUtil.hideKeyboard(this);
         setTitle(title);
@@ -143,12 +167,11 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 
     public void setFragment(final Fragment fragment) {
         final String fragmentTag = fragment.getClass().getName();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
+        mFragmentManager.beginTransaction()
                 .replace(R.id.content, fragment, fragmentTag)
                 .addToBackStack(fragmentTag)
                 .commit();
-        fragmentManager.executePendingTransactions();
+        mFragmentManager.executePendingTransactions();
 
         InvistooUtil.hideKeyboard(this);
     }
