@@ -17,6 +17,7 @@ public class ConstantsUtil {
     // BUNDLE CONSTANTS
     public static final String QUESTION_DETAILS_BUNDLE = "QUESTION_DETAILS_BUNDLE";
     public static final String CONTRIBUTION_BUNDLE = "CONTRIBUTION_BUNDLE";
+    public static final String NEW_INVESTMENTS_FROM_GOALS_FLOW = "NEW_INVESTMENTS_FROM_GOALS_FLOW";
 
     //MISC
     public static final String DEVELOPER_EMAIL = "hellojumbomob@gmail.com";

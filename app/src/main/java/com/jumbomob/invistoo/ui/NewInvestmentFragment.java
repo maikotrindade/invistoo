@@ -17,7 +17,7 @@ import com.jumbomob.invistoo.presenter.NewInvestmentListPresenter;
 import com.jumbomob.invistoo.ui.adapter.BalancedInvestmentListAdapter;
 import com.jumbomob.invistoo.ui.component.DividerItemDecorator;
 import com.jumbomob.invistoo.util.ConstantsUtil;
-import com.jumbomob.invistoo.view.BalancedInvestmentListView;
+import com.jumbomob.invistoo.view.NewInvestmentListView;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ import java.util.List;
  * @author maiko.trindade
  * @since 14/07/2016
  */
-public class NewInvestmentFragment extends BaseFragment implements BalancedInvestmentListView {
+public class NewInvestmentFragment extends BaseFragment implements NewInvestmentListView {
 
     private View mRootView;
     private NewInvestmentListPresenter mPresenter;
@@ -38,7 +38,7 @@ public class NewInvestmentFragment extends BaseFragment implements BalancedInves
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
-    Bundle savedInstanceState) {
+            Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         mRootView = inflater.inflate(R.layout.fragment_balanced_investment_list, container, false);
@@ -85,5 +85,10 @@ public class NewInvestmentFragment extends BaseFragment implements BalancedInves
     @Override
     public void showMessage(final int resourceId) {
         super.showMessage(resourceId);
+    }
+
+    @Override
+    public void navigateToInvestmentList() {
+        ((BaseActivity) getActivity()).goBackFragment();
     }
 }

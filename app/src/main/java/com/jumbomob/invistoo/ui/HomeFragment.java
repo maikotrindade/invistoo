@@ -154,7 +154,7 @@ public class HomeFragment extends BaseFragment implements HomeView {
         newInvestmentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((BaseActivity) getActivity()).setFragment(InvestmentsListFragment.newInstance(), R.id.nav_my_wallet,
+                ((BaseActivity) getActivity()).setFragment(InvestmentsListFragment.newInstance(), R.id.nav_investments,
                         getString(R.string.my_investments));
             }
         });

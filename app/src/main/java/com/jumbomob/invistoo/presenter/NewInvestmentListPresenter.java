@@ -12,7 +12,7 @@ import com.jumbomob.invistoo.model.persistence.GoalDAO;
 import com.jumbomob.invistoo.model.persistence.InvestmentDAO;
 import com.jumbomob.invistoo.util.InvistooApplication;
 import com.jumbomob.invistoo.util.NumericUtil;
-import com.jumbomob.invistoo.view.BalancedInvestmentListView;
+import com.jumbomob.invistoo.view.NewInvestmentListView;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,14 +22,14 @@ import java.util.List;
  * @author maiko.trindade
  * @since 23/07/2016
  */
-public class NewInvestmentListPresenter implements BasePresenter<BalancedInvestmentListView> {
+public class NewInvestmentListPresenter implements BasePresenter<NewInvestmentListView> {
 
     private final static String TAG = NewInvestmentListPresenter.class.getSimpleName();
 
-    private BalancedInvestmentListView mView;
+    private NewInvestmentListView mView;
 
     @Override
-    public void attachView(BalancedInvestmentListView view) {
+    public void attachView(NewInvestmentListView view) {
         mView = view;
     }
 
@@ -38,7 +38,7 @@ public class NewInvestmentListPresenter implements BasePresenter<BalancedInvestm
         mView = null;
     }
 
-    public NewInvestmentListPresenter(BalancedInvestmentListView view) {
+    public NewInvestmentListPresenter(NewInvestmentListView view) {
         attachView(view);
     }
 
@@ -138,5 +138,6 @@ public class NewInvestmentListPresenter implements BasePresenter<BalancedInvestm
         }
 
         mView.showMessage(R.string.msg_save_investment);
+        mView.navigateToInvestmentList();
     }
 }

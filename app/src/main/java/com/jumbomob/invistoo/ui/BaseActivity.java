@@ -72,8 +72,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
                 setFragment(HomeFragment.newInstance(), R.id.nav_home, getString
                         (R.string.title_home));
                 break;
-            case R.id.nav_my_wallet:
-                setFragment(InvestmentsListFragment.newInstance(), R.id.nav_my_wallet,
+            case R.id.nav_investments:
+                setFragment(InvestmentsListFragment.newInstance(), R.id.nav_investments,
                         getString(R.string.my_investments));
                 break;
             case R.id.nav_indexes:

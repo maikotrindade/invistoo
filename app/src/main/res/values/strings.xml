@@ -8,7 +8,7 @@
     <string name="navigation_drawer_open">Open</string>
     <string name="navigation_drawer_close">Close</string>
     <string name="nav_home">Início</string>
-    <string name="nav_my_investments">Investimentos</string>
+    <string name="nav_investments">Investimentos</string>
     <string name="nav_indexes">Cotação</string>
     <string name="nav_brokerage">Corretoras</string>
     <string name="nav_useful_information">Informações Úteis</string>

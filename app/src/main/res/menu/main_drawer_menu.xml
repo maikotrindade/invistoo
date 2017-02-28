@@ -9,17 +9,13 @@
             android:icon="@drawable/ic_home"
             android:title="@string/nav_home" />
         <item
-            android:id="@+id/nav_my_wallet"
+            android:id="@+id/nav_investments"
             android:icon="@mipmap/ic_savings"
-            android:title="@string/nav_my_investments" />
+            android:title="@string/nav_investments" />
         <item
             android:id="@+id/nav_indexes"
             android:icon="@mipmap/ic_chart_1"
             android:title="@string/nav_indexes" />
-        <!--<item-->
-        <!--android:id="@+id/nav_brokerage"-->
-        <!--android:icon="@mipmap/ic_brokerage"-->
-        <!--android:title="@string/nav_brokerage"/>-->
         <item
             android:id="@+id/nav_useful_information"
             android:icon="@drawable/ic_info"

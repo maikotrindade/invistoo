@@ -18,6 +18,7 @@ import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.model.entity.Goal;
 import com.jumbomob.invistoo.presenter.GoalsPresenter;
 import com.jumbomob.invistoo.ui.adapter.GoalListAdapter;
+import com.jumbomob.invistoo.util.ConstantsUtil;
 import com.jumbomob.invistoo.util.InvistooApplication;
 import com.jumbomob.invistoo.util.InvistooUtil;
 import com.jumbomob.invistoo.view.GoalsView;
@@ -72,7 +73,10 @@ public class GoalListFragment extends BaseFragment implements GoalsView {
         switch (item.getItemId()) {
             case R.id.action_save:
                 InvistooUtil.hideKeyboard(getActivity());
-                mPresenter.saveGoals(mAdapter.getItems());
+                final Bundle arguments = getArguments();
+                final boolean newInvestmentFlow =
+                        arguments.getBoolean(ConstantsUtil.NEW_INVESTMENTS_FROM_GOALS_FLOW, false);
+                mPresenter.saveGoals(mAdapter.getItems(), newInvestmentFlow);
                 return true;
             case R.id.action_info:
                 showDialog(R.string.title_goals, R.string.goals_more_info_message);
@@ -84,6 +88,12 @@ public class GoalListFragment extends BaseFragment implements GoalsView {
     @Override
     public void showDialog(int titleResourceId, int messageResourceId) {
         super.showDialog(titleResourceId, messageResourceId);
+    }
+
+    @Override
+    public void navigateToNewInvestmentScreen() {
+        ((BaseActivity) getActivity()).setFragment(InvestmentsListFragment.newInstance(), R.id.nav_investments,
+                getString(R.string.nav_investments));
     }
 
     @Override

@@ -10,6 +10,6 @@ public interface GoalsView {
 
     void showDialog(int titleResourceId, int messageResourceId);
 
-//    void errorDecorate();
+    void navigateToNewInvestmentScreen();
 
 }

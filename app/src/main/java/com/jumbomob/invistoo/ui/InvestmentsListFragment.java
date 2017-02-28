@@ -22,9 +22,9 @@ import com.github.clans.fab.FloatingActionButton;
 import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.model.entity.Investment;
 import com.jumbomob.invistoo.presenter.InvestmentListPresenter;
-import com.jumbomob.invistoo.ui.adapter.InvestmentSectionItem;
 import com.jumbomob.invistoo.ui.adapter.InvestmentGroupListAdapter;
 import com.jumbomob.invistoo.ui.adapter.InvestmentListAdapter;
+import com.jumbomob.invistoo.ui.adapter.InvestmentSectionItem;
 import com.jumbomob.invistoo.util.ConstantsUtil;
 import com.jumbomob.invistoo.util.DialogUtil;
 import com.jumbomob.invistoo.util.NumericUtil;
@@ -195,7 +195,11 @@ public class InvestmentsListFragment extends BaseFragment implements InvestmentL
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.dismiss();
-                        ((BaseActivity) getActivity()).setFragment(GoalListFragment.newInstance(), R.id.nav_goals,
+                        Bundle bundle = new Bundle();
+                        bundle.putBoolean(ConstantsUtil.NEW_INVESTMENTS_FROM_GOALS_FLOW, true);
+                        final GoalListFragment goalListFragment = GoalListFragment.newInstance();
+                        goalListFragment.setArguments(bundle);
+                        ((BaseActivity) getActivity()).setFragment(goalListFragment, R.id.nav_goals,
                                 getString(R.string.title_goals));
                     }
                 }, null);
