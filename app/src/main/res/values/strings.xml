@@ -41,6 +41,7 @@
     <string name="title_about">Sobre</string>
     <string name="title_brokerage">Corretoras</string>
     <string name="action_save">Salvar</string>
+    <string name="action_order_by_asset">Ordenar por ativo</string>
     <string name="action_order_by_date">Ordenar por data</string>
     <string name="action_group_investments">Agrupar Investimentos</string>
     <string name="action_settings">Configurações</string>

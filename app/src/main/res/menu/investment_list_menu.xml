@@ -6,14 +6,14 @@
         android:id="@+id/action_group"
         android:icon="@drawable/ic_action_group"
         android:orderInCategory="99"
-        android:title="@string/action_order_by_date"
+        android:title="@string/action_order_by_asset"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/action_order_by_date"
         android:icon="@drawable/ic_action_sort"
         android:orderInCategory="100"
-        android:title="@string/action_save"
+        android:title="@string/action_order_by_date"
         app:showAsAction="always" />
 
 </menu>
