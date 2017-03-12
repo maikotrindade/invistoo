@@ -20,7 +20,7 @@ import java.util.Locale;
  */
 public class DateUtil {
 
-    public static final String TAG = DateUtil.class.getSimpleName();
+    private static final String TAG = DateUtil.class.getSimpleName();
 
     public static final String ISO_FORMAT = "yyyy-MM-dd";
     public static final String SIMPLE_DATETIME_FORMAT = "dd/MM/yyyy 'às' HH:mm";
