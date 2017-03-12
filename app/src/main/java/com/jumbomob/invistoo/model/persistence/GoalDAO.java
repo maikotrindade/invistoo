@@ -48,6 +48,15 @@ public class GoalDAO {
         sRealm.commitTransaction();
     }
 
+    public void insert(Goal goal) {
+        sRealm.beginTransaction();
+        if (goal.getId() == null) {
+            goal.setId(RealmAutoIncrement.getInstance().getNextIdFromModel(Goal.class));
+            sRealm.insert(goal);
+        }
+        sRealm.commitTransaction();
+    }
+
     public void removeAll() {
         sRealm.where(Goal.class).findAll().deleteAllFromRealm();
     }

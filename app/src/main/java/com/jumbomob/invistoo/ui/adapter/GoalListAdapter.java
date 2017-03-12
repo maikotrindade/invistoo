@@ -88,7 +88,12 @@ public class GoalListAdapter extends RecyclerView.Adapter<GoalListAdapter.ViewHo
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
                 final AssetTypeEnum assetType = AssetTypeEnum.getByTitle(item);
                 if (assetType != null) {
-                    updateAssetType(goal, assetType.getId());
+                    if (goal.getId() == null) {
+                        insertGoal(goal);
+                    } else {
+                        goal.setAssetTypeEnum(assetType.getId());
+                        updateAssetType(goal, assetType.getId());
+                    }
                 }
             }
         });
@@ -112,6 +117,10 @@ public class GoalListAdapter extends RecyclerView.Adapter<GoalListAdapter.ViewHo
         mItems.remove(position);
         notifyItemRemoved(position);
         notifyDataSetChanged();
+    }
+
+    public void insertGoal(Goal goal) {
+        GoalDAO.getInstance().insert(goal);
     }
 
     public void updatePercentage(Goal goal, Double percentage) {

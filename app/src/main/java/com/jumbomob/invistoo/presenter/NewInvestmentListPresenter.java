@@ -37,9 +37,9 @@ public class NewInvestmentListPresenter implements BasePresenter<NewInvestmentLi
         attachView(view);
     }
 
-    public List<InvestmentSuggestionDTO> calculateBalance(Double aporte) {
+    public List<InvestmentSuggestionDTO> calculateBalance(Double contribution) {
         final OperationsManager operationsManager = new OperationsManager();
-        return operationsManager.calculateBalance(aporte);
+        return operationsManager.calculateBalance(contribution);
     }
 
     public void saveInvestments(List<InvestmentSuggestionDTO> suggestions) {
