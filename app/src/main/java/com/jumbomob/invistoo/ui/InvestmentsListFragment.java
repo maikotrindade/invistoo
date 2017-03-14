@@ -125,13 +125,23 @@ public class InvestmentsListFragment extends BaseFragment implements InvestmentL
         newBalancedInvestFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPresenter.redirectUserNewInvestment();
+                mPresenter.newInvestment();
             }
         });
+
+        FloatingActionButton grossValuesFab = (FloatingActionButton)
+                mRootView.findViewById(R.id.gross_values_fab);
+        grossValuesFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mPresenter.newInvestmentWithGrossValues();
+            }
+        });
+
     }
 
     @Override
-    public void showContributionDialog() {
+    public void showContributionDialog(final boolean isGrossValuesFlow) {
         final Dialog dialog = new Dialog(mRootView.getContext());
         dialog.setContentView(R.layout.contribution_dialog);
         dialog.setTitle(getString(R.string.new_contribution_title));
@@ -148,9 +158,13 @@ public class InvestmentsListFragment extends BaseFragment implements InvestmentL
                             contributionEdtText.getText().toString());
                     final Activity activity = getActivity();
 
-                    final Fragment fragment = new GrossValuesListFragment();
-                    //final Fragment fragment = new NewInvestmentFragment();
+                    Fragment fragment;
                     Bundle bundle = new Bundle();
+                    if (isGrossValuesFlow) {
+                        fragment = new GrossValuesListFragment();
+                    } else {
+                        fragment = new NewInvestmentFragment();
+                    }
                     bundle.putDouble(ConstantsUtil.CONTRIBUTION_BUNDLE, contribution);
                     fragment.setArguments(bundle);
                     ((BaseActivity) activity).setFragment(fragment, activity.getString(R.string.title_new_investment));

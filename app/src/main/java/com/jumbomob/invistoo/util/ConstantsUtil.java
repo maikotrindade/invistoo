@@ -19,6 +19,7 @@ public class ConstantsUtil {
     public static final String CONTRIBUTION_BUNDLE = "CONTRIBUTION_BUNDLE";
     public static final String SUGGESTIONS_BUNDLE = "SUGGESTIONS_BUNDLE";
 
+    public static final String GROSS_VALUES_NEW_INVESTMENT_FLOW = "GROSS_VALUES_NEW_INVESTMENT_FLOW";
     public static final String NEW_INVESTMENTS_FROM_GOALS_FLOW = "NEW_INVESTMENTS_FROM_GOALS_FLOW";
 
     //MISC

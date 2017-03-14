@@ -67,8 +67,7 @@ public class GoalListAdapter extends RecyclerView.Adapter<GoalListAdapter.ViewHo
         }
 
         holder.percentageEditText.addTextChangedListener(new TextWatcher() {
-            public void onTextChanged(CharSequence textChanged, int start, int before, int
-                    count) {
+            public void onTextChanged(CharSequence textChanged, int start, int before, int count) {
                 final String percentage = textChanged.toString();
                 if (!TextUtils.isEmpty(percentage)) {
                     updatePercentage(goal, Double.valueOf(percentage));
@@ -91,9 +90,9 @@ public class GoalListAdapter extends RecyclerView.Adapter<GoalListAdapter.ViewHo
                     if (goal.getId() == null) {
                         insertGoal(goal);
                     } else {
-                        goal.setAssetTypeEnum(assetType.getId());
                         updateAssetType(goal, assetType.getId());
                     }
+                    goal.setAssetTypeEnum(assetType.getId());
                 }
             }
         });

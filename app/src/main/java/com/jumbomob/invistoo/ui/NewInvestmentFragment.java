@@ -21,6 +21,8 @@ import com.jumbomob.invistoo.view.NewInvestmentListView;
 
 import java.util.List;
 
+import static com.jumbomob.invistoo.util.ConstantsUtil.GROSS_VALUES_NEW_INVESTMENT_FLOW;
+
 /**
  * @author maiko.trindade
  * @since 14/07/2016
@@ -65,9 +67,16 @@ public class NewInvestmentFragment extends BaseFragment implements NewInvestment
 
     private void configureElements() {
         final Bundle arguments = getArguments();
-        final List<InvestmentSuggestionDTO> suggestions = arguments.getParcelableArrayList(ConstantsUtil.SUGGESTIONS_BUNDLE);
-        //final double contribution = arguments.getDouble(ConstantsUtil.CONTRIBUTION_BUNDLE, 0);
-        //final List<InvestmentSuggestionDTO> suggestions = mPresenter.calculateBalance(contribution);
+        final boolean isGrossValuesFlow = arguments.getBoolean(GROSS_VALUES_NEW_INVESTMENT_FLOW, false);
+
+        List<InvestmentSuggestionDTO> suggestions;
+        if (isGrossValuesFlow) {
+            suggestions = arguments.getParcelableArrayList(ConstantsUtil.SUGGESTIONS_BUNDLE);
+        } else {
+            final double contribution = arguments.getDouble(ConstantsUtil.CONTRIBUTION_BUNDLE, 0);
+            suggestions = mPresenter.calculateBalance(contribution);
+        }
+
         configureRecyclerView(suggestions);
     }
 

@@ -67,6 +67,7 @@ public class GrossValuesListFragment extends BaseFragment implements GrossValues
                 final List<InvestmentSuggestionDTO> suggestions = mPresenter.calculateBalance(mContribution, mAdapter.getItens());
                 final Fragment fragment = new NewInvestmentFragment();
                 Bundle bundle = new Bundle();
+                bundle.putBoolean(ConstantsUtil.GROSS_VALUES_NEW_INVESTMENT_FLOW, true);
                 bundle.putParcelableArrayList(ConstantsUtil.SUGGESTIONS_BUNDLE, (ArrayList) suggestions);
                 fragment.setArguments(bundle);
                 ((BaseActivity) getActivity()).setFragment(fragment, getActivity().getString(R.string.title_new_investment));

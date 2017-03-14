@@ -47,4 +47,19 @@
         fab:fab_colorPressed="@color/fab_pressed"
         fab:fab_colorRipple="@color/fab_ripple" />
 
+    <com.github.clans.fab.FloatingActionButton
+        android:id="@+id/gross_values_fab"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toLeftOf="@id/new_balanced_investment_fab"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/material_orange_600"
+        android:elevation="12dp"
+        android:src="@drawable/ic_add"
+        fab:fab_colorNormal="@color/material_orange_600"
+        fab:fab_colorPressed="@color/material_orange_500"
+        fab:fab_colorRipple="@color/material_orange_900" />
+
 </RelativeLayout>

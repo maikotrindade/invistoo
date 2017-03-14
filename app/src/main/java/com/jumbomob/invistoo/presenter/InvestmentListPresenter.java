@@ -49,14 +49,25 @@ public class InvestmentListPresenter implements BasePresenter<InvestmentListView
         return dao.findAll(InvistooApplication.getLoggedUser().getUid());
     }
 
-    public void redirectUserNewInvestment() {
+    public void newInvestmentWithGrossValues() {
         GoalDAO goalDAO = GoalDAO.getInstance();
         final String userId = InvistooApplication.getLoggedUser().getUid();
         final List<Goal> goals = goalDAO.findAll(userId);
         if (goals.isEmpty()) {
             mView.showGoalsDialog();
         } else {
-            mView.showContributionDialog();
+            mView.showContributionDialog(true);
+        }
+    }
+
+    public void newInvestment() {
+        GoalDAO goalDAO = GoalDAO.getInstance();
+        final String userId = InvistooApplication.getLoggedUser().getUid();
+        final List<Goal> goals = goalDAO.findAll(userId);
+        if (goals.isEmpty()) {
+            mView.showGoalsDialog();
+        } else {
+            mView.showContributionDialog(false);
         }
     }
 
