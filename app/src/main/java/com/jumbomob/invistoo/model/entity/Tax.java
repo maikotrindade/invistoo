@@ -29,6 +29,26 @@ public class Tax {
             return id;
         }
 
+        public void setId(long id) {
+            this.id = id;
+        }
+
+        public double getRate() {
+            return rate;
+        }
+
+        public void setRate(double rate) {
+            this.rate = rate;
+        }
+
+        public int getDays() {
+            return days;
+        }
+
+        public void setDays(int days) {
+            this.days = days;
+        }
+
         public static IncomeTax getById(long id) {
             for (IncomeTax statusEnum : IncomeTax.values()) {
                 if (statusEnum.getId() == id) {

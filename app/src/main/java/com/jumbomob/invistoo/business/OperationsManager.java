@@ -7,10 +7,14 @@ import com.jumbomob.invistoo.model.dto.InvestmentSuggestionDTO;
 import com.jumbomob.invistoo.model.entity.AssetTypeEnum;
 import com.jumbomob.invistoo.model.entity.Goal;
 import com.jumbomob.invistoo.model.entity.Investment;
+import com.jumbomob.invistoo.model.entity.Tax;
 import com.jumbomob.invistoo.model.persistence.GoalDAO;
 import com.jumbomob.invistoo.model.persistence.InvestmentDAO;
 import com.jumbomob.invistoo.util.InvistooApplication;
 import com.jumbomob.invistoo.util.NumericUtil;
+
+import org.joda.time.DateTime;
+import org.joda.time.Duration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,8 +48,7 @@ public class OperationsManager {
                     .getAssetTypeEnum(), userUid);
             Double sum = 0D;
             for (Investment investment : byAssetType) {
-                sum += (NumericUtil.getValidDouble(investment.getPrice())
-                        * investment.getQuantity());
+                sum += calculateIncomeTax(investment);
             }
 
             Log.d(TAG, "Goal com somatoria de :" + sum + "\n\n");
@@ -81,8 +84,7 @@ public class OperationsManager {
                     .getAssetTypeEnum(), userUid);
             Double sum = 0D;
             for (Investment investment : byAssetType) {
-                sum += (NumericUtil.getValidDouble(investment.getPrice())
-                        * investment.getQuantity());
+                sum += calculateIncomeTax(investment);
             }
 
             double balancedValue = (vat * (goal.getPercent() / 100) - sum);
@@ -97,6 +99,29 @@ public class OperationsManager {
         }
 
         return balancedInvestments;
+    }
+
+    private double calculateIncomeTax(Investment investment) {
+
+        double tax = (NumericUtil.getValidDouble(investment.getPrice()) * investment.getQuantity());
+
+        final DateTime currentDate = new DateTime();
+        AssetTypeEnum.getById(investment.getAssetType());
+        final DateTime date = new DateTime(investment.getCreationDate());
+
+        final Duration timeDifference = new Duration(date, currentDate);
+        final long differenceInDays = timeDifference.getStandardDays();
+        if (differenceInDays < Tax.IncomeTax.INCOME_LESS_THAN_180.getDays()) {
+            tax *= (1 - Tax.IncomeTax.INCOME_LESS_THAN_180.getRate());
+        } else if (differenceInDays > Tax.IncomeTax.INCOME_LESS_THAN_180.getDays() && differenceInDays < Tax.IncomeTax.INCOME_LESS_THAN_360.getDays()) {
+            tax *= (1 - Tax.IncomeTax.INCOME_LESS_THAN_360.getRate());
+        } else if (differenceInDays > Tax.IncomeTax.INCOME_LESS_THAN_360.getDays() && differenceInDays < Tax.IncomeTax.INCOME_LESS_THAN_720.getDays()) {
+            tax *= (1 - Tax.IncomeTax.INCOME_LESS_THAN_720.getRate());
+        } else { // Tax.IncomeTax.INCOME_MORE_THAN_720
+            tax *= (1 - Tax.IncomeTax.INCOME_MORE_THAN_720.getRate());
+        }
+
+        return tax;
     }
 
     public List<InvestmentSuggestionDTO> calculateBalance(Double contribution, List<GrossValueDTO> grossValues) {

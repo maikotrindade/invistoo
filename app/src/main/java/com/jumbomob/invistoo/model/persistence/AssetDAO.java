@@ -73,6 +73,22 @@ public class AssetDAO {
         return lastAsset;
     }
 
+    //TODO
+    private Asset findAssetById(final Long assetId) {
+        Asset lastAsset = null;
+        Realm realm = InvistooApplication.getInstance().getDatabaseInstance();
+        RealmQuery<Asset> query = realm.where(Asset.class);
+        RealmResults<Asset> assets = query.findAll();
+        if (!assets.isEmpty()) {
+            for (Asset asset : assets) {
+
+            }
+            lastAsset = assets.get(assets.size() - 1);
+        }
+
+        return lastAsset;
+    }
+
     public Date findLastUpdate() {
         Date lastUpdate = null;
         final Asset lastAssetAdded = findLastAssetAdded();
