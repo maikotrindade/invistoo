@@ -4,12 +4,15 @@ import android.util.Log;
 
 import com.jumbomob.invistoo.model.dto.GrossValueDTO;
 import com.jumbomob.invistoo.model.dto.InvestmentSuggestionDTO;
+import com.jumbomob.invistoo.model.entity.Asset;
 import com.jumbomob.invistoo.model.entity.AssetTypeEnum;
 import com.jumbomob.invistoo.model.entity.Goal;
 import com.jumbomob.invistoo.model.entity.Investment;
 import com.jumbomob.invistoo.model.entity.Tax;
+import com.jumbomob.invistoo.model.persistence.AssetDAO;
 import com.jumbomob.invistoo.model.persistence.GoalDAO;
 import com.jumbomob.invistoo.model.persistence.InvestmentDAO;
+import com.jumbomob.invistoo.util.DateUtil;
 import com.jumbomob.invistoo.util.InvistooApplication;
 import com.jumbomob.invistoo.util.NumericUtil;
 
@@ -17,6 +20,7 @@ import org.joda.time.DateTime;
 import org.joda.time.Duration;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -82,17 +86,16 @@ public class OperationsManager {
             //quantidade investida em cada assetType
             final List<Investment> byAssetType = investmentDAO.findByAssetType(goal
                     .getAssetTypeEnum(), userUid);
-            Double sum = 0D;
+            Double taxSum = 0D;
             for (Investment investment : byAssetType) {
-                sum += calculateIncomeTax(investment);
+                taxSum += calculateIncomeTax(investment);
             }
 
-            double balancedValue = (vat * (goal.getPercent() / 100) - sum);
+            double balancedValue = (vat * (goal.getPercent() / 100) - taxSum);
             suggestion.setSuggestion((long) balancedValue);
-            suggestion.setTotal(sum);
+            suggestion.setTotal(taxSum);
             balancedInvestments.add(suggestion);
 
-            //TODO apagar LOG
             AssetTypeEnum assetTypeEnum = AssetTypeEnum.getById(goal.getAssetTypeEnum());
             Log.d(TAG, "Valor balanceado: " + balancedValue +
                     " para o AssetEnum: " + assetTypeEnum.getTitle());
@@ -102,26 +105,28 @@ public class OperationsManager {
     }
 
     private double calculateIncomeTax(Investment investment) {
-
-        double tax = (NumericUtil.getValidDouble(investment.getPrice()) * investment.getQuantity());
-
-        final DateTime currentDate = new DateTime();
-        AssetTypeEnum.getById(investment.getAssetType());
+        final AssetDAO assetDAO = AssetDAO.getInstance();
+        final AssetTypeEnum assetTypeEnum = AssetTypeEnum.getById(investment.getAssetType());
+        final Asset asset = assetDAO.findAssetLastById(assetTypeEnum.getId());
+        double amount = (NumericUtil.getValidDouble(investment.getPrice()));// * investment.getQuantity());
+        final Date assetDueDate = DateUtil.stringToDate(asset.getDueDate(), DateUtil.SIMPLE_DATE_FORMAT);
+        final DateTime dueDate = new DateTime(assetDueDate);
         final DateTime date = new DateTime(investment.getCreationDate());
 
-        final Duration timeDifference = new Duration(date, currentDate);
+        final Duration timeDifference = new Duration(date, dueDate);
         final long differenceInDays = timeDifference.getStandardDays();
         if (differenceInDays < Tax.IncomeTax.INCOME_LESS_THAN_180.getDays()) {
-            tax *= (1 - Tax.IncomeTax.INCOME_LESS_THAN_180.getRate());
+            amount *= (1 - Tax.IncomeTax.INCOME_LESS_THAN_180.getRate());
         } else if (differenceInDays > Tax.IncomeTax.INCOME_LESS_THAN_180.getDays() && differenceInDays < Tax.IncomeTax.INCOME_LESS_THAN_360.getDays()) {
-            tax *= (1 - Tax.IncomeTax.INCOME_LESS_THAN_360.getRate());
+            amount *= (1 - Tax.IncomeTax.INCOME_LESS_THAN_360.getRate());
         } else if (differenceInDays > Tax.IncomeTax.INCOME_LESS_THAN_360.getDays() && differenceInDays < Tax.IncomeTax.INCOME_LESS_THAN_720.getDays()) {
-            tax *= (1 - Tax.IncomeTax.INCOME_LESS_THAN_720.getRate());
+            amount *= (1 - Tax.IncomeTax.INCOME_LESS_THAN_720.getRate());
         } else { // Tax.IncomeTax.INCOME_MORE_THAN_720
-            tax *= (1 - Tax.IncomeTax.INCOME_MORE_THAN_720.getRate());
+            amount *= (1 - Tax.IncomeTax.INCOME_MORE_THAN_720.getRate());
         }
 
-        return tax;
+        Log.d(TAG, "calculateIncomeTax:" + amount + "\n\n");
+        return amount;
     }
 
     public List<InvestmentSuggestionDTO> calculateBalance(Double contribution, List<GrossValueDTO> grossValues) {
@@ -196,7 +201,7 @@ public class OperationsManager {
         return balancedInvestments;
     }
 
-    public List<InvestmentSuggestionDTO> calculateBalanceWithTaxes(Double aporte) {
+    public static List<InvestmentSuggestionDTO> calculateBalanceWithTaxes(Double aporte) {
         Log.d(TAG, "Aporte: " + aporte);
 
         final GoalDAO goalDAO = GoalDAO.getInstance();
@@ -270,6 +275,12 @@ public class OperationsManager {
         }
 
         return balancedInvestments;
+    }
+
+    public double getQuantityBaseOnAmount(double amount, long assetId) {
+        final AssetDAO assetDAO = AssetDAO.getInstance();
+        final Asset asset = assetDAO.findAssetLastById(assetId);
+        return amount / NumericUtil.getValidDouble(asset.getSellPrice());
     }
 
 }

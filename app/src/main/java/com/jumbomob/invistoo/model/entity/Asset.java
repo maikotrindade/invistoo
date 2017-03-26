@@ -73,7 +73,7 @@ public class Asset extends RealmObject {
 
     @SerializedName("index")
     @Expose
-    private String index;
+    private long index;
 
     public String getBuyPrice() {
         return buyPrice;
@@ -187,11 +187,11 @@ public class Asset extends RealmObject {
         this.yearProfitability = yearProfitability;
     }
 
-    public String getIndex() {
+    public long getIndex() {
         return index;
     }
 
-    public void setIndex(String index) {
+    public void setIndex(long index) {
         this.index = index;
     }
 

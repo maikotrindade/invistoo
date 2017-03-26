@@ -34,6 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:drawableLeft="@drawable/ic_person"
+                android:text="maiko@email.com"
                 android:hint="email"
                 android:inputType="textEmailAddress"
                 android:textSize="@dimen/text_normal" />
@@ -42,6 +43,7 @@
                 android:id="@+id/new_password_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="maiko"
                 android:layout_marginBottom="12dp"
                 android:drawableLeft="@drawable/ic_password"
                 android:hint="password"
@@ -53,6 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
+                android:checked="true"
                 android:text="Lembre-se de mim"
                 android:textColor="@color/material_grey_700"
                 android:textSize="@dimen/text_small" />

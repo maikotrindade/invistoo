@@ -75,6 +75,7 @@
     <string name="buy_price">Compra</string>
     <string name="sell_price">Venda</string>
 
+    <string name="loading">Carregando</string>
     <string name="loading_assets">Carregando as cotações</string>
     <string name="loading_questions">Carregando as informações úteis</string>
     <string name="loading_investments">Carregando seus investimentos</string>
@@ -99,7 +100,7 @@
     <string name="last_update_hour">Atualizado a %1$d hora atrás</string>
     <string name="last_update_minutes">Atualizado a %1$d minutos atrás</string>
     <string name="last_update_minute">Atualizado a %1$d minuto atrás</string>
-    <string name="last_update_less_than_minute">Atualizado a menos de um minuto</string>
+    <string name="last_update_less_than_minute">Atualizado recentemente</string>
     <string name="last_update_time">Atualizado em %1$s</string>
     <string name="status_action_menu">Status</string>
     <string name="sold_action_menu">Marcar como venda</string>

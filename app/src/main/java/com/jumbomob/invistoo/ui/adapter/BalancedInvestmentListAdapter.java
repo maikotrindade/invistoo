@@ -55,10 +55,8 @@ public class BalancedInvestmentListAdapter extends RecyclerView
         final InvestmentSuggestionDTO suggestion = mInvestments.get(position);
         AssetTypeEnum assetTypeEnum = AssetTypeEnum.getById(suggestion.getAssetType());
         holder.nameTxtView.setText(assetTypeEnum.getTitle());
-        holder.investedTxtView
-                .setText("R$" + NumericUtil.formatDouble(Double.valueOf(suggestion.getTotal())));
-        holder.suggestionEdtTxt
-                .setText(NumericUtil.formatDouble(Double.valueOf(suggestion.getSuggestion())));
+        holder.investedTxtView.setText(NumericUtil.formatCurrency(suggestion.getTotal()));
+        holder.suggestionEdtTxt.setText(NumericUtil.formatDouble(Double.valueOf(suggestion.getSuggestion())));
     }
 
     @Override

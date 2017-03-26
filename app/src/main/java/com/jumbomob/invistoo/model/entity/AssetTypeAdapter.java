@@ -1,7 +1,5 @@
 package com.jumbomob.invistoo.model.entity;
 
-import io.realm.RealmObject;
-
 /**
  * Class responsible for adapt enum for Realm.io
  *
@@ -10,7 +8,7 @@ import io.realm.RealmObject;
  * @since 27/07/2016
  */
 
-public class AssetTypeAdapter extends RealmObject {
+public class AssetTypeAdapter {
     private Long assetTypeId;
 
     public void saveEnum(AssetTypeEnum assetType) {

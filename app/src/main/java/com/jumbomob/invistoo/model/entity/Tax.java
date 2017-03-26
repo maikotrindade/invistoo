@@ -10,10 +10,10 @@ public class Tax {
 
     public enum IncomeTax {
 
-        INCOME_LESS_THAN_180(1, 22.5, 180),
-        INCOME_LESS_THAN_360(2, 20.0, 360),
-        INCOME_LESS_THAN_720(3,17.5, 720),
-        INCOME_MORE_THAN_720(4, 15.0, 720);
+        INCOME_LESS_THAN_180(1, 0.22, 180),
+        INCOME_LESS_THAN_360(2, 0.20, 360),
+        INCOME_LESS_THAN_720(3, 0.17, 720),
+        INCOME_MORE_THAN_720(4, 0.15, 720);
 
         private long id;
         private double rate;

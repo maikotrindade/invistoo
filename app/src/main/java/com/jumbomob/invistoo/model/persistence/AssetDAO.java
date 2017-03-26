@@ -4,7 +4,6 @@ import com.jumbomob.invistoo.model.entity.Asset;
 import com.jumbomob.invistoo.util.InvistooApplication;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import io.realm.Realm;
@@ -73,29 +72,25 @@ public class AssetDAO {
         return lastAsset;
     }
 
-    //TODO
-    private Asset findAssetById(final Long assetId) {
-        Asset lastAsset = null;
+    public Asset findAssetLastById(final long assetId) {
+        Asset asset = null;
         Realm realm = InvistooApplication.getInstance().getDatabaseInstance();
         RealmQuery<Asset> query = realm.where(Asset.class);
-        RealmResults<Asset> assets = query.findAll();
+        RealmResults<Asset> assets = query.findAll().sort("lastUpdate", Sort.DESCENDING);
         if (!assets.isEmpty()) {
-            for (Asset asset : assets) {
-
+            for (Asset assetItem : assets) {
+                if (assetItem.getIndex() == assetId) {
+                    asset = assetItem;
+                }
             }
-            lastAsset = assets.get(assets.size() - 1);
         }
-
-        return lastAsset;
+        return asset;
     }
 
-    public Date findLastUpdate() {
-        Date lastUpdate = null;
-        final Asset lastAssetAdded = findLastAssetAdded();
-        if (lastAssetAdded != null) {
-            lastUpdate = lastAssetAdded.getLastUpdate();
-        }
-        return lastUpdate;
+    public boolean isEmpty() {
+        final Realm realm = InvistooApplication.getInstance().getDatabaseInstance();
+        final RealmQuery<Asset> query = realm.where(Asset.class);
+        return query.findAll().isEmpty();
     }
 
 }

@@ -72,15 +72,20 @@ public class NewInvestmentFragment extends BaseFragment implements NewInvestment
         List<InvestmentSuggestionDTO> suggestions;
         if (isGrossValuesFlow) {
             suggestions = arguments.getParcelableArrayList(ConstantsUtil.SUGGESTIONS_BUNDLE);
+            configureRecyclerView(suggestions);
         } else {
             final double contribution = arguments.getDouble(ConstantsUtil.CONTRIBUTION_BUNDLE, 0);
-            suggestions = mPresenter.calculateBalance(contribution);
+            if (mPresenter.areDownloadedAssets()) {
+                suggestions = mPresenter.calculateBalance(contribution);
+                configureRecyclerView(suggestions);
+            } else {
+                mPresenter.downloadAssets(contribution);
+            }
         }
-
-        configureRecyclerView(suggestions);
     }
 
-    private void configureRecyclerView(final List<InvestmentSuggestionDTO> suggestions) {
+    @Override
+    public void configureRecyclerView(final List<InvestmentSuggestionDTO> suggestions) {
         RecyclerView recyclerView = (RecyclerView) mRootView.findViewById(R.id
                 .balanced_investments_recycler_view);
         recyclerView.addItemDecoration(new DividerItemDecorator(getActivity(), DividerItemDecorator
@@ -100,5 +105,21 @@ public class NewInvestmentFragment extends BaseFragment implements NewInvestment
     @Override
     public void navigateToInvestmentList() {
         ((BaseActivity) getActivity()).goBackFragment();
+    }
+
+    @Override
+    public void showProgressDialog(final int resourceId) {
+        super.showProgressDialog(resourceId);
+    }
+
+    @Override
+    public void hideProgressDialog() {
+        super.hideProgressDialog();
+    }
+
+    @Override
+    public void onDownloadAssetsError() {
+        hideProgressDialog();
+        showMessage(R.string.error_general);
     }
 }
