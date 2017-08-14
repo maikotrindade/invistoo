@@ -9,9 +9,12 @@ import com.jumbomob.invistoo.model.entity.AssetTypeEnum;
 import com.jumbomob.invistoo.model.entity.Goal;
 import com.jumbomob.invistoo.model.entity.Investment;
 import com.jumbomob.invistoo.model.entity.Tax;
+import com.jumbomob.invistoo.model.network.AssetInterface;
+import com.jumbomob.invistoo.model.network.BaseNetworkConfig;
 import com.jumbomob.invistoo.model.persistence.AssetDAO;
 import com.jumbomob.invistoo.model.persistence.GoalDAO;
 import com.jumbomob.invistoo.model.persistence.InvestmentDAO;
+import com.jumbomob.invistoo.util.ConstantsUtil;
 import com.jumbomob.invistoo.util.DateUtil;
 import com.jumbomob.invistoo.util.InvistooApplication;
 import com.jumbomob.invistoo.util.NumericUtil;
@@ -19,9 +22,14 @@ import com.jumbomob.invistoo.util.NumericUtil;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import retrofit.Call;
+
+import static com.jumbomob.invistoo.util.NumericUtil.getValidDouble;
 
 /**
  * @author maiko.trindade
@@ -108,7 +116,7 @@ public class OperationsManager {
         final AssetDAO assetDAO = AssetDAO.getInstance();
         final AssetTypeEnum assetTypeEnum = AssetTypeEnum.getById(investment.getAssetType());
         final Asset asset = assetDAO.findAssetLastById(assetTypeEnum.getId());
-        double amount = (NumericUtil.getValidDouble(investment.getPrice()));// * investment.getQuantity());
+        double amount = (getValidDouble(investment.getPrice()));// * investment.getQuantity());
         final Date assetDueDate = DateUtil.stringToDate(asset.getDueDate(), DateUtil.SIMPLE_DATE_FORMAT);
         final DateTime dueDate = new DateTime(assetDueDate);
         final DateTime date = new DateTime(investment.getCreationDate());
@@ -133,8 +141,6 @@ public class OperationsManager {
         Log.d(TAG, "Aporte: " + contribution);
 
         final GoalDAO goalDAO = GoalDAO.getInstance();
-        final InvestmentDAO investmentDAO = InvestmentDAO.getInstance();
-
         //busca porcentagem de cada meta
         final String userUid = InvistooApplication.getLoggedUser().getUid();
         final List<Goal> goals = goalDAO.findAll(userUid);
@@ -151,6 +157,7 @@ public class OperationsManager {
             for (GrossValueDTO grossValue : grossValues) {
                 if (grossValue.getAssetType().equals(goal.getAssetTypeEnum())) {
                     grossAmount = grossValue.getAmount();
+                    break;
                 }
             }
 
@@ -222,7 +229,7 @@ public class OperationsManager {
                     .getAssetTypeEnum(), userUid);
             Double sum = 0D;
             for (Investment investment : byAssetType) {
-                sum += (NumericUtil.getValidDouble(investment.getPrice())
+                sum += (getValidDouble(investment.getPrice())
                         * investment.getQuantity());
             }
 
@@ -259,7 +266,7 @@ public class OperationsManager {
                     .getAssetTypeEnum(), userUid);
             Double sum = 0D;
             for (Investment investment : byAssetType) {
-                sum += (NumericUtil.getValidDouble(investment.getPrice())
+                sum += (getValidDouble(investment.getPrice())
                         * investment.getQuantity());
             }
 
@@ -280,7 +287,32 @@ public class OperationsManager {
     public double getQuantityBaseOnAmount(double amount, long assetId) {
         final AssetDAO assetDAO = AssetDAO.getInstance();
         final Asset asset = assetDAO.findAssetLastById(assetId);
-        return amount / NumericUtil.getValidDouble(asset.getSellPrice());
+        Double sellPrice;
+        if (asset != null) {
+            sellPrice = NumericUtil.getValidDouble(asset.getSellPrice());
+        } else {
+            //se o asset nunca foi baixado, tenta baixar e completar o flow
+            sellPrice = getAssetAndQuantity(assetId);
+        }
+        //TODO trata nullPointerException
+        return amount / sellPrice;
+    }
+
+    public Double getAssetAndQuantity(final long assetId) {
+        final AssetInterface service = BaseNetworkConfig.createService(AssetInterface.class,
+                ConstantsUtil.BASE_URL);
+        final Call<List<Asset>> call = service.getAssets();
+        try {
+            List<Asset> assets = call.execute().body();
+            for (Asset asset : assets) {
+                if (asset.getIndex() == assetId) {
+                    return getValidDouble(asset.getSellPrice());
+                }
+            }
+        } catch (IOException e) {
+            Log.e(TAG, e.getLocalizedMessage());
+        }
+        return null;
     }
 
 }

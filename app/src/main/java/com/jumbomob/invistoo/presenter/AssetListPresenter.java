@@ -73,7 +73,7 @@ public class AssetListPresenter implements BasePresenter<AssetListView> {
             @Override
             public void onFailure(Throwable t) {
                 mView.onDownloadError();
-                Log.e(TAG, t.getLocalizedMessage());
+                Log.e(TAG,  "on Failure");
             }
         });
     }
