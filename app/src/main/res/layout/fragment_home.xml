@@ -65,7 +65,7 @@
                         android:textSize="@dimen/text_extra_small2" />
 
                     <com.jumbomob.invistoo.ui.component.ResizableTextView
-                        android:id="@+id/balance_text_view"
+                        android:id="@+id/balance_bought_text_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"

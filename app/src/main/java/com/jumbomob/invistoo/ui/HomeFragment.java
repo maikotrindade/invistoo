@@ -74,11 +74,11 @@ public class HomeFragment extends BaseFragment implements HomeView {
 
         final LinearLayout balanceSubContainer = (LinearLayout) mRootView.findViewById(R.id.balance_sub_container);
         final ImageView hideBalanceImgView = (ImageView) mRootView.findViewById(R.id.minimize_image_view);
-        final TextView balanceTextView = (TextView) mRootView.findViewById(R.id.balance_text_view);
+        final TextView balanceBoughtTextView = (TextView) mRootView.findViewById(R.id.balance_bought_text_view);
         final TextView balanceSoldTextView = (TextView) mRootView.findViewById(R.id.balance_sold_text_view);
 
-        final Long balance = mPresenter.getBalance();
-        balanceTextView.setText(NumericUtil.formatCurrency(balance));
+        final Long balanceBought = mPresenter.getBalanceBought();
+        balanceBoughtTextView.setText(NumericUtil.formatCurrency(balanceBought));
 
         final Long balanceSold = mPresenter.getBalanceSold();
         balanceSoldTextView.setText(NumericUtil.formatCurrency(balanceSold));

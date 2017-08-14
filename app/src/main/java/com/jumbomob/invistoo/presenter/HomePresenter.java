@@ -96,7 +96,7 @@ public class HomePresenter implements BasePresenter<HomeView> {
         legend.setYOffset(0f);
     }
 
-    public Long getBalance() {
+    public Long getBalanceBought() {
         InvestmentDAO investmentDAO = InvestmentDAO.getInstance();
         final String userUid = InvistooApplication.getLoggedUser().getUid();
         final List<Investment> buyInvestments = investmentDAO.findBoughtInvestments(userUid);
