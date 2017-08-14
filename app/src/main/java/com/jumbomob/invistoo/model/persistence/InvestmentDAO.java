@@ -28,11 +28,12 @@ public class InvestmentDAO {
         return sDaoInstance;
     }
 
-    public void insert(final Investment investment) {
+    public void insert(final Investment investment, final String userId) {
         Realm realm = InvistooApplication.getInstance().getDatabaseInstance();
         realm.beginTransaction();
         realm.insert(investment);
         realm.commitTransaction();
+        BalanceDAO.getInstance().insertOrUpdate(investment, userId);
     }
 
     /**

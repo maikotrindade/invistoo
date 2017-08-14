@@ -111,7 +111,7 @@ public class NewInvestmentListPresenter implements BasePresenter<NewInvestmentLi
             final OperationsManager operationsManager = new OperationsManager();
             final double quantity = operationsManager.getQuantityBaseOnAmount(NumericUtil.getValidDouble(investment.getPrice()), investment.getAssetType());
             investment.setQuantity(quantity);
-            dao.insert(investment);
+            dao.insert(investment, InvistooApplication.getLoggedUser().getUid());
         }
 
         mView.showMessage(R.string.msg_save_investment);
