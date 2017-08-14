@@ -145,7 +145,7 @@
         <LinearLayout
             android:id="@+id/investments_chart_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="300dp"
             android:orientation="vertical">
 
             <com.github.mikephil.charting.charts.PieChart
