@@ -13,7 +13,7 @@ public interface InvestmentListView {
 
     void updateList(List<Investment> investments);
 
-    void showContributionDialog(boolean isGrossValuesFlow);
+    void showContributionDialog();
 
     void showGoalsDialog();
 

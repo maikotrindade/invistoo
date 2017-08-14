@@ -58,7 +58,6 @@ public class InvestmentsListFragment extends BaseFragment implements InvestmentL
         mRootView = inflater.inflate(R.layout.fragment_investments_list, container, false);
 
         mPresenter = new InvestmentListPresenter(this);
-        mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.investments_recycler_view);
         configureInvestmentList();
         configureFab();
 
@@ -96,6 +95,7 @@ public class InvestmentsListFragment extends BaseFragment implements InvestmentL
     @Override
     public void configureInvestmentList() {
         LinearLayout investmentsContainer = (LinearLayout) mRootView.findViewById(R.id.no_investments_container);
+        mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.investments_recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mRootView.getContext()));
 
@@ -128,20 +128,10 @@ public class InvestmentsListFragment extends BaseFragment implements InvestmentL
                 mPresenter.newInvestment();
             }
         });
-
-        FloatingActionButton grossValuesFab = (FloatingActionButton)
-                mRootView.findViewById(R.id.gross_values_fab);
-        grossValuesFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mPresenter.newInvestmentWithGrossValues();
-            }
-        });
-
     }
 
     @Override
-    public void showContributionDialog(final boolean isGrossValuesFlow) {
+    public void showContributionDialog() {
         final Dialog dialog = new Dialog(mRootView.getContext());
         dialog.setContentView(R.layout.contribution_dialog);
         dialog.setTitle(getString(R.string.new_contribution_title));
@@ -157,15 +147,9 @@ public class InvestmentsListFragment extends BaseFragment implements InvestmentL
                     final Double contribution = NumericUtil.getValidDouble(
                             contributionEdtText.getText().toString());
                     final Activity activity = getActivity();
-
-                    Fragment fragment;
                     Bundle bundle = new Bundle();
-                    if (isGrossValuesFlow) {
-                        fragment = new GrossValuesListFragment();
-                    } else {
-                        fragment = new NewInvestmentFragment();
-                    }
                     bundle.putDouble(ConstantsUtil.CONTRIBUTION_BUNDLE, contribution);
+                    Fragment fragment = new NewInvestmentFragment();
                     fragment.setArguments(bundle);
                     ((BaseActivity) activity).setFragment(fragment, activity.getString(R.string.title_new_investment));
 

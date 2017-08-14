@@ -15,7 +15,6 @@ import com.jumbomob.invistoo.model.persistence.AssetDAO;
 import com.jumbomob.invistoo.model.persistence.InvestmentDAO;
 import com.jumbomob.invistoo.util.ConstantsUtil;
 import com.jumbomob.invistoo.util.InvistooApplication;
-import com.jumbomob.invistoo.util.NumericUtil;
 import com.jumbomob.invistoo.view.NewInvestmentListView;
 
 import java.util.Date;
@@ -109,8 +108,9 @@ public class NewInvestmentListPresenter implements BasePresenter<NewInvestmentLi
             investment.setUserId(InvistooApplication.getLoggedUser().getUid());
 
             final OperationsManager operationsManager = new OperationsManager();
-            final double quantity = operationsManager.getQuantityBaseOnAmount(NumericUtil.getValidDouble(investment.getPrice()), investment.getAssetType());
-            investment.setQuantity(quantity);
+            //final double quantity = operationsManager.getQuantityBaseOnAmount(NumericUtil.getValidDouble(investment.getPrice()), investment.getAssetType());
+            //TODO fix this flow
+            investment.setQuantity(1);
             dao.insert(investment, InvistooApplication.getLoggedUser().getUid());
         }
 
