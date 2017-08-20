@@ -83,9 +83,9 @@ public class NewInvestmentListPresenter implements BasePresenter<NewInvestmentLi
             }
 
             @Override
-            public void onFailure(Throwable t) {
+            public void onFailure(Throwable throwable) {
                 mView.onDownloadAssetsError();
-                Log.e(TAG, t.getLocalizedMessage());
+                Log.e(TAG, throwable.getMessage());
             }
         });
     }

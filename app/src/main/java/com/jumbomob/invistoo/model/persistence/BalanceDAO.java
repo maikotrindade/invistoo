@@ -1,7 +1,5 @@
 package com.jumbomob.invistoo.model.persistence;
 
-import android.util.Log;
-
 import com.jumbomob.invistoo.model.entity.Asset;
 import com.jumbomob.invistoo.model.entity.Balance;
 import com.jumbomob.invistoo.model.entity.Investment;
@@ -64,11 +62,9 @@ public class BalanceDAO {
         balance.setUpdateDate(DateTime.now().toString());
         balance.setUserId(userId);
         if (balanceFromDB != null) {
-            Log.d(TAG, "Saldo não existe -> insert balance...");
             balance.setId(balanceFromDB.getId());
-            balance.setTotal(balance.getTotal() + NumericUtil.getValidDouble(investment.getPrice()));
+            balance.setTotal(balanceFromDB.getTotal() + NumericUtil.getValidDouble(investment.getPrice()));
         } else {
-            Log.d(TAG, "Saldo existe! -> update balance...");
             balance.setId(RealmAutoIncrement.getInstance().getNextIdFromModel(Balance.class));
             balance.setTotal(NumericUtil.getValidDouble(investment.getPrice()));
         }
