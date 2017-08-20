@@ -103,9 +103,12 @@ public class OperationsManager {
             suggestion.setTotal(taxSum);
             balancedInvestments.add(suggestion);
 
+            //TODO remove - apenas debug
             AssetTypeEnum assetTypeEnum = AssetTypeEnum.getById(goal.getAssetTypeEnum());
-            Log.d(TAG, "Valor balanceado: " + balancedValue +
-                    " para o AssetEnum: " + assetTypeEnum.getTitle());
+            if (assetTypeEnum != null) {
+                Log.d(TAG, "Valor balanceado: " + balancedValue +
+                        " para o AssetEnum: " + assetTypeEnum.getTitle());
+            }
         }
 
         return balancedInvestments;

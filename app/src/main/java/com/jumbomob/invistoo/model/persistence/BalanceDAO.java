@@ -73,11 +73,19 @@ public class BalanceDAO {
         realm.insertOrUpdate(balance);
     }
 
-    public List<Balance> getBalance(final String userId) {
+    public List<Balance> getBalances(final String userId) {
         return InvistooApplication.getInstance().getDatabaseInstance()
                 .where(Balance.class)
                 .equalTo("userId", userId)
                 .findAll();
+    }
+
+    public Balance getBalanceByAssetId(final long assetId, final String userId) {
+        return InvistooApplication.getInstance().getDatabaseInstance()
+                .where(Balance.class)
+                .equalTo("asset", assetId)
+                .equalTo("userId", userId)
+                .findFirst();
     }
 
     public void update(long asset, Double newTotal, String userId) {

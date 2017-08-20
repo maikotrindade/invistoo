@@ -170,6 +170,7 @@ public class HomeFragment extends BaseFragment implements HomeView {
                     final Double newValue = Double.valueOf(newValueString);
                     mPresenter.editBalance(assetId, newValue);
                     updateBalanceAssetList(position);
+                    updateChart();
                     showMessage(getString(R.string.balance_updated_successfully));
                 } else {
                     showMessage(getString(R.string.update_balance_error));
@@ -245,5 +246,11 @@ public class HomeFragment extends BaseFragment implements HomeView {
                         getString(R.string.my_investments));
             }
         });
+    }
+
+    public void updateChart() {
+        if (mChart != null) {
+            mPresenter.getChartData(mChart);
+        }
     }
 }

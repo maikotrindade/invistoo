@@ -8,7 +8,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.formatter.PercentFormatter;
-import com.jumbomob.invistoo.model.dto.InvestmentChartDTO;
+import com.jumbomob.invistoo.model.dto.BalanceChartDTO;
 import com.jumbomob.invistoo.model.entity.AssetTypeEnum;
 import com.jumbomob.invistoo.model.entity.Balance;
 import com.jumbomob.invistoo.model.entity.Investment;
@@ -45,24 +45,20 @@ public class HomePresenter implements BasePresenter<HomeView> {
     }
 
     public void getChartData(PieChart chart) {
-        final InvestmentDAO dao = InvestmentDAO.getInstance();
+        final BalanceDAO dao = BalanceDAO.getInstance();
+        final String userId = InvistooApplication.getLoggedUser().getUid();
         Long total = new Long(0);
-        List<InvestmentChartDTO> chartDTOs = new ArrayList<>();
+        List<BalanceChartDTO> chartDTOs = new ArrayList<>();
         final List<AssetTypeEnum> assetTypes = Arrays.asList(AssetTypeEnum.values());
-        final String userUid = InvistooApplication.getLoggedUser().getUid();
         for (AssetTypeEnum assetTypeEnum : assetTypes) {
-            final List<Investment> investments = dao.findByAssetType(assetTypeEnum.getId(), userUid);
-            if (investments != null && !investments.isEmpty()) {
-                InvestmentChartDTO chartDTO = new InvestmentChartDTO();
+            final Balance balance = dao.getBalanceByAssetId(assetTypeEnum.getId(), userId);
+            if (balance != null) {
+                BalanceChartDTO chartDTO = new BalanceChartDTO();
                 chartDTO.setDescription(assetTypeEnum.getAbbreviation());
-                chartDTO.setInvestments(investments);
-                Long chartDTOSum = new Long(0);
-                for (Investment investment : investments) {
-                    chartDTOSum = chartDTOSum + Long.parseLong(investment.getPrice());
-                }
-                total = total + chartDTOSum;
-                chartDTO.setSum(chartDTOSum);
+                final long balanceTotal = balance.getTotal().longValue();
+                chartDTO.setSum(balanceTotal);
                 chartDTOs.add(chartDTO);
+                total = total + balanceTotal;
             }
         }
 
@@ -121,7 +117,7 @@ public class HomePresenter implements BasePresenter<HomeView> {
 
     public List<Balance> getBalanceAssets() {
         final String userId = InvistooApplication.getLoggedUser().getUid();
-        return BalanceDAO.getInstance().getBalance(userId);
+        return BalanceDAO.getInstance().getBalances(userId);
     }
 
     public void editBalance(long assetId, Double newTotal) {
