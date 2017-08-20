@@ -11,6 +11,7 @@ import org.joda.time.DateTime;
 import java.util.List;
 
 import io.realm.Realm;
+import io.realm.RealmQuery;
 
 /**
  * Data Access Object for {@link Asset} domain
@@ -56,6 +57,7 @@ public class BalanceDAO {
         final Balance balanceFromDB = realm
                 .where(Balance.class)
                 .equalTo("asset", investment.getAssetType())
+                .equalTo("userId", userId)
                 .findFirst();
         Balance balance = new Balance();
         balance.setAsset(investment.getAssetType());
@@ -76,6 +78,26 @@ public class BalanceDAO {
                 .where(Balance.class)
                 .equalTo("userId", userId)
                 .findAll();
+    }
+
+    public void update(long asset, Double newTotal, String userId) {
+        Realm realm = InvistooApplication.getInstance().getDatabaseInstance();
+        realm.beginTransaction();
+        final Balance balance = realm
+                .where(Balance.class)
+                .equalTo("asset", asset)
+                .equalTo("userId", userId)
+                .findFirst();
+        balance.setTotal(newTotal);
+        realm.commitTransaction();
+        realm.insertOrUpdate(balance);
+    }
+
+    public List<Balance> findAllBalances(String userId) {
+        Realm realm = InvistooApplication.getInstance().getDatabaseInstance();
+        RealmQuery<Balance> query = realm.where(Balance.class)
+                .equalTo("userId", userId);
+        return query.findAll();
     }
 
 }

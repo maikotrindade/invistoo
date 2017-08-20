@@ -103,16 +103,6 @@ public class InvestmentDAO {
         realm.commitTransaction();
     }
 
-    public List<Investment> findBoughtInvestments(String userId) {
-        Realm realm = InvistooApplication.getInstance().getDatabaseInstance();
-        RealmQuery<Investment> query = realm.where(Investment.class)
-                .equalTo("isActive", true)
-                .equalTo("assetStatus", AssetStatusEnum.BUY.getId())
-                .equalTo("userId", userId);
-        RealmResults<Investment> investments = query.findAll();
-        return investments;
-    }
-
     public List<Investment> findSoldInvestments(String userId) {
         Realm realm = InvistooApplication.getInstance().getDatabaseInstance();
         RealmQuery<Investment> query = realm.where(Investment.class)

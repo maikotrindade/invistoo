@@ -20,7 +20,7 @@ public class NotificationUtil {
         final Context context = InvistooApplication.getInstance().getApplicationContext();
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context);
         notificationBuilder.setAutoCancel(true)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.mipmap.ic_edit)
                 .setContentTitle(title).setContentText(message).setTicker(message)
                 .setColor(Color.RED)
                 .setLights(Color.RED, 500, 500)

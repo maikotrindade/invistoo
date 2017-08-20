@@ -10,7 +10,9 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.jumbomob.invistoo.model.dto.InvestmentChartDTO;
 import com.jumbomob.invistoo.model.entity.AssetTypeEnum;
+import com.jumbomob.invistoo.model.entity.Balance;
 import com.jumbomob.invistoo.model.entity.Investment;
+import com.jumbomob.invistoo.model.persistence.BalanceDAO;
 import com.jumbomob.invistoo.model.persistence.InvestmentDAO;
 import com.jumbomob.invistoo.util.ChartUtil;
 import com.jumbomob.invistoo.util.InvistooApplication;
@@ -96,15 +98,14 @@ public class HomePresenter implements BasePresenter<HomeView> {
         legend.setYOffset(0f);
     }
 
-    public Long getBalanceBought() {
-        InvestmentDAO investmentDAO = InvestmentDAO.getInstance();
+    public Double getBalanceBought() {
         final String userUid = InvistooApplication.getLoggedUser().getUid();
-        final List<Investment> buyInvestments = investmentDAO.findBoughtInvestments(userUid);
-        long balance = 0;
-        for (Investment buy : buyInvestments) {
-            balance += Long.parseLong(buy.getPrice());
+        final List<Balance> balances = BalanceDAO.getInstance().findAllBalances(userUid);
+        Double balanceTotal = new Double(0);
+        for (Balance balance : balances) {
+            balanceTotal += balance.getTotal();
         }
-        return balance;
+        return balanceTotal;
     }
 
     public Long getBalanceSold() {
@@ -116,5 +117,15 @@ public class HomePresenter implements BasePresenter<HomeView> {
             balanceSold += Long.parseLong(sold.getPrice());
         }
         return balanceSold;
+    }
+
+    public List<Balance> getBalanceAssets() {
+        final String userId = InvistooApplication.getLoggedUser().getUid();
+        return BalanceDAO.getInstance().getBalance(userId);
+    }
+
+    public void editBalance(long assetId, Double newTotal) {
+        final String userId = InvistooApplication.getLoggedUser().getUid();
+        BalanceDAO.getInstance().update(assetId, newTotal, userId);
     }
 }

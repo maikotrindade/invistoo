@@ -1,15 +1,21 @@
 package com.jumbomob.invistoo.ui;
 
+import android.app.Dialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,10 +27,15 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.jumbomob.invistoo.R;
+import com.jumbomob.invistoo.model.entity.Balance;
 import com.jumbomob.invistoo.presenter.HomePresenter;
+import com.jumbomob.invistoo.ui.adapter.BalanceAssetAdapter;
+import com.jumbomob.invistoo.ui.callback.BalanceAssetCallback;
 import com.jumbomob.invistoo.util.AnimationUtil;
 import com.jumbomob.invistoo.util.NumericUtil;
 import com.jumbomob.invistoo.view.HomeView;
+
+import java.util.List;
 
 /**
  * @author maiko.trindade
@@ -38,6 +49,8 @@ public class HomeFragment extends BaseFragment implements HomeView {
     private PieChart mChart;
     private LinearLayout mChartContainer;
     private HomePresenter mPresenter;
+    private RecyclerView mBalanceRecycler;
+    private BalanceAssetAdapter mBalanceAdapter;
 
     public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
@@ -52,6 +65,7 @@ public class HomeFragment extends BaseFragment implements HomeView {
         mPresenter = new HomePresenter(this);
         configureChart();
         configureBalance();
+        configureAssetBalance();
         return mRootView;
     }
 
@@ -69,7 +83,6 @@ public class HomeFragment extends BaseFragment implements HomeView {
 
     private void configureBalance() {
         final LinearLayout balanceContainer = (LinearLayout) mRootView.findViewById(R.id.balance_container);
-
         balanceContainer.setLayoutAnimation(AnimationUtil.getFadeInAnimation());
 
         final LinearLayout balanceSubContainer = (LinearLayout) mRootView.findViewById(R.id.balance_sub_container);
@@ -77,7 +90,7 @@ public class HomeFragment extends BaseFragment implements HomeView {
         final TextView balanceBoughtTextView = (TextView) mRootView.findViewById(R.id.balance_bought_text_view);
         final TextView balanceSoldTextView = (TextView) mRootView.findViewById(R.id.balance_sold_text_view);
 
-        final Long balanceBought = mPresenter.getBalanceBought();
+        final Double balanceBought = mPresenter.getBalanceBought();
         balanceBoughtTextView.setText(NumericUtil.formatCurrency(balanceBought));
 
         final Long balanceSold = mPresenter.getBalanceSold();
@@ -98,6 +111,80 @@ public class HomeFragment extends BaseFragment implements HomeView {
             }
         });
 
+    }
+
+    private void configureAssetBalance() {
+        final LinearLayout balanceAssetContainer = (LinearLayout) mRootView.findViewById(R.id.balance_assets_container);
+        balanceAssetContainer.setLayoutAnimation(AnimationUtil.getFadeInAnimation());
+
+        final List<Balance> balanceAssets = mPresenter.getBalanceAssets();
+
+        if (!balanceAssets.isEmpty()) {
+            final LinearLayout assetSubContainer = (LinearLayout) mRootView.findViewById(R.id.balance_assets_sub_container);
+            final ImageView hideBalanceAssetImgView = (ImageView) mRootView.findViewById(R.id.minimize_assets_image_view);
+
+            hideBalanceAssetImgView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (assetSubContainer.getVisibility() == View.VISIBLE) {
+                        assetSubContainer.setVisibility(View.GONE);
+                        hideBalanceAssetImgView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_maximize));
+                    } else {
+                        assetSubContainer.setVisibility(View.VISIBLE);
+                        hideBalanceAssetImgView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_minimize));
+
+                        assetSubContainer.setLayoutAnimation(AnimationUtil.getFadeInAnimation());
+                    }
+                }
+            });
+
+            mBalanceRecycler = (RecyclerView) mRootView.findViewById(R.id.balance_recycler_view);
+            mBalanceRecycler.setHasFixedSize(true);
+            mBalanceRecycler.setLayoutManager(new LinearLayoutManager(mRootView.getContext()));
+            mBalanceAdapter = new BalanceAssetAdapter(balanceAssets, new BalanceAssetCallback() {
+                @Override
+                public void onEditBalance(long assetId, Double oldValue, int position) {
+                    showEditBalanceDialog(assetId, oldValue, position);
+                }
+            });
+            mBalanceRecycler.setAdapter(mBalanceAdapter);
+        } else {
+            balanceAssetContainer.setVisibility(View.GONE);
+        }
+    }
+
+    private void showEditBalanceDialog(final long assetId, final Double oldValue, final int position) {
+        final Dialog dialog = new Dialog(mRootView.getContext());
+        dialog.setContentView(R.layout.edit_balance_dialog);
+        dialog.setTitle(R.string.edit_total);
+
+        final EditText balanceEdtText = (EditText) dialog.findViewById(R.id.balance_edit_text);
+        balanceEdtText.setText(String.valueOf(oldValue));
+
+        final Button confirmButton = (Button) dialog.findViewById(R.id.confirm_balance_button);
+        confirmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String newValueString = balanceEdtText.getText().toString();
+                if (!TextUtils.isEmpty(newValueString) && NumericUtil.isValidDouble(newValueString)) {
+                    final Double newValue = Double.valueOf(newValueString);
+                    mPresenter.editBalance(assetId, newValue);
+                    updateBalanceAssetList(position);
+                    showMessage(getString(R.string.balance_updated_successfully));
+                } else {
+                    showMessage(getString(R.string.update_balance_error));
+                }
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
+    private void updateBalanceAssetList(int position) {
+        if (mBalanceAdapter != null) {
+            mBalanceAdapter.notifyItemChanged(position);
+        }
     }
 
     private void configureChart() {

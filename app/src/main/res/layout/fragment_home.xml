@@ -106,6 +106,57 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/balance_assets_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/full_border_grey"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_margin="@dimen/margin_small2"
+                    android:fontFamily="sans-serif-thin"
+                    android:text="@string/by_asset"
+                    android:textSize="@dimen/text_normal"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/minimize_assets_image_view"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_alignParentRight="true"
+                    android:padding="@dimen/margin_small1"
+                    android:src="@drawable/ic_minimize" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/balance_assets_sub_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_small2"
+                android:layout_marginRight="@dimen/margin_small2"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/balance_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/new_investment_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
