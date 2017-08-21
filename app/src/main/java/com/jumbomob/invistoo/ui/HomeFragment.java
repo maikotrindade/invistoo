@@ -51,6 +51,8 @@ public class HomeFragment extends BaseFragment implements HomeView {
     private HomePresenter mPresenter;
     private RecyclerView mBalanceRecycler;
     private BalanceAssetAdapter mBalanceAdapter;
+    private TextView mBalanceBoughtTextView;
+    private TextView mBalanceSoldTextView;
 
     public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
@@ -87,14 +89,14 @@ public class HomeFragment extends BaseFragment implements HomeView {
 
         final LinearLayout balanceSubContainer = (LinearLayout) mRootView.findViewById(R.id.balance_sub_container);
         final ImageView hideBalanceImgView = (ImageView) mRootView.findViewById(R.id.minimize_image_view);
-        final TextView balanceBoughtTextView = (TextView) mRootView.findViewById(R.id.balance_bought_text_view);
-        final TextView balanceSoldTextView = (TextView) mRootView.findViewById(R.id.balance_sold_text_view);
+        mBalanceBoughtTextView = (TextView) mRootView.findViewById(R.id.balance_bought_text_view);
+        mBalanceSoldTextView = (TextView) mRootView.findViewById(R.id.balance_sold_text_view);
 
         final Double balanceBought = mPresenter.getBalanceBought();
-        balanceBoughtTextView.setText(NumericUtil.formatCurrency(balanceBought));
+        mBalanceBoughtTextView.setText(NumericUtil.formatCurrency(balanceBought));
 
         final Long balanceSold = mPresenter.getBalanceSold();
-        balanceSoldTextView.setText(NumericUtil.formatCurrency(balanceSold));
+        mBalanceSoldTextView.setText(NumericUtil.formatCurrency(balanceSold));
 
         hideBalanceImgView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,6 +173,7 @@ public class HomeFragment extends BaseFragment implements HomeView {
                     mPresenter.editBalance(assetId, newValue);
                     updateBalanceAssetList(position);
                     updateChart();
+                    updateBalance();
                     showMessage(getString(R.string.balance_updated_successfully));
                 } else {
                     showMessage(getString(R.string.update_balance_error));
@@ -187,6 +190,18 @@ public class HomeFragment extends BaseFragment implements HomeView {
             mBalanceAdapter.notifyItemChanged(position);
         }
     }
+
+    private void updateBalance() {
+        if (mBalanceBoughtTextView != null) {
+            final Double balanceBought = mPresenter.getBalanceBought();
+            mBalanceBoughtTextView.setText(NumericUtil.formatCurrency(balanceBought));
+        }
+        if (mBalanceSoldTextView != null) {
+            final Long balanceSold = mPresenter.getBalanceSold();
+            mBalanceSoldTextView.setText(NumericUtil.formatCurrency(balanceSold));
+        }
+    }
+
 
     private void configureChart() {
         mChart = (PieChart) mRootView.findViewById(R.id.investments_chart);
