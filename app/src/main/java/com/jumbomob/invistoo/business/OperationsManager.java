@@ -55,15 +55,16 @@ public class OperationsManager {
             Log.d(TAG, "Goal com assetType #" + goal.getAssetTypeEnum());
 
             //busca quantidade investida em cada assetType
-            final List<Investment> byAssetType = investmentDAO.findByAssetType(goal
-                    .getAssetTypeEnum(), userUid);
+            final List<Investment> byAssetType =
+                    investmentDAO.findByAssetType(goal.getAssetTypeEnum(), userUid);
+
             Double sum = 0D;
-            for (Investment investment : byAssetType) {
-                sum += calculateIncomeTax(investment);
+            if (!byAssetType.isEmpty()) {
+                for (Investment investment : byAssetType) {
+                    sum += calculateIncomeTax(investment);
+                }
+                Log.d(TAG, "Goal com somatoria de :" + sum + "\n\n");
             }
-
-            Log.d(TAG, "Goal com somatoria de :" + sum + "\n\n");
-
             invesTest.setAssetType(goal.getAssetTypeEnum());
             invesTest.setTotal(sum);
 
@@ -118,23 +119,25 @@ public class OperationsManager {
         final AssetDAO assetDAO = AssetDAO.getInstance();
         final AssetTypeEnum assetTypeEnum = AssetTypeEnum.getById(investment.getAssetType());
         final Asset asset = assetDAO.findAssetLastById(assetTypeEnum.getId());
-        double amount = (getValidDouble(investment.getPrice()));// * investment.getQuantity());
-        final Date assetDueDate = DateUtil.stringToDate(asset.getDueDate(), DateUtil.SIMPLE_DATE_FORMAT);
-        final DateTime dueDate = new DateTime(assetDueDate);
-        final DateTime date = new DateTime(investment.getCreationDate());
+        double amount = 0;
+        if (asset != null) {
+            amount = (getValidDouble(investment.getPrice()));// * investment.getQuantity());
+            final Date assetDueDate = DateUtil.stringToDate(asset.getDueDate(), DateUtil.SIMPLE_DATE_FORMAT);
+            final DateTime dueDate = new DateTime(assetDueDate);
+            final DateTime date = new DateTime(investment.getCreationDate());
 
-        final Duration timeDifference = new Duration(date, dueDate);
-        final long differenceInDays = timeDifference.getStandardDays();
-        if (differenceInDays < Tax.IncomeTax.INCOME_LESS_THAN_180.getDays()) {
-            amount *= (1 - Tax.IncomeTax.INCOME_LESS_THAN_180.getRate());
-        } else if (differenceInDays > Tax.IncomeTax.INCOME_LESS_THAN_180.getDays() && differenceInDays < Tax.IncomeTax.INCOME_LESS_THAN_360.getDays()) {
-            amount *= (1 - Tax.IncomeTax.INCOME_LESS_THAN_360.getRate());
-        } else if (differenceInDays > Tax.IncomeTax.INCOME_LESS_THAN_360.getDays() && differenceInDays < Tax.IncomeTax.INCOME_LESS_THAN_720.getDays()) {
-            amount *= (1 - Tax.IncomeTax.INCOME_LESS_THAN_720.getRate());
-        } else { // Tax.IncomeTax.INCOME_MORE_THAN_720
-            amount *= (1 - Tax.IncomeTax.INCOME_MORE_THAN_720.getRate());
+            final Duration timeDifference = new Duration(date, dueDate);
+            final long differenceInDays = timeDifference.getStandardDays();
+            if (differenceInDays < Tax.IncomeTax.INCOME_LESS_THAN_180.getDays()) {
+                amount *= (1 - Tax.IncomeTax.INCOME_LESS_THAN_180.getRate());
+            } else if (differenceInDays > Tax.IncomeTax.INCOME_LESS_THAN_180.getDays() && differenceInDays < Tax.IncomeTax.INCOME_LESS_THAN_360.getDays()) {
+                amount *= (1 - Tax.IncomeTax.INCOME_LESS_THAN_360.getRate());
+            } else if (differenceInDays > Tax.IncomeTax.INCOME_LESS_THAN_360.getDays() && differenceInDays < Tax.IncomeTax.INCOME_LESS_THAN_720.getDays()) {
+                amount *= (1 - Tax.IncomeTax.INCOME_LESS_THAN_720.getRate());
+            } else { // Tax.IncomeTax.INCOME_MORE_THAN_720
+                amount *= (1 - Tax.IncomeTax.INCOME_MORE_THAN_720.getRate());
+            }
         }
-
         Log.d(TAG, "calculateIncomeTax:" + amount + "\n\n");
         return amount;
     }
