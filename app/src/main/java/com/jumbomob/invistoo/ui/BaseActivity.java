@@ -95,7 +95,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 
         switch (id) {
             case R.id.nav_home:
-                setFragment(HomeFragment.newInstance(), R.id.nav_home, getString
+                setFragment(DashboardFragment.newInstance(), R.id.nav_home, getString
                         (R.string.title_dashboard));
                 break;
             case R.id.nav_investments:

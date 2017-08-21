@@ -16,7 +16,7 @@ import com.jumbomob.invistoo.model.persistence.BalanceDAO;
 import com.jumbomob.invistoo.model.persistence.InvestmentDAO;
 import com.jumbomob.invistoo.util.ChartUtil;
 import com.jumbomob.invistoo.util.InvistooApplication;
-import com.jumbomob.invistoo.view.HomeView;
+import com.jumbomob.invistoo.view.DashboardView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,16 +26,16 @@ import java.util.List;
  * @author maiko.trindade
  * @since 13/07/2016
  */
-public class HomePresenter implements BasePresenter<HomeView> {
+public class DashboardPresenter implements BasePresenter<DashboardView> {
 
-    private HomeView mHomeView;
+    private DashboardView mHomeView;
 
-    public HomePresenter(HomeView view) {
+    public DashboardPresenter(DashboardView view) {
         attachView(view);
     }
 
     @Override
-    public void attachView(HomeView view) {
+    public void attachView(DashboardView view) {
         mHomeView = view;
     }
 

@@ -28,12 +28,12 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.model.entity.Balance;
-import com.jumbomob.invistoo.presenter.HomePresenter;
+import com.jumbomob.invistoo.presenter.DashboardPresenter;
 import com.jumbomob.invistoo.ui.adapter.BalanceAssetAdapter;
 import com.jumbomob.invistoo.ui.callback.BalanceAssetCallback;
 import com.jumbomob.invistoo.util.AnimationUtil;
 import com.jumbomob.invistoo.util.NumericUtil;
-import com.jumbomob.invistoo.view.HomeView;
+import com.jumbomob.invistoo.view.DashboardView;
 
 import java.util.List;
 
@@ -41,21 +41,21 @@ import java.util.List;
  * @author maiko.trindade
  * @since 30/03/2016
  */
-public class HomeFragment extends BaseFragment implements HomeView {
+public class DashboardFragment extends BaseFragment implements DashboardView {
 
-    private static final String TAG = HomeFragment.class.getSimpleName();
+    private static final String TAG = DashboardFragment.class.getSimpleName();
     private View mRootView;
 
     private PieChart mChart;
     private LinearLayout mChartContainer;
-    private HomePresenter mPresenter;
+    private DashboardPresenter mPresenter;
     private RecyclerView mBalanceRecycler;
     private BalanceAssetAdapter mBalanceAdapter;
     private TextView mBalanceBoughtTextView;
     private TextView mBalanceSoldTextView;
 
-    public static HomeFragment newInstance() {
-        HomeFragment fragment = new HomeFragment();
+    public static DashboardFragment newInstance() {
+        DashboardFragment fragment = new DashboardFragment();
         return fragment;
     }
 
@@ -63,8 +63,8 @@ public class HomeFragment extends BaseFragment implements HomeView {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mRootView = inflater.inflate(R.layout.fragment_home, container, false);
-        mPresenter = new HomePresenter(this);
+        mRootView = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        mPresenter = new DashboardPresenter(this);
         configureChart();
         configureBalance();
         configureAssetBalance();
