@@ -67,7 +67,7 @@ public class DashboardPresenter implements BasePresenter<DashboardView> {
             ArrayList<Entry> chartEntries = new ArrayList<>();
             ArrayList<String> subtitles = new ArrayList<>();
             for (int index = 0; index < chartDTOs.size(); index++) {
-                chartEntries.add(new Entry((float) (total / chartDTOs.get(index).getSum()), index));
+                chartEntries.add(new Entry((float) (chartDTOs.get(index).getSum()), index));
                 subtitles.add(chartDTOs.get(index).getDescription());
             }
 

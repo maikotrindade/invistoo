@@ -17,6 +17,7 @@ import com.jumbomob.invistoo.util.ConstantsUtil;
 import com.jumbomob.invistoo.util.InvistooApplication;
 import com.jumbomob.invistoo.view.NewInvestmentListView;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -91,8 +92,7 @@ public class NewInvestmentListPresenter implements BasePresenter<NewInvestmentLi
     }
 
     public void saveInvestments(List<InvestmentSuggestionDTO> suggestions) {
-        InvestmentDAO dao = InvestmentDAO.getInstance();
-
+        List<Investment> investments = new ArrayList<>();
         for (InvestmentSuggestionDTO suggestion : suggestions) {
             Investment investment = new Investment();
             investment.setCreationDate(new Date());
@@ -111,8 +111,9 @@ public class NewInvestmentListPresenter implements BasePresenter<NewInvestmentLi
             //final double quantity = operationsManager.getQuantityBaseOnAmount(NumericUtil.getValidDouble(investment.getPrice()), investment.getAssetType());
             //TODO fix this flow
             investment.setQuantity(1);
-            dao.insert(investment, InvistooApplication.getLoggedUser().getUid());
+            investments.add(investment);
         }
+        InvestmentDAO.getInstance().insert(investments, InvistooApplication.getLoggedUser().getUid());
 
         mView.showMessage(R.string.msg_save_investment);
         mView.navigateToInvestmentList();

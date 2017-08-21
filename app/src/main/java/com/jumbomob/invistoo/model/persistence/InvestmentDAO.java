@@ -11,7 +11,7 @@ import io.realm.RealmQuery;
 import io.realm.RealmResults;
 import io.realm.Sort;
 
-;
+;import static com.jumbomob.invistoo.R.string.investment;
 
 /**
  * @author maiko.trindade
@@ -28,12 +28,12 @@ public class InvestmentDAO {
         return sDaoInstance;
     }
 
-    public void insert(final Investment investment, final String userId) {
+    public void insert(final List<Investment> investments, final String userId) {
         Realm realm = InvistooApplication.getInstance().getDatabaseInstance();
         realm.beginTransaction();
-        realm.insert(investment);
+        realm.insert(investments);
         realm.commitTransaction();
-        BalanceDAO.getInstance().insertOrUpdate(investment, userId);
+        BalanceDAO.getInstance().insertOrUpdate(investments, userId);
     }
 
     /**
