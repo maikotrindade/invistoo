@@ -63,7 +63,7 @@ public class AccountFragment extends BaseFragment implements AccountView {
     @Override
     public void onResume() {
         super.onResume();
-        getActivity().setTitle(R.string.title_account);
+        getActivity().setTitle(getString(R.string.edit_account));
     }
 
     private void configureElements() {
@@ -141,13 +141,13 @@ public class AccountFragment extends BaseFragment implements AccountView {
 
     @Override
     public void invalidateEmail() {
-        mEmailEdtText.setError("Preenchimento obrigatório.");
+        mEmailEdtText.setError(getString(R.string.required_field));
     }
 
     @Override
     public void invalidatePasswords() {
-        mOldPasswordEdtText.setError("Preenchimento obrigatório.");
-        mNewPasswordEdtText.setError("Preencha o campo corretamente.");
+        mOldPasswordEdtText.setError(getString(R.string.required_field));
+        mNewPasswordEdtText.setError(getString(R.string.fill_field_correctly));
     }
 
     @Override
