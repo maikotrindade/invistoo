@@ -1,6 +1,7 @@
 package com.jumbomob.invistoo.model.persistence;
 
 import com.jumbomob.invistoo.model.entity.Asset;
+import com.jumbomob.invistoo.model.entity.AssetStatusEnum;
 import com.jumbomob.invistoo.model.entity.Balance;
 import com.jumbomob.invistoo.model.entity.Investment;
 import com.jumbomob.invistoo.util.InvistooApplication;
@@ -96,6 +97,26 @@ public class BalanceDAO {
                 .equalTo("asset", asset)
                 .equalTo("userId", userId)
                 .findFirst();
+        balance.setTotal(newTotal);
+        realm.commitTransaction();
+        realm.insertOrUpdate(balance);
+    }
+
+    public void update(long asset, Double value, AssetStatusEnum status, String userId) {
+        Realm realm = InvistooApplication.getInstance().getDatabaseInstance();
+        realm.beginTransaction();
+        final Balance balance = realm
+                .where(Balance.class)
+                .equalTo("asset", asset)
+                .equalTo("userId", userId)
+                .findFirst();
+
+        Double newTotal = balance.getTotal();
+        if (status.equals(AssetStatusEnum.SELL)) {
+            newTotal = newTotal - value;
+        } else {
+            newTotal = newTotal + value;
+        }
         balance.setTotal(newTotal);
         realm.commitTransaction();
         realm.insertOrUpdate(balance);

@@ -3,6 +3,7 @@ package com.jumbomob.invistoo.model.persistence;
 import com.jumbomob.invistoo.model.entity.AssetStatusEnum;
 import com.jumbomob.invistoo.model.entity.Investment;
 import com.jumbomob.invistoo.util.InvistooApplication;
+import com.jumbomob.invistoo.util.NumericUtil;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ import io.realm.RealmQuery;
 import io.realm.RealmResults;
 import io.realm.Sort;
 
-;import static com.jumbomob.invistoo.R.string.investment;
+;
 
 /**
  * @author maiko.trindade
@@ -94,6 +95,9 @@ public class InvestmentDAO {
         realm.beginTransaction();
         investment.setAssetStatus(status);
         realm.commitTransaction();
+        final String userId = InvistooApplication.getLoggedUser().getUid();
+        final Double value = NumericUtil.getValidDouble(investment.getPrice());
+        BalanceDAO.getInstance().update(investment.getAssetType(), value, status, userId);
     }
 
     public void updateActive(final Investment investment) {
