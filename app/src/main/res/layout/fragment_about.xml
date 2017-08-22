@@ -38,14 +38,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Build Version"
+                android:text="@string/build_version"
                 android:textSize="@dimen/text_medium_normal" />
 
             <TextView
+                android:id="@+id/build_version_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="4dp"
-                android:text="Version 0.3 Build 27"
                 android:textSize="@dimen/text_normal" />
 
         </LinearLayout>

@@ -13,11 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.presenter.AboutPresenter;
 import com.jumbomob.invistoo.ui.adapter.LicenseListAdapter;
 import com.jumbomob.invistoo.util.ConstantsUtil;
+import com.jumbomob.invistoo.util.InvistooUtil;
 import com.jumbomob.invistoo.view.AboutView;
 
 /**
@@ -84,6 +86,9 @@ public class AboutFragment extends BaseFragment implements AboutView {
                 showLicensesDialog();
             }
         });
+
+        final TextView buildVersionTxt = (TextView) mRootView.findViewById(R.id.build_version_txt);
+        buildVersionTxt.setText("Versão " + InvistooUtil.getVersionName(getActivity()) + " Build " + InvistooUtil.getVersionCode(getActivity()));
     }
 
     private void openGooglePlay() {

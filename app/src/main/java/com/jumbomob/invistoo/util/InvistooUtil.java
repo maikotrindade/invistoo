@@ -63,7 +63,7 @@ public class InvistooUtil {
         return snackbar;
     }
 
-    public int getVersionCode(final Activity activity) {
+    public static int getVersionCode(final Activity activity) {
         final PackageManager packageManager = activity.getPackageManager();
         final String packageName = activity.getPackageName();
         int versionCode = 0;
@@ -76,7 +76,7 @@ public class InvistooUtil {
         return versionCode;
     }
 
-    public String getVersionName(final Activity activity) {
+    public static String getVersionName(final Activity activity) {
         final PackageManager packageManager = activity.getPackageManager();
         final String packageName = activity.getPackageName();
         int versionCode = 0;

@@ -150,5 +150,6 @@
     <string name="enter_new_total_asset_msg">Digite o novo valor total investido no ativo financeiro selecionado:</string>
     <string name="fill_field_correctly">Preencha o campo corretamente.</string>
     <string name="edit_account">Editar Conta</string>
+    <string name="build_version">Versão da Build</string>
 
 </resources>
