@@ -105,6 +105,9 @@ public class InvestmentDAO {
         realm.beginTransaction();
         investment.setActive(false);
         realm.commitTransaction();
+        final String userId = InvistooApplication.getLoggedUser().getUid();
+        final Double value = NumericUtil.getValidDouble(investment.getPrice());
+        BalanceDAO.getInstance().update(investment.getAssetType(), value, AssetStatusEnum.SELL, userId);
     }
 
     public List<Investment> findSoldInvestments(String userId) {
