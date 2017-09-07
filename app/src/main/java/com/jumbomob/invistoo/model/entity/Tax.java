@@ -6,8 +6,6 @@ package com.jumbomob.invistoo.model.entity;
 
 public class Tax {
 
-
-
     public enum IncomeTax {
 
         INCOME_LESS_THAN_180(1, 0.22, 180),

@@ -84,7 +84,7 @@ public class InvestmentGroupListAdapter extends RecyclerView.Adapter<RecyclerVie
 
     private void bindHolderWithInvestment(final ListViewHolder holder, final Investment investment,
                                           final int position) {
-        holder.valueTxtView.setText(NumericUtil.formatCurrency(NumericUtil.getValidLong((investment.getPrice()))));
+        holder.valueTxtView.setText(NumericUtil.formatCurrency(NumericUtil.getValidDouble((investment.getPrice()))));
         holder.lastUpdateTxtView.setText(DateUtil.formatDate(investment.getUpdateDate(), DateUtil.SIMPLE_DATETIME_FORMAT));
 
         final AssetStatusEnum statusEnum = AssetStatusEnum.getById(investment.getAssetStatus());

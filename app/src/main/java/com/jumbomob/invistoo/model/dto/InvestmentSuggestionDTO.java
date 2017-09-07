@@ -11,7 +11,7 @@ public class InvestmentSuggestionDTO implements Parcelable {
 
     private Double total;
     private Long assetType;
-    private Long suggestion;
+    private Double suggestion;
 
     public Long getAssetType() {
         return assetType;
@@ -29,11 +29,11 @@ public class InvestmentSuggestionDTO implements Parcelable {
         this.total = total;
     }
 
-    public Long getSuggestion() {
+    public Double getSuggestion() {
         return suggestion;
     }
 
-    public void setSuggestion(Long suggestion) {
+    public void setSuggestion(Double suggestion) {
         this.suggestion = suggestion;
     }
 
@@ -64,7 +64,7 @@ public class InvestmentSuggestionDTO implements Parcelable {
     protected InvestmentSuggestionDTO(Parcel in) {
         this.total = (Double) in.readValue(Double.class.getClassLoader());
         this.assetType = (Long) in.readValue(Long.class.getClassLoader());
-        this.suggestion = (Long) in.readValue(Long.class.getClassLoader());
+        this.suggestion = (Double) in.readValue(Double.class.getClassLoader());
     }
 
     public static final Parcelable.Creator<InvestmentSuggestionDTO> CREATOR = new Parcelable.Creator<InvestmentSuggestionDTO>() {
