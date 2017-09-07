@@ -1,8 +1,10 @@
 package com.jumbomob.invistoo.view;
 
+import com.jumbomob.invistoo.model.dto.InvestmentSuggestionDTO;
 import com.jumbomob.invistoo.model.entity.Investment;
 import com.jumbomob.invistoo.ui.adapter.InvestmentSectionItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,4 +26,8 @@ public interface InvestmentListView {
     void configureInvestmentList();
 
     void configureInvestmentListGroup(List<InvestmentSectionItem> investmentSectionItems);
+
+    void onNoSuggestionMade();
+
+    void onSuggestionsMade(ArrayList<InvestmentSuggestionDTO> suggestions);
 }

@@ -19,6 +19,7 @@ import com.jumbomob.invistoo.ui.component.DividerItemDecorator;
 import com.jumbomob.invistoo.util.ConstantsUtil;
 import com.jumbomob.invistoo.view.NewInvestmentListView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -65,11 +66,10 @@ public class NewInvestmentFragment extends BaseFragment implements NewInvestment
 
     private void configureElements() {
         final Bundle arguments = getArguments();
-        final double contribution = arguments.getDouble(ConstantsUtil.CONTRIBUTION_BUNDLE, 0);
-        mPresenter.calculateBalance(contribution);
+        final ArrayList<InvestmentSuggestionDTO> suggestions = arguments.getParcelableArrayList(ConstantsUtil.SUGGESTIONS_BUNDLE);
+        configureRecyclerView(suggestions);
     }
 
-    @Override
     public void configureRecyclerView(final List<InvestmentSuggestionDTO> suggestions) {
         RecyclerView recyclerView = (RecyclerView) mRootView.findViewById(R.id.balanced_investments_recycler_view);
         recyclerView.addItemDecoration(new DividerItemDecorator(getActivity(), DividerItemDecorator.VERTICAL_LIST));
@@ -97,10 +97,5 @@ public class NewInvestmentFragment extends BaseFragment implements NewInvestment
     @Override
     public void hideProgressDialog() {
         super.hideProgressDialog();
-    }
-
-    @Override
-    public void onNoSuggestionMade() {
-       showMessage("Sem sugestões de balanceamento pois o valor do aporte é muito abaixo.");
     }
 }

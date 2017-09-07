@@ -1,6 +1,5 @@
 package com.jumbomob.invistoo.ui;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -20,6 +19,7 @@ import android.widget.LinearLayout;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.jumbomob.invistoo.R;
+import com.jumbomob.invistoo.model.dto.InvestmentSuggestionDTO;
 import com.jumbomob.invistoo.model.entity.Investment;
 import com.jumbomob.invistoo.presenter.InvestmentListPresenter;
 import com.jumbomob.invistoo.ui.adapter.InvestmentGroupListAdapter;
@@ -30,6 +30,7 @@ import com.jumbomob.invistoo.util.DialogUtil;
 import com.jumbomob.invistoo.util.NumericUtil;
 import com.jumbomob.invistoo.view.InvestmentListView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -119,6 +120,20 @@ public class InvestmentsListFragment extends BaseFragment implements InvestmentL
         mRecyclerView.setAdapter(adapter);
     }
 
+    @Override
+    public void onNoSuggestionMade() {
+        showMessage(getString(R.string.wrong_value_contribution));
+    }
+
+    @Override
+    public void onSuggestionsMade(ArrayList<InvestmentSuggestionDTO> suggestions) {
+        Fragment fragment = new NewInvestmentFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList(ConstantsUtil.SUGGESTIONS_BUNDLE, suggestions);
+        fragment.setArguments(bundle);
+        ((BaseActivity) getActivity()).setFragment(fragment, getActivity().getString(R.string.title_new_investment));
+    }
+
     private void configureFab() {
         FloatingActionButton newBalancedInvestFab = (FloatingActionButton)
                 mRootView.findViewById(R.id.new_balanced_investment_fab);
@@ -146,13 +161,7 @@ public class InvestmentsListFragment extends BaseFragment implements InvestmentL
                 if (mPresenter.isContributionValid(contributionEdtText.getText().toString())) {
                     final Double contribution = NumericUtil.getValidDouble(
                             contributionEdtText.getText().toString());
-                    final Activity activity = getActivity();
-                    Bundle bundle = new Bundle();
-                    bundle.putDouble(ConstantsUtil.CONTRIBUTION_BUNDLE, contribution);
-                    Fragment fragment = new NewInvestmentFragment();
-                    fragment.setArguments(bundle);
-                    ((BaseActivity) activity).setFragment(fragment, activity.getString(R.string.title_new_investment));
-
+                    mPresenter.calculateBalance(contribution);
                     dialog.dismiss();
                 } else {
                     contributionEdtText.setError(getString(R.string.vaild_contribution));

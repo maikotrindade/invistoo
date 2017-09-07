@@ -153,5 +153,6 @@
     <string name="edit_account">Editar Conta</string>
     <string name="build_version">Versão da Build</string>
     <string name="chart_by_asset">Gráfico por ativo</string>
+    <string name="wrong_value_contribution">Sem sugestões de balanceamento pois o valor do aporte é muito abaixo.</string>
 
 </resources>

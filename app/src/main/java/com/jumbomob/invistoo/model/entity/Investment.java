@@ -14,7 +14,6 @@ public class Investment extends RealmObject {
     @PrimaryKey
     private Long id;
     private String name;
-    private double quantity;
     private String price;
     private Date creationDate;
     private Date updateDate;
@@ -54,14 +53,6 @@ public class Investment extends RealmObject {
 
     public void setPrice(String price) {
         this.price = price;
-    }
-
-    public double getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(double quantity) {
-        this.quantity = quantity;
     }
 
     public Date getRemovedDate() {
@@ -110,21 +101,5 @@ public class Investment extends RealmObject {
 
     public void setUserId(String userId) {
         this.userId = userId;
-    }
-
-    @Override
-    public String toString() {
-        return "Investment{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", quantity=" + quantity +
-                ", price='" + price + '\'' +
-                ", creationDate='" + creationDate + '\'' +
-                ", updateDate='" + updateDate + '\'' +
-                ", removedDate='" + removedDate + '\'' +
-                ", assetType=" + assetType +
-                ", assetStatus=" + assetStatus +
-                ", isActive=" + isActive +
-                '}';
     }
 }
