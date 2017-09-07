@@ -1,6 +1,7 @@
 package com.jumbomob.invistoo.util;
 
-import android.content.res.Resources;
+import android.content.Context;
+import android.support.v4.content.ContextCompat;
 
 import com.jumbomob.invistoo.R;
 
@@ -14,13 +15,13 @@ import java.util.List;
 public class ChartUtil {
 
     public static final int[] MATERIAL_THEME = {
-            R.color.material_red_A200,
-            R.color.material_light_green_A200,
-            R.color.material_blue_A200,
-            R.color.material_amber_A200,
-            R.color.material_deep_orange_A200,
-            R.color.material_deep_purple_A200,
-            R.color.material_blue_grey_400,
+            R.color.material_red_300,
+            R.color.material_light_green_300,
+            R.color.material_blue_200,
+            R.color.material_amber_200,
+            R.color.material_deep_orange_200,
+            R.color.material_deep_purple_200,
+            R.color.material_blue_grey_200,
             R.color.material_yellow_A200,
             R.color.material_orange_A200,
             R.color.material_light_blue_A200,
@@ -37,9 +38,9 @@ public class ChartUtil {
 
     public static List<Integer> getMaterialTheme() {
         List<Integer> colors = new ArrayList<>();
-        final Resources resources = InvistooApplication.getInstance().getResources();
+        final Context baseContext = InvistooApplication.getInstance().getBaseContext();
         for (int color : MATERIAL_THEME) {
-            colors.add(resources.getColor(color));
+            colors.add(ContextCompat.getColor(baseContext, color));
         }
         return colors;
     }
