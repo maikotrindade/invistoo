@@ -169,16 +169,21 @@ public class DashboardFragment extends BaseFragment implements DashboardView {
             public void onClick(View v) {
                 final String newValueString = balanceEdtText.getText().toString();
                 if (!TextUtils.isEmpty(newValueString) && NumericUtil.isValidDouble(newValueString)) {
-                    final Double newValue = Double.valueOf(newValueString);
-                    mPresenter.editBalance(assetId, newValue);
-                    updateBalanceAssetList(position);
-                    updateChart();
-                    updateBalance();
-                    showMessage(getString(R.string.balance_updated_successfully));
+                    if (NumericUtil.getValidDouble(newValueString) > 0) {
+                        final Double newValue = Double.valueOf(newValueString);
+                        mPresenter.editBalance(assetId, newValue);
+                        updateBalanceAssetList(position);
+                        updateChart();
+                        updateBalance();
+                        showMessage(getString(R.string.balance_updated_successfully));
+                        dialog.dismiss();
+                    } else {
+                        balanceEdtText.setError(getString(R.string.error_negative_balance));
+                    }
                 } else {
                     showMessage(getString(R.string.update_balance_error));
+                    dialog.dismiss();
                 }
-                dialog.dismiss();
             }
         });
 

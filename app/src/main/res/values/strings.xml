@@ -145,6 +145,7 @@
     <string name="next_lbl">PRÓXIMO</string>
     <string name="edit_total">Editar total</string>
     <string name="balance_updated_successfully">Balanço atualizado com sucesso</string>
+    <string name="error_negative_balance">Digite um novo valor válido</string>
     <string name="update_balance_error">Não foi possível atualizar o balanço</string>
     <string name="by_asset">Extrato por ativo</string>
     <string name="enter_new_total_asset_msg">Digite o novo valor total investido no ativo financeiro selecionado:</string>

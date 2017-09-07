@@ -113,7 +113,13 @@ public class BalanceDAO {
 
         Double newTotal = balance.getTotal();
         if (status.equals(AssetStatusEnum.SELL)) {
-            newTotal = newTotal - value;
+            if (newTotal > 0) {
+                if ((newTotal - value) > 0) {
+                    newTotal = newTotal - value;
+                } else {
+                    newTotal = new Double(0);
+                }
+            }
         } else {
             newTotal = newTotal + value;
         }
