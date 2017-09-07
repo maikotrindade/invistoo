@@ -197,7 +197,26 @@
             android:id="@+id/investments_chart_container"
             android:layout_width="match_parent"
             android:layout_height="300dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/full_border_grey"
             android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_margin="@dimen/margin_small2"
+                    android:fontFamily="sans-serif-thin"
+                    android:text="@string/chart_by_asset"
+                    android:textSize="@dimen/text_normal"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
 
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/investments_chart"

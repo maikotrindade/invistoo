@@ -152,5 +152,6 @@
     <string name="fill_field_correctly">Preencha o campo corretamente.</string>
     <string name="edit_account">Editar Conta</string>
     <string name="build_version">Versão da Build</string>
+    <string name="chart_by_asset">Gráfico por ativo</string>
 
 </resources>
