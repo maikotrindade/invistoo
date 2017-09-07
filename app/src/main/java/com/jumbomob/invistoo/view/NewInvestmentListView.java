@@ -12,13 +12,15 @@ public interface NewInvestmentListView {
 
     void showMessage(int resourceId);
 
+    void showMessage(String message);
+
     void navigateToInvestmentList();
 
     void showProgressDialog(final int resourceId);
 
-    void onDownloadAssetsError();
-
     void hideProgressDialog();
+
+    void onNoSuggestionMade();
 
     void configureRecyclerView(final List<InvestmentSuggestionDTO> suggestions);
 }

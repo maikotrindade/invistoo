@@ -100,8 +100,7 @@ public class NewInvestmentFragment extends BaseFragment implements NewInvestment
     }
 
     @Override
-    public void onDownloadAssetsError() {
-        hideProgressDialog();
-        showMessage(R.string.error_general);
+    public void onNoSuggestionMade() {
+       showMessage("Sem sugestões de balanceamento pois o valor do aporte é muito abaixo.");
     }
 }
