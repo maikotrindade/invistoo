@@ -74,7 +74,21 @@ public class OperationsManager {
             }
         }
 
-        return balancedInvestments;
+        return isValidSuggestion(balancedInvestments, aporte) ? balancedInvestments : null;
+    }
+
+    private boolean isValidSuggestion(List<InvestmentSuggestionDTO> suggestions, Double aporte) {
+        Double suggestionsSum = new Double(0);
+        for (InvestmentSuggestionDTO suggestion : suggestions) {
+            if (suggestion.getTotal() < 0) {
+                return false;
+            }
+            suggestionsSum += suggestion.getTotal();
+        }
+        if (suggestionsSum > aporte) {
+            return false;
+        }
+        return true;
     }
 
 //    private double calculateIncomeTax(Investment investment) {

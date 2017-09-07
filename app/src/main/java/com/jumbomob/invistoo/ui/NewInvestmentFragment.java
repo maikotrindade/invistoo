@@ -21,8 +21,6 @@ import com.jumbomob.invistoo.view.NewInvestmentListView;
 
 import java.util.List;
 
-import static com.jumbomob.invistoo.util.ConstantsUtil.GROSS_VALUES_NEW_INVESTMENT_FLOW;
-
 /**
  * @author maiko.trindade
  * @since 14/07/2016
@@ -67,32 +65,16 @@ public class NewInvestmentFragment extends BaseFragment implements NewInvestment
 
     private void configureElements() {
         final Bundle arguments = getArguments();
-        final boolean isGrossValuesFlow = arguments.getBoolean(GROSS_VALUES_NEW_INVESTMENT_FLOW, false);
-
-        List<InvestmentSuggestionDTO> suggestions;
-        if (isGrossValuesFlow) {
-            suggestions = arguments.getParcelableArrayList(ConstantsUtil.SUGGESTIONS_BUNDLE);
-            configureRecyclerView(suggestions);
-        } else {
-            final double contribution = arguments.getDouble(ConstantsUtil.CONTRIBUTION_BUNDLE, 0);
-            if (mPresenter.areDownloadedAssets()) {
-                suggestions = mPresenter.calculateBalance(contribution);
-                configureRecyclerView(suggestions);
-            } else {
-                mPresenter.downloadAssets(contribution);
-            }
-        }
+        final double contribution = arguments.getDouble(ConstantsUtil.CONTRIBUTION_BUNDLE, 0);
+        mPresenter.calculateBalance(contribution);
     }
 
     @Override
     public void configureRecyclerView(final List<InvestmentSuggestionDTO> suggestions) {
-        RecyclerView recyclerView = (RecyclerView) mRootView.findViewById(R.id
-                .balanced_investments_recycler_view);
-        recyclerView.addItemDecoration(new DividerItemDecorator(getActivity(), DividerItemDecorator
-                .VERTICAL_LIST));
+        RecyclerView recyclerView = (RecyclerView) mRootView.findViewById(R.id.balanced_investments_recycler_view);
+        recyclerView.addItemDecoration(new DividerItemDecorator(getActivity(), DividerItemDecorator.VERTICAL_LIST));
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(mRootView.getContext()));
-
         mAdapter = new BalancedInvestmentListAdapter(suggestions);
         recyclerView.setAdapter(mAdapter);
     }

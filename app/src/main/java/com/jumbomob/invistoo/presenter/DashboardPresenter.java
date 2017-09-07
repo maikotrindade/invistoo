@@ -104,11 +104,11 @@ public class DashboardPresenter implements BasePresenter<DashboardView> {
         return balanceTotal;
     }
 
-    public Long getBalanceSold() {
+    public Double getBalanceSold() {
         InvestmentDAO investmentDAO = InvestmentDAO.getInstance();
         final String userUid = InvistooApplication.getLoggedUser().getUid();
         final List<Investment> soldInvestments = investmentDAO.findSoldInvestments(userUid);
-        long balanceSold = 0;
+        Double balanceSold = new Double(0);
         for (Investment sold : soldInvestments) {
             balanceSold += Long.parseLong(sold.getPrice());
         }

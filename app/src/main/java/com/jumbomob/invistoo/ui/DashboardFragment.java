@@ -84,44 +84,46 @@ public class DashboardFragment extends BaseFragment implements DashboardView {
     }
 
     private void configureBalance() {
-        final LinearLayout balanceContainer = (LinearLayout) mRootView.findViewById(R.id.balance_container);
-        balanceContainer.setLayoutAnimation(AnimationUtil.getFadeInAnimation());
-
-        final LinearLayout balanceSubContainer = (LinearLayout) mRootView.findViewById(R.id.balance_sub_container);
-        final ImageView hideBalanceImgView = (ImageView) mRootView.findViewById(R.id.minimize_image_view);
-        mBalanceBoughtTextView = (TextView) mRootView.findViewById(R.id.balance_bought_text_view);
-        mBalanceSoldTextView = (TextView) mRootView.findViewById(R.id.balance_sold_text_view);
 
         final Double balanceBought = mPresenter.getBalanceBought();
-        mBalanceBoughtTextView.setText(NumericUtil.formatCurrency(balanceBought));
+        final Double balanceSold = mPresenter.getBalanceSold();
 
-        final Long balanceSold = mPresenter.getBalanceSold();
-        mBalanceSoldTextView.setText(NumericUtil.formatCurrency(balanceSold));
+        if (!balanceBought.equals(new Double(0)) || !balanceSold.equals(new Double(0))) {
+            final LinearLayout balanceContainer = (LinearLayout) mRootView.findViewById(R.id.balance_container);
+            balanceContainer.setVisibility(View.VISIBLE);
+            balanceContainer.setLayoutAnimation(AnimationUtil.getFadeInAnimation());
 
-        hideBalanceImgView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (balanceSubContainer.getVisibility() == View.VISIBLE) {
-                    balanceSubContainer.setVisibility(View.GONE);
-                    hideBalanceImgView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_maximize));
-                } else {
-                    balanceSubContainer.setVisibility(View.VISIBLE);
-                    hideBalanceImgView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_minimize));
+            final LinearLayout balanceSubContainer = (LinearLayout) mRootView.findViewById(R.id.balance_sub_container);
+            final ImageView hideBalanceImgView = (ImageView) mRootView.findViewById(R.id.minimize_image_view);
+            mBalanceBoughtTextView = (TextView) mRootView.findViewById(R.id.balance_bought_text_view);
+            mBalanceSoldTextView = (TextView) mRootView.findViewById(R.id.balance_sold_text_view);
 
-                    balanceSubContainer.setLayoutAnimation(AnimationUtil.getFadeInAnimation());
+            mBalanceBoughtTextView.setText(NumericUtil.formatCurrency(balanceBought));
+            mBalanceSoldTextView.setText(NumericUtil.formatCurrency(balanceSold));
+
+            hideBalanceImgView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (balanceSubContainer.getVisibility() == View.VISIBLE) {
+                        balanceSubContainer.setVisibility(View.GONE);
+                        hideBalanceImgView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_maximize));
+                    } else {
+                        balanceSubContainer.setVisibility(View.VISIBLE);
+                        hideBalanceImgView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_minimize));
+
+                        balanceSubContainer.setLayoutAnimation(AnimationUtil.getFadeInAnimation());
+                    }
                 }
-            }
-        });
-
+            });
+        }
     }
 
     private void configureAssetBalance() {
-        final LinearLayout balanceAssetContainer = (LinearLayout) mRootView.findViewById(R.id.balance_assets_container);
-        balanceAssetContainer.setLayoutAnimation(AnimationUtil.getFadeInAnimation());
-
         final List<Balance> balanceAssets = mPresenter.getBalanceAssets();
-
         if (!balanceAssets.isEmpty()) {
+            final LinearLayout balanceAssetContainer = (LinearLayout) mRootView.findViewById(R.id.balance_assets_container);
+            balanceAssetContainer.setLayoutAnimation(AnimationUtil.getFadeInAnimation());
+            balanceAssetContainer.setVisibility(View.VISIBLE);
             final LinearLayout assetSubContainer = (LinearLayout) mRootView.findViewById(R.id.balance_assets_sub_container);
             final ImageView hideBalanceAssetImgView = (ImageView) mRootView.findViewById(R.id.minimize_assets_image_view);
 
@@ -150,8 +152,6 @@ public class DashboardFragment extends BaseFragment implements DashboardView {
                 }
             });
             mBalanceRecycler.setAdapter(mBalanceAdapter);
-        } else {
-            balanceAssetContainer.setVisibility(View.GONE);
         }
     }
 
@@ -202,7 +202,7 @@ public class DashboardFragment extends BaseFragment implements DashboardView {
             mBalanceBoughtTextView.setText(NumericUtil.formatCurrency(balanceBought));
         }
         if (mBalanceSoldTextView != null) {
-            final Long balanceSold = mPresenter.getBalanceSold();
+            final Double balanceSold = mPresenter.getBalanceSold();
             mBalanceSoldTextView.setText(NumericUtil.formatCurrency(balanceSold));
         }
     }
