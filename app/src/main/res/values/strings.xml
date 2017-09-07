@@ -154,5 +154,8 @@
     <string name="build_version">Versão da Build</string>
     <string name="chart_by_asset">Gráfico por ativo</string>
     <string name="wrong_value_contribution">Sem sugestões de balanceamento pois o valor do aporte é muito abaixo.</string>
+    <string name="suggestion">Sugestão</string>
+    <string name="money_zero_hint">00,0</string>
+    <string name="brt_currency">R$</string>
 
 </resources>

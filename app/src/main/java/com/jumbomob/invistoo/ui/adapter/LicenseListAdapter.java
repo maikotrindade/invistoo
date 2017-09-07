@@ -18,22 +18,9 @@ import java.util.List;
 public class LicenseListAdapter extends RecyclerView.Adapter<LicenseListAdapter.ViewHolder> {
 
     private List<LicenseDTO> mLicenses;
-    private int mPosition;
 
     public LicenseListAdapter(List<LicenseDTO> licenses) {
         mLicenses = licenses;
-    }
-
-    public void setItens(List<LicenseDTO> licenses) {
-        this.mLicenses = licenses;
-    }
-
-    public List<LicenseDTO> getItens() {
-        return mLicenses;
-    }
-
-    public LicenseDTO getSelectedItem() {
-        return mLicenses.get(mPosition);
     }
 
     @Override

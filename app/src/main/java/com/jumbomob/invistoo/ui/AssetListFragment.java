@@ -158,7 +158,7 @@ public class AssetListFragment extends BaseFragment implements AssetListView {
             mAdapter = new AssetListAdapter(getActivity(), assets);
             mRecyclerView.setAdapter(mAdapter);
         } else {
-            mAdapter.setItens(assets);
+            mAdapter.setItems(assets);
             mAdapter.notifyDataSetChanged();
         }
     }

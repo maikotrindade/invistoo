@@ -26,7 +26,6 @@ import java.util.List;
 public class QuestionGroupListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<QuestionSectionItem> mItems;
-    private int mPosition;
     private Activity mActivity;
 
     public QuestionGroupListAdapter(List<QuestionSectionItem> QuestionSectionItems, Activity activity) {
@@ -34,16 +33,8 @@ public class QuestionGroupListAdapter extends RecyclerView.Adapter<RecyclerView.
         mActivity = activity;
     }
 
-    public void setItens(List<QuestionSectionItem> Questions) {
+    public void setItems(List<QuestionSectionItem> Questions) {
         this.mItems = Questions;
-    }
-
-    public List<QuestionSectionItem> getItens() {
-        return mItems;
-    }
-
-    public QuestionSectionItem getSelectedItem() {
-        return mItems.get(mPosition);
     }
 
     @Override

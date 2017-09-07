@@ -23,20 +23,21 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="12dp"
             android:text="@string/new_contribution_message"
             android:textSize="@dimen/text_medium_normal" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
+            android:layout_gravity="right"
+            android:layout_marginBottom="8dp"
+            android:layout_marginRight="@dimen/margin_small3"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/margin_small1"
                 android:text="R$"
                 android:textSize="@dimen/text_large" />
 
@@ -44,7 +45,7 @@
                 android:id="@+id/contribution_edit_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="00,0"
+                android:hint="@string/money_zero_hint"
                 android:inputType="number|numberSigned|numberDecimal"
                 android:textSize="@dimen/text_large" />
 

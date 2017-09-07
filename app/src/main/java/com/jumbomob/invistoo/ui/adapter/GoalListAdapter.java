@@ -44,10 +44,6 @@ public class GoalListAdapter extends RecyclerView.Adapter<GoalListAdapter.ViewHo
         return mItems;
     }
 
-    public Goal getSelectedItem() {
-        return mItems.get(mPosition);
-    }
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());

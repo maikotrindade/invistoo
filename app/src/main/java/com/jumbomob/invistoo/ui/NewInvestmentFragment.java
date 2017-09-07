@@ -58,7 +58,7 @@ public class NewInvestmentFragment extends BaseFragment implements NewInvestment
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_save:
-                mPresenter.saveInvestments(mAdapter.getItens());
+                mPresenter.saveInvestments(mAdapter.getItems());
                 break;
         }
         return false;

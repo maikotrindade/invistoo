@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.model.dto.InvestmentSuggestionDTO;
 import com.jumbomob.invistoo.model.entity.AssetTypeEnum;
-import com.jumbomob.invistoo.ui.callback.onSearchResultListener;
 import com.jumbomob.invistoo.util.NumericUtil;
 
 import java.util.List;
@@ -19,27 +18,16 @@ import java.util.List;
  * @author maiko.trindade
  * @since 24/02/2016
  */
-public class BalancedInvestmentListAdapter extends RecyclerView
-        .Adapter<BalancedInvestmentListAdapter.ViewHolder> {
+public class BalancedInvestmentListAdapter extends RecyclerView.Adapter<BalancedInvestmentListAdapter.ViewHolder> {
 
     private List<InvestmentSuggestionDTO> mInvestments;
-    private int mPosition;
-    private onSearchResultListener mSearchListener;
 
     public BalancedInvestmentListAdapter(List<InvestmentSuggestionDTO> investments) {
         mInvestments = investments;
     }
 
-    public void setItens(List<InvestmentSuggestionDTO> investments) {
-        this.mInvestments = investments;
-    }
-
-    public List<InvestmentSuggestionDTO> getItens() {
+    public List<InvestmentSuggestionDTO> getItems() {
         return mInvestments;
-    }
-
-    public InvestmentSuggestionDTO getSelectedItem() {
-        return mInvestments.get(mPosition);
     }
 
     @Override

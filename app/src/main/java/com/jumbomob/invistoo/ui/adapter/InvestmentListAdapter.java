@@ -23,7 +23,6 @@ import com.jumbomob.invistoo.model.entity.AssetStatusEnum;
 import com.jumbomob.invistoo.model.entity.AssetTypeEnum;
 import com.jumbomob.invistoo.model.entity.Investment;
 import com.jumbomob.invistoo.model.persistence.InvestmentDAO;
-import com.jumbomob.invistoo.ui.callback.onSearchResultListener;
 import com.jumbomob.invistoo.util.DateUtil;
 import com.jumbomob.invistoo.util.DialogUtil;
 import com.jumbomob.invistoo.util.NumericUtil;
@@ -37,25 +36,19 @@ import java.util.List;
 public class InvestmentListAdapter extends RecyclerView.Adapter<InvestmentListAdapter.ViewHolder> {
 
     private List<Investment> mInvestments;
-    private int mPosition;
     private Context mContext;
-    private onSearchResultListener mSearchListener;
 
     public InvestmentListAdapter(List<Investment> investments, Fragment fragment) {
         mInvestments = investments;
         mContext = fragment.getContext();
     }
 
-    public void setItens(List<Investment> investments) {
+    public void setItems(List<Investment> investments) {
         this.mInvestments = investments;
     }
 
-    public List<Investment> getItens() {
+    public List<Investment> getItems() {
         return mInvestments;
-    }
-
-    public Investment getSelectedItem() {
-        return mInvestments.get(mPosition);
     }
 
     @Override

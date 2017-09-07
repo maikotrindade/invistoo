@@ -32,16 +32,12 @@ public class AssetListAdapter extends RecyclerView.Adapter<AssetListAdapter.View
         mAssets = assets;
     }
 
-    public void setItens(List<Asset> assets) {
+    public void setItems(List<Asset> assets) {
         this.mAssets = assets;
     }
 
     public List<Asset> getAssets() {
         return mAssets;
-    }
-
-    public Asset getSelectedItem() {
-        return mAssets.get(mPosition);
     }
 
     @Override

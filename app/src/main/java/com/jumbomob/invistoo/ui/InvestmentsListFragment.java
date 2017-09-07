@@ -80,7 +80,7 @@ public class InvestmentsListFragment extends BaseFragment implements InvestmentL
                 return true;
             case R.id.action_group:
                 if (mAdapter != null) {
-                    mPresenter.switchInvestmentListLayout(mAdapter.getItens(), mIsGroupByAssetType);
+                    mPresenter.switchInvestmentListLayout(mAdapter.getItems(), mIsGroupByAssetType);
                 }
                 return true;
         }
@@ -174,7 +174,7 @@ public class InvestmentsListFragment extends BaseFragment implements InvestmentL
 
     @Override
     public void updateList(List<Investment> investments) {
-        mAdapter.setItens(investments);
+        mAdapter.setItems(investments);
         mAdapter.notifyDataSetChanged();
         updateMenuItems(investments.size());
     }

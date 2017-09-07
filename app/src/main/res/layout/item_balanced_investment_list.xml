@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="@dimen/activity_vertical_small_margin"
     android:layout_marginRight="@dimen/activity_horizontal_small_margin"
     android:layout_marginTop="@dimen/activity_horizontal_small_margin">
 
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/activity_horizontal_small_margin"
@@ -21,8 +19,7 @@
             android:id="@+id/name_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Name"
-            android:textSize="@dimen/text_medium_large"/>
+            android:textSize="@dimen/text_medium_large" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -41,14 +38,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/invested"
-                    android:textSize="@dimen/text_normal"/>
+                    android:textSize="@dimen/text_normal" />
 
                 <TextView
                     android:id="@+id/invested_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:textSize="@dimen/text_medium_large"/>
+                    android:textSize="@dimen/text_medium_large" />
 
             </LinearLayout>
 
@@ -61,16 +58,34 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sugestão"
-                    android:textSize="@dimen/text_normal"/>
+                    android:text="@string/suggestion"
+                    android:textSize="@dimen/text_normal" />
 
-                <EditText
-                    android:id="@+id/suggestion_edit_text"
+                <RelativeLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="00,0"
-                    android:inputType="number|numberSigned|numberDecimal"
-                    android:textSize="@dimen/text_medium_large"/>
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/money_txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/margin_small0"
+                        android:text="@string/brt_currency"
+                        android:textSize="@dimen/text_medium_large" />
+
+                    <EditText
+                        android:id="@+id/suggestion_edit_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/money_txt"
+                        android:hint="@string/money_zero_hint"
+                        android:inputType="number|numberSigned|numberDecimal"
+                        android:textSize="@dimen/text_medium_large" />
+
+                </RelativeLayout>
 
             </LinearLayout>
 

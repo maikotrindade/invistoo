@@ -150,7 +150,7 @@ public class QuestionListFragment extends BaseFragment implements QuestionListVi
             mAdapter = new QuestionGroupListAdapter(questionSectionItems, getActivity());
             mRecyclerView.setAdapter(mAdapter);
         } else {
-            mAdapter.setItens(questionSectionItems);
+            mAdapter.setItems(questionSectionItems);
             mAdapter.notifyDataSetChanged();
         }
 

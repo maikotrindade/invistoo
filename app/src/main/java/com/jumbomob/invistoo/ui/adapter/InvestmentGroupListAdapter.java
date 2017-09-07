@@ -44,18 +44,6 @@ public class InvestmentGroupListAdapter extends RecyclerView.Adapter<RecyclerVie
         mContext = fragment.getContext();
     }
 
-    public void setItens(List<InvestmentSectionItem> investments) {
-        this.mItems = investments;
-    }
-
-    public List<InvestmentSectionItem> getItens() {
-        return mItems;
-    }
-
-    public InvestmentSectionItem getSelectedItem() {
-        return mItems.get(mPosition);
-    }
-
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
