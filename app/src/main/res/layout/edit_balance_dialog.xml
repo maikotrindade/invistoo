@@ -36,6 +36,7 @@
                 android:id="@+id/balance_edit_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:maxLength="9"
                 android:hint="00,0"
                 android:inputType="number|numberSigned|numberDecimal"
                 android:textSize="@dimen/text_large" />
