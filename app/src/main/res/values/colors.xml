@@ -158,6 +158,7 @@
     <color name="material_teal_A700">#00BFA5</color>
 
     <!-- green -->
+    <color name="material_green_25">#EAFFEB</color>
     <color name="material_green_50">#E8F5E9</color>
     <color name="material_green_100">#C8E6C9</color>
     <color name="material_green_200">#A5D6A7</color>

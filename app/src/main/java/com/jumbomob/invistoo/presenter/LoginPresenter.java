@@ -2,7 +2,6 @@ package com.jumbomob.invistoo.presenter;
 
 import android.content.Context;
 import android.support.design.widget.Snackbar;
-import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.widget.EditText;
 
@@ -22,7 +21,6 @@ import com.jumbomob.invistoo.view.LoginView;
 import org.joda.time.DateTime;
 
 import java.util.Map;
-import java.util.Random;
 
 import static com.jumbomob.invistoo.R.string.error_general;
 
@@ -33,6 +31,7 @@ import static com.jumbomob.invistoo.R.string.error_general;
 public class LoginPresenter implements BasePresenter<LoginView> {
 
     private LoginView mView;
+    private Context mContext;
 
     @Override
     public void attachView(LoginView view) {
@@ -46,6 +45,15 @@ public class LoginPresenter implements BasePresenter<LoginView> {
 
     public LoginPresenter(LoginView view) {
         attachView(view);
+        mContext = (Context) view;
+    }
+
+    public boolean isKnownUser() {
+        return SharedPrefsUtil.isKnownUser(mContext);
+    }
+
+    public void updateKnownUser() {
+        SharedPrefsUtil.setKnownUser(mContext, true);
     }
 
     public boolean isValidEmailField(final EditText editText) {
@@ -159,26 +167,4 @@ public class LoginPresenter implements BasePresenter<LoginView> {
         InvistooApplication.getInstance().setLoggedUser(user);
         SharedPrefsUtil.setUserLogged(true);
     }
-
-    public void randomizeBackground(Context context) {
-        Random rand = new Random();
-        int randomNum = rand.nextInt(
-                (ConstantsUtil.MAX_NUMBER_OF_BACKGROUND_IMAGES - ConstantsUtil.MIN_NUMBER_OF_BACKGROUND_IMAGES) + 1)
-                + ConstantsUtil.MIN_NUMBER_OF_BACKGROUND_IMAGES;
-
-        switch (randomNum) {
-            case 1:
-                mView.updateBackground(ContextCompat.getDrawable(context, R.drawable.background1));
-                break;
-            case 2:
-                mView.updateBackground(ContextCompat.getDrawable(context, R.drawable.background2));
-                break;
-            case 3:
-                mView.updateBackground(ContextCompat.getDrawable(context, R.drawable.background3));
-                break;
-            default:
-                mView.updateBackground(ContextCompat.getDrawable(context, R.drawable.background1));
-        }
-    }
-
 }

@@ -4,6 +4,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_login"
     tools:context="com.jumbomob.invistoo.ui.LoginActivity">
 
     <android.support.v7.widget.CardView
@@ -34,20 +35,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:drawableLeft="@drawable/ic_person"
-                android:text="maiko@email.com"
                 android:hint="email"
                 android:inputType="textEmailAddress"
+                android:text="maiko@email.com"
                 android:textSize="@dimen/text_normal" />
 
             <EditText
                 android:id="@+id/new_password_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="maiko"
                 android:layout_marginBottom="12dp"
                 android:drawableLeft="@drawable/ic_password"
                 android:hint="password"
                 android:inputType="textPassword"
+                android:text="maiko"
                 android:textSize="@dimen/text_normal" />
 
             <CheckBox

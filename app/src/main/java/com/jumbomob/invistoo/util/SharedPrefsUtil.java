@@ -13,6 +13,21 @@ public class SharedPrefsUtil {
     public static final String IS_USER_LOGGED = "is_user_logged";
     public static final String LAST_USER = "last_user";
     public static final String IS_REMEMBER_USER = "is_remember_user";
+    public static final String KNOWN_USER = "is_a_known_user";
+    public static final String IS_A_KNOWN_USER = "key_known_user";
+
+    public static void setKnownUser(Context context, boolean firstRun) {
+        SharedPreferences shared = context.getSharedPreferences(KNOWN_USER, Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = shared.edit();
+        edit.putBoolean(IS_A_KNOWN_USER, firstRun);
+        edit.apply();
+    }
+
+    public static boolean isKnownUser(Context context) {
+        SharedPreferences shared = context.getSharedPreferences(KNOWN_USER, Context.MODE_PRIVATE);
+        return shared.getBoolean(IS_A_KNOWN_USER, false);
+
+    }
 
     public static boolean isRememberUser(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(

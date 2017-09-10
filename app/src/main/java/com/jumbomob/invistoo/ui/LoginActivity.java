@@ -34,12 +34,17 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mPresenter = new LoginPresenter(this);
-        if (mPresenter.isUserAlreadyLogged(getBaseContext())) {
-            mPresenter.loadUser(getBaseContext());
-            onLoginSuccess();
+        if (!mPresenter.isKnownUser()) {
+            mPresenter.updateKnownUser();
+            redirectToTutorialsScreens();
         } else {
-            bindElements();
-            configureElements();
+            if (mPresenter.isUserAlreadyLogged(getBaseContext())) {
+                mPresenter.loadUser(getBaseContext());
+                onLoginSuccess();
+            } else {
+                bindElements();
+                configureElements();
+            }
         }
     }
 
@@ -52,7 +57,6 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     }
 
     private void configureElements() {
-        mPresenter.randomizeBackground(getBaseContext());
         mLoginImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,6 +82,11 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     public void hideProgressDialog() {
         ProgressDialogUtil.getInstance().hideProgressDialog();
+    }
+
+    public void redirectToTutorialsScreens() {
+        startActivity(new Intent(this, TutorialActivity.class));
+        finish();
     }
 
     @Override

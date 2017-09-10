@@ -12,4 +12,13 @@
         <attr name="isUpperCase" format="boolean"/>
     </declare-styleable>
 
+    <declare-styleable name="StepIndicator">
+        <attr name="step_StepCount" format="integer" />
+        <attr name="step_Radius" format="dimension" />
+        <attr name="step_StrokeWidth" format="dimension" />
+        <attr name="step_StepColor" format="color" />
+        <attr name="step_CurrentStepColor" format="color" />
+        <attr name="step_BackgroundColor" format="color" />
+    </declare-styleable>
+
 </resources>

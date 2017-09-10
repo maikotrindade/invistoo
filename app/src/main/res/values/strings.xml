@@ -158,5 +158,21 @@
     <string name="suggestion">Sugestão</string>
     <string name="money_zero_hint">00,0</string>
     <string name="brt_currency">R$</string>
+    <string name="next">Próximo</string>
+    <string name="skip">Pular</string>
+
+
+    <string name="title_1_tutorial">Organize seus investimentos no Tesouro Direto</string>
+    <string name="message_1_tutorial">Registre seus investimentos no aplicativo e tenha em suas mãos os dados de seus investimentos no <u>Tesouro Direto</u>. </string>
+
+    <string name="title_2_tutorial">Cotações Atualizadas</string>
+    <string name="message_2_tutorial">Consulte as taxas e preços atualizados dos títulos públicos do Tesouro Direto na aba <u>Cotações</u>.</string>
+
+    <string name="title_3_tutorial">Metas de investimentos</string>
+    <string name="message_3_tutorial">Defina a porcentagem de cada tipo de ativo financeiro a ser investido e realize investimentos balanceados. Acesse essa funcionalidade pelo menu <u>Metas</u></string>
+
+    <string name="title_4_tutorial">O balanceamento da carteira</string>
+    <string name="message_4_tutorial">O aplicativo sugere <u>investimentos balanceados</u> de acordo com suas metas, a ideia é aumentar a <u>rentabilidade</u> e diminuir riscos.</string>
+    <string name="start">Começar</string>
 
 </resources>
