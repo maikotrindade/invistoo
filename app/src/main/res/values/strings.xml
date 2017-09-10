@@ -174,5 +174,10 @@
     <string name="title_4_tutorial">O balanceamento da carteira</string>
     <string name="message_4_tutorial">O aplicativo sugere <u>investimentos balanceados</u> de acordo com suas metas, a ideia é aumentar a <u>rentabilidade</u> e diminuir riscos.</string>
     <string name="start">Começar</string>
+    <string name="remember_me">Lembre-se de mim</string>
+    <string name="password">senha</string>
+    <string name="not_registered_yet">Não é cadastrado ainda?</string>
+    <string name="create_new_account">Criar uma nova conta</string>
+    <string name="email">email</string>
 
 </resources>

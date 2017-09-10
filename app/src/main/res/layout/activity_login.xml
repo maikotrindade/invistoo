@@ -35,9 +35,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:drawableLeft="@drawable/ic_person"
-                android:hint="email"
+                android:hint="@string/email"
                 android:inputType="textEmailAddress"
-                android:text="maiko@email.com"
                 android:textSize="@dimen/text_normal" />
 
             <EditText
@@ -46,9 +45,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
                 android:drawableLeft="@drawable/ic_password"
-                android:hint="password"
+                android:hint="@string/password"
                 android:inputType="textPassword"
-                android:text="maiko"
                 android:textSize="@dimen/text_normal" />
 
             <CheckBox
@@ -57,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
                 android:checked="true"
-                android:text="Lembre-se de mim"
+                android:text="@string/remember_me"
                 android:textColor="@color/material_grey_700"
                 android:textSize="@dimen/text_small" />
 
@@ -65,19 +63,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
-                android:text="Não é cadastrado ainda?"
+                android:text="@string/not_registered_yet"
                 android:textSize="@dimen/text_small" />
 
             <TextView
                 android:id="@+id/new_user_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Criar uma nova conta"
+                android:text="@string/create_new_account"
                 android:textColor="@color/material_blue_700"
                 android:textSize="@dimen/text_small" />
 
 
-            <com.jumbomob.invistoo.ui.component.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            <com.jumbomob.invistoo.ui.component.CircleImageView
                 android:id="@+id/login_button"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
