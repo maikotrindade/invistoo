@@ -25,6 +25,7 @@
     <string name="error_download_questions">Não foi possível atualizar as informações úteis.
         Por favor, tente novamente.</string>
     <string name="error_general">Ocorreu um erro, por favor tente novamente</string>
+    <string name="error_goal_asset_type_wrong">Por favor, selecione os Títulos públicos corretamente.</string>
     <string name="error_goal_asset_type_enum">Títulos públicos não podem ser repetidos.</string>
     <string name="error_goal_percentage">A porcentagem total dos objetivos deve ser igual a 100%</string>
     <string name="required_field">Campo Obrigatório</string>

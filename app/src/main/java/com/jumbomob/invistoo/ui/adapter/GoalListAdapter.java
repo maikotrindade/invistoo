@@ -1,6 +1,5 @@
 package com.jumbomob.invistoo.ui.adapter;
 
-import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -27,12 +26,9 @@ import java.util.List;
 public class GoalListAdapter extends RecyclerView.Adapter<GoalListAdapter.ViewHolder> {
 
     private List<Goal> mItems;
-    private int mPosition;
-    private Activity mActivity;
     private final static int FADE_DURATION = 300; // in milliseconds
 
-    public GoalListAdapter(Activity activity, List<Goal> goals) {
-        mActivity = activity;
+    public GoalListAdapter(List<Goal> goals) {
         mItems = goals;
     }
 
@@ -53,9 +49,7 @@ public class GoalListAdapter extends RecyclerView.Adapter<GoalListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        //temporary
         holder.setIsRecyclable(false);
-
         final Goal goal = mItems.get(position);
         final Double percent = goal.getPercent();
         if (percent != null) {
@@ -91,12 +85,23 @@ public class GoalListAdapter extends RecyclerView.Adapter<GoalListAdapter.ViewHo
                     goal.setAssetTypeEnum(assetType.getId());
                 }
             }
+
+            @Override
+            protected Object clone() throws CloneNotSupportedException {
+                return super.clone();
+            }
         });
 
         final Long assetTypeEnum = goal.getAssetTypeEnum();
         if (assetTypeEnum != null) {
             final int positionById = AssetTypeEnum.getPositionById(assetTypeEnum);
             holder.assetSpinner.setSelectedIndex(positionById);
+        } else {
+            final String assetTypeName = (String) holder.assetSpinner.getItems().get(0);
+            final AssetTypeEnum assetType = AssetTypeEnum.getByTitle(assetTypeName);
+            if (assetType != null) {
+                goal.setAssetTypeEnum(assetType.getId());
+            }
         }
 
         holder.removeGoalContainer.setOnClickListener(new View.OnClickListener() {

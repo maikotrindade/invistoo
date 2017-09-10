@@ -60,7 +60,11 @@ public class GoalsPresenter implements BasePresenter<GoalsView> {
         double sum = 0;
         for (Goal goal : goals) {
             sum += goal.getPercent();
-            assetTypeIds.add(goal.getId());
+            assetTypeIds.add(goal.getAssetTypeEnum());
+            if (goal.getAssetTypeEnum() == null) {
+                mView.showDialog(R.string.error, R.string.error_goal_asset_type_wrong);
+                return false;
+            }
         }
         if (sum != 100) {
             mView.showDialog(R.string.error, R.string.error_goal_percentage);

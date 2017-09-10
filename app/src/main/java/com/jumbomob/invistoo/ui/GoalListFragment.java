@@ -113,7 +113,7 @@ public class GoalListFragment extends BaseFragment implements GoalsView {
         mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.goals_recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mRootView.getContext()));
-        mAdapter = new GoalListAdapter(getActivity(), goals);
+        mAdapter = new GoalListAdapter(goals);
         mRecyclerView.setAdapter(mAdapter);
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
 
@@ -144,7 +144,7 @@ public class GoalListFragment extends BaseFragment implements GoalsView {
     @Override
     public void updateGoalList(final List<Goal> goals) {
         if (mAdapter == null) {
-            mAdapter = new GoalListAdapter(getActivity(), goals);
+            mAdapter = new GoalListAdapter(goals);
             mRecyclerView.setAdapter(mAdapter);
         } else {
             mAdapter.setItems(goals);
