@@ -107,7 +107,7 @@ public class AboutFragment extends BaseFragment implements AboutView {
     private void showLicensesDialog() {
         final Dialog dialog = new Dialog(mRootView.getContext());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.licenses_dialog);
+        dialog.setContentView(R.layout.dialog_licenses);
         dialog.setCancelable(true);
         dialog.setCanceledOnTouchOutside(true);
 

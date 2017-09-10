@@ -157,7 +157,7 @@ public class DashboardFragment extends BaseFragment implements DashboardView {
 
     private void showEditBalanceDialog(final long assetId, final Double oldValue, final int position) {
         final Dialog dialog = new Dialog(mRootView.getContext());
-        dialog.setContentView(R.layout.edit_balance_dialog);
+        dialog.setContentView(R.layout.dialog_edit_balance);
         dialog.setTitle(R.string.edit_total);
 
         final EditText balanceEdtText = (EditText) dialog.findViewById(R.id.balance_edit_text);

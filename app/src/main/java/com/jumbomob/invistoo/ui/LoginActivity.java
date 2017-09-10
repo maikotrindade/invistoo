@@ -106,14 +106,14 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     private void showRegisterNewUserDialog() {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.register_user_dialog);
+        dialog.setContentView(R.layout.dialog_register_user);
         dialog.setCancelable(true);
         dialog.setCanceledOnTouchOutside(true);
 
         final EditText emailEdtTxt = (EditText) dialog.findViewById(R.id.register_email_edit_text);
         final EditText passwordEdtTxt = (EditText) dialog.findViewById(R.id.register_password_text);
 
-        (dialog.findViewById(R.id.ok_text_view)).setOnClickListener(new View.OnClickListener() {
+        (dialog.findViewById(R.id.ok_button_container)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mPresenter.isValidEmailField(emailEdtTxt) && mPresenter.isValidField(passwordEdtTxt)) {

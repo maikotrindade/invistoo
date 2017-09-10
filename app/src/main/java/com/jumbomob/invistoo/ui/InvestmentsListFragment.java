@@ -148,7 +148,7 @@ public class InvestmentsListFragment extends BaseFragment implements InvestmentL
     @Override
     public void showContributionDialog() {
         final Dialog dialog = new Dialog(mRootView.getContext());
-        dialog.setContentView(R.layout.contribution_dialog);
+        dialog.setContentView(R.layout.dialog_contribution);
         dialog.setTitle(getString(R.string.new_contribution_title));
 
         final EditText contributionEdtText = (EditText)

@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_medium4"
             android:drawableLeft="@drawable/ic_person"
-            android:hint="e-mail"
+            android:hint="@string/email"
             android:inputType="textEmailAddress"
             android:textSize="@dimen/text_normal" />
 
@@ -42,24 +42,34 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
             android:drawableLeft="@drawable/ic_password"
-            android:hint="senha"
+            android:hint="@string/password"
             android:inputType="textPassword"
             android:textSize="@dimen/text_normal" />
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/ok_text_view"
+    <LinearLayout
+        android:id="@+id/ok_button_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
         android:layout_below="@id/register_container"
+        android:layout_alignParentRight="true"
+        android:background="@color/colorAccent"
+        android:elevation="2dp"
         android:layout_marginBottom="@dimen/margin_medium1"
         android:layout_marginRight="@dimen/margin_medium1"
         android:padding="@dimen/margin_small4"
-        android:text="@string/next_lbl"
-        android:textColor="@color/colorAccent"
-        android:textSize="@dimen/text_medium1"
-        android:typeface="monospace" />
+        android:gravity="center"
+        android:paddingBottom="12dp"
+        android:paddingTop="12dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/next"
+            android:textColor="@color/material_white_1000"
+            android:textSize="@dimen/text_medium1" />
+
+    </LinearLayout>
 
 </RelativeLayout>
