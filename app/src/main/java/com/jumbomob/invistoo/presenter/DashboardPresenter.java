@@ -16,6 +16,7 @@ import com.jumbomob.invistoo.model.persistence.BalanceDAO;
 import com.jumbomob.invistoo.model.persistence.InvestmentDAO;
 import com.jumbomob.invistoo.util.ChartUtil;
 import com.jumbomob.invistoo.util.InvistooApplication;
+import com.jumbomob.invistoo.util.NumericUtil;
 import com.jumbomob.invistoo.view.DashboardView;
 
 import java.util.ArrayList;
@@ -110,7 +111,7 @@ public class DashboardPresenter implements BasePresenter<DashboardView> {
         final List<Investment> soldInvestments = investmentDAO.findSoldInvestments(userUid);
         Double balanceSold = new Double(0);
         for (Investment sold : soldInvestments) {
-            balanceSold += Long.parseLong(sold.getPrice());
+            balanceSold += NumericUtil.getValidDouble(sold.getPrice());
         }
         return balanceSold;
     }

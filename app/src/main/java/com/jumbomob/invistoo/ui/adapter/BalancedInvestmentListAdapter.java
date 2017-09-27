@@ -44,7 +44,7 @@ public class BalancedInvestmentListAdapter extends RecyclerView.Adapter<Balanced
         AssetTypeEnum assetTypeEnum = AssetTypeEnum.getById(suggestion.getAssetType());
         holder.nameTxtView.setText(assetTypeEnum.getTitle());
         holder.investedTxtView.setText(NumericUtil.formatCurrency(suggestion.getTotal()));
-        holder.suggestionEdtTxt.setText(NumericUtil.formatDouble(Double.valueOf(suggestion.getSuggestion())));
+        holder.suggestionEdtTxt.setText(NumericUtil.formatCurrency(Double.valueOf(suggestion.getSuggestion())));
     }
 
     @Override

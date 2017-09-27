@@ -65,22 +65,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
-                    <TextView
-                        android:id="@+id/money_txt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="@dimen/margin_small0"
-                        android:text="@string/brt_currency"
-                        android:textSize="@dimen/text_medium_large" />
-
                     <EditText
                         android:id="@+id/suggestion_edit_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:textColor="@color/material_green_500"
                         android:layout_centerVertical="true"
-                        android:layout_toRightOf="@id/money_txt"
+                        android:enabled="false"
                         android:hint="@string/money_zero_hint"
                         android:inputType="number|numberSigned|numberDecimal"
                         android:textSize="@dimen/text_medium_large" />
