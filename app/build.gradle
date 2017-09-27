@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'realm-android'
+apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion 23
@@ -43,6 +44,7 @@ android {
 
 repositories {
     maven { url "https://jitpack.io" }
+    maven { url 'https://maven.fabric.io/public' }
 }
 
 dependencies {
@@ -60,4 +62,9 @@ dependencies {
     compile 'net.danlew:android.joda:2.9.4.2'
     compile 'com.jaredrummler:material-spinner:1.1.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
+        transitive = true;
+    }
 }
+
+apply plugin: 'com.google.gms.google-services'

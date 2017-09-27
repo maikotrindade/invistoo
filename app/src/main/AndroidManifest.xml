@@ -34,6 +34,10 @@
             android:name=".ui.TutorialActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="388bd98b822ad0e908095fa0dc5b730413431ba9" />
     </application>
 
 </manifest>
