@@ -273,4 +273,5 @@ public class DashboardFragment extends BaseFragment implements DashboardView {
             mPresenter.getChartData(mChart);
         }
     }
+
 }
