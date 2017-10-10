@@ -31,7 +31,6 @@ import java.util.List;
  */
 public class GoalListFragment extends BaseFragment implements GoalsView {
 
-    private static final String TAG = GoalListFragment.class.getSimpleName();
 
     private View mRootView;
     private GoalsPresenter mPresenter;
@@ -93,8 +92,7 @@ public class GoalListFragment extends BaseFragment implements GoalsView {
 
     @Override
     public void navigateToNewInvestmentScreen() {
-        ((BaseActivity) getActivity()).setFragment(InvestmentsListFragment.newInstance(), R.id.nav_investments,
-                getString(R.string.nav_investments));
+        ((BaseActivity) getActivity()).setFragmentWithStack(InvestmentsListFragment.newInstance(), getString(R.string.nav_investments));
     }
 
     @Override
@@ -103,6 +101,7 @@ public class GoalListFragment extends BaseFragment implements GoalsView {
     }
 
     private void configureElements() {
+        ((BaseActivity)getActivity()).updateNavigationDrawer(R.id.nav_goals);
         mNoGoalsLayout = (LinearLayout) mRootView.findViewById(R.id.no_goals_layout);
         configureRecyclerView();
         configureFab();

@@ -83,7 +83,7 @@ public class QuestionGroupListAdapter extends RecyclerView.Adapter<RecyclerView.
                     Bundle bundle = new Bundle();
                     bundle.putParcelable(ConstantsUtil.QUESTION_DETAILS_BUNDLE, question);
                     questionDetailsFragment.setArguments(bundle);
-                    ((BaseActivity) mActivity).setFragment(questionDetailsFragment);
+                    ((BaseActivity) mActivity).setFragmentWithStack(questionDetailsFragment, R.string.app_name);
                 }
             });
         }

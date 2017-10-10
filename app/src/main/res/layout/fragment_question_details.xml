@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:background="@color/material_white_1000"
     android:paddingRight="@dimen/activity_horizontal_margin"
     tools:context="com.jumbomob.invistoo.ui.QuestionDetailsFragment">
 

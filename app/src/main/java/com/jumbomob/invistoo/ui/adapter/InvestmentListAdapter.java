@@ -136,7 +136,7 @@ public class InvestmentListAdapter extends RecyclerView.Adapter<InvestmentListAd
 
     private void changeToMoreInfoScreen(final Investment investment) {
         //TODO
-        //((BaseActivity) mContext).setFragment(, final String title)
+        //((BaseActivity) mContext).setFragmentWithStack(, final String title)
     }
 
     private void showDialogRemoveInvestment(final Investment investment) {

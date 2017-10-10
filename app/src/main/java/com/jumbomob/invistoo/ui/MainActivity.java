@@ -10,7 +10,7 @@ public class MainActivity extends BaseActivity implements MainView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setFragment(DashboardFragment.newInstance(), R.id.nav_home, getString(R.string.title_dashboard));
+        setFragmentWithStack(DashboardFragment.newInstance(), getString(R.string.title_dashboard));
     }
 
     @Override

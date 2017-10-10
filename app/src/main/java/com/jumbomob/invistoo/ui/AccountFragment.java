@@ -67,6 +67,7 @@ public class AccountFragment extends BaseFragment implements AccountView {
     }
 
     private void configureElements() {
+        ((BaseActivity)getActivity()).updateNavigationDrawer(R.id.nav_account);
         mUserImgContainer = (RelativeLayout) mRootView.findViewById(R.id.user_image_container);
         mSendButton = (Button) mRootView.findViewById(R.id.send_button);
         mNameEdtText = (EditText) mRootView.findViewById(R.id.name_edit_text);

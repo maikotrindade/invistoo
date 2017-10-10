@@ -34,12 +34,12 @@ public class QuestionDetailsFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mRootView = inflater.inflate(R.layout.fragment_question_details, container, false);
-
         configureElements();
         return mRootView;
     }
 
     private void configureElements() {
+        ((BaseActivity)getActivity()).updateNavigationDrawer(R.id.nav_useful_information);
         final Bundle arguments = getArguments();
         final Question question = arguments.getParcelable(ConstantsUtil.QUESTION_DETAILS_BUNDLE);
 

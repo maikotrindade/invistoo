@@ -55,7 +55,7 @@ public class AboutFragment extends BaseFragment implements AboutView {
     }
 
     private void configureElements() {
-
+        ((BaseActivity)getActivity()).updateNavigationDrawer(R.id.nav_about);
         final LinearLayout rateUsContainer = (LinearLayout) mRootView.findViewById(R.id.rate_us_container);
         rateUsContainer.setOnClickListener(new View.OnClickListener() {
             @Override

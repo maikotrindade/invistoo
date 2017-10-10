@@ -61,7 +61,7 @@ public class InvestmentsListFragment extends BaseFragment implements InvestmentL
         mPresenter = new InvestmentListPresenter(this);
         configureInvestmentList();
         configureFab();
-
+        ((BaseActivity)getActivity()).updateNavigationDrawer(R.id.nav_investments);
         return mRootView;
     }
 
@@ -131,7 +131,7 @@ public class InvestmentsListFragment extends BaseFragment implements InvestmentL
         Bundle bundle = new Bundle();
         bundle.putParcelableArrayList(ConstantsUtil.SUGGESTIONS_BUNDLE, suggestions);
         fragment.setArguments(bundle);
-        ((BaseActivity) getActivity()).setFragment(fragment, getActivity().getString(R.string.title_new_investment));
+        ((BaseActivity) getActivity()).setFragmentWithStack(fragment, R.string.title_new_investment);
     }
 
     private void configureFab() {
@@ -208,8 +208,7 @@ public class InvestmentsListFragment extends BaseFragment implements InvestmentL
                         bundle.putBoolean(ConstantsUtil.NEW_INVESTMENTS_FROM_GOALS_FLOW, true);
                         final GoalListFragment goalListFragment = GoalListFragment.newInstance();
                         goalListFragment.setArguments(bundle);
-                        ((BaseActivity) getActivity()).setFragment(goalListFragment, R.id.nav_goals,
-                                getString(R.string.title_goals));
+                        ((BaseActivity) getActivity()).setFragmentWithStack(goalListFragment, getString(R.string.title_goals));
                     }
                 }, null);
     }

@@ -89,38 +89,33 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
                 });
     }
 
+
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
         switch (id) {
-            case R.id.nav_home:
-                setFragment(DashboardFragment.newInstance(), R.id.nav_home, getString
+            case R.id.nav_dashboard:
+                setFragmentWithStack(DashboardFragment.newInstance(), getString
                         (R.string.title_dashboard));
                 break;
             case R.id.nav_investments:
-                setFragment(InvestmentsListFragment.newInstance(), R.id.nav_investments,
-                        getString(R.string.my_investments));
+                setFragmentWithStack(InvestmentsListFragment.newInstance(), getString(R.string.my_investments));
                 break;
-            case R.id.nav_indexes:
-                setFragment(AssetListFragment.newInstance(), R.id.nav_indexes,
-                        getString(R.string.title_indexes));
+            case R.id.nav_assets:
+                setFragmentWithStack(AssetListFragment.newInstance(), getString(R.string.title_indexes));
                 break;
             case R.id.nav_useful_information:
-                setFragment(QuestionListFragment.newInstance(), R.id
-                        .nav_useful_information, getString(R.string.title_useful_information));
+                setFragmentWithStack(QuestionListFragment.newInstance(), getString(R.string.title_useful_information));
                 break;
             case R.id.nav_goals:
-                setFragment(GoalListFragment.newInstance(), R.id.nav_goals,
-                        getString(R.string.title_goals));
+                setFragmentWithStack(GoalListFragment.newInstance(), getString(R.string.title_goals));
                 break;
             case R.id.nav_about:
-                setFragment(AboutFragment.newInstance(), R.id.nav_about,
-                        getString(R.string.title_about));
+                setFragmentWithStack(AboutFragment.newInstance(), getString(R.string.title_about));
                 break;
             case R.id.nav_account:
-                setFragment(AccountFragment.newInstance(), R.id.nav_account,
-                        getString(R.string.title_account));
+                setFragmentWithStack(AccountFragment.newInstance(), getString(R.string.title_account));
                 break;
             case R.id.nav_logout:
                 logoutAccount();
@@ -130,50 +125,25 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
         return true;
     }
 
-    protected void setFragment(final Fragment fragment, final int navigationItemId,
-                               final String title) {
+    public void setFragmentWithStack(final Fragment fragment, final int titleResourceId) {
+        setFragmentWithStack(fragment, getString(titleResourceId != 0 ? titleResourceId : R.string.app_name));
+    }
 
+    protected void setFragmentWithStack(final Fragment fragment, final String title) {
         final String fragmentTag = fragment.getClass().getName();
-        boolean fragmentPopped = mFragmentManager.popBackStackImmediate(fragmentTag, 0);
-        if (!fragmentPopped && mFragmentManager.findFragmentByTag(fragmentTag) == null) {
-
-            mFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-
-            mFragmentManager.beginTransaction()
-                    .replace(R.id.content, fragment, fragmentTag)
-                    .addToBackStack(fragmentTag)
-                    .commit();
-            mFragmentManager.executePendingTransactions();
-
-            setTitle(title);
-            InvistooUtil.hideKeyboard(this);
-            mNavigationView.setCheckedItem(navigationItemId);
-        }
-
+        mFragmentManager.beginTransaction()
+                .replace(R.id.content, fragment, fragmentTag)
+                .addToBackStack(fragmentTag)
+                .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.fade_out)
+                .commit();
+        mFragmentManager.executePendingTransactions();
+        setTitle(title);
+        InvistooUtil.hideKeyboard(this);
         mDrawerLayout.closeDrawer(GravityCompat.START);
     }
 
-    public void setFragment(final Fragment fragment, final String title) {
-        final String fragmentTag = fragment.getClass().getName();
-        mFragmentManager.beginTransaction()
-                .replace(R.id.content, fragment, fragmentTag)
-                .addToBackStack(fragmentTag)
-                .commit();
-        mFragmentManager.executePendingTransactions();
-
-        InvistooUtil.hideKeyboard(this);
-        setTitle(title);
-    }
-
-    public void setFragment(final Fragment fragment) {
-        final String fragmentTag = fragment.getClass().getName();
-        mFragmentManager.beginTransaction()
-                .replace(R.id.content, fragment, fragmentTag)
-                .addToBackStack(fragmentTag)
-                .commit();
-        mFragmentManager.executePendingTransactions();
-
-        InvistooUtil.hideKeyboard(this);
+    public void updateNavigationDrawer(int navigationItem) {
+        mNavigationView.setCheckedItem(navigationItem);
     }
 
     public void goBackFragment() {
@@ -227,7 +197,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
             container.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    setFragment(AccountFragment.newInstance(), R.id.nav_account, getString(R.string.title_account));
+                    setFragmentWithStack(AccountFragment.newInstance(), getString(R.string.title_account));
                 }
             });
 

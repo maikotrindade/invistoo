@@ -68,6 +68,7 @@ public class DashboardFragment extends BaseFragment implements DashboardView {
         configureChart();
         configureBalance();
         configureAssetBalance();
+        ((BaseActivity)getActivity()).updateNavigationDrawer(R.id.nav_dashboard);
         return mRootView;
     }
 
@@ -262,8 +263,7 @@ public class DashboardFragment extends BaseFragment implements DashboardView {
         newInvestmentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((BaseActivity) getActivity()).setFragment(InvestmentsListFragment.newInstance(), R.id.nav_investments,
-                        getString(R.string.my_investments));
+                ((BaseActivity) getActivity()).setFragmentWithStack(InvestmentsListFragment.newInstance(), getString(R.string.my_investments));
             }
         });
     }

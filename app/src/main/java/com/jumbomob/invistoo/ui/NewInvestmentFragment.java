@@ -65,6 +65,7 @@ public class NewInvestmentFragment extends BaseFragment implements NewInvestment
     }
 
     private void configureElements() {
+        ((BaseActivity)getActivity()).updateNavigationDrawer(R.id.nav_investments);
         final Bundle arguments = getArguments();
         final ArrayList<InvestmentSuggestionDTO> suggestions = arguments.getParcelableArrayList(ConstantsUtil.SUGGESTIONS_BUNDLE);
         configureRecyclerView(suggestions);

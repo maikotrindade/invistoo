@@ -55,6 +55,7 @@ public class AssetListFragment extends BaseFragment implements AssetListView {
     }
 
     private void configureRecyclerView() {
+        ((BaseActivity)getActivity()).updateNavigationDrawer(R.id.nav_assets);
         mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.assets_recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mRootView.getContext()));

@@ -48,9 +48,9 @@ public class QuestionListFragment extends BaseFragment implements QuestionListVi
         super.onCreate(savedInstanceState);
         mRootView = inflater.inflate(R.layout.fragment_question_list, container, false);
         mPresenter = new QuestionListPresenter(this);
-
         configureRecyclerView();
         configureSwipe();
+        ((BaseActivity)getActivity()).updateNavigationDrawer(R.id.nav_useful_information);
         return mRootView;
     }
 
@@ -153,8 +153,5 @@ public class QuestionListFragment extends BaseFragment implements QuestionListVi
             mAdapter.setItems(questionSectionItems);
             mAdapter.notifyDataSetChanged();
         }
-
-
     }
-
 }
