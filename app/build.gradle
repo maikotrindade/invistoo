@@ -19,8 +19,8 @@ android {
         applicationId "com.jumbomob.invistoo"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1"
     }
     buildTypes {
         release {
@@ -70,7 +70,6 @@ dependencies {
     compile 'com.firebase:firebase-client-android:2.5.2'
     compile 'net.danlew:android.joda:2.9.4.2'
     compile 'com.jaredrummler:material-spinner:1.1.0'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
         transitive = true;
     }
