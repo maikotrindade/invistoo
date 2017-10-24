@@ -81,6 +81,7 @@ public class QuestionDetailsFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse(referenceUrl)));
+                    getActivity().overridePendingTransition(R.anim.fadein, R.anim.fadeout);
                 }
             });
         } else {

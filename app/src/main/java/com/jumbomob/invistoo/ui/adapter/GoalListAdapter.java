@@ -2,7 +2,6 @@ package com.jumbomob.invistoo.ui.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +15,7 @@ import com.jumbomob.invistoo.R;
 import com.jumbomob.invistoo.model.entity.AssetTypeEnum;
 import com.jumbomob.invistoo.model.entity.Goal;
 import com.jumbomob.invistoo.model.persistence.GoalDAO;
+import com.jumbomob.invistoo.util.NumericUtil;
 
 import java.util.List;
 
@@ -24,6 +24,8 @@ import java.util.List;
  * @since 06/02/2016
  */
 public class GoalListAdapter extends RecyclerView.Adapter<GoalListAdapter.ViewHolder> {
+
+    private static final String TAG = GoalListAdapter.class.getSimpleName();
 
     private List<Goal> mItems;
     private final static int FADE_DURATION = 300; // in milliseconds
@@ -53,15 +55,12 @@ public class GoalListAdapter extends RecyclerView.Adapter<GoalListAdapter.ViewHo
         final Goal goal = mItems.get(position);
         final Double percent = goal.getPercent();
         if (percent != null) {
-            holder.percentageEditText.setText(String.valueOf(percent));
+            holder.percentageEditText.setText(NumericUtil.formatDouble(percent));
         }
 
         holder.percentageEditText.addTextChangedListener(new TextWatcher() {
             public void onTextChanged(CharSequence textChanged, int start, int before, int count) {
-                final String percentage = textChanged.toString();
-                if (!TextUtils.isEmpty(percentage)) {
-                    updatePercentage(goal, Double.valueOf(percentage));
-                }
+                updatePercentage(goal, NumericUtil.getValidDouble(textChanged.toString()));
             }
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -101,6 +100,8 @@ public class GoalListAdapter extends RecyclerView.Adapter<GoalListAdapter.ViewHo
             final AssetTypeEnum assetType = AssetTypeEnum.getByTitle(assetTypeName);
             if (assetType != null) {
                 goal.setAssetTypeEnum(assetType.getId());
+                holder.assetSpinner.setSelectedIndex(0);
+                insertGoal(goal);
             }
         }
 

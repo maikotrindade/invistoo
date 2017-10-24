@@ -55,7 +55,7 @@ public class AssetListFragment extends BaseFragment implements AssetListView {
     }
 
     private void configureRecyclerView() {
-        ((BaseActivity)getActivity()).updateNavigationDrawer(R.id.nav_assets);
+        ((BaseActivity) getActivity()).updateNavigationDrawer(R.id.nav_assets);
         mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.assets_recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mRootView.getContext()));
@@ -155,13 +155,8 @@ public class AssetListFragment extends BaseFragment implements AssetListView {
 
     @Override
     public void updateAssetList(final List<Asset> assets) {
-        if (mAdapter == null) {
-            mAdapter = new AssetListAdapter(getActivity(), assets);
-            mRecyclerView.setAdapter(mAdapter);
-        } else {
-            mAdapter.setItems(assets);
-            mAdapter.notifyDataSetChanged();
-        }
+        mAdapter = new AssetListAdapter(assets);
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     @Override

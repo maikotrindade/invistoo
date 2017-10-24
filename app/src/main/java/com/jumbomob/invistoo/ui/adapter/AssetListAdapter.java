@@ -1,6 +1,5 @@
 package com.jumbomob.invistoo.ui.adapter;
 
-import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -24,16 +23,15 @@ public class AssetListAdapter extends RecyclerView.Adapter<AssetListAdapter.View
 
     private List<Asset> mAssets;
     private int mPosition;
-    private Activity mActivity;
     private onSearchResultListener mSearchListener;
 
-    public AssetListAdapter(Activity activity, List<Asset> assets) {
-        mActivity = activity;
+    public AssetListAdapter(List<Asset> assets) {
         mAssets = assets;
     }
 
     public void setItems(List<Asset> assets) {
-        this.mAssets = assets;
+        mAssets.clear();
+        mAssets.addAll(assets);
     }
 
     public List<Asset> getAssets() {

@@ -87,12 +87,14 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     public void redirectToTutorialsScreens() {
         startActivity(new Intent(this, TutorialActivity.class));
         finish();
+        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
     }
 
     @Override
     public void onLoginSuccess() {
         startActivity(new Intent(this, MainActivity.class));
         finish();
+        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
     }
 
     @Override
@@ -101,6 +103,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         mPresenter.loadUser(user);
         startActivity(new Intent(this, MainActivity.class));
         finish();
+        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
     }
 
     private void showRegisterNewUserDialog() {

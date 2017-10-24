@@ -86,7 +86,7 @@
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/invistoo_ripple_button"
+        android:background="@drawable/rounded_button"
         android:padding="20dp"
         android:text="@string/send_button"
         android:textColor="@color/material_white_1000"

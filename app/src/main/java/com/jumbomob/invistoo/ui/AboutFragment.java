@@ -55,7 +55,7 @@ public class AboutFragment extends BaseFragment implements AboutView {
     }
 
     private void configureElements() {
-        ((BaseActivity)getActivity()).updateNavigationDrawer(R.id.nav_about);
+        ((BaseActivity) getActivity()).updateNavigationDrawer(R.id.nav_about);
         final LinearLayout rateUsContainer = (LinearLayout) mRootView.findViewById(R.id.rate_us_container);
         rateUsContainer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +76,7 @@ public class AboutFragment extends BaseFragment implements AboutView {
                 intent.setData(Uri.parse(mailToParse));
                 intent.putExtra(Intent.EXTRA_SUBJECT, subject);
                 startActivity(Intent.createChooser(intent, getString(R.string.send_suggestion)));
+                getActivity().overridePendingTransition(R.anim.fadein, R.anim.fadeout);
             }
         });
 
@@ -102,6 +103,7 @@ public class AboutFragment extends BaseFragment implements AboutView {
             startActivity(new Intent(Intent.ACTION_VIEW,
                     Uri.parse("http://play.google.com/store/apps/details?id=" + mRootView.getContext().getPackageName())));
         }
+        getActivity().overridePendingTransition(R.anim.fadein, R.anim.fadeout);
     }
 
     private void showLicensesDialog() {

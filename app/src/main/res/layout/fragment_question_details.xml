@@ -3,9 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/material_white_1000"
+    android:fitsSystemWindows="true"
     android:orientation="vertical"
     android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:background="@color/material_white_1000"
     android:paddingRight="@dimen/activity_horizontal_margin"
     tools:context="com.jumbomob.invistoo.ui.QuestionDetailsFragment">
 
@@ -81,7 +82,7 @@
             android:layout_marginLeft="@dimen/margin_medium1"
             android:layout_marginRight="@dimen/margin_medium1"
             android:layout_marginTop="@dimen/margin_medium4"
-            android:background="@drawable/invistoo_ripple_button"
+            android:background="@drawable/rounded_button"
             android:text="@string/read_more_button"
             android:textColor="@color/material_white_1000"
             android:textSize="@dimen/text_medium"
