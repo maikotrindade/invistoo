@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/group_user"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_dashboard"
+            android:icon="@drawable/ic_home"
+            android:title="@string/title_dashboard" />
+        <item
+            android:id="@+id/nav_investments"
+            android:icon="@mipmap/ic_savings"
+            android:title="@string/nav_investments" />
+        <item
+            android:id="@+id/nav_assets"
+            android:icon="@mipmap/ic_chart_1"
+            android:title="@string/nav_indexes" />
+        <item
+            android:id="@+id/nav_useful_information"
+            android:icon="@drawable/ic_info"
+            android:title="@string/nav_useful_information" />
+        <item
+            android:id="@+id/nav_goals"
+            android:icon="@drawable/ic_flag"
+            android:title="@string/nav_goals" />
+    </group>
+
+    <group
+        android:id="@+id/group_app"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_help"
+            android:title="@string/nav_about" />
+        <item
+            android:id="@+id/nav_account"
+            android:icon="@drawable/ic_person"
+            android:title="@string/nav_account" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_logout"
+            android:title="@string/nav_logout" />
+    </group>
+
+</menu>

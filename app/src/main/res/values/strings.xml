@@ -1,0 +1,183 @@
+<resources>
+    <string name="app_name">Invistoo</string>
+    <string name="app_label">Invistoo</string>
+    <string name="author_name">Maiko Trindade</string>
+    <string name="author_email">maikocharles@gmail.com</string>
+
+    <!-- Navigation -->
+    <string name="navigation_drawer_open">Open</string>
+    <string name="navigation_drawer_close">Close</string>
+    <string name="nav_home">Início</string>
+    <string name="nav_investments">Investimentos</string>
+    <string name="nav_indexes">Cotação</string>
+    <string name="nav_brokerage">Corretoras</string>
+    <string name="nav_useful_information">Informações Úteis</string>
+    <string name="nav_goals">Metas</string>
+    <string name="nav_about">Sobre</string>
+    <string name="nav_account">Conta</string>
+    <string name="nav_logout">Sair</string>
+
+    <!-- Errors -->
+    <string name="error">Erro</string>
+    <string name="error_download_assets">Não foi possível atualizar a cotação de títulos públicos.
+        Por favor, tente novamente.
+        again.</string>
+    <string name="error_download_questions">Não foi possível atualizar as informações úteis.
+        Por favor, tente novamente.</string>
+    <string name="error_general">Ocorreu um erro, por favor tente novamente</string>
+    <string name="error_goal_asset_type_wrong">Por favor, selecione os Títulos públicos corretamente.</string>
+    <string name="error_goal_asset_type_enum">Títulos públicos não podem ser repetidos.</string>
+    <string name="error_goal_percentage">A porcentagem total dos objetivos deve ser igual a 100%</string>
+    <string name="required_field">Campo Obrigatório</string>
+    <string name="invalid_email">E-mail Inválido</string>
+    <string name="no_internet_connection">Sem conexão a internet</string>
+
+    <!-- Titles -->
+    <string name="title_indexes">Cotação</string>
+    <string name="my_investments">Investimentos</string>
+    <string name="title_new_investment">Novo Investimento</string>
+    <string name="title_useful_information">Informações Úteis</string>
+    <string name="title_goals">Metas</string>
+    <string name="title_dashboard">Painel de Controle</string>
+    <string name="title_account">Conta</string>
+    <string name="title_about">Sobre</string>
+    <string name="title_brokerage">Corretoras</string>
+    <string name="action_save">Salvar</string>
+    <string name="action_order_by_asset">Ordenar por ativo</string>
+    <string name="action_order_by_date">Ordenar por data</string>
+    <string name="action_group_investments">Agrupar Investimentos</string>
+    <string name="action_settings">Configurações</string>
+    <string name="NO">NÃO</string>
+    <string name="YES">SIM</string>
+    <string name="OK">OK</string>
+    <string name="ok">ok</string>
+    <string name="msg_asset_questions_success">Informações úteis atualizadas com sucesso</string>
+    <string name="msg_asset_updated_success">Cotação atualizada com sucesso</string>
+    <string name="msg_goals_success">Metas salvas com sucesso</string>
+    <string name="msg_save_investment">Investimento salvo com sucesso</string>
+    <string name="investment">Investimento</string>
+    <string name="balanced_investment">Investmento Balanceado</string>
+    <string name="no_synced">Não sincronizado</string>
+    <string name="search_title">Search Title</string>
+    <string name="search_hint">Pesquisar</string>
+    <string name="todo">Not implemented yet!</string>
+    <string name="percentage">Porcentagem</string>
+    <string name="title">Título</string>
+    <string name="show_hide_assets">Mostar/esconder cotações compráveis</string>
+    <string name="search">Pesquisar</string>
+
+    <string name="msg_goals_defined">Metas definidas com sucesso!</string>
+    <string name="quantity">Quantidade</string>
+    <string name="price">Preço</string>
+    <string name="value">Valor</string>
+    <string name="last_update">Última Atualização</string>
+    <string name="date">Data</string>
+    <string name="due_date">Vencimento</string>
+    <string name="buy_price">Compra</string>
+    <string name="sell_price">Venda</string>
+
+    <string name="loading">Carregando</string>
+    <string name="loading_assets">Carregando as cotações</string>
+    <string name="loading_questions">Carregando as informações úteis</string>
+    <string name="loading_investments">Carregando seus investimentos</string>
+    <string name="loading_brokerages">Carregando informações sobre as corretoras</string>
+
+    <string name="no_data_chart">Sem dados para serem mostrados</string>
+    <string name="new_contribution_title">Novo investimento</string>
+    <string name="new_contribution_message">Valor do novo investimento:</string>
+    <string name="confirm">Confirmar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="invested">Investido</string>
+
+    <string name="loading_login">Entrando...</string>
+    <string name="loading_register">Criando conta...</string>
+
+    <string name="select_image">Selecione uma imagem de perfil</string>
+    <string name="account_saved_message">Perfil atualizado com sucesso</string>
+
+    <string name="last_update_days">Atualizado a %1$d dias atrás</string>
+    <string name="last_update_day">Atualizado a %1$d dia atrás</string>
+    <string name="last_update_hours">Atualizado a %1$d horas atrás</string>
+    <string name="last_update_hour">Atualizado a %1$d hora atrás</string>
+    <string name="last_update_minutes">Atualizado a %1$d minutos atrás</string>
+    <string name="last_update_minute">Atualizado a %1$d minuto atrás</string>
+    <string name="last_update_less_than_minute">Atualizado recentemente</string>
+    <string name="last_update_time">Atualizado em %1$s</string>
+    <string name="status_action_menu">Status</string>
+    <string name="sold_action_menu">Marcar como venda</string>
+    <string name="bought_action_menu">Marcar como compra</string>
+
+    <string name="limit_goals">Você atingiu o limite de metas.</string>
+    <string name="more_info_action_menu">Mais informações</string>
+    <string name="remove">Remover</string>
+    <string name="remove_investment_title">Remover</string>
+    <string name="quit_message">Você deseja realmente sair do aplicativo?</string>
+    <string name="remove_investment_message">Você deseja realmente remover este investimento?</string>
+    <string name="register_goals_message">Você precisa definir suas metas antes de registrar um novo investimento</string>
+    <string name="balance">Balanço</string>
+    <string name="invested_sum">Total Investido</string>
+    <string name="sold_sum">Total retirado</string>
+
+    <string name="vaild_contribution">Digite um valor válido.</string>
+
+    <string name="update_user_profile_success_message">A conta foi alterada com sucesso.</string>
+
+    <string name="goals_more_info_message">A estratégia para aumentar a rentabilidade e diminuir riscos é simples: rebalancear a carteira de acordo com <b>metas</b>, assim o investidor vende ativos que subiram para comprar ativos que caíram de preço no mercado.
+        \nMas para isto deve-se traçar <b>metas</b>: escolher a porcentagem de cada tipo de ativo financeiro a ser investido.</string>
+    <string name="no_investments_performed">Nenhum investimento realizado.</string>
+    <string name="assets_error">Não possível obter as cotações atualizadas.</string>
+    <string name="no_goal_defined">Nenhuma meta definida.</string>
+    <string name="rate_us">Avalie este aplicativo</string>
+    <string name="send_suggestion">Envie sua sugestão</string>
+    <string name="new_password_hint">Nova Senha</string>
+    <string name="new_email_hint">Novo E-mail</string>
+    <string name="name_hint">Nome</string>
+    <string name="send_button">Enviar</string>
+    <string name="read_more_button">Leia Mais</string>
+
+    <string name="email_suggestion">Invistoo [Sugestão]"</string>
+
+    <string name="written_by">Escrito por %1$s</string>
+    <string name="numberOfItem">%1$d item</string>
+    <string name="numberOfItems">%1$d itens</string>
+    <string name="details_opensource_text">Detalhes de licenças de software <i>open source</i></string>
+    <string name="licenses_opensource">Licenças Open Source</string>
+    <string name="new_account_title">NOVA CONTA</string>
+    <string name="next_lbl">PRÓXIMO</string>
+    <string name="edit_total">Editar total</string>
+    <string name="balance_updated_successfully">Balanço atualizado com sucesso</string>
+    <string name="error_negative_balance">Digite um novo valor válido</string>
+    <string name="update_balance_error">Não foi possível atualizar o balanço</string>
+    <string name="by_asset">Extrato por ativo</string>
+    <string name="enter_new_total_asset_msg">Digite o novo valor total investido no ativo financeiro selecionado:</string>
+    <string name="fill_field_correctly">Preencha o campo corretamente.</string>
+    <string name="edit_account">Editar Conta</string>
+    <string name="build_version">Versão da Build</string>
+    <string name="chart_by_asset">Gráfico por ativo</string>
+    <string name="wrong_value_contribution">Sem sugestões de balanceamento pois o valor do aporte é muito abaixo.</string>
+    <string name="suggestion">Sugestão</string>
+    <string name="money_zero_hint">00,0</string>
+    <string name="brt_currency">R$</string>
+    <string name="next">Próximo</string>
+    <string name="skip">Pular</string>
+
+
+    <string name="title_1_tutorial">Organize seus investimentos no Tesouro Direto</string>
+    <string name="message_1_tutorial">Registre seus investimentos no aplicativo e tenha em suas mãos os dados de seus investimentos no <u>Tesouro Direto</u>. </string>
+
+    <string name="title_2_tutorial">Cotações Atualizadas</string>
+    <string name="message_2_tutorial">Consulte as taxas e preços atualizados dos títulos públicos do Tesouro Direto na aba <u>Cotações</u>.</string>
+
+    <string name="title_3_tutorial">Metas de investimentos</string>
+    <string name="message_3_tutorial">Defina a porcentagem de cada tipo de ativo financeiro a ser investido e realize investimentos balanceados. Acesse essa funcionalidade pelo menu <u>Metas</u></string>
+
+    <string name="title_4_tutorial">O balanceamento da carteira</string>
+    <string name="message_4_tutorial">O aplicativo sugere <u>investimentos balanceados</u> de acordo com suas metas, a ideia é aumentar a <u>rentabilidade</u> e diminuir riscos.</string>
+    <string name="start">Começar</string>
+    <string name="remember_me">Lembre-se de mim</string>
+    <string name="password">senha</string>
+    <string name="not_registered_yet">Não é cadastrado ainda?</string>
+    <string name="create_new_account">Criar uma nova conta</string>
+    <string name="email">email</string>
+
+</resources>

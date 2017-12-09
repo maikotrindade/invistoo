@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CircleImageView">
+        <attr name="civ_border_width" format="dimension"/>
+        <attr name="civ_border_color" format="color"/>
+        <attr name="civ_border_overlay" format="boolean"/>
+        <attr name="civ_fill_color" format="color"/>
+    </declare-styleable>
+
+    <declare-styleable name="InvistooButton">
+        <attr name="hasSpacing" format="boolean"/>
+        <attr name="isUpperCase" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="StepIndicator">
+        <attr name="step_StepCount" format="integer" />
+        <attr name="step_Radius" format="dimension" />
+        <attr name="step_StrokeWidth" format="dimension" />
+        <attr name="step_StepColor" format="color" />
+        <attr name="step_CurrentStepColor" format="color" />
+        <attr name="step_BackgroundColor" format="color" />
+    </declare-styleable>
+
+</resources>

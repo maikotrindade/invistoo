@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_horizontal_small_margin"
+        android:layout_marginStart="@dimen/activity_horizontal_small_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_small_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_small_margin"
+        android:layout_marginTop="@dimen/activity_vertical_small_margin"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/balance_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/full_border_grey"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_margin="@dimen/margin_small2"
+                    android:fontFamily="sans-serif-thin"
+                    android:text="@string/balance"
+                    android:textSize="@dimen/text_normal"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/minimize_image_view"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_alignParentRight="true"
+                    android:padding="@dimen/margin_small1"
+                    android:src="@drawable/ic_minimize" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/balance_sub_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_small2"
+                android:layout_marginRight="@dimen/margin_small2"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/invested_sum"
+                        android:textSize="@dimen/text_extra_small2" />
+
+                    <com.jumbomob.invistoo.ui.component.ResizableTextView
+                        android:id="@+id/balance_bought_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginBottom="@dimen/margin_small2"
+                        android:fontFamily="sans-serif-thin"
+                        android:maxLines="1"
+                        android:textSize="@dimen/text_x_large" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_small2"
+                    android:layout_marginRight="@dimen/margin_small2"
+                    android:layout_weight="5"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sold_sum"
+                        android:textSize="@dimen/text_extra_small2" />
+
+                    <com.jumbomob.invistoo.ui.component.ResizableTextView
+                        android:id="@+id/balance_sold_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin_small2"
+                        android:fontFamily="sans-serif-thin"
+                        android:maxLines="1"
+                        android:textSize="@dimen/text_x_large" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/balance_assets_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/full_border_grey"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_margin="@dimen/margin_small2"
+                    android:fontFamily="sans-serif-thin"
+                    android:text="@string/by_asset"
+                    android:textSize="@dimen/text_normal"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/minimize_assets_image_view"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_alignParentRight="true"
+                    android:padding="@dimen/margin_small1"
+                    android:src="@drawable/ic_minimize" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/balance_assets_sub_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_small2"
+                android:layout_marginRight="@dimen/margin_small2"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/balance_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/new_investment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/margin_small4"
+            android:layout_marginTop="@dimen/margin_small4"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:id="@+id/new_investment_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/circle_border_grey"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="@dimen/margin_large">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:text="Simule um \nnovo Investimento"
+                    android:textAlignment="center" />
+
+                <ImageView
+                    android:layout_width="172px"
+                    android:layout_height="172px"
+                    android:layout_marginTop="@dimen/margin_small4"
+                    android:clickable="false"
+                    android:src="@drawable/savings" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/investments_chart_container"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/full_border_grey"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_margin="@dimen/margin_small2"
+                android:fontFamily="sans-serif-thin"
+                android:text="@string/chart_by_asset"
+                android:textSize="@dimen/text_normal"
+                android:textStyle="bold" />
+
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/investments_chart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

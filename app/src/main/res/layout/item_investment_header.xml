@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/margin_medium2"
+    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+    android:layout_marginTop="@dimen/margin_small3"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <com.jumbomob.invistoo.ui.component.ResizableTextView
+        android:id="@+id/header_title_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:lines="1"
+        android:text="Tesouro Selic 2021"
+        android:textColor="@color/material_grey_900"
+        android:textSize="@dimen/text_medium1" />
+
+</LinearLayout>

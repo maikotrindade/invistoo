@@ -1,0 +1,95 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+    android:layout_marginRight="@dimen/activity_horizontal_margin"
+    android:background="@color/material_white_1000"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context="com.jumbomob.invistoo.ui.QuestionDetailsFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/question_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_small4"
+            android:layout_marginTop="@dimen/margin_medium1"
+            android:textAlignment="center"
+            android:textSize="@dimen/text_medium_large" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_small1"
+            android:layout_marginLeft="@dimen/margin_small3"
+            android:layout_marginTop="@dimen/margin_small3">
+
+            <TextView
+                android:id="@+id/group_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginBottom="@dimen/margin_medium"
+                android:textSize="@dimen/text_medium"
+                android:textStyle="bold|italic" />
+
+            <TextView
+                android:id="@+id/datetime_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_margin="@dimen/margin_small1"
+                android:layout_marginBottom="@dimen/margin_medium"
+                android:paddingLeft="@dimen/margin_small4"
+                android:paddingRight="@dimen/margin_small4"
+                android:paddingTop="@dimen/margin_small0"
+                android:text="Data"
+                android:textSize="@dimen/text_extra_small1" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/answer_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_small3"
+            android:layout_marginRight="@dimen/margin_small3"
+            android:gravity="center"
+            android:textColor="@color/material_grey_800"
+            android:textSize="@dimen/text_medium" />
+
+        <TextView
+            android:id="@+id/author_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_small3"
+            android:layout_marginRight="@dimen/margin_small3"
+            android:layout_marginTop="@dimen/margin_small4"
+            android:textSize="@dimen/text_small"
+            android:textStyle="italic" />
+
+        <com.jumbomob.invistoo.ui.component.InvistooButton
+            android:id="@+id/read_more_button"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_marginLeft="@dimen/margin_medium1"
+            android:layout_marginRight="@dimen/margin_medium1"
+            android:layout_marginTop="@dimen/margin_medium4"
+            android:background="@drawable/rounded_button"
+            android:text="@string/read_more_button"
+            android:textColor="@color/material_white_1000"
+            android:textSize="@dimen/text_medium"
+            android:visibility="visible"
+            app:hasSpacing="true"
+            app:isUpperCase="true" />
+
+    </LinearLayout>
+
+</ScrollView>

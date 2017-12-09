@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/handle_status_action"
+        android:title="@string/status_action_menu"/>
+    <item
+        android:id="@+id/more_info_action"
+        android:title="@string/more_info_action_menu"/>
+    <item
+        android:id="@+id/remove_action"
+        android:title="@string/remove"/>
+
+</menu>

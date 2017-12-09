@@ -1,0 +1,49 @@
+<resources>
+    <dimen name="nav_header_subtitle_height">64dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="circle_view_small">40dp</dimen>
+    <dimen name="circle_view">50dp</dimen>
+    <dimen name="register_dialog_min_height">320dp</dimen>
+    <dimen name="activity_horizontal_small_margin">8dp</dimen>
+    <dimen name="activity_vertical_small_margin">8dp</dimen>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!-- Default Margins -->
+    <dimen name="margin_small0">2dp</dimen>
+    <dimen name="margin_small1">3dp</dimen>
+    <dimen name="margin_small2">4dp</dimen>
+    <dimen name="margin_small3">6dp</dimen>
+    <dimen name="margin_small4">8dp</dimen>
+    <dimen name="margin_medium">10dp</dimen>
+    <dimen name="margin_medium1">12dp</dimen>
+    <dimen name="margin_medium2">14dp</dimen>
+    <dimen name="margin_medium3">18dp</dimen>
+    <dimen name="margin_medium4">22dp</dimen>
+    <dimen name="margin_large">32dp</dimen>
+    <dimen name="margin_large1">38dp</dimen>
+    <dimen name="margin_large2">48dp</dimen>
+
+    <!-- Texts -->
+    <dimen name="text_xxx_large">48sp</dimen>
+    <dimen name="text_xx_large">36sp</dimen>
+    <dimen name="text_x_large">26sp</dimen>
+    <dimen name="text_large">24sp</dimen>
+    <dimen name="text_medium_large">20sp</dimen>
+    <dimen name="text_medium_normal">18sp</dimen>
+    <dimen name="text_medium1">16sp</dimen>
+    <dimen name="text_medium">15sp</dimen>
+    <dimen name="text_normal">14sp</dimen>
+    <dimen name="text_small">13sp</dimen>
+    <dimen name="text_extra_small">12sp</dimen>
+    <dimen name="text_extra_small1">11sp</dimen>
+    <dimen name="text_extra_small2">10sp</dimen>
+
+    <!--android:fontFamily="sans-serif"           // roboto regular-->
+    <!--android:fontFamily="sans-serif-light"     // roboto light-->
+    <!--android:fontFamily="sans-serif-condensed" // roboto condensed-->
+    <!--android:fontFamily="sans-serif-black"     // roboto black-->
+    <!--android:fontFamily="sans-serif-thin"      // roboto thin (android 4.2)-->
+    <!--android:fontFamily="sans-serif-medium"    // roboto medium (android 5.0)-->
+
+</resources>
